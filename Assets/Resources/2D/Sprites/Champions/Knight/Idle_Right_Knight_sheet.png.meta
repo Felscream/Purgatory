@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 928333e01daab354ea09243cffc5a473
-timeCreated: 1512785751
+guid: 655db05d67dc72c4ea48335a0cb3d451
+timeCreated: 1516553137
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Idle_Right_Knight_0
-    21300002: Idle_Right_Knight_1
-    21300004: Idle_Right_Knight_2
-    21300006: Idle_Right_Knight_3
-    21300008: Idle_Right_Knight_4
-    21300010: Idle_Right_Knight_5
-    21300012: Idle_Right_Knight_6
-    21300014: Idle_Right_Knight_7
+    21300000: Idle_Right_Knight_sheet_0
+    21300002: Idle_Right_Knight_sheet_1
+    21300004: Idle_Right_Knight_sheet_2
+    21300006: Idle_Right_Knight_sheet_3
+    21300008: Idle_Right_Knight_sheet_4
+    21300010: Idle_Right_Knight_sheet_5
+    21300012: Idle_Right_Knight_sheet_6
+    21300014: Idle_Right_Knight_sheet_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -68,43 +68,47 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_Right_Knight_0
+      name: Idle_Right_Knight_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,7 +122,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_1
+      name: Idle_Right_Knight_sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -132,7 +136,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_2
+      name: Idle_Right_Knight_sheet_2
       rect:
         serializedVersion: 2
         x: 64
@@ -146,7 +150,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_3
+      name: Idle_Right_Knight_sheet_3
       rect:
         serializedVersion: 2
         x: 96
@@ -160,7 +164,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_4
+      name: Idle_Right_Knight_sheet_4
       rect:
         serializedVersion: 2
         x: 128
@@ -174,7 +178,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_5
+      name: Idle_Right_Knight_sheet_5
       rect:
         serializedVersion: 2
         x: 160
@@ -188,7 +192,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_6
+      name: Idle_Right_Knight_sheet_6
       rect:
         serializedVersion: 2
         x: 192
@@ -202,7 +206,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_7
+      name: Idle_Right_Knight_sheet_7
       rect:
         serializedVersion: 2
         x: 224

@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 0d87af77cec30c341aeb9e7e90fb76aa
-timeCreated: 1512786043
+guid: 7e5e1732e935a244fb09048fd00a2fa0
+timeCreated: 1516553466
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Idle_Left_Knight_0
-    21300002: Idle_Left_Knight_1
-    21300004: Idle_Left_Knight_2
-    21300006: Idle_Left_Knight_3
-    21300008: Idle_Left_Knight_4
-    21300010: Idle_Left_Knight_5
-    21300012: Idle_Left_Knight_6
-    21300014: Idle_Left_Knight_7
+    21300000: Idle_Left_Knight_sheet_0
+    21300002: Idle_Left_Knight_sheet_1
+    21300004: Idle_Left_Knight_sheet_2
+    21300006: Idle_Left_Knight_sheet_3
+    21300008: Idle_Left_Knight_sheet_4
+    21300010: Idle_Left_Knight_sheet_5
+    21300012: Idle_Left_Knight_sheet_6
+    21300014: Idle_Left_Knight_sheet_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -68,43 +68,47 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_Left_Knight_0
+      name: Idle_Left_Knight_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -112,13 +116,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Left_Knight_1
+      name: Idle_Left_Knight_sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -126,13 +130,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Left_Knight_2
+      name: Idle_Left_Knight_sheet_2
       rect:
         serializedVersion: 2
         x: 64
@@ -140,13 +144,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Left_Knight_3
+      name: Idle_Left_Knight_sheet_3
       rect:
         serializedVersion: 2
         x: 96
@@ -154,13 +158,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Left_Knight_4
+      name: Idle_Left_Knight_sheet_4
       rect:
         serializedVersion: 2
         x: 128
@@ -168,13 +172,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Left_Knight_5
+      name: Idle_Left_Knight_sheet_5
       rect:
         serializedVersion: 2
         x: 160
@@ -182,13 +186,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Left_Knight_6
+      name: Idle_Left_Knight_sheet_6
       rect:
         serializedVersion: 2
         x: 192
@@ -196,13 +200,13 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Left_Knight_7
+      name: Idle_Left_Knight_sheet_7
       rect:
         serializedVersion: 2
         x: 224
@@ -210,7 +214,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.7, y: 0.5}
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
