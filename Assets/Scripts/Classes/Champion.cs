@@ -56,7 +56,6 @@ public abstract class Champion : MonoBehaviour {
     protected float rightCol;
     protected int dodgeFrameCounter;
     protected float distToGround, facing, verticalDirection;
-    protected bool flying;
     protected Rigidbody2D rb;
     protected Animator animator;
     protected Vector2 savedVelocity;
@@ -91,7 +90,6 @@ public abstract class Champion : MonoBehaviour {
         {
             jumping = true;
         }
-        Debug.Log(rb.gravityScale);
     }
 
     protected void LateUpdate()
@@ -101,16 +99,10 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < 0 && !IsGrounded() && !flying && dodgeStatus == Enum_DodgeStatus.ready)
+        if (rb != null && rb.velocity.y < 0 && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready)
         {
             rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        if (IsGrounded())
-        {
-            flying = false;
-            rb.gravityScale = 1;
-        }
-        Debug.Log(IsGrounded() + ", "+flying);
     }
 
     protected virtual void RegenerateStaminaPerSecond()
@@ -163,11 +155,11 @@ public abstract class Champion : MonoBehaviour {
                     ReduceStamina(dodgeStaminaCost);
                     dodgeStatus = Enum_DodgeStatus.dodging;
                     inputStatus = Enum_InputStatus.blocked;
+                    animator.SetBool("Dodge", true);
                 }
                 break;
             case Enum_DodgeStatus.dodging:
-                rb.gravityScale = 0.0f;
-                dodgeFrameCounter +=3;
+                dodgeFrameCounter++;
                 if(dodgeFrameCounter >= dodgeImmunityStartFrame && dodgeFrameCounter < dodgeImmunityEndFrame)
                 {
                     immune = true;
@@ -180,8 +172,10 @@ public abstract class Champion : MonoBehaviour {
                 {
                     dodgeFrameCounter = dodgeFrames;
                     rb.velocity = new Vector2(0, 0);
+                    animator.SetBool("Dodge", false);
                     dodgeStatus = Enum_DodgeStatus.ready;
                     inputStatus = Enum_InputStatus.allowed;
+                    
                 }
                 break;
         }
@@ -233,26 +227,6 @@ public abstract class Champion : MonoBehaviour {
             return true;
         }
         return false;
-    }
-
-    public virtual void SetFlying()
-    {
-        flying = !flying;
-        if (flying)
-        {
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = 0.0f;
-            
-        }
-        else
-        {
-            rb.gravityScale = 1.0f;
-        }
-    }
-
-    public bool GetFlying()
-    {
-        return flying;
     }
 
     public Enum_InputStatus GetInputStatus()

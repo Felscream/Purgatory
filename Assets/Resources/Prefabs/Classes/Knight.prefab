@@ -202,9 +202,9 @@ MonoBehaviour:
   determination: 3
   dodgeStaminaCost: 30
   parryStaminaCost: 60
-  dodgeFrames: 40
-  dodgeImmunityStartFrame: 10
-  dodgeImmunityEndFrame: 28
+  dodgeFrames: 20
+  dodgeImmunityStartFrame: 5
+  dodgeImmunityEndFrame: 15
   parryImmunityFrames: 30
   baseStamina: 100
   staminaRegenerationPerSecond: 15
@@ -253,7 +253,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 928333e01daab354ea09243cffc5a473, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 0675df39b66e5ff4c8677847f6aca8e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

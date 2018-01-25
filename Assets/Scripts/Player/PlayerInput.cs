@@ -45,19 +45,6 @@ public class PlayerInput : MonoBehaviour {
             if(fighter.GetInputStatus() != Enum_InputStatus.blocked)
             {
                 movementX = Input.GetAxisRaw("Horizontal");
-                if (!fighter.IsGrounded() && Input.GetButtonDown("Jump"))
-                {
-                    fighter.SetFlying();
-                }
-                if (fighter.GetFlying())
-                {
-                    movementY = Input.GetAxisRaw("Vertical");
-                }
-                else
-                {
-                    movementY = 0;
-                }
-                
             }
             else if(fighter.GetInputStatus() == Enum_InputStatus.blocked)
             {
