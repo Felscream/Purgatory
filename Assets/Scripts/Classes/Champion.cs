@@ -30,7 +30,9 @@ public abstract class Champion : MonoBehaviour {
         dodgeFrames = 12,
         dodgeImmunityStartFrame = 2,
         dodgeImmunityEndFrame = 10,
-        parryImmunityFrames = 30;
+        parryImmunityFrames = 30,
+        maxDodgeToken = 1,
+        dodgeToken = 1; // limit the number of times you can dash in the air, you have to land to reset it;
     [SerializeField]
     protected float baseStamina = 100f,
         staminaRegenerationPerSecond = 15f,
@@ -63,7 +65,7 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
-
+    
     protected void Start()
     {
         health = baseHealth;
@@ -101,7 +103,9 @@ public abstract class Champion : MonoBehaviour {
     {
         if (rb != null && rb.velocity.y < 0 && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready)
         {
+            animator.SetBool("Jump", false);
             rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            animator.SetBool("Fall", true);
         }
     }
 
@@ -147,7 +151,11 @@ public abstract class Champion : MonoBehaviour {
         switch (dodgeStatus)
         {
             case Enum_DodgeStatus.ready:
-                if (Input.GetButtonDown("Dodge") && inputStatus == Enum_InputStatus.allowed && !fatigued)
+                if (IsGrounded())
+                {
+                    dodgeToken = maxDodgeToken;
+                }
+                if (Input.GetButtonDown("Dodge") && inputStatus == Enum_InputStatus.allowed && !fatigued && dodgeToken > 0)
                 {
                     dodgeFrameCounter = 0;
                     rb.velocity = new Vector2(0, 0);
@@ -155,6 +163,9 @@ public abstract class Champion : MonoBehaviour {
                     ReduceStamina(dodgeStaminaCost);
                     dodgeStatus = Enum_DodgeStatus.dodging;
                     inputStatus = Enum_InputStatus.blocked;
+                    dodgeToken--;
+                    animator.SetBool("Jump", false);
+                    animator.SetBool("Fall", false);
                     animator.SetBool("Dodge", true);
                 }
                 break;
@@ -214,6 +225,7 @@ public abstract class Champion : MonoBehaviour {
         if (rb != null && IsGrounded())
         {
             rb.AddForce(new Vector3(0, jumpHeight * rb.mass, 0), ForceMode2D.Impulse);
+            animator.SetBool("Jump", true);
             jumping = false;
         }
     }
@@ -221,9 +233,10 @@ public abstract class Champion : MonoBehaviour {
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
-
         if (Physics2D.Raycast(transform.position, -Vector2.up, distToGround + 0.1f, LayerMask.GetMask("Obstacle")))
         {
+            animator.SetBool("Jump", false);
+            animator.SetBool("Fall", false);
             return true;
         }
         return false;
