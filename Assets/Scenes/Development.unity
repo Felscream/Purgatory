@@ -369,6 +369,14 @@ Prefab:
       propertyPath: dodgeImmunityEndFrame
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4051467109062250, guid: a93b631856120d4438cab2562cd03b90, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051467109062250, guid: a93b631856120d4438cab2562cd03b90, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a93b631856120d4438cab2562cd03b90, type: 2}
   m_IsPrefabParent: 0
@@ -419,12 +427,17 @@ Prefab:
     - target: {fileID: 20521416546450134, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
       propertyPath: orthographic size
-      value: 13.3125
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
       propertyPath: pixelScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c5785512f800f44689a8c7d80f59777, type: 2}
