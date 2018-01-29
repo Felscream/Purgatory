@@ -22,36 +22,39 @@ public enum Enum_StaminaRegeneration
 
 public abstract class Champion : MonoBehaviour {
 
-    [SerializeField]
-    protected int baseHealth = 100, 
-        determination = 3, 
-        dodgeStaminaCost = 30, 
-        parryStaminaCost = 60, 
-        dodgeFrames = 12,
-        dodgeImmunityStartFrame = 2,
-        dodgeImmunityEndFrame = 10,
-        parryImmunityFrames = 30,
-        maxDodgeToken = 1,
-        dodgeToken = 1; // limit the number of times you can dash in the air, you have to land to reset it;
-    [SerializeField]
-    protected float baseStamina = 100f,
-        staminaRegenerationPerSecond = 15f,
-        staminaRegenerationCooldown = 1.5f,
+    [SerializeField] protected int baseHealth = 100;
+    [SerializeField] protected int determination = 3;
+    [SerializeField] protected float speed = 10;
 
-        maxLimitBreakGauge = 100,
-        limitBreakPerSecond = 0.40f,
-        limitBreakOnHit = 2.5f,
-        limitBreakOnDamage = 1.0f,
+    [Header("Jump Settings")]
+    [SerializeField] protected float jumpHeight = 10;
+    [SerializeField] protected float fatiguedSpeedReduction = 1.2f;
+    [SerializeField] protected float fallMultiplier;
 
-        primaryFireStaminaCost = 20f,
-        secondaryFireStaminaCost = 40f,
+    [Header("Dodge Settings")]
+    [SerializeField] protected int dodgeStaminaCost = 30;
+    [SerializeField] protected int dodgeFrames = 12;
+    [SerializeField] protected int dodgeImmunityStartFrame = 2;
+    [SerializeField] protected int dodgeImmunityEndFrame = 10;
+    [SerializeField] protected int maxDodgeToken = 1;
+    [SerializeField] protected int dodgeToken = 1; // limit the number of times you can dash in the air, you have to land to reset it;
 
-        speed = 10,
-        jumpHeight = 10,
-        fatiguedSpeedReduction = 1.2f;
-        
-    [SerializeField]
-    protected float fallMultiplier;
+    [Header("Parry Settings")]
+    [SerializeField] protected int parryStaminaCost = 60;
+    [SerializeField] protected int parryImmunityFrames = 30;
+
+    [Header("Stamina Settings")]
+    [SerializeField] protected float baseStamina = 100f;
+    [SerializeField] protected float staminaRegenerationPerSecond = 15f;
+    [SerializeField] protected float staminaRegenerationCooldown = 1.5f;
+    [SerializeField] protected float primaryFireStaminaCost = 20f;
+    [SerializeField] protected float secondaryFireStaminaCost = 40f;
+
+    [Header("Limit Break Settings")]
+    [SerializeField] protected float maxLimitBreakGauge = 100;
+    [SerializeField] protected float limitBreakPerSecond = 0.40f;
+    [SerializeField] protected float limitBreakOnHit = 2.5f;
+    [SerializeField] protected float limitBreakOnDamage = 1.0f;
     
     protected int health;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -249,6 +252,16 @@ public abstract class Champion : MonoBehaviour {
         stamina = Mathf.Max(stamina - amount, 0);
         CheckFatigue();
         staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
+    }
+
+    public void ApplyDamage(int dmg)
+    {
+        if (health > dmg) health -= dmg;
+        else
+        {
+            health = 0;
+        }
+
     }
 
     public float Facing
