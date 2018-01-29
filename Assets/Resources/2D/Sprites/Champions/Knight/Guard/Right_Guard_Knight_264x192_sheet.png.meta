@@ -1,17 +1,13 @@
 fileFormatVersion: 2
-guid: 655db05d67dc72c4ea48335a0cb3d451
-timeCreated: 1516553137
+guid: 2b7233dc800f58f4ea00e49803bbf17b
+timeCreated: 1517249406
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Idle_Right_Knight_sheet_0
-    21300002: Idle_Right_Knight_sheet_1
-    21300004: Idle_Right_Knight_sheet_2
-    21300006: Idle_Right_Knight_sheet_3
-    21300008: Idle_Right_Knight_sheet_4
-    21300010: Idle_Right_Knight_sheet_5
-    21300012: Idle_Right_Knight_sheet_6
-    21300014: Idle_Right_Knight_sheet_7
+    21300000: Right_Guard_Knight_264x192_sheet_0
+    21300002: Right_Guard_Knight_264x192_sheet_1
+    21300004: Right_Guard_Knight_264x192_sheet_2
+    21300006: Right_Guard_Knight_264x192_sheet_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -108,113 +104,57 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_0
+      name: Right_Guard_Knight_264x192_sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 264
+        height: 192
       alignment: 9
-      pivot: {x: 0.35, y: 0.5}
+      pivot: {x: 0.365, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_1
+      name: Right_Guard_Knight_264x192_sheet_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 264
         y: 0
-        width: 32
-        height: 32
+        width: 264
+        height: 192
       alignment: 9
-      pivot: {x: 0.35, y: 0.5}
+      pivot: {x: 0.41, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_2
+      name: Right_Guard_Knight_264x192_sheet_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 527
         y: 0
-        width: 32
-        height: 32
+        width: 264
+        height: 192
       alignment: 9
-      pivot: {x: 0.35, y: 0.5}
+      pivot: {x: 0.5, y: 0.23}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_3
+      name: Right_Guard_Knight_264x192_sheet_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 792
         y: 0
-        width: 32
-        height: 32
+        width: 264
+        height: 192
       alignment: 9
-      pivot: {x: 0.35, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_4
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.35, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.35, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.35, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Idle_Right_Knight_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.35, y: 0.5}
+      pivot: {x: 0.5, y: 0.24}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
