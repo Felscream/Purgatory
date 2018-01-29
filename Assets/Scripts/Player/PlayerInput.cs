@@ -42,11 +42,11 @@ public class PlayerInput : MonoBehaviour {
         //MOVEMENT
         if(fighter != null)
         {   
-            if(fighter.GetInputStatus() != Enum_InputStatus.blocked)
+            if(fighter.InputStatus != Enum_InputStatus.blocked)
             {
                 movementX = Input.GetAxisRaw("Horizontal");
             }
-            else if(fighter.GetInputStatus() == Enum_InputStatus.blocked)
+            else if(fighter.InputStatus == Enum_InputStatus.blocked)
             {
                 movementX = 0;
                 movementY = 0;

@@ -25,14 +25,14 @@ public class PlayerOneStaminaSlider : MonoBehaviour {
         filler = transform.Find("Fill Area").GetComponentInChildren<Image>();
         champion = target.GetComponentInChildren<Champion>();
         staminaSlider = GetComponent<Slider>();
-        staminaSlider.maxValue = champion.GetBaseStamina();
+        staminaSlider.maxValue = champion.BaseStamina;
         staminaSlider.minValue = 0.0f;
         fadeTimer = timeToFade;
     }
 
     private void FixedUpdate()
     {
-        float facing = champion.GetFacing();
+        float facing = champion.Facing;
         if (facing < 0)
         {
             offset.x = Mathf.Abs(offset.x);
@@ -48,8 +48,8 @@ public class PlayerOneStaminaSlider : MonoBehaviour {
     }
     // Update is called once per frame
     void LateUpdate () {
-        staminaSlider.value = champion.GetStamina();
-        if(staminaSlider.value == champion.GetBaseStamina())
+        staminaSlider.value = champion.Stamina;
+        if(staminaSlider.value == champion.BaseStamina)
         {
             fadeTimer += Time.deltaTime;
             if(fadeTimer >= timeToFade)
@@ -64,7 +64,7 @@ public class PlayerOneStaminaSlider : MonoBehaviour {
             filler.CrossFadeAlpha(1, 0.1f, true);
             fadeTimer = 0.0f;
         }
-        if (champion.GetFatigue())
+        if (champion.Fatigue)
         {
             background.sprite = sliders[1];
             filler.sprite = fillers[1];

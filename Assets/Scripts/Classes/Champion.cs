@@ -75,6 +75,7 @@ public abstract class Champion : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+
     protected void FixedUpdate()
     {
         DynamicFall();
@@ -88,6 +89,7 @@ public abstract class Champion : MonoBehaviour {
     {
         CheckFatigue();
         CheckDodge();
+
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             jumping = true;
@@ -99,6 +101,7 @@ public abstract class Champion : MonoBehaviour {
         RegenerateStaminaPerSecond();
         IncreaseLimitBreakPerSecond();
     }
+
     protected void DynamicFall()
     {
         if (rb != null && rb.velocity.y < 0 && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready)
@@ -132,7 +135,9 @@ public abstract class Champion : MonoBehaviour {
     {
         limitBreakGauge = Mathf.Min(limitBreakGauge + limitBreakPerSecond * Time.deltaTime, maxLimitBreakGauge);
     }
+
     protected abstract void PrimaryAttack();
+
     protected abstract void SecondaryAttack();
 
     protected void CheckFatigue()
@@ -146,6 +151,7 @@ public abstract class Champion : MonoBehaviour {
             fatigued = false;
         }
     }
+
     protected void CheckDodge()
     {
         switch (dodgeStatus)
@@ -216,10 +222,6 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public float GetFacing()
-    {
-        return facing;
-    }
     public virtual void Jump()
     {
         if (rb != null && IsGrounded())
@@ -242,50 +244,82 @@ public abstract class Champion : MonoBehaviour {
         return false;
     }
 
-    public Enum_InputStatus GetInputStatus()
-    {
-        return inputStatus;
-    }
-
-    public int GetBaseHealth()
-    {
-        return baseHealth;
-    }
-    public int GetHealth()
-    {
-        return health;
-    }
-
     public void ReduceStamina(float amount)
     {
         stamina = Mathf.Max(stamina - amount, 0);
         CheckFatigue();
         staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
     }
-    public float GetStamina()
-    {
-        return stamina;
-    }
-    public float GetBaseStamina()
-    {
-        return baseStamina;
-    }
-    public float GetDodgeStaminaCost()
-    {
-        return dodgeStaminaCost;
-    }
-    public Enum_DodgeStatus Dodging()
-    {
-        return dodgeStatus;
-    }
 
-    public bool GetImmunity()
+    public float Facing
     {
-        return immune;
+        get
+        {
+            return facing;
+        }
     }
-    public bool GetFatigue()
+    public float Stamina
     {
-        return fatigued;
+        get
+        {
+            return stamina;
+        }
+    }
+    public float BaseStamina
+    {
+        get
+        {
+            return baseStamina;
+        }
+    }
+    public float DodgeStaminaCost
+    {
+        get
+        {
+            return dodgeStaminaCost;
+        }
+    }
+    public Enum_InputStatus InputStatus
+    {
+        get
+        {
+            return inputStatus;
+        }
+    }
+    public Enum_DodgeStatus Dodging
+    {
+        get
+        {
+            return dodgeStatus;
+        }
+    }
+    public int BaseHealth
+    {
+        get
+        {
+            return baseHealth;
+        }
+    }
+    public int Health
+    { 
+        get
+        {
+            return health;
+        }
+    }
+    public bool Immunity
+    {
+        get
+        {
+            return immune;
+        }
+    }
+    public bool Fatigue
+    {
+        get
+        {
+            return fatigued;
+        }
     }
     
 }
