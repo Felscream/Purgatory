@@ -92,7 +92,7 @@ public abstract class Champion : MonoBehaviour {
         {
             Jump();
         }
-        
+        Move(movementX, movementY);
     }
 
     protected void Update()
@@ -109,7 +109,7 @@ public abstract class Champion : MonoBehaviour {
         {
             movementX = Input.GetAxisRaw(HorizontalCtrl);
             //MOVING
-            Move(movementX, movementY);
+            
         }
         else if (InputStatus == Enum_InputStatus.blocked)
         {
