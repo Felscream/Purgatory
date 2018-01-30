@@ -7,6 +7,10 @@ public class PlayerInput : MonoBehaviour {
     private float movementX, movementY;
     private Champion fighter;
 
+    public string Horizontal;
+    public string Jump;
+    public string Dodge;
+
     private void Start()
     {
         fighter = GetComponentInChildren<Champion>();
@@ -20,8 +24,7 @@ public class PlayerInput : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        //MOVING
-        fighter.Move(movementX, movementY);
+        
     }
 
     private bool ObjectsInstantiated()
@@ -41,17 +44,21 @@ public class PlayerInput : MonoBehaviour {
     {
         //MOVEMENT
         if(fighter != null)
-        {   
-            if(fighter.InputStatus != Enum_InputStatus.blocked)
-            {
-                movementX = Input.GetAxisRaw("Horizontal");
-            }
-            else if(fighter.InputStatus == Enum_InputStatus.blocked)
-            {
-                movementX = 0;
-                movementY = 0;
-            }
+        {
+            fighter.SetHorizontalCtrl(Horizontal);
         }
-        
+
+        //JUMP
+        if (fighter != null)
+        {
+            fighter.SetJumpButton(Jump);
+        }
+
+        //DODGE
+        if (fighter != null)
+        {
+            fighter.SetDodgeButton(Dodge);
+        }
+
     }
 }

@@ -68,7 +68,13 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
-    
+
+    // valeurs par défaut
+    private string HorizontalCtrl = "Horizontal";
+    private string JumpButton = "Jump";
+    private string DodgeButton = "Dodge";
+    private float movementX, movementY;
+
     protected void Start()
     {
         health = baseHealth;
@@ -86,6 +92,7 @@ public abstract class Champion : MonoBehaviour {
         {
             Jump();
         }
+        
     }
 
     protected void Update()
@@ -93,9 +100,21 @@ public abstract class Champion : MonoBehaviour {
         CheckFatigue();
         CheckDodge();
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown(JumpButton) && IsGrounded())
         {
             jumping = true;
+        }
+
+        if (InputStatus != Enum_InputStatus.blocked)
+        {
+            movementX = Input.GetAxisRaw(HorizontalCtrl);
+            //MOVING
+            Move(movementX, movementY);
+        }
+        else if (InputStatus == Enum_InputStatus.blocked)
+        {
+            movementX = 0;
+            movementY = 0;
         }
     }
 
@@ -149,7 +168,7 @@ public abstract class Champion : MonoBehaviour {
         {
             fatigued = true;
         }
-        else if(stamina == baseStamina)
+        else if(stamina >= baseStamina*0.25f) // Au moins 25% de la stamina
         {
             fatigued = false;
         }
@@ -164,7 +183,7 @@ public abstract class Champion : MonoBehaviour {
                 {
                     dodgeToken = maxDodgeToken;
                 }
-                if (Input.GetButtonDown("Dodge") && inputStatus == Enum_InputStatus.allowed && !fatigued && dodgeToken > 0)
+                if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed && !fatigued && dodgeToken > 0)
                 {
                     dodgeFrameCounter = 0;
                     rb.velocity = new Vector2(0, 0);
@@ -245,6 +264,21 @@ public abstract class Champion : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public virtual void SetHorizontalCtrl(string HCtrl)
+    {
+        HorizontalCtrl = HCtrl;
+    }
+
+    public virtual void SetJumpButton(string JButton)
+    {
+        JumpButton = JButton;
+    }
+
+    public virtual void SetDodgeButton(string DButton)
+    {
+        DodgeButton = DButton;
     }
 
     public void ReduceStamina(float amount)

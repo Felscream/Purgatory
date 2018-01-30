@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerOneStaminaSlider : MonoBehaviour {
+public class PlayerStaminaSlider : MonoBehaviour {
 
     [SerializeField]
-    private Vector3 offset;
+    private Vector3 offset = new Vector3(-2, 0.4f, 0);
     [SerializeField]
-    private float size, lockSpeed, timeToFade = 2.0f, fadingDuration = 0.5f;
+    private float size = 0, lockSpeed = 1, timeToFade = 2.0f, fadingDuration = 0.5f;
     [SerializeField]
-    private Sprite[] sliders, fillers;
+    private Sprite[] sliders = new Sprite[2], fillers = new Sprite[2];
     [SerializeField]
     private Transform target;
     private Champion champion;
