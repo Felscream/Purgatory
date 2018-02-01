@@ -58,7 +58,6 @@ public abstract class Champion : MonoBehaviour {
     
     protected int health;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
-    protected float rightCol;
     protected int dodgeFrameCounter;
     protected float distToGround, facing, verticalDirection;
     protected Rigidbody2D rb;
