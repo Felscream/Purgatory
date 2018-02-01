@@ -32,6 +32,8 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float fallMultiplier;
 
     [Header("Dodge Settings")]
+
+    [SerializeField] protected float dodgeSpeed = 40.0f;
     [SerializeField] protected int dodgeStaminaCost = 30;
     [SerializeField] protected int dodgeFrames = 12;
     [SerializeField] protected int dodgeImmunityStartFrame = 2;
@@ -44,7 +46,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int parryImmunityFrames = 30;
 
     [Header("Stamina Settings")]
-    [SerializeField] protected float baseStamina = 100f;
+    [SerializeField] public float baseStamina = 100f;
     [SerializeField] protected float staminaRegenerationPerSecond = 15f;
     [SerializeField] protected float staminaRegenerationCooldown = 1.5f;
     [SerializeField] protected float primaryFireStaminaCost = 20f;
@@ -59,10 +61,11 @@ public abstract class Champion : MonoBehaviour {
     protected int health;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter;
-    protected float distToGround, facing, verticalDirection;
+    protected float distToGround, facing;
     protected Rigidbody2D rb;
     protected Animator animator;
     protected Vector2 savedVelocity;
+    protected Collider2D playerBox;
     protected bool jumping, immune = false, parrying = false, fatigued = false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
@@ -75,13 +78,16 @@ public abstract class Champion : MonoBehaviour {
     private float movementX, movementY;
 
     protected void Start()
-    {
+    {   
         health = baseHealth;
         stamina = baseStamina;
         limitBreakGauge = 0.0f;
         distToGround = GetComponent<Collider2D>().bounds.extents.y;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
+        animator.SetFloat("FaceX", facing);
+        playerBox = transform.Find("PlayerBox").GetComponentInChildren<Collider2D>();
     }
 
     protected void FixedUpdate()
@@ -178,6 +184,7 @@ public abstract class Champion : MonoBehaviour {
         switch (dodgeStatus)
         {
             case Enum_DodgeStatus.ready:
+                playerBox.enabled = true;
                 if (IsGrounded())
                 {
                     dodgeToken = maxDodgeToken;
@@ -185,8 +192,9 @@ public abstract class Champion : MonoBehaviour {
                 if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed && !fatigued && dodgeToken > 0)
                 {
                     dodgeFrameCounter = 0;
+                    playerBox.enabled = false;
                     rb.velocity = new Vector2(0, 0);
-                    rb.velocity += new Vector2(facing * 40, verticalDirection * 40);
+                    rb.velocity += new Vector2(facing * dodgeSpeed, 0);
                     ReduceStamina(dodgeStaminaCost);
                     dodgeStatus = Enum_DodgeStatus.dodging;
                     inputStatus = Enum_InputStatus.blocked;
@@ -231,11 +239,9 @@ public abstract class Champion : MonoBehaviour {
         if(moveX != 0 || moveY !=0)
         {
             animator.SetBool("Moving", true);
-            animator.SetFloat("MoveX", moveX);
-            animator.SetFloat("MoveY", moveY);
-            animator.SetFloat("FaceX", moveX);
-            facing = moveX;
-            verticalDirection = moveY;
+            animator.SetFloat("MoveX", Mathf.Sign(moveX));
+            facing = Mathf.Sign(moveX);
+            animator.SetFloat("FaceX", facing);
         }
         else
         {
