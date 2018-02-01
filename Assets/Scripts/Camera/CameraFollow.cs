@@ -2,7 +2,7 @@
 
 public class CameraFollow : MonoBehaviour {
     [SerializeField]
-    private Transform target;
+    //private Transform target;
     [Range(0,1)]
     public float lockSpeed = 0.3f;
     [SerializeField]
@@ -11,8 +11,8 @@ public class CameraFollow : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        Vector3 desiredPos = target.position + offset;
-        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, lockSpeed);
-        transform.position = smoothedPosition;
+        //Vector3 desiredPos = target.position + offset;
+        //Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPos, ref velocity, lockSpeed);
+        //transform.position = smoothedPosition;
     }
 }
