@@ -32,7 +32,6 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float fallMultiplier;
 
     [Header("Dodge Settings")]
-
     [SerializeField] protected float dodgeSpeed = 40.0f;
     [SerializeField] protected int dodgeStaminaCost = 30;
     [SerializeField] protected int dodgeFrames = 12;
@@ -49,6 +48,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] public float baseStamina = 100f;
     [SerializeField] protected float staminaRegenerationPerSecond = 15f;
     [SerializeField] protected float staminaRegenerationCooldown = 1.5f;
+    [SerializeField] protected float staminaFatigueCooldown = 3.0f;
     [SerializeField] protected float primaryFireStaminaCost = 20f;
     [SerializeField] protected float secondaryFireStaminaCost = 40f;
 
@@ -144,17 +144,25 @@ public abstract class Champion : MonoBehaviour {
         float staminaRegen = staminaRegenerationPerSecond;
         switch (staminaRegenerationStatus)
         {
-            case Enum_StaminaRegeneration.regenerating:
-                stamina = Mathf.Min(stamina + staminaRegen * Time.deltaTime, baseStamina);
-                staminablockedTimer = 0.0f;
-                break;
-            case Enum_StaminaRegeneration.blocked:
-                staminablockedTimer += Time.deltaTime;
+        case Enum_StaminaRegeneration.regenerating:
+            stamina = Mathf.Min(stamina + staminaRegen * Time.deltaTime, baseStamina);
+            staminablockedTimer = 0.0f;
+            break;
+        case Enum_StaminaRegeneration.blocked:
+            staminablockedTimer += Time.deltaTime;
+            if (Fatigue){
+                if(staminablockedTimer > staminaFatigueCooldown)
+                {
+                    staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
+                }
+	        }
+            else{
                 if(staminablockedTimer > staminaRegenerationCooldown)
                 {
                     staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
                 }
-                break;
+	        }
+            break;
         }
     }
 
