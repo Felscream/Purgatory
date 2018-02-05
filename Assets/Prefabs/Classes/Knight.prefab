@@ -157,7 +157,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -200,27 +200,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 100
   determination: 3
-  dodgeStaminaCost: 30
-  parryStaminaCost: 60
-  dodgeFrames: 20
-  dodgeImmunityStartFrame: 5
-  dodgeImmunityEndFrame: 15
-  parryImmunityFrames: 30
-  maxDodgeToken: 1
-  dodgeToken: 1
-  baseStamina: 100
-  staminaRegenerationPerSecond: 15
-  staminaRegenerationCooldown: 1.5
-  maxLimitBreakGauge: 100
-  limitBreakPerSecond: 0.4
-  limitBreakOnHit: 1
-  limitBreakOnDamage: 0.25
-  primaryFireStaminaCost: 20
-  secondaryFireStaminaCost: 40
   speed: 10
   jumpHeight: 10
   fatiguedSpeedReduction: 1.5
   fallMultiplier: 3
+  dodgeStaminaCost: 30
+  dodgeFrames: 20
+  dodgeImmunityStartFrame: 5
+  dodgeImmunityEndFrame: 15
+  maxDodgeToken: 1
+  dodgeToken: 1
+  parryStaminaCost: 60
+  parryImmunityFrames: 30
+  baseStamina: 100
+  staminaRegenerationPerSecond: 15
+  staminaRegenerationCooldown: 1.5
+  primaryFireStaminaCost: 20
+  secondaryFireStaminaCost: 40
+  maxLimitBreakGauge: 100
+  limitBreakPerSecond: 0.4
+  limitBreakOnHit: 1
+  limitBreakOnDamage: 0.25
 --- !u!212 &212283539255684538
 SpriteRenderer:
   m_ObjectHideFlags: 1
