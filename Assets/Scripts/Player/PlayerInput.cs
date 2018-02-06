@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour {
     public string Horizontal;
     public string Jump;
     public string Dodge;
+    public string PrimaryAttack;
 
     private void Start()
     {
@@ -58,6 +59,12 @@ public class PlayerInput : MonoBehaviour {
         if (fighter != null)
         {
             fighter.SetDodgeButton(Dodge);
+        }
+
+        //PRIMARYATTACK
+        if (fighter != null)
+        {
+            fighter.SetPrimaryAttackButton(PrimaryAttack);
         }
 
     }

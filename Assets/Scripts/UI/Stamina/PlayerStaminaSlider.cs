@@ -8,7 +8,7 @@ public class PlayerStaminaSlider : MonoBehaviour {
     [SerializeField]
     private Vector3 offset = new Vector3(-2, 0.4f, 0);
     [SerializeField]
-    private float size = 0, lockSpeed = 1, timeToFade = 2.0f, fadingDuration = 0.5f;
+    private float timeToFade = 2.0f, fadingDuration = 0.5f;
     [SerializeField]
     private Sprite[] sliders = new Sprite[2], fillers = new Sprite[2];
     [SerializeField]
@@ -17,7 +17,6 @@ public class PlayerStaminaSlider : MonoBehaviour {
     private Slider staminaSlider;
     private Image background;
     private Image filler;
-    private Vector3 velocity = Vector3.zero;
     private float fadeTimer;
     // Use this for initialization
     void Start () {

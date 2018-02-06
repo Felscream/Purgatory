@@ -5,7 +5,7 @@ using UnityEngine;
 public class Knight : Champion {
     protected override void PrimaryAttack()
     {
-        throw new System.NotImplementedException();
+        base.PrimaryAttack();
     }
     protected override void SecondaryAttack()
     {

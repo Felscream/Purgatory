@@ -32,6 +32,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float fallMultiplier;
 
     [Header("Dodge Settings")]
+    [SerializeField] protected float dodgeSpeed = 40.0f;
     [SerializeField] protected int dodgeStaminaCost = 30;
     [SerializeField] protected int dodgeFrames = 12;
     [SerializeField] protected int dodgeImmunityStartFrame = 2;
@@ -44,9 +45,10 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int parryImmunityFrames = 30;
 
     [Header("Stamina Settings")]
-    [SerializeField] protected float baseStamina = 100f;
+    [SerializeField] public float baseStamina = 100f;
     [SerializeField] protected float staminaRegenerationPerSecond = 15f;
     [SerializeField] protected float staminaRegenerationCooldown = 1.5f;
+    [SerializeField] protected float staminaFatigueCooldown = 3.0f;
     [SerializeField] protected float primaryFireStaminaCost = 20f;
     [SerializeField] protected float secondaryFireStaminaCost = 40f;
 
@@ -58,12 +60,12 @@ public abstract class Champion : MonoBehaviour {
     
     protected int health;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
-    protected float rightCol;
     protected int dodgeFrameCounter;
-    protected float distToGround, facing, verticalDirection;
+    protected float distToGround, facing;
     protected Rigidbody2D rb;
     protected Animator animator;
     protected Vector2 savedVelocity;
+    protected Collider2D playerBox;
     protected bool jumping, immune = false, parrying = false, fatigued = false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
@@ -73,16 +75,20 @@ public abstract class Champion : MonoBehaviour {
     private string HorizontalCtrl = "Horizontal";
     private string JumpButton = "Jump";
     private string DodgeButton = "Dodge";
+    private string PrimaryAttackButton = "PrimaryAttack";
     private float movementX, movementY;
 
     protected void Start()
-    {
+    {   
         health = baseHealth;
         stamina = baseStamina;
         limitBreakGauge = 0.0f;
         distToGround = GetComponent<Collider2D>().bounds.extents.y;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
+        animator.SetFloat("FaceX", facing);
+        playerBox = transform.Find("PlayerBox").GetComponentInChildren<Collider2D>();
     }
 
     protected void FixedUpdate()
@@ -116,6 +122,11 @@ public abstract class Champion : MonoBehaviour {
             movementX = 0;
             movementY = 0;
         }
+
+        if(Input.GetButtonDown(PrimaryAttackButton))
+        {
+            PrimaryAttack();
+        }
     }
 
     protected void LateUpdate()
@@ -139,17 +150,25 @@ public abstract class Champion : MonoBehaviour {
         float staminaRegen = staminaRegenerationPerSecond;
         switch (staminaRegenerationStatus)
         {
-            case Enum_StaminaRegeneration.regenerating:
-                stamina = Mathf.Min(stamina + staminaRegen * Time.deltaTime, baseStamina);
-                staminablockedTimer = 0.0f;
-                break;
-            case Enum_StaminaRegeneration.blocked:
-                staminablockedTimer += Time.deltaTime;
+        case Enum_StaminaRegeneration.regenerating:
+            stamina = Mathf.Min(stamina + staminaRegen * Time.deltaTime, baseStamina);
+            staminablockedTimer = 0.0f;
+            break;
+        case Enum_StaminaRegeneration.blocked:
+            staminablockedTimer += Time.deltaTime;
+            if (Fatigue){
+                if(staminablockedTimer > staminaFatigueCooldown)
+                {
+                    staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
+                }
+	        }
+            else{
                 if(staminablockedTimer > staminaRegenerationCooldown)
                 {
                     staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
                 }
-                break;
+	        }
+            break;
         }
     }
 
@@ -158,9 +177,15 @@ public abstract class Champion : MonoBehaviour {
         limitBreakGauge = Mathf.Min(limitBreakGauge + limitBreakPerSecond * Time.deltaTime, maxLimitBreakGauge);
     }
 
-    protected abstract void PrimaryAttack();
+    protected virtual void PrimaryAttack()
+    {
+        animator.SetTrigger("PrimaryAttack");
+    }
 
-    protected abstract void SecondaryAttack();
+    protected virtual void SecondaryAttack()
+    {
+
+    }
 
     protected void CheckFatigue()
     {
@@ -179,6 +204,7 @@ public abstract class Champion : MonoBehaviour {
         switch (dodgeStatus)
         {
             case Enum_DodgeStatus.ready:
+                playerBox.enabled = true;
                 if (IsGrounded())
                 {
                     dodgeToken = maxDodgeToken;
@@ -186,8 +212,9 @@ public abstract class Champion : MonoBehaviour {
                 if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed && !fatigued && dodgeToken > 0)
                 {
                     dodgeFrameCounter = 0;
+                    playerBox.enabled = false;
                     rb.velocity = new Vector2(0, 0);
-                    rb.velocity += new Vector2(facing * 40, verticalDirection * 40);
+                    rb.velocity += new Vector2(facing * dodgeSpeed, 0);
                     ReduceStamina(dodgeStaminaCost);
                     dodgeStatus = Enum_DodgeStatus.dodging;
                     inputStatus = Enum_InputStatus.blocked;
@@ -232,11 +259,9 @@ public abstract class Champion : MonoBehaviour {
         if(moveX != 0 || moveY !=0)
         {
             animator.SetBool("Moving", true);
-            animator.SetFloat("MoveX", moveX);
-            animator.SetFloat("MoveY", moveY);
-            animator.SetFloat("FaceX", moveX);
-            facing = moveX;
-            verticalDirection = moveY;
+            animator.SetFloat("MoveX", Mathf.Sign(moveX));
+            facing = Mathf.Sign(moveX);
+            animator.SetFloat("FaceX", facing);
         }
         else
         {
@@ -281,6 +306,11 @@ public abstract class Champion : MonoBehaviour {
         DodgeButton = DButton;
     }
 
+    public virtual void SetPrimaryAttackButton(string PAButton)
+    {
+        PrimaryAttackButton = PAButton;
+    }
+
     public void ReduceStamina(float amount)
     {
         stamina = Mathf.Max(stamina - amount, 0);
@@ -295,7 +325,6 @@ public abstract class Champion : MonoBehaviour {
         {
             health = 0;
         }
-
     }
 
     public float Facing
