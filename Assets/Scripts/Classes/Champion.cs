@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public enum Enum_InputStatus
 {
@@ -105,6 +106,7 @@ public abstract class Champion : MonoBehaviour {
     {
         CheckFatigue();
         CheckDodge();
+        BoxCollider2D hitbox = transform.GetChild(1).GetComponent<BoxCollider2D>();
 
         if (Input.GetButtonDown(JumpButton) && IsGrounded())
         {
@@ -123,10 +125,19 @@ public abstract class Champion : MonoBehaviour {
             movementY = 0;
         }
 
-        if(Input.GetButtonDown(PrimaryAttackButton))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"))
+        {
+            hitbox.enabled = false;
+        }
+
+        if (Input.GetButtonDown(PrimaryAttackButton))
         {
             PrimaryAttack();
+            hitbox.enabled = true ;
+            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).tagHash);
+            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"));
         }
+        
     }
 
     protected void LateUpdate()
@@ -325,6 +336,7 @@ public abstract class Champion : MonoBehaviour {
         {
             health = 0;
         }
+        Debug.Log("Health :" + health);
     }
 
     public float Facing
