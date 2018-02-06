@@ -102,11 +102,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Vide
+    m_Name: PrimaryAttack
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: escape
+    positiveButton: r
     altNegativeButton: 
     altPositiveButton: backspace
     gravity: 0
@@ -156,7 +156,7 @@ InputManager:
     negativeButton: 
     positiveButton: joystick 1 button 2
     altNegativeButton: 
-    altPositiveButton: backspace
+    altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
