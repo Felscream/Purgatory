@@ -246,6 +246,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114996828203847260, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
+        type: 2}
+      propertyPath: playerHUD
+      value: 
+      objectReference: {fileID: 1733425649}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9, type: 2}
   m_IsPrefabParent: 0
@@ -679,6 +684,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &1733425649 stripped
+CanvasGroup:
+  m_PrefabParentObject: {fileID: 225748860611609938, guid: bea2ed7b8cfb6264a9b9aafa373f38ed,
+    type: 2}
+  m_PrefabInternal: {fileID: 496379942}
 --- !u!1001 &1812529811
 Prefab:
   m_ObjectHideFlags: 0
@@ -851,7 +861,7 @@ Prefab:
     - target: {fileID: 20521416546450134, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
       propertyPath: orthographic size
-      value: 9.46875
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}

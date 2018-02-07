@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using UnityEngine.UI;
 
 public enum Enum_InputStatus
 {
@@ -72,6 +73,9 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float comboOneOffsetX = 0;
     [SerializeField] protected float comboOneOffsetY = 0;
 
+    [Header("HUDSettings")]
+    [SerializeField] protected CanvasGroup playerHUD;
+
     protected int health;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter;
@@ -84,6 +88,9 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
+
+    protected Slider healthSlider;
+    protected Slider staminaSlider;
 
     // valeurs par défaut
     private string HorizontalCtrl = "Horizontal";
@@ -110,6 +117,11 @@ public abstract class Champion : MonoBehaviour {
         animator.SetFloat("FaceX", facing);
         playerBox = transform.Find("PlayerBox").GetComponentInChildren<Collider2D>();
         powerUp = GetComponent<PowerUp>();
+
+        playerHUD.alpha = 1;
+        healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
+        staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
+        UpdateHUD();
     }
 
     protected void FixedUpdate()
@@ -427,7 +439,11 @@ public abstract class Champion : MonoBehaviour {
         PowerUpButton = PUButton;
     }
 
-
+    public void UpdateHUD()
+    {
+        healthSlider.value = health;
+        staminaSlider.value = stamina;
+    }
 
     public float Facing
     {
