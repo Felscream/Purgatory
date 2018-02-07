@@ -12,7 +12,7 @@ public class PlayerStaminaSlider : MonoBehaviour {
     [SerializeField]
     private Sprite[] sliders = new Sprite[2], fillers = new Sprite[2];
     [SerializeField]
-    private Transform player;
+    private Transform target;
     private Champion champion;
     private Slider staminaSlider;
     private Image background;
@@ -22,7 +22,7 @@ public class PlayerStaminaSlider : MonoBehaviour {
     void Start () {
         background = transform.Find("Background").GetComponentInChildren<Image>();
         filler = transform.Find("Fill Area").GetComponentInChildren<Image>();
-        champion = FindComponentInChildWithTag<Champion>(player, "Champion");
+        champion = target.GetComponentInChildren<Champion>();
         staminaSlider = GetComponent<Slider>();
         staminaSlider.maxValue = champion.BaseStamina;
         staminaSlider.minValue = 0.0f;

@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour {
     public string Jump;
     public string Dodge;
     public string PrimaryAttack;
-
+    public string PowerUp;
     private void Start()
     {
         fighter = GetComponentInChildren<Champion>();
@@ -67,5 +67,10 @@ public class PlayerInput : MonoBehaviour {
             fighter.SetPrimaryAttackButton(PrimaryAttack);
         }
 
+        //POWERUP
+        if (fighter != null)
+        {
+            fighter.SetPowerUpButton(PowerUp);
+        }
     }
 }

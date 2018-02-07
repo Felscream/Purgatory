@@ -32,7 +32,12 @@ public class Knight : Champion {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(new Vector3(EnhancedComboOneOffsetX, EnhancedComboOneOffsetY, 0) + transform.position, new Vector3(EnhancedComboOneSizeX, EnhancedComboOneSizeY, 1));
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(new Vector3(EnhancedComboTwoSizeX, EnhancedComboTwoSizeY, 1), new Vector3(EnhancedComboTwoSizeX, EnhancedComboTwoSizeY, 1));
+        Gizmos.DrawWireCube(new Vector3(EnhancedComboTwoOffsetX, EnhancedComboTwoOffsetY, 1) + transform.position, new Vector3(EnhancedComboTwoSizeX, EnhancedComboTwoSizeY, 1));
+    }
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
+
     }
     protected override void PrimaryAttack()
     {
