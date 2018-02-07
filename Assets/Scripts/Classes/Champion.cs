@@ -140,7 +140,6 @@ public abstract class Champion : MonoBehaviour {
         {
             CheckFatigue();
             CheckDodge();
-            UpdateHUD();
             if (InputStatus == Enum_InputStatus.blocked)
             {
                 StopMovement(0);
@@ -184,8 +183,12 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void LateUpdate()
     {
-        RegenerateStaminaPerSecond();
-        IncreaseLimitBreakPerSecond();
+        if (!dead)
+        {
+            RegenerateStaminaPerSecond();
+            IncreaseLimitBreakPerSecond();
+        }
+        UpdateHUD();
     }
 
     protected void DynamicFall()
@@ -194,7 +197,10 @@ public abstract class Champion : MonoBehaviour {
         {
             animator.SetBool("Jump", false);
             rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-            animator.SetBool("Fall", true);
+            if (rb.velocity.y < 0.1)
+            {
+                animator.SetBool("Fall", true);
+            }
         }
     }
 
