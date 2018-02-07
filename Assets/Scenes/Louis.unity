@@ -246,11 +246,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114506105242446648, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
-        type: 2}
-      propertyPath: playerHUD
-      value: 
-      objectReference: {fileID: 1053634307}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9, type: 2}
   m_IsPrefabParent: 0
@@ -604,11 +599,6 @@ SpriteRenderer:
 --- !u!225 &1051865026 stripped
 CanvasGroup:
   m_PrefabParentObject: {fileID: 225997154109035938, guid: bea2ed7b8cfb6264a9b9aafa373f38ed,
-    type: 2}
-  m_PrefabInternal: {fileID: 496379942}
---- !u!225 &1053634307 stripped
-CanvasGroup:
-  m_PrefabParentObject: {fileID: 225748860611609938, guid: bea2ed7b8cfb6264a9b9aafa373f38ed,
     type: 2}
   m_PrefabInternal: {fileID: 496379942}
 --- !u!4 &1321531090 stripped
