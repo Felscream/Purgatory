@@ -405,7 +405,6 @@ MonoBehaviour:
   comboOneSizeY: 1.31
   comboOneOffsetX: 1.45
   comboOneOffsetY: 0.12
-  playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoSizeX: 2.02
   comboTwoSizeY: 2.19
@@ -446,6 +445,7 @@ MonoBehaviour:
   Jump: Jump_P3
   Dodge: Dodge_P3
   PrimaryAttack: PrimaryAttack_P3
+  PowerUp: PowerUp_P3
 --- !u!212 &212315608344939282
 SpriteRenderer:
   m_ObjectHideFlags: 1

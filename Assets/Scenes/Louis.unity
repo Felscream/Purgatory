@@ -723,6 +723,11 @@ Prefab:
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 827733741}
+    - target: {fileID: 114844281006236054, guid: 75412422d8462ec409f5e02f28407aef,
+        type: 2}
+      propertyPath: PowerUp
+      value: PowerUp_P4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75412422d8462ec409f5e02f28407aef, type: 2}
   m_IsPrefabParent: 0

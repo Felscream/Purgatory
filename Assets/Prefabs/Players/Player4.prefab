@@ -364,6 +364,7 @@ MonoBehaviour:
   Jump: Jump_P4
   Dodge: Dodge_P4
   PrimaryAttack: PrimaryAttack_P4
+  PowerUp: PowerUp_P4
 --- !u!114 &114616908623750508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,7 +433,6 @@ MonoBehaviour:
   comboOneSizeY: 1.31
   comboOneOffsetX: 1.45
   comboOneOffsetY: 0.12
-  playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoSizeX: 2.02
   comboTwoSizeY: 2.19
