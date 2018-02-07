@@ -194,7 +194,10 @@ public abstract class Champion : MonoBehaviour {
         {
             animator.SetBool("Jump", false);
             rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-            animator.SetBool("Fall", true);
+            if (rb.velocity.y < 0.1)
+            {
+                animator.SetBool("Fall", true);
+            }
         }
     }
 
