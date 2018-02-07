@@ -140,7 +140,6 @@ public abstract class Champion : MonoBehaviour {
         {
             CheckFatigue();
             CheckDodge();
-            UpdateHUD();
             if (InputStatus == Enum_InputStatus.blocked)
             {
                 StopMovement(0);
@@ -184,8 +183,12 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void LateUpdate()
     {
-        RegenerateStaminaPerSecond();
-        IncreaseLimitBreakPerSecond();
+        if (!dead)
+        {
+            RegenerateStaminaPerSecond();
+            IncreaseLimitBreakPerSecond();
+        }
+        UpdateHUD();
     }
 
     protected void DynamicFall()
