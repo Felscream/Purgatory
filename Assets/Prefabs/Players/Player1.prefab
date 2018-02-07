@@ -27,6 +27,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1121274797621076
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4647074605181742}
+  - component: {fileID: 61932028433127426}
+  - component: {fileID: 114943769040630046}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1324786476387988
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +122,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4751254711914244}
+  - {fileID: 4647074605181742}
   m_Father: {fileID: 4589432986451184}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,6 +140,19 @@ Transform:
   - {fileID: 4427078020518896}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4647074605181742
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121274797621076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4427078020518896}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4751254711914244
 Transform:
@@ -180,6 +211,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.9039519, y: 2}
+  m_EdgeRadius: 0
+--- !u!61 &61932028433127426
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121274797621076}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!70 &70847824195147964
 CapsuleCollider2D:
@@ -319,6 +375,7 @@ MonoBehaviour:
   Horizontal: Horizontal_P1
   Jump: Jump_P1
   Dodge: Dodge_P1
+  PrimaryAttack: PrimaryAttack_P1
 --- !u!114 &114876982352509500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -333,9 +390,9 @@ MonoBehaviour:
   baseHealth: 100
   determination: 3
   speed: 10
-  jumpHeight: 4
+  jumpHeight: 10
   fatiguedSpeedReduction: 1.5
-  fallMultiplier: 3
+  fallMultiplier: 5
   dodgeSpeed: 20
   dodgeStaminaCost: 30
   dodgeFrames: 7
@@ -346,14 +403,48 @@ MonoBehaviour:
   parryStaminaCost: 60
   parryImmunityFrames: 30
   baseStamina: 100
-  staminaRegenerationPerSecond: 15
+  staminaRegenerationPerSecond: 30
   staminaRegenerationCooldown: 1.5
+  staminaFatigueCooldown: 3
   primaryFireStaminaCost: 20
   secondaryFireStaminaCost: 40
   maxLimitBreakGauge: 100
   limitBreakPerSecond: 0.4
   limitBreakOnHit: 1
   limitBreakOnDamage: 0.25
+  comboOneDamage: 10
+  primaryAttackMovementForce: 4
+  hitBoxLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  comboOneSizeX: 1.76
+  comboOneSizeY: 1.31
+  comboOneOffsetX: 1.45
+  comboOneOffsetY: 0.12
+  comboTwoDamage: 20
+  comboTwoSizeX: 2.02
+  comboTwoSizeY: 2.19
+  comboTwoOffsetX: 1.65
+  comboTwoOffsetY: 0.1
+  EnhancedComboOneSizeX: 1
+  EnhancedComboOneSizeY: 1
+  EnhancedComboOneOffsetX: 0
+  EnhancedComboOneOffsetY: 0
+  EnhancedComboTwoSizeX: 1
+  EnhancedComboTwoSizeY: 1
+  EnhancedComboTwoOffsetX: 0
+  EnhancedComboTwoOffsetY: 0
+--- !u!114 &114943769040630046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121274797621076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041b891b0b35e8240838873f03fd2688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212219632680864740
 SpriteRenderer:
   m_ObjectHideFlags: 1

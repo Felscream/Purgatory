@@ -6,7 +6,9 @@ using System.Text.RegularExpressions;
 public enum Enum_InputStatus
 {
     blocked,
-    allowed
+    allowed,
+    onlyAttack,
+    onlyMovement
 }
 
 public enum Enum_DodgeStatus
@@ -58,7 +60,18 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float limitBreakPerSecond = 0.40f;
     [SerializeField] protected float limitBreakOnHit = 2.5f;
     [SerializeField] protected float limitBreakOnDamage = 1.0f;
-    
+
+    [Header("Attack Settings")]
+    [SerializeField] protected int comboOneDamage = 10;
+    [SerializeField] protected float primaryAttackMovementForce = 2;
+    [SerializeField] protected LayerMask hitBoxLayer;
+
+    [Header("Combo1Settings")]
+    [SerializeField] protected float comboOneSizeX = 1;
+    [SerializeField] protected float comboOneSizeY = 1;
+    [SerializeField] protected float comboOneOffsetX = 0;
+    [SerializeField] protected float comboOneOffsetY = 0;
+
     protected int health;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter;
@@ -67,7 +80,7 @@ public abstract class Champion : MonoBehaviour {
     protected Animator animator;
     protected Vector2 savedVelocity;
     protected Collider2D playerBox;
-    protected bool jumping, immune = false, parrying = false, fatigued = false;
+    protected bool jumping, immune = false, parrying = false, fatigued = false, attacking = false, dead = false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
@@ -79,6 +92,10 @@ public abstract class Champion : MonoBehaviour {
     private string PrimaryAttackButton = "PrimaryAttack";
     private float movementX, movementY;
 
+    protected void Awake()
+    {
+        facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
+    }
     protected void Start()
     {   
         health = baseHealth;
@@ -87,9 +104,9 @@ public abstract class Champion : MonoBehaviour {
         distToGround = GetComponent<Collider2D>().bounds.extents.y;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
         animator.SetFloat("FaceX", facing);
         playerBox = transform.Find("PlayerBox").GetComponentInChildren<Collider2D>();
+
     }
 
     protected void FixedUpdate()
@@ -104,44 +121,48 @@ public abstract class Champion : MonoBehaviour {
 
     protected void Update()
     {
-        CheckFatigue();
-        CheckDodge();
-        BoxCollider2D hitbox = transform.GetChild(1).GetComponent<BoxCollider2D>();
+        if (!dead)
+        {
+            CheckFatigue();
+            CheckDodge();
+            if (InputStatus == Enum_InputStatus.blocked)
+            {
+                StopMovement(0);
+            }
+            else
+            {
 
-        if (Input.GetButtonDown(JumpButton) && IsGrounded())
-        {
-            jumping = true;
-        }
+                if (Input.GetButtonDown(PrimaryAttackButton) && IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
+                {
+                    PrimaryAttack();
+                    /*Debug.Log(animator.GetCurrentAnimatorStateInfo(0).tagHash);
+                    Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"));*/
+                }
+                else
+                {
+                    if (InputStatus != Enum_InputStatus.onlyAttack)
+                    {
+                        if (Input.GetButtonDown(JumpButton) && IsGrounded())
+                        {
+                            jumping = true;
+                        }
 
-        if (InputStatus != Enum_InputStatus.blocked)
-        {
-            movementX = Input.GetAxisRaw(HorizontalCtrl);
-            //MOVING
-            
-        }
-        else if (InputStatus == Enum_InputStatus.blocked)
-        {
-            movementX = 0;
-            movementY = 0;
-        }
+                        if (InputStatus != Enum_InputStatus.blocked)
+                        {
+                            movementX = Input.GetAxisRaw(HorizontalCtrl);
+                            //MOVING
 
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"))
-        {
-            hitbox.enabled = false;
-        }
+                        }
 
-        if (Input.GetButtonDown(PrimaryAttackButton))
-        {
-            PrimaryAttack();
-            hitbox.enabled = true ;
-            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).tagHash);
-            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"));
+                    }
+                }
+            }
         }
-        
     }
 
     protected void LateUpdate()
     {
+        
         RegenerateStaminaPerSecond();
         IncreaseLimitBreakPerSecond();
     }
@@ -161,25 +182,27 @@ public abstract class Champion : MonoBehaviour {
         float staminaRegen = staminaRegenerationPerSecond;
         switch (staminaRegenerationStatus)
         {
-        case Enum_StaminaRegeneration.regenerating:
-            stamina = Mathf.Min(stamina + staminaRegen * Time.deltaTime, baseStamina);
-            staminablockedTimer = 0.0f;
-            break;
-        case Enum_StaminaRegeneration.blocked:
-            staminablockedTimer += Time.deltaTime;
-            if (Fatigue){
-                if(staminablockedTimer > staminaFatigueCooldown)
-                {
-                    staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
-                }
-	        }
-            else{
-                if(staminablockedTimer > staminaRegenerationCooldown)
-                {
-                    staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
-                }
-	        }
-            break;
+            case Enum_StaminaRegeneration.regenerating:
+                stamina = Mathf.Min(stamina + staminaRegen * Time.deltaTime, baseStamina);
+                break;
+            case Enum_StaminaRegeneration.blocked:
+                staminablockedTimer += Time.deltaTime;
+                if (Fatigue){
+                    inputStatus = Enum_InputStatus.onlyMovement;
+                    if (staminablockedTimer > staminaFatigueCooldown && !attacking)
+                    {
+                        staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
+                        inputStatus = Enum_InputStatus.allowed;
+                    }
+	            }
+                else{
+                    if(staminablockedTimer > staminaRegenerationCooldown)
+                    {
+                        staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
+
+                    }
+	            }
+                break;
         }
     }
 
@@ -198,13 +221,36 @@ public abstract class Champion : MonoBehaviour {
 
     }
 
+    protected abstract void CastHitBox(int attackType);
+    protected virtual void MoveOnAttack()
+    {
+        Vector2 force = new Vector2(facing * primaryAttackMovementForce, 0);
+        rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
+    protected void StartAttackString()
+    {
+        ReduceStamina(primaryFireStaminaCost);
+        inputStatus = Enum_InputStatus.onlyAttack;
+        movementX = 0;
+        movementY = 0;
+        attacking = true;
+        rb.velocity = Vector2.zero;
+    }
+    protected virtual void EndAttackString()
+    {
+        inputStatus = Enum_InputStatus.allowed;
+        CheckFatigue();
+        attacking = false;
+    }
+
     protected void CheckFatigue()
     {
         if(stamina == 0)
         {
             fatigued = true;
         }
-        else if(stamina >= baseStamina*0.25f) // Au moins 25% de la stamina
+        else //if(stamina >= baseStamina*0.25f) // Au moins 25% de la stamina
         {
             fatigued = false;
         }
@@ -225,7 +271,7 @@ public abstract class Champion : MonoBehaviour {
                     dodgeFrameCounter = 0;
                     playerBox.enabled = false;
                     rb.velocity = new Vector2(0, 0);
-                    rb.velocity += new Vector2(facing * dodgeSpeed, 0);
+                    rb.AddForce(new Vector2(facing * dodgeSpeed,0), ForceMode2D.Impulse);
                     ReduceStamina(dodgeStaminaCost);
                     dodgeStatus = Enum_DodgeStatus.dodging;
                     inputStatus = Enum_InputStatus.blocked;
@@ -260,14 +306,14 @@ public abstract class Champion : MonoBehaviour {
     
     public virtual void Move(float moveX, float moveY)
     {
-        float currentSpeed = fatigued ? speed / fatiguedSpeedReduction : speed;
+        float currentSpeed = Fatigue ? speed / fatiguedSpeedReduction : speed;
         //LIMIT DIAGONAL SPEED
         Vector2 movement = new Vector2(moveX, moveY).normalized * currentSpeed;
 
         //not impeding X movements when aerial
         
         transform.Translate(movement * Time.deltaTime);
-        if(moveX != 0 || moveY !=0)
+        if(moveX != 0)
         {
             animator.SetBool("Moving", true);
             animator.SetFloat("MoveX", Mathf.Sign(moveX));
@@ -280,11 +326,20 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
+    protected void StopMovement(int stopForce)
+    {
+        movementX = 0;
+        movementY = 0;
+        if (stopForce == 1)
+        {
+            rb.velocity = Vector2.zero;
+        }
+    }
     public virtual void Jump()
     {
         if (rb != null && IsGrounded())
         {
-            rb.AddForce(new Vector3(0, jumpHeight * rb.mass, 0), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, jumpHeight * rb.mass), ForceMode2D.Impulse);
             animator.SetBool("Jump", true);
             jumping = false;
         }
@@ -327,16 +382,34 @@ public abstract class Champion : MonoBehaviour {
         stamina = Mathf.Max(stamina - amount, 0);
         CheckFatigue();
         staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
+        staminablockedTimer = 0.0f;
     }
 
     public void ApplyDamage(int dmg)
     {
-        if (health > dmg) health -= dmg;
+        /*if (health > dmg)
+        {
+            health -= dmg;
+        }
         else
         {
             health = 0;
+        }*/
+        if (!Immunity)
+        {
+            health = Mathf.Max(health - dmg, 0);
         }
+        
         Debug.Log("Health :" + health);
+
+        //TO REMOVE LATER
+        if(health == 0)
+        {
+            inputStatus = Enum_InputStatus.blocked;
+            dead = true;
+            playerBox.enabled = false;
+            Debug.Log(transform.parent.name + " died");
+        }
     }
 
     public float Facing
@@ -410,4 +483,11 @@ public abstract class Champion : MonoBehaviour {
         }
     }
     
+    public bool Attack
+    {
+        get
+        {
+            return attacking;
+        }
+    }
 }

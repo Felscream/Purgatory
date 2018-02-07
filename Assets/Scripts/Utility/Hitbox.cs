@@ -14,9 +14,9 @@ public class Hitbox : MonoBehaviour {
 		
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        collision.gameObject.SendMessage("ApplyDamage", 10);
+        collider.gameObject.SendMessage("ApplyDamage", 10);
         Debug.Log("collision");
     }
 }
