@@ -406,7 +406,7 @@ public abstract class Champion : MonoBehaviour {
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
-        if (Physics2D.Raycast(transform.position, -Vector2.up, distToGround + 0.1f, LayerMask.GetMask("Obstacle")))
+        if (Physics2D.Raycast(transform.position, -Vector2.up, distToGround + 0.5f, LayerMask.GetMask("Obstacle")))
         {
             animator.SetBool("Jump", false);
             animator.SetBool("Fall", false);
