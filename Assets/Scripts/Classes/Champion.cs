@@ -145,7 +145,6 @@ public abstract class Champion : MonoBehaviour {
                     {
                         powerUp.ActivatePowerUp();
                     }
-                    Debug.Log(Input.GetAxisRaw(PowerUpButton));
                     /*Debug.Log(animator.GetCurrentAnimatorStateInfo(0).tagHash);
                     Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"));*/
                 }
