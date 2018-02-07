@@ -449,8 +449,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -2, y: 0.4, z: 0}
-  size: 0
-  lockSpeed: 1
   timeToFade: 2
   fadingDuration: 0.5
   sliders:
@@ -574,8 +572,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -2, y: 0.4, z: 0}
-  size: 0
-  lockSpeed: 1
   timeToFade: 2
   fadingDuration: 0.5
   sliders:
@@ -597,8 +593,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -2, y: 0.4, z: 0}
-  size: 0
-  lockSpeed: 1
   timeToFade: 2
   fadingDuration: 0.5
   sliders:
@@ -647,8 +641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -2, y: 0.4, z: 0}
-  size: 0
-  lockSpeed: 1
   timeToFade: 2
   fadingDuration: 0.5
   sliders:

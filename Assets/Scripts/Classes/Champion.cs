@@ -261,7 +261,7 @@ public abstract class Champion : MonoBehaviour {
         switch (dodgeStatus)
         {
             case Enum_DodgeStatus.ready:
-                playerBox.enabled = true;
+
                 if (IsGrounded())
                 {
                     dodgeToken = maxDodgeToken;
