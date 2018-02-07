@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
-using UnityEngine.UI;
 
 public enum Enum_InputStatus
 {
@@ -73,9 +72,6 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float comboOneOffsetX = 0;
     [SerializeField] protected float comboOneOffsetY = 0;
 
-    [Header("HUDSettings")]
-    [SerializeField] protected CanvasGroup playerHUD;
-
     protected int health;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter;
@@ -89,15 +85,15 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
 
-    protected Slider healthSlider;
-    protected Slider staminaSlider;
-
     // valeurs par défaut
     private string HorizontalCtrl = "Horizontal";
     private string JumpButton = "Jump";
     private string DodgeButton = "Dodge";
     private string PrimaryAttackButton = "PrimaryAttack";
+    private string PowerUpButton = "PowerUp";
     private float movementX, movementY;
+
+    protected PowerUp powerUp;
 
     protected void Awake()
     {
@@ -113,11 +109,7 @@ public abstract class Champion : MonoBehaviour {
         animator = GetComponent<Animator>();
         animator.SetFloat("FaceX", facing);
         playerBox = transform.Find("PlayerBox").GetComponentInChildren<Collider2D>();
-
-        playerHUD.alpha = 1;
-        healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
-        staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
-        UpdateHUD();
+        powerUp = GetComponent<PowerUp>();
     }
 
     protected void FixedUpdate()
@@ -130,13 +122,12 @@ public abstract class Champion : MonoBehaviour {
         Move(movementX, movementY);
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         if (!dead)
         {
             CheckFatigue();
             CheckDodge();
-            UpdateHUD();
             if (InputStatus == Enum_InputStatus.blocked)
             {
                 StopMovement(0);
@@ -144,37 +135,43 @@ public abstract class Champion : MonoBehaviour {
             else
             {
 
-                if (Input.GetButtonDown(PrimaryAttackButton) && IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
+                if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
                 {
-                    PrimaryAttack();
+                    if (Input.GetButtonDown(PrimaryAttackButton))
+                    {
+                        PrimaryAttack();
+                    }
+                    if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp!= null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
+                    {
+                        powerUp.ActivatePowerUp();
+                    }
+                    Debug.Log(Input.GetAxisRaw(PowerUpButton));
                     /*Debug.Log(animator.GetCurrentAnimatorStateInfo(0).tagHash);
                     Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"));*/
                 }
-                else
+
+                if (InputStatus != Enum_InputStatus.onlyAttack)
                 {
-                    if (InputStatus != Enum_InputStatus.onlyAttack)
+                    if (Input.GetButtonDown(JumpButton) && IsGrounded())
                     {
-                        if (Input.GetButtonDown(JumpButton) && IsGrounded())
-                        {
-                            jumping = true;
-                        }
+                        jumping = true;
+                    }
 
-                        if (InputStatus != Enum_InputStatus.blocked)
-                        {
-                            movementX = Input.GetAxisRaw(HorizontalCtrl);
-                            //MOVING
-
-                        }
+                    if (InputStatus != Enum_InputStatus.blocked)
+                    {
+                        movementX = Input.GetAxisRaw(HorizontalCtrl);
+                        //MOVING
 
                     }
+
                 }
+                
             }
         }
     }
 
-    protected void LateUpdate()
+    protected virtual void LateUpdate()
     {
-        
         RegenerateStaminaPerSecond();
         IncreaseLimitBreakPerSecond();
     }
@@ -232,7 +229,7 @@ public abstract class Champion : MonoBehaviour {
     {
 
     }
-
+    
     protected abstract void CastHitBox(int attackType);
     protected virtual void MoveOnAttack()
     {
@@ -255,7 +252,43 @@ public abstract class Champion : MonoBehaviour {
         CheckFatigue();
         attacking = false;
     }
+    public void ReduceStamina(float amount)
+    {
+        if (amount != 0.0f)
+        {
+            stamina = Mathf.Max(stamina - amount, 0);
+            CheckFatigue();
+            staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
+            staminablockedTimer = 0.0f;
+        }
+    }
 
+    public void ApplyDamage(int dmg)
+    {
+        /*if (health > dmg)
+        {
+            health -= dmg;
+        }
+        else
+        {
+            health = 0;
+        }*/
+        if (!Immunity)
+        {
+            health = Mathf.Max(health - dmg, 0);
+        }
+
+        Debug.Log("Health :" + health);
+
+        //TO REMOVE LATER
+        if (health == 0)
+        {
+            inputStatus = Enum_InputStatus.blocked;
+            dead = true;
+            playerBox.enabled = false;
+            Debug.Log(transform.parent.name + " died");
+        }
+    }
     protected void CheckFatigue()
     {
         if(stamina == 0)
@@ -308,6 +341,7 @@ public abstract class Champion : MonoBehaviour {
                     dodgeFrameCounter = dodgeFrames;
                     rb.velocity = new Vector2(0, 0);
                     animator.SetBool("Dodge", false);
+                    playerBox.enabled = true;
                     dodgeStatus = Enum_DodgeStatus.ready;
                     inputStatus = Enum_InputStatus.allowed;
                     
@@ -389,46 +423,12 @@ public abstract class Champion : MonoBehaviour {
         PrimaryAttackButton = PAButton;
     }
 
-    public void ReduceStamina(float amount)
+    public virtual void SetPowerUpButton(string PUButton)
     {
-        stamina = Mathf.Max(stamina - amount, 0);
-        CheckFatigue();
-        staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
-        staminablockedTimer = 0.0f;
+        PowerUpButton = PUButton;
     }
 
-    public void ApplyDamage(int dmg)
-    {
-        /*if (health > dmg)
-        {
-            health -= dmg;
-        }
-        else
-        {
-            health = 0;
-        }*/
-        if (!Immunity)
-        {
-            health = Mathf.Max(health - dmg, 0);
-        }
-        
-        Debug.Log("Health :" + health);
 
-        //TO REMOVE LATER
-        if(health == 0)
-        {
-            inputStatus = Enum_InputStatus.blocked;
-            dead = true;
-            playerBox.enabled = false;
-            Debug.Log(transform.parent.name + " died");
-        }
-    }
-
-    public void UpdateHUD()
-    {
-        healthSlider.value = health;
-        staminaSlider.value = stamina;
-    }
 
     public float Facing
     {
