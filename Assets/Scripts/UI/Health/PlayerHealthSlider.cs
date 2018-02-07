@@ -7,13 +7,13 @@ public class PlayerHealthSlider : MonoBehaviour {
 
     [SerializeField]
     private Vector3 offset = new Vector3(-2, 0.4f, 0);
-    [SerializeField] private Transform target;
+    [SerializeField] private Transform player;
     private Champion champion;
     private Slider healthSlider;
     // Use this for initialization
     void Start()
     {
-        champion = target.GetComponentInChildren<Champion>();
+        champion = FindComponentInChildWithTag<Champion>(player, "Champion");
         healthSlider = GetComponent<Slider>();
         healthSlider.maxValue = champion.BaseHealth;
         healthSlider.minValue = 0.0f;
@@ -43,5 +43,19 @@ public class PlayerHealthSlider : MonoBehaviour {
         {
             healthSlider.transform.Find("Background").GetComponent<Image>().color = Color.black;
         }
+    }
+
+    // Trouve l'enfant avec le tag 'tag'
+    public static T FindComponentInChildWithTag<T>(Transform parent, string tag) where T : Component
+    {
+        Transform t = parent.transform;
+        foreach (Transform tr in t)
+        {
+            if (tr.tag == tag)
+            {
+                return tr.GetComponent<T>();
+            }
+        }
+        return null;
     }
 }

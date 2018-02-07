@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224538451271381400}
   - component: {fileID: 114878580074373704}
-  - component: {fileID: 114785270170537414}
+  - component: {fileID: 114684340115586306}
   m_Layer: 5
   m_Name: SliderJ4
   m_TagString: Untagged
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224974741826126160}
   - component: {fileID: 114945568194585560}
-  - component: {fileID: 114776281204159906}
+  - component: {fileID: 114251757338256036}
   m_Layer: 5
   m_Name: SliderJ3
   m_TagString: Untagged
@@ -634,7 +634,7 @@ MonoBehaviour:
   fillers:
   - {fileID: 21300000, guid: 5d5c90cde08ca844189d200e8a2fe083, type: 3}
   - {fileID: 21300000, guid: bf7e6867173da7b4aa5e2c9662268899, type: 3}
-  target: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &114166631291356466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -812,6 +812,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114251757338256036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703314566860718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b2992edf835dc4798f0316757f2c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: -3, y: 0.4, z: 0}
+  player: {fileID: 0}
 --- !u!114 &114321418997175080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -982,7 +995,7 @@ MonoBehaviour:
   fillers:
   - {fileID: 21300000, guid: 5d5c90cde08ca844189d200e8a2fe083, type: 3}
   - {fileID: 21300000, guid: bf7e6867173da7b4aa5e2c9662268899, type: 3}
-  target: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &114504968166207312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1049,7 +1062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -3, y: 0.4, z: 0}
-  target: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &114560589856507898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1091,7 +1104,20 @@ MonoBehaviour:
   fillers:
   - {fileID: 21300000, guid: 5d5c90cde08ca844189d200e8a2fe083, type: 3}
   - {fileID: 21300000, guid: bf7e6867173da7b4aa5e2c9662268899, type: 3}
-  target: {fileID: 0}
+  player: {fileID: 0}
+--- !u!114 &114684340115586306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1367237794434932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b2992edf835dc4798f0316757f2c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: -3, y: 0.4, z: 0}
+  player: {fileID: 0}
 --- !u!114 &114688852841432208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1158,7 +1184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: -3, y: 0.4, z: 0}
-  target: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &114765340443489544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1186,48 +1212,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114776281204159906
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1703314566860718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11605c3973938f4db142b8ca12e0203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: -2, y: 0.4, z: 0}
-  timeToFade: 2
-  fadingDuration: 0.5
-  sliders:
-  - {fileID: 21300000, guid: ec5c9145d64a57447a9185477310bc0f, type: 3}
-  - {fileID: 21300000, guid: b7c594d9772315042ad204df3fb0a2c2, type: 3}
-  fillers:
-  - {fileID: 21300000, guid: 5d5c90cde08ca844189d200e8a2fe083, type: 3}
-  - {fileID: 21300000, guid: bf7e6867173da7b4aa5e2c9662268899, type: 3}
-  target: {fileID: 0}
---- !u!114 &114785270170537414
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1367237794434932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11605c3973938f4db142b8ca12e0203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: -2, y: 0.4, z: 0}
-  timeToFade: 2
-  fadingDuration: 0.5
-  sliders:
-  - {fileID: 21300000, guid: ec5c9145d64a57447a9185477310bc0f, type: 3}
-  - {fileID: 21300000, guid: b7c594d9772315042ad204df3fb0a2c2, type: 3}
-  fillers:
-  - {fileID: 21300000, guid: 5d5c90cde08ca844189d200e8a2fe083, type: 3}
-  - {fileID: 21300000, guid: bf7e6867173da7b4aa5e2c9662268899, type: 3}
-  target: {fileID: 0}
 --- !u!114 &114793187633028214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1275,7 +1259,7 @@ MonoBehaviour:
   fillers:
   - {fileID: 21300000, guid: 5d5c90cde08ca844189d200e8a2fe083, type: 3}
   - {fileID: 21300000, guid: bf7e6867173da7b4aa5e2c9662268899, type: 3}
-  target: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &114850016921716162
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -378,20 +378,20 @@ MonoBehaviour:
   fatiguedSpeedReduction: 1.5
   fallMultiplier: 5
   dodgeSpeed: 20
-  dodgeStaminaCost: 30
+  dodgeStaminaCost: 10
   dodgeFrames: 7
   dodgeImmunityStartFrame: 2
   dodgeImmunityEndFrame: 7
   maxDodgeToken: 1
   dodgeToken: 1
-  parryStaminaCost: 60
+  parryStaminaCost: 30
   parryImmunityFrames: 30
   baseStamina: 100
   staminaRegenerationPerSecond: 30
   staminaRegenerationCooldown: 1.5
   staminaFatigueCooldown: 3
-  primaryFireStaminaCost: 20
-  secondaryFireStaminaCost: 40
+  primaryFireStaminaCost: 10
+  secondaryFireStaminaCost: 20
   maxLimitBreakGauge: 100
   limitBreakPerSecond: 0.4
   limitBreakOnHit: 1
@@ -405,6 +405,7 @@ MonoBehaviour:
   comboOneSizeY: 1.31
   comboOneOffsetX: 1.45
   comboOneOffsetY: 0.12
+  playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoSizeX: 2.02
   comboTwoSizeY: 2.19
