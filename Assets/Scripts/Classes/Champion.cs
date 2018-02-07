@@ -140,6 +140,7 @@ public abstract class Champion : MonoBehaviour {
         {
             CheckFatigue();
             CheckDodge();
+            UpdateHUD();
             if (InputStatus == Enum_InputStatus.blocked)
             {
                 StopMovement(0);
