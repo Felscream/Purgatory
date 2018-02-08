@@ -44,11 +44,13 @@ public class PowerUp : MonoBehaviour {
 
     public virtual void ActivatePowerUp()
     {
+        
         if(powerUpStatus == Enum_PowerUpStatus.available)
         {
             powerUpStatus = Enum_PowerUpStatus.activated;
             activationTimer = 0.0f;
             anim.SetBool("PoweredUp", true);
+            Debug.Log("PowerUp");
         }
             
     }

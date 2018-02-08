@@ -148,6 +148,11 @@ public abstract class Champion : MonoBehaviour {
             }
             else
             {
+                if (Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
+                {
+                    Debug.Log("PowerUp");
+                    powerUp.ActivatePowerUp();
+                }
 
                 if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
                 {
@@ -155,10 +160,7 @@ public abstract class Champion : MonoBehaviour {
                     {
                         PrimaryAttack();
                     }
-                    if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp!= null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
-                    {
-                        powerUp.ActivatePowerUp();
-                    }
+                    
                     /*Debug.Log(animator.GetCurrentAnimatorStateInfo(0).tagHash);
                     Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"));*/
                 }
@@ -433,7 +435,7 @@ public abstract class Champion : MonoBehaviour {
 
         //if (Physics2D.Raycast(transform.position, -Vector2.up, distToGround + 0.1f, LayerMask.GetMask("Obstacle")))
         //if (Physics2D.OverlapArea(pointA, pointB, LayerMask.GetMask("Obstacle")))
-        Debug.Log(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")));
+        //Debug.Log(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")));
         if(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")))
         {
             animator.SetBool("Jump", false);
