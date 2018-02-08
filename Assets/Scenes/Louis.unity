@@ -385,26 +385,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114564834233479854, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: playerHUD
-      value: 
-      objectReference: {fileID: 1051865026}
-    - target: {fileID: 114261192931157292, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: playerHUD
-      value: 
-      objectReference: {fileID: 1466875810}
-    - target: {fileID: 114027641436633182, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: playerHUD
-      value: 
-      objectReference: {fileID: 1733425649}
     - target: {fileID: 114025966985608560, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 827733741}
+    - target: {fileID: 114027641436633182, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: playerHUD
+      value: 
+      objectReference: {fileID: 1733425649}
+    - target: {fileID: 114261192931157292, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: playerHUD
+      value: 
+      objectReference: {fileID: 1466875810}
+    - target: {fileID: 114564834233479854, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: playerHUD
+      value: 
+      objectReference: {fileID: 1051865026}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3633296bc15d2145a19448e709630d0, type: 2}
   m_IsPrefabParent: 0
@@ -423,6 +423,22 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 225540058160116470, guid: bea2ed7b8cfb6264a9b9aafa373f38ed,
     type: 2}
   m_PrefabInternal: {fileID: 496379942}
+--- !u!1 &1612782409 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1237077253660904, guid: 6c5785512f800f44689a8c7d80f59777,
+    type: 2}
+  m_PrefabInternal: {fileID: 1961267889}
+--- !u!114 &1612782411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612782409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48b5afa0de92d745a98cff40d808121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!225 &1733425649 stripped
 CanvasGroup:
   m_PrefabParentObject: {fileID: 225748860611609938, guid: bea2ed7b8cfb6264a9b9aafa373f38ed,
@@ -501,6 +517,12 @@ Prefab:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114291417897368404, guid: 6c5785512f800f44689a8c7d80f59777, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6c5785512f800f44689a8c7d80f59777, type: 2}
   m_IsPrefabParent: 0

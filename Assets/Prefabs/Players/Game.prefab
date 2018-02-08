@@ -2232,7 +2232,7 @@ MonoBehaviour:
   Jump: Jump_P3
   Dodge: Dodge_P3
   PrimaryAttack: PrimaryAttack_P3
-  PowerUp: PowerUp_P4
+  PowerUp: PowerUp_P3
 --- !u!114 &114442110941137590
 MonoBehaviour:
   m_ObjectHideFlags: 1

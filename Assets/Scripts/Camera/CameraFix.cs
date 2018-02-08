@@ -7,7 +7,7 @@ public class CameraFix : MonoBehaviour
 {
 
     [Range(1, 4)]
-    public int pixelScale = 1;
+    public int pixelScale = 2;
 
     private int pixelsPerUnit = 16;
     private float halfScreen = 0.5f;

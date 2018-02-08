@@ -168,6 +168,12 @@ public abstract class Champion : MonoBehaviour {
                     if (Input.GetButtonDown(JumpButton) && IsGrounded())
                     {
                         jumping = true;
+                    } else
+                    {
+                        if (Input.GetButtonDown(JumpButton) && !IsGrounded())
+                        {
+                            jumping = true;
+                        }
                     }
 
                     if (InputStatus != Enum_InputStatus.blocked)
@@ -195,7 +201,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < 0 && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready)
+        if (rb != null && rb.velocity.y < 0 && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false)
         {
             animator.SetBool("Jump", false);
             rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -408,6 +414,14 @@ public abstract class Champion : MonoBehaviour {
             rb.AddForce(new Vector2(0, jumpHeight * rb.mass), ForceMode2D.Impulse);
             animator.SetBool("Jump", true);
             jumping = false;
+        } else
+        {
+            if (rb != null && !IsGrounded())
+            {
+                rb.AddForce(new Vector2(0, - jumpHeight * rb.mass), ForceMode2D.Impulse);
+                animator.SetBool("Jump", true);
+                jumping = false;
+            }
         }
     }
 
