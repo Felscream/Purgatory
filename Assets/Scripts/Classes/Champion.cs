@@ -84,6 +84,7 @@ public abstract class Champion : MonoBehaviour {
     protected Animator animator;
     protected Vector2 savedVelocity;
     protected Collider2D playerBox;
+    protected Collider2D physicBox;
     protected bool jumping, immune = false, parrying = false, fatigued = false, attacking = false, dead = false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
@@ -111,7 +112,8 @@ public abstract class Champion : MonoBehaviour {
         health = baseHealth;
         stamina = baseStamina;
         limitBreakGauge = 0.0f;
-        distToGround = GetComponent<Collider2D>().bounds.extents.y;
+        physicBox = GetComponent<Collider2D>();
+        distToGround = physicBox.bounds.extents.y;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         animator.SetFloat("FaceX", facing);
@@ -197,7 +199,7 @@ public abstract class Champion : MonoBehaviour {
         {
             animator.SetBool("Jump", false);
             rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-            if (rb.velocity.y < 0.1)
+            if (rb.velocity.y < -0.1)
             {
                 animator.SetBool("Fall", true);
             }
@@ -412,7 +414,13 @@ public abstract class Champion : MonoBehaviour {
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
-        if (Physics2D.Raycast(transform.position, -Vector2.up, distToGround + 0.5f, LayerMask.GetMask("Obstacle")))
+        Vector2 center = new Vector2(physicBox.bounds.center.x, physicBox.bounds.min.y);//+ (Vector2)transform.position;
+        float radius = 0.2f;
+
+        //if (Physics2D.Raycast(transform.position, -Vector2.up, distToGround + 0.1f, LayerMask.GetMask("Obstacle")))
+        //if (Physics2D.OverlapArea(pointA, pointB, LayerMask.GetMask("Obstacle")))
+        Debug.Log(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")));
+        if(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")))
         {
             animator.SetBool("Jump", false);
             animator.SetBool("Fall", false);
