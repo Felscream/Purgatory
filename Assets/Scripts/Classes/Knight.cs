@@ -34,6 +34,19 @@ public class Knight : Champion {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(new Vector3(EnhancedComboTwoOffsetX, EnhancedComboTwoOffsetY, 1) + transform.position, new Vector3(EnhancedComboTwoSizeX, EnhancedComboTwoSizeY, 1));
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+        {
+            if(powerUp is IncreasedRange)
+            {
+                IncreasedRange temp = (IncreasedRange)powerUp;
+                temp.StopPowerUp();
+            }
+        }
+    }
     protected override void LateUpdate()
     {
         base.LateUpdate();

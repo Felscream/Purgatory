@@ -94,12 +94,12 @@ public abstract class Champion : MonoBehaviour {
     protected Slider staminaSlider;
 
     // valeurs par défaut
-    private string HorizontalCtrl = "Horizontal";
-    private string JumpButton = "Jump";
-    private string DodgeButton = "Dodge";
-    private string PrimaryAttackButton = "PrimaryAttack";
-    private string PowerUpButton = "PowerUp";
-    private float movementX, movementY;
+    protected string HorizontalCtrl = "Horizontal";
+    protected string JumpButton = "Jump";
+    protected string DodgeButton = "Dodge";
+    protected string PrimaryAttackButton = "PrimaryAttack";
+    protected string PowerUpButton = "Up";
+    protected float movementX, movementY;
 
     protected PowerUp powerUp;
 

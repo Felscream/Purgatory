@@ -12,12 +12,12 @@ public class PlayerInput : MonoBehaviour {
     public string Dodge;
     public string PrimaryAttack;
     public string PowerUp;
-    private void Start()
+    private void Awake()
     {
         fighter = GetComponentInChildren<Champion>();
     }
     // Update is called once per frame
-    private void Update()
+    private void Start()
     {
         GetPlayerControlInput();
 

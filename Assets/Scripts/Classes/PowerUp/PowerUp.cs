@@ -10,7 +10,7 @@ public enum Enum_PowerUpStatus
     onCooldown
 }
 
-public class PowerUp : MonoBehaviour {
+public abstract class PowerUp : MonoBehaviour {
     [Header("PowerUp Settings")]
     [SerializeField] protected float cooldown = 1;
     [SerializeField] protected float duration = 1;
@@ -20,7 +20,7 @@ public class PowerUp : MonoBehaviour {
     protected float cooldownTimer, activationTimer;
     protected Enum_PowerUpStatus powerUpStatus;
     // Use this for initialization
-    void Start () {
+    protected void Start () {
         holder = GetComponent<Champion>();
         if(holder != null)
         {
@@ -30,7 +30,7 @@ public class PowerUp : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
+	virtual protected void LateUpdate () {
         switch (powerUpStatus)
         {
             case Enum_PowerUpStatus.activated:
@@ -40,6 +40,7 @@ public class PowerUp : MonoBehaviour {
                 CheckCooldownDuration();
                 break;
         }
+        Debug.Log(powerUpStatus);
 	}
 
     public virtual void ActivatePowerUp()
@@ -50,7 +51,6 @@ public class PowerUp : MonoBehaviour {
             powerUpStatus = Enum_PowerUpStatus.activated;
             activationTimer = 0.0f;
             anim.SetBool("PoweredUp", true);
-            Debug.Log("PowerUp");
         }
             
     }
@@ -63,11 +63,12 @@ public class PowerUp : MonoBehaviour {
             powerUpStatus = Enum_PowerUpStatus.onCooldown;
             cooldownTimer = 0.0f;
             anim.SetBool("PoweredUp", false);
-        }  
+        }
     }
     
     protected virtual void CheckCooldownDuration()
     {
+        anim.SetBool("PoweredUp", false);
         cooldownTimer += Time.deltaTime;
         if (cooldownTimer >= cooldown)
         {
