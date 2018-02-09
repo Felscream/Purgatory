@@ -308,6 +308,7 @@ MonoBehaviour:
   cooldown: 10
   duration: 10
   staminaCost: 0
+  timeToDisable: 1.5
 --- !u!114 &114540267219907982
 MonoBehaviour:
   m_ObjectHideFlags: 1

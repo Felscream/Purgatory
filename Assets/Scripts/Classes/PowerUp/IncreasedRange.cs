@@ -22,9 +22,7 @@ public class IncreasedRange : PowerUp {
     {
         if(powerUpStatus == Enum_PowerUpStatus.activated && disableTimer >= timeToDisable)
         {
-            Debug.Log("stopped");
             cooldownTimer = cooldown - (activationTimer / duration) * cooldown;
-            Debug.Log(cooldownTimer);
             powerUpStatus = Enum_PowerUpStatus.onCooldown;
         }
     }

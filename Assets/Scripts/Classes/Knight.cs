@@ -38,7 +38,7 @@ public class Knight : Champion {
     protected override void Update()
     {
         base.Update();
-        if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+        if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
         {
             if(powerUp is IncreasedRange)
             {

@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 61936097192430986}
   - component: {fileID: 82921608169181338}
   - component: {fileID: 114876650093615916}
+  - component: {fileID: 114936663263609660}
   m_Layer: 8
   m_Name: Knight
   m_TagString: Champion
@@ -447,6 +448,21 @@ MonoBehaviour:
   EnhancedComboTwoSizeY: 1
   EnhancedComboTwoOffsetX: 0
   EnhancedComboTwoOffsetY: 0
+--- !u!114 &114936663263609660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805998530430974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0b65d1f7e38864185894813c41d2d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  duration: 10
+  staminaCost: 0
+  timeToDisable: 1.5
 --- !u!212 &212219633229464040
 SpriteRenderer:
   m_ObjectHideFlags: 1
