@@ -365,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Horizontal: Horizontal_P1
+  Vertical: Vertical_P1
   Jump: Jump_P1
   Dodge: Dodge_P1
   PrimaryAttack: PrimaryAttack_P1

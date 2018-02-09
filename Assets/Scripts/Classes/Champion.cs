@@ -93,12 +93,15 @@ public abstract class Champion : MonoBehaviour {
     protected Slider healthSlider;
     protected Slider staminaSlider;
 
-    // valeurs par défaut
+    // INPUTS valeurs par défaut
     protected string HorizontalCtrl = "Horizontal";
+    protected string VerticalCtrl = "Vertical";
     protected string JumpButton = "Jump";
     protected string DodgeButton = "Dodge";
     protected string PrimaryAttackButton = "PrimaryAttack";
     protected string PowerUpButton = "Up";
+
+
     protected float movementX, movementY;
 
     protected PowerUp powerUp;
@@ -181,8 +184,10 @@ public abstract class Champion : MonoBehaviour {
                     if (InputStatus != Enum_InputStatus.blocked)
                     {
                         movementX = Input.GetAxisRaw(HorizontalCtrl);
-                        //MOVING
-
+                        if (!IsGrounded() && Input.GetAxis(VerticalCtrl) == -1 )
+                        {
+                            Fall();
+                        }
                     }
 
                 }
@@ -205,15 +210,19 @@ public abstract class Champion : MonoBehaviour {
     {
         if (rb != null && rb.velocity.y < 0 && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false)
         {
-            animator.SetBool("Jump", false);
-            rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-            if (rb.velocity.y < -0.1)
-            {
-                animator.SetBool("Fall", true);
-            }
+            Fall();
         }
     }
 
+    protected void Fall()
+    {
+        animator.SetBool("Jump", false);
+        rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        if (rb.velocity.y < -0.01)
+        {
+            animator.SetBool("Fall", true);
+        }
+    }
     protected virtual void RegenerateStaminaPerSecond()
     {
         float staminaRegen = staminaRegenerationPerSecond;
@@ -445,27 +454,32 @@ public abstract class Champion : MonoBehaviour {
         return false;
     }
 
-    public virtual void SetHorizontalCtrl(string HCtrl)
+    public void SetHorizontalCtrl(string HCtrl)
     {
         HorizontalCtrl = HCtrl;
     }
 
-    public virtual void SetJumpButton(string JButton)
+    public void SetVerticalCtrl(string VCtrl)
+    {
+        VerticalCtrl = VCtrl;
+    }
+
+    public void SetJumpButton(string JButton)
     {
         JumpButton = JButton;
     }
 
-    public virtual void SetDodgeButton(string DButton)
+    public void SetDodgeButton(string DButton)
     {
         DodgeButton = DButton;
     }
 
-    public virtual void SetPrimaryAttackButton(string PAButton)
+    public void SetPrimaryAttackButton(string PAButton)
     {
         PrimaryAttackButton = PAButton;
     }
 
-    public virtual void SetPowerUpButton(string PUButton)
+    public void SetPowerUpButton(string PUButton)
     {
         PowerUpButton = PUButton;
     }

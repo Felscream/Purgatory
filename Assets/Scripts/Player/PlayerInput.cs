@@ -8,10 +8,12 @@ public class PlayerInput : MonoBehaviour {
     private Champion fighter;
 
     public string Horizontal;
+    public string Vertical;
     public string Jump;
     public string Dodge;
     public string PrimaryAttack;
     public string PowerUp;
+
     private void Awake()
     {
         fighter = GetComponentInChildren<Champion>();
@@ -43,33 +45,23 @@ public class PlayerInput : MonoBehaviour {
     ***************************/
     public void GetPlayerControlInput()
     {
-        //MOVEMENT
+        
         if(fighter != null)
         {
+            //MOVEMENT
             fighter.SetHorizontalCtrl(Horizontal);
-        }
+            fighter.SetVerticalCtrl(Vertical);
 
-        //JUMP
-        if (fighter != null)
-        {
+            //JUMP
             fighter.SetJumpButton(Jump);
-        }
 
-        //DODGE
-        if (fighter != null)
-        {
+            //DODGE
             fighter.SetDodgeButton(Dodge);
-        }
 
-        //PRIMARYATTACK
-        if (fighter != null)
-        {
+            //PRIMARYATTACK
             fighter.SetPrimaryAttackButton(PrimaryAttack);
-        }
 
-        //POWERUP
-        if (fighter != null)
-        {
+            //POWERUP
             fighter.SetPowerUpButton(PowerUp);
         }
     }
