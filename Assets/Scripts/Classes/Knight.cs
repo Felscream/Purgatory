@@ -10,18 +10,24 @@ public class Knight : Champion {
     [SerializeField] protected float comboTwoSizeY = 1;
     [SerializeField] protected float comboTwoOffsetX = 0;
     [SerializeField] protected float comboTwoOffsetY = 0;
+    [SerializeField] protected int comboTwoStunLock = 5;
+    [SerializeField] protected Vector2 comboTwoRecoilForce;
 
     [Header("EnhancedCombo1Settings")]
     [SerializeField] protected float EnhancedComboOneSizeX = 1;
     [SerializeField] protected float EnhancedComboOneSizeY = 1;
     [SerializeField] protected float EnhancedComboOneOffsetX = 0;
     [SerializeField] protected float EnhancedComboOneOffsetY = 0;
+    [SerializeField] protected int EnhancedComboOneStunLock = 5;
+    [SerializeField] protected Vector2 EnhancedComboOneRecoilForce;
 
     [Header("EnhancedCombo2Settings")]
     [SerializeField] protected float EnhancedComboTwoSizeX = 1;
     [SerializeField] protected float EnhancedComboTwoSizeY = 1;
     [SerializeField] protected float EnhancedComboTwoOffsetX = 0;
     [SerializeField] protected float EnhancedComboTwoOffsetY = 0;
+    [SerializeField] protected int EnhancedComboTwoStunLock = 5;
+    [SerializeField] protected Vector2 EnhancedComboTwoRecoilForce;
 
     public void OnDrawGizmosSelected()
     {
@@ -66,7 +72,9 @@ public class Knight : Champion {
         Debug.Log("In");
         Vector2 pos = new Vector2(0,0);
         Vector2 size = new Vector2(0, 0);
+        Vector2 recoilForce = Vector2.zero;
         int damage = 0;
+        int stunLock = 0;
         float dir = facing != 0.0f ? facing : 1;
         Collider2D[] hits;
         if(attackType >= 0 && attackType < 5)
@@ -78,25 +86,29 @@ public class Knight : Champion {
                     pos = new Vector2(comboOneOffsetX * dir, comboOneOffsetY) + (Vector2)transform.position;
                     size = new Vector2(comboOneSizeX, comboOneSizeY);
                     damage = comboOneDamage;
-                    //hits = Physics2D.OverlapBoxAll(pos, size, 0.0f, LayerMask.NameToLayer("Obstacle"));
+                    stunLock = comboOneStunLock;
+                    recoilForce = comboOneRecoilForce;
                     break;
                 case 1: //combo two
                     pos = new Vector2(comboTwoOffsetX * dir, comboTwoOffsetY) + (Vector2)transform.position;
                     size = new Vector2(comboTwoSizeX, comboTwoSizeY);
                     damage = comboTwoDamage;
-                    
+                    stunLock = comboTwoStunLock;
+                    recoilForce = comboTwoRecoilForce;
                     break;
                 case 2: //enhanced combo one
                     pos = new Vector2(EnhancedComboOneOffsetX * dir, EnhancedComboOneOffsetY) + (Vector2)transform.position;
                     size = new Vector2(EnhancedComboOneSizeX, EnhancedComboOneSizeY);
                     damage = comboOneDamage;
-                    //hits = Physics2D.OverlapBoxAll(pos, size, 0.0f, hitBoxLayer);
+                    stunLock = EnhancedComboOneStunLock;
+                    recoilForce = EnhancedComboOneRecoilForce;
                     break;
                 case 3: // enhanced combo two
                     pos = new Vector2(EnhancedComboTwoOffsetX * dir, EnhancedComboTwoOffsetY) + (Vector2)transform.position;
                     size = new Vector2(EnhancedComboTwoSizeX, EnhancedComboTwoSizeY);
                     damage = comboTwoDamage;
-                    //hits = Physics2D.OverlapBoxAll(pos, size, 0.0f, LayerMask.NameToLayer("Obstacle"));
+                    stunLock = EnhancedComboTwoStunLock;
+                    recoilForce = EnhancedComboTwoRecoilForce;
                     break;
                 //to implement : special and ultimate
                 default:
@@ -109,10 +121,10 @@ public class Knight : Champion {
         {
             foreach(Collider2D col in hits)
             {
-                if(col.gameObject.transform.parent.name != transform.parent.name)
+                if(col.gameObject.transform.parent.name != transform.parent.name && !col.gameObject.GetComponent<Champion>().Dead)
                 {
                     Debug.Log("Hit " + col.gameObject.name);
-                    col.gameObject.GetComponent<Champion>().ApplyDamage(damage);
+                    col.gameObject.GetComponent<Champion>().ApplyDamage(damage, facing, stunLock, recoilForce);
                 }
             }
         }

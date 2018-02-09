@@ -73,11 +73,13 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float comboOneSizeY = 1;
     [SerializeField] protected float comboOneOffsetX = 0;
     [SerializeField] protected float comboOneOffsetY = 0;
-
+    [SerializeField] protected int comboOneStunLock = 5;
+    [SerializeField] protected Vector2 comboOneRecoilForce;
+    
     [Header("HUDSettings")]
     [SerializeField] protected CanvasGroup playerHUD;
 
-    protected int health;
+    protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter;
     protected float distToGround, facing;
@@ -144,6 +146,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!dead)
         {
+            CheckStunLock();
             CheckFatigue();
             CheckDodge();
             if (InputStatus == Enum_InputStatus.blocked)
@@ -299,19 +302,38 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public void ApplyDamage(int dmg)
+    public void ApplyStunLock(int duration) // Player can't execute action while damaged
     {
-        /*if (health > dmg)
+        stunlockFrameCounter = 0;
+        framesToStunLock = duration;
+        inputStatus = Enum_InputStatus.blocked;
+        animator.SetBool("Damaged", true);
+    }
+
+    public void CheckStunLock()
+    {
+        if(framesToStunLock > 0)
         {
-            health -= dmg;
+            stunlockFrameCounter++;
+            if (stunlockFrameCounter >= framesToStunLock)
+            {
+                framesToStunLock = 0;
+                stunlockFrameCounter = 0;
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                animator.SetBool("Damaged", false);
+                inputStatus = Enum_InputStatus.allowed;
+            }
         }
-        else
-        {
-            health = 0;
-        }*/
+    }
+
+    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce)
+    {
         if (!Immunity)
         {
             health = Mathf.Max(health - dmg, 0);
+            animator.SetFloat("AttackerFacing", attackerFacing);
+            ApplyStunLock(stunLock);
+            rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
         }
 
         Debug.Log("Health :" + health);
@@ -320,6 +342,11 @@ public abstract class Champion : MonoBehaviour {
         if (health == 0)
         {
             inputStatus = Enum_InputStatus.blocked;
+            animator.SetBool("Damaged", false);
+            animator.SetBool("Dodge", false);
+            animator.SetBool("Jump", false);
+            animator.SetBool("Fall", false);
+            animator.SetBool("Moving", false);
             dead = true;
             playerBox.enabled = false;
             Debug.Log(transform.parent.name + " died");
@@ -565,6 +592,14 @@ public abstract class Champion : MonoBehaviour {
         get
         {
             return attacking;
+        }
+    }
+
+    public bool Dead
+    {
+        get
+        {
+            return dead;
         }
     }
 }

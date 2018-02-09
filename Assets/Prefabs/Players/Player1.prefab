@@ -89,7 +89,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905702746621078}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.120000005, y: -4.97, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4891901353683728}
@@ -340,20 +340,28 @@ MonoBehaviour:
   comboOneSizeY: 1.6
   comboOneOffsetX: 1.6
   comboOneOffsetY: 0.12
+  comboOneStunLock: 5
+  comboOneRecoilForce: {x: 5, y: 0}
   playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoSizeX: 2.55
   comboTwoSizeY: 2.19
   comboTwoOffsetX: 1.72
   comboTwoOffsetY: 0.1
+  comboTwoStunLock: 5
+  comboTwoRecoilForce: {x: 5, y: 0}
   EnhancedComboOneSizeX: 3.8
   EnhancedComboOneSizeY: 2.02
   EnhancedComboOneOffsetX: 2.26
   EnhancedComboOneOffsetY: 0.18
+  EnhancedComboOneStunLock: 5
+  EnhancedComboOneRecoilForce: {x: 5, y: 0}
   EnhancedComboTwoSizeX: 5.15
   EnhancedComboTwoSizeY: 3.76
   EnhancedComboTwoOffsetX: 2.94
   EnhancedComboTwoOffsetY: 0.74
+  EnhancedComboTwoStunLock: 5
+  EnhancedComboTwoRecoilForce: {x: 5, y: 0}
 --- !u!114 &114224052577931090
 MonoBehaviour:
   m_ObjectHideFlags: 1

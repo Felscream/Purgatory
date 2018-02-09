@@ -294,20 +294,28 @@ MonoBehaviour:
   comboOneSizeY: 1.6
   comboOneOffsetX: 1.6
   comboOneOffsetY: 0.12
+  comboOneStunLock: 5
+  comboOneRecoilForce: {x: 5, y: 0}
   playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoSizeX: 2.55
   comboTwoSizeY: 2.19
   comboTwoOffsetX: 1.72
   comboTwoOffsetY: 0.1
+  comboTwoStunLock: 5
+  comboTwoRecoilForce: {x: 5, y: 0}
   EnhancedComboOneSizeX: 3.8
   EnhancedComboOneSizeY: 2.02
   EnhancedComboOneOffsetX: 2.26
   EnhancedComboOneOffsetY: 0.18
+  EnhancedComboOneStunLock: 5
+  EnhancedComboOneRecoilForce: {x: 5, y: 0}
   EnhancedComboTwoSizeX: 5.15
   EnhancedComboTwoSizeY: 3.76
   EnhancedComboTwoOffsetX: 2.94
   EnhancedComboTwoOffsetY: 0.74
+  EnhancedComboTwoStunLock: 5
+  EnhancedComboTwoRecoilForce: {x: 5, y: 0}
 --- !u!212 &212254687572132266
 SpriteRenderer:
   m_ObjectHideFlags: 1

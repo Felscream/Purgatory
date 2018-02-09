@@ -40,7 +40,6 @@ public abstract class PowerUp : MonoBehaviour {
                 CheckCooldownDuration();
                 break;
         }
-        Debug.Log(powerUpStatus);
 	}
 
     public virtual void ActivatePowerUp()
