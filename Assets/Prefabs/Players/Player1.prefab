@@ -311,7 +311,7 @@ MonoBehaviour:
   jumpHeight: 10
   fatiguedSpeedReduction: 1.5
   fallMultiplier: 7
-  jumpVelocityAtApex: 2
+  jumpVelocityAtApex: 3
   dodgeSpeed: 20
   dodgeStaminaCost: 10
   dodgeFrames: 7
