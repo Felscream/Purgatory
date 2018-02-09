@@ -632,6 +632,11 @@ Prefab:
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 450321680}
+    - target: {fileID: 114015951664411294, guid: 572983d17da8b2549b782b3a4bbed117,
+        type: 2}
+      propertyPath: fallMultiplier
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 572983d17da8b2549b782b3a4bbed117, type: 2}
   m_IsPrefabParent: 0

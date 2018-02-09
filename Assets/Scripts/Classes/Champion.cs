@@ -34,6 +34,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float jumpHeight = 10;
     [SerializeField] protected float fatiguedSpeedReduction = 1.2f;
     [SerializeField] protected float fallMultiplier;
+    [SerializeField] protected float jumpVelocityAtApex = 2.0f;
 
     [Header("Dodge Settings")]
     [SerializeField] protected float dodgeSpeed = 40.0f;
@@ -208,7 +209,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < 0 && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false)
+        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false)
         {
             Fall();
         }
@@ -218,10 +219,8 @@ public abstract class Champion : MonoBehaviour {
     {
         animator.SetBool("Jump", false);
         rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        if (rb.velocity.y < -0.01)
-        {
+
             animator.SetBool("Fall", true);
-        }
     }
     protected virtual void RegenerateStaminaPerSecond()
     {
