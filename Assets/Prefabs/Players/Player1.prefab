@@ -338,30 +338,22 @@ MonoBehaviour:
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 256
-  comboOneSizeX: 2.2
-  comboOneSizeY: 1.6
-  comboOneOffsetX: 1.6
-  comboOneOffsetY: 0.12
+  comboOneOffset: {x: 1.6, y: 0.12}
+  comboOneSize: {x: 2.2, y: 1.6}
   comboOneStunLock: 5
   comboOneRecoilForce: {x: 5, y: 0}
   playerHUD: {fileID: 0}
   comboTwoDamage: 20
-  comboTwoSizeX: 2.55
-  comboTwoSizeY: 2.19
-  comboTwoOffsetX: 1.72
-  comboTwoOffsetY: 0.1
+  comboTwoOffset: {x: 1.72, y: 0.1}
+  comboTwoSize: {x: 2.55, y: 2.19}
   comboTwoStunLock: 5
   comboTwoRecoilForce: {x: 5, y: 0}
-  EnhancedComboOneSizeX: 3.8
-  EnhancedComboOneSizeY: 2.02
-  EnhancedComboOneOffsetX: 2.26
-  EnhancedComboOneOffsetY: 0.18
+  EnhancedComboOneOffset: {x: 2.26, y: 0.18}
+  EnhancedComboOneSize: {x: 3.8, y: 2.02}
   EnhancedComboOneStunLock: 5
   EnhancedComboOneRecoilForce: {x: 5, y: 0}
-  EnhancedComboTwoSizeX: 5.15
-  EnhancedComboTwoSizeY: 3.76
-  EnhancedComboTwoOffsetX: 2.94
-  EnhancedComboTwoOffsetY: 0.74
+  EnhancedComboTwoOffset: {x: 2.94, y: 0.74}
+  EnhancedComboTwoSize: {x: 5.15, y: 3.76}
   EnhancedComboTwoStunLock: 5
   EnhancedComboTwoRecoilForce: {x: 5, y: 0}
 --- !u!114 &114224052577931090

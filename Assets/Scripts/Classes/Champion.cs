@@ -79,10 +79,8 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected LayerMask hitBoxLayer;
 
     [Header("Combo1Settings")]
-    [SerializeField] protected float comboOneSizeX = 1;
-    [SerializeField] protected float comboOneSizeY = 1;
-    [SerializeField] protected float comboOneOffsetX = 0;
-    [SerializeField] protected float comboOneOffsetY = 0;
+    [SerializeField] protected Vector2 comboOneOffset = new Vector2(0,0);
+    [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
     [SerializeField] protected int comboOneStunLock = 5;
     [SerializeField] protected Vector2 comboOneRecoilForce;
     

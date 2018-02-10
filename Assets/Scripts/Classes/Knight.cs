@@ -6,39 +6,33 @@ public class Knight : Champion {
 
     [Header("Combo2Settings")]
     [SerializeField] protected int comboTwoDamage = 20;
-    [SerializeField] protected float comboTwoSizeX = 1;
-    [SerializeField] protected float comboTwoSizeY = 1;
-    [SerializeField] protected float comboTwoOffsetX = 0;
-    [SerializeField] protected float comboTwoOffsetY = 0;
+    [SerializeField] protected Vector2 comboTwoOffset = new Vector2(0, 0);
+    [SerializeField] protected Vector2 comboTwoSize = new Vector2(1, 1);
     [SerializeField] protected int comboTwoStunLock = 5;
     [SerializeField] protected Vector2 comboTwoRecoilForce;
 
     [Header("EnhancedCombo1Settings")]
-    [SerializeField] protected float EnhancedComboOneSizeX = 1;
-    [SerializeField] protected float EnhancedComboOneSizeY = 1;
-    [SerializeField] protected float EnhancedComboOneOffsetX = 0;
-    [SerializeField] protected float EnhancedComboOneOffsetY = 0;
+    [SerializeField] protected Vector2 EnhancedComboOneOffset = new Vector2(0, 0);
+    [SerializeField] protected Vector2 EnhancedComboOneSize = new Vector2(1, 1);
     [SerializeField] protected int EnhancedComboOneStunLock = 5;
     [SerializeField] protected Vector2 EnhancedComboOneRecoilForce;
 
     [Header("EnhancedCombo2Settings")]
-    [SerializeField] protected float EnhancedComboTwoSizeX = 1;
-    [SerializeField] protected float EnhancedComboTwoSizeY = 1;
-    [SerializeField] protected float EnhancedComboTwoOffsetX = 0;
-    [SerializeField] protected float EnhancedComboTwoOffsetY = 0;
+    [SerializeField] protected Vector2 EnhancedComboTwoOffset = new Vector2(0, 0);
+    [SerializeField] protected Vector2 EnhancedComboTwoSize = new Vector2(1, 1);
     [SerializeField] protected int EnhancedComboTwoStunLock = 5;
     [SerializeField] protected Vector2 EnhancedComboTwoRecoilForce;
 
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(new Vector3(comboOneOffsetX, comboOneOffsetY, 0) + transform.position, new Vector3(comboOneSizeX, comboOneSizeY, 1));
+        Gizmos.DrawWireCube(new Vector3(comboOneOffset.x, comboOneOffset.y, 0) + transform.position, new Vector3(comboOneSize.x, comboOneSize.y, 1));
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(new Vector3(comboTwoOffsetX, comboTwoOffsetY, 0) + transform.position, new Vector3(comboTwoSizeX, comboTwoSizeY, 1));
+        Gizmos.DrawWireCube(new Vector3(comboTwoOffset.x, comboTwoOffset.y, 0) + transform.position, new Vector3(comboTwoSize.x, comboTwoSize.y, 1));
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector3(EnhancedComboOneOffsetX, EnhancedComboOneOffsetY, 0) + transform.position, new Vector3(EnhancedComboOneSizeX, EnhancedComboOneSizeY, 1));
+        Gizmos.DrawWireCube(new Vector3(EnhancedComboOneOffset.x, EnhancedComboOneOffset.y, 0) + transform.position, new Vector3(EnhancedComboOneSize.x, EnhancedComboOneSize.y, 1));
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(new Vector3(EnhancedComboTwoOffsetX, EnhancedComboTwoOffsetY, 1) + transform.position, new Vector3(EnhancedComboTwoSizeX, EnhancedComboTwoSizeY, 1));
+        Gizmos.DrawWireCube(new Vector3(EnhancedComboTwoOffset.x, EnhancedComboTwoOffset.y, 1) + transform.position, new Vector3(EnhancedComboTwoSize.x, EnhancedComboTwoSize.y, 1));
     }
 
     protected override void Update()
@@ -83,29 +77,29 @@ public class Knight : Champion {
             {
                 case 0: //combo one
                     Debug.Log("1");
-                    pos = new Vector2(comboOneOffsetX * dir, comboOneOffsetY) + (Vector2)transform.position;
-                    size = new Vector2(comboOneSizeX, comboOneSizeY);
+                    pos = new Vector2(comboOneOffset.x * dir, comboOneOffset.y) + (Vector2)transform.position;
+                    size = comboOneSize;
                     damage = comboOneDamage;
                     stunLock = comboOneStunLock;
                     recoilForce = comboOneRecoilForce;
                     break;
                 case 1: //combo two
-                    pos = new Vector2(comboTwoOffsetX * dir, comboTwoOffsetY) + (Vector2)transform.position;
-                    size = new Vector2(comboTwoSizeX, comboTwoSizeY);
+                    pos = new Vector2(comboTwoOffset.x * dir, comboTwoOffset.y) + (Vector2)transform.position;
+                    size = comboTwoSize;
                     damage = comboTwoDamage;
                     stunLock = comboTwoStunLock;
                     recoilForce = comboTwoRecoilForce;
                     break;
                 case 2: //enhanced combo one
-                    pos = new Vector2(EnhancedComboOneOffsetX * dir, EnhancedComboOneOffsetY) + (Vector2)transform.position;
-                    size = new Vector2(EnhancedComboOneSizeX, EnhancedComboOneSizeY);
+                    pos = new Vector2(EnhancedComboOneOffset.x * dir, EnhancedComboOneOffset.y) + (Vector2)transform.position;
+                    size = new Vector2(EnhancedComboOneSize.x, EnhancedComboOneSize.y);
                     damage = comboOneDamage;
                     stunLock = EnhancedComboOneStunLock;
                     recoilForce = EnhancedComboOneRecoilForce;
                     break;
                 case 3: // enhanced combo two
-                    pos = new Vector2(EnhancedComboTwoOffsetX * dir, EnhancedComboTwoOffsetY) + (Vector2)transform.position;
-                    size = new Vector2(EnhancedComboTwoSizeX, EnhancedComboTwoSizeY);
+                    pos = new Vector2(EnhancedComboTwoOffset.x * dir, EnhancedComboTwoOffset.y) + (Vector2)transform.position;
+                    size = new Vector2(EnhancedComboTwoSize.x, EnhancedComboTwoSize.y);
                     damage = comboTwoDamage;
                     stunLock = EnhancedComboTwoStunLock;
                     recoilForce = EnhancedComboTwoRecoilForce;
