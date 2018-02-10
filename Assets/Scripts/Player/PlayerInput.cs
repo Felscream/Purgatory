@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour {
     public string Dodge;
     public string PrimaryAttack;
     public string PowerUp;
+    public string Guard;
 
     private void Awake()
     {
@@ -23,11 +24,6 @@ public class PlayerInput : MonoBehaviour {
     {
         GetPlayerControlInput();
 
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 
     private bool ObjectsInstantiated()
@@ -63,6 +59,9 @@ public class PlayerInput : MonoBehaviour {
 
             //POWERUP
             fighter.SetPowerUpButton(PowerUp);
+
+            //GUARD
+            fighter.SetGuardButton(Guard);
         }
     }
 }

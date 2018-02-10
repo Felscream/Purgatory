@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 29ea51f6426df994f884d8cfaa3f8191
-timeCreated: 1517249339
+timeCreated: 1518229105
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,8 @@ TextureImporter:
     21300002: Left_Guard_Knight_264x192_sheet_1
     21300004: Left_Guard_Knight_264x192_sheet_2
     21300006: Left_Guard_Knight_264x192_sheet_3
+    21300008: Left_Guard_Knight_264x192_sheet_4
+    21300010: Left_Guard_Knight_264x192_sheet_5
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -112,7 +114,7 @@ TextureImporter:
         width: 264
         height: 192
       alignment: 9
-      pivot: {x: 0.62, y: 0.36}
+      pivot: {x: 0.62, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -126,7 +128,7 @@ TextureImporter:
         width: 264
         height: 192
       alignment: 9
-      pivot: {x: 0.585, y: 0.3}
+      pivot: {x: 0.59, y: 0.36}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -135,12 +137,12 @@ TextureImporter:
       name: Left_Guard_Knight_264x192_sheet_2
       rect:
         serializedVersion: 2
-        x: 528
+        x: 527
         y: 0
         width: 264
         height: 192
       alignment: 9
-      pivot: {x: 0.5, y: 0.23}
+      pivot: {x: 0.5, y: 0.36}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -154,7 +156,35 @@ TextureImporter:
         width: 264
         height: 192
       alignment: 9
-      pivot: {x: 0.5, y: 0.23}
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Left_Guard_Knight_264x192_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 0
+        width: 264
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Left_Guard_Knight_264x192_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 0
+        width: 264
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

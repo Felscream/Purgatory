@@ -348,6 +348,8 @@ MonoBehaviour:
   dodgeToken: 1
   parryStaminaCost: 30
   parryImmunityFrames: 30
+  damageReductionMultiplier: 0.2
+  blockStaminaCostMultiplier: 2
   baseStamina: 100
   staminaRegenerationPerSecond: 30
   staminaRegenerationCooldown: 1.5
@@ -405,7 +407,8 @@ MonoBehaviour:
   Jump: Jump_P3
   Dodge: Dodge_P3
   PrimaryAttack: PrimaryAttack_P3
-  PowerUp: PowerUp_P4
+  PowerUp: PowerUp_P3
+  Guard: 
 --- !u!212 &212266402935134566
 SpriteRenderer:
   m_ObjectHideFlags: 1

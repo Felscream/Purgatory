@@ -12,6 +12,12 @@ public enum Enum_InputStatus
     onlyMovement
 }
 
+public enum Enum_GuardStatus
+{
+    noGuard,
+    guarding,
+    parrying
+}
 public enum Enum_DodgeStatus
 {
     ready,
@@ -48,6 +54,10 @@ public abstract class Champion : MonoBehaviour {
     [Header("Parry Settings")]
     [SerializeField] protected int parryStaminaCost = 60;
     [SerializeField] protected int parryImmunityFrames = 30;
+
+    [Header("Guard Settings")]
+    [SerializeField] protected float damageReductionMultiplier = 0.2f;
+    [SerializeField] protected float blockStaminaCostMultiplier = 2.0f;
 
     [Header("Stamina Settings")]
     [SerializeField] public float baseStamina = 100f;
@@ -92,6 +102,7 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
+    protected Enum_GuardStatus guardStatus = Enum_GuardStatus.noGuard;
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
@@ -103,6 +114,7 @@ public abstract class Champion : MonoBehaviour {
     protected string DodgeButton = "Dodge";
     protected string PrimaryAttackButton = "PrimaryAttack";
     protected string PowerUpButton = "Up";
+    protected string GuardButton = "Guard";
 
 
     protected float movementX, movementY;
@@ -163,13 +175,21 @@ public abstract class Champion : MonoBehaviour {
 
                 if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
                 {
-                    if (Input.GetButtonDown(PrimaryAttackButton))
+                    if (Input.GetButtonDown(PrimaryAttackButton) && guardStatus == Enum_GuardStatus.noGuard)
                     {
                         PrimaryAttack();
                     }
-                    
-                    /*Debug.Log(animator.GetCurrentAnimatorStateInfo(0).tagHash);
-                    Debug.Log(animator.GetCurrentAnimatorStateInfo(0).IsName("Right_Combo_1_Normal_Attack_Knight"));*/
+
+                    if(Input.GetAxisRaw(GuardButton) != 0 && guardStatus != Enum_GuardStatus.parrying)
+                    {
+                        guardStatus = Enum_GuardStatus.guarding;
+                        animator.SetBool("Guarding", true);
+                    }
+                    if(Input.GetAxis(GuardButton) != 1)
+                    {
+                        guardStatus = Enum_GuardStatus.noGuard;
+                        animator.SetBool("Guarding", false);
+                    }
                 }
 
                 if (InputStatus != Enum_InputStatus.onlyAttack)
@@ -237,6 +257,8 @@ public abstract class Champion : MonoBehaviour {
                 staminablockedTimer += Time.deltaTime;
                 if (Fatigue){
                     inputStatus = Enum_InputStatus.onlyMovement;
+                    guardStatus = Enum_GuardStatus.noGuard;
+                    animator.SetBool("Guarding", false);
                     if (staminablockedTimer > staminaFatigueCooldown && !attacking)
                     {
                         staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
@@ -328,12 +350,21 @@ public abstract class Champion : MonoBehaviour {
 
     public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce)
     {
-        if (!Immunity)
+        if (!Immunity )
         {
-            health = Mathf.Max(health - dmg, 0);
-            animator.SetFloat("AttackerFacing", attackerFacing);
-            ApplyStunLock(stunLock);
-            rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
+            if(guardStatus == Enum_GuardStatus.guarding && attackerFacing != facing) // attacker is in front of the player and player is guarding
+            {
+                health = Mathf.Max(health - (int)Mathf.Ceil(dmg * damageReductionMultiplier), 0);
+                ReduceStamina(dmg * blockStaminaCostMultiplier);
+                animator.SetTrigger("Blocked");
+            }
+            else //attacker is behind the player or player is not guarding
+            {
+                health = Mathf.Max(health - dmg, 0);
+                animator.SetFloat("AttackerFacing", attackerFacing);
+                ApplyStunLock(stunLock);
+                rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
+            }
         }
 
         Debug.Log("Health :" + health);
@@ -342,11 +373,11 @@ public abstract class Champion : MonoBehaviour {
         if (health == 0)
         {
             inputStatus = Enum_InputStatus.blocked;
-            animator.SetBool("Damaged", false);
-            animator.SetBool("Dodge", false);
-            animator.SetBool("Jump", false);
-            animator.SetBool("Fall", false);
-            animator.SetBool("Moving", false);
+            foreach (AnimatorControllerParameter parameter in animator.parameters)
+            {
+                if (parameter.type == AnimatorControllerParameterType.Bool)
+                    animator.SetBool(parameter.name, false);
+            }
             dead = true;
             playerBox.enabled = false;
             Debug.Log(transform.parent.name + " died");
@@ -357,6 +388,7 @@ public abstract class Champion : MonoBehaviour {
         if(stamina == 0)
         {
             fatigued = true;
+
         }
         else //if(stamina >= baseStamina*0.25f) // Au moins 25% de la stamina
         {
@@ -374,7 +406,8 @@ public abstract class Champion : MonoBehaviour {
                 {
                     dodgeToken = maxDodgeToken;
                 }
-                if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed && !fatigued && dodgeToken > 0)
+                if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed && 
+                    guardStatus == Enum_GuardStatus.noGuard && !fatigued && dodgeToken > 0)
                 {
                     dodgeFrameCounter = 0;
                     playerBox.enabled = false;
@@ -420,12 +453,8 @@ public abstract class Champion : MonoBehaviour {
         Vector2 movement = new Vector2(moveX, moveY).normalized * currentSpeed;
 
         //not impeding X movements when aerial
-        
-        transform.Translate(movement * Time.deltaTime);
-        if(moveX != 0)
+        if (moveX != 0)
         {
-            animator.SetBool("Moving", true);
-            animator.SetFloat("MoveX", Mathf.Sign(moveX));
             facing = Mathf.Sign(moveX);
             animator.SetFloat("FaceX", facing);
         }
@@ -433,6 +462,13 @@ public abstract class Champion : MonoBehaviour {
         {
             animator.SetBool("Moving", false);
         }
+        if (guardStatus == Enum_GuardStatus.noGuard && moveX != 0)
+        {
+
+            animator.SetBool("Moving", true);
+            transform.Translate(movement * Time.deltaTime);
+        }
+        
     }
 
     protected void StopMovement(int stopForce)
@@ -468,9 +504,6 @@ public abstract class Champion : MonoBehaviour {
         Vector2 center = new Vector2(physicBox.bounds.center.x, physicBox.bounds.min.y);//+ (Vector2)transform.position;
         float radius = 0.2f;
 
-        //if (Physics2D.Raycast(transform.position, -Vector2.up, distToGround + 0.1f, LayerMask.GetMask("Obstacle")))
-        //if (Physics2D.OverlapArea(pointA, pointB, LayerMask.GetMask("Obstacle")))
-        //Debug.Log(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")));
         if(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")))
         {
             animator.SetBool("Jump", false);
@@ -508,6 +541,11 @@ public abstract class Champion : MonoBehaviour {
     public void SetPowerUpButton(string PUButton)
     {
         PowerUpButton = PUButton;
+    }
+
+    public void SetGuardButton(string GButton)
+    {
+        GuardButton = GButton;
     }
 
     public void UpdateHUD()

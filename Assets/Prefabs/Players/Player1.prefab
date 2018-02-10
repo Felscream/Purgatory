@@ -169,7 +169,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0148193985, y: 0}
+  m_Offset: {x: -0.014819384, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.35, y: 0.5}
@@ -216,7 +216,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 1.0076408
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -321,6 +321,8 @@ MonoBehaviour:
   dodgeToken: 1
   parryStaminaCost: 30
   parryImmunityFrames: 30
+  damageReductionMultiplier: 0.2
+  blockStaminaCostMultiplier: 2
   baseStamina: 100
   staminaRegenerationPerSecond: 30
   staminaRegenerationCooldown: 1.5
@@ -379,6 +381,7 @@ MonoBehaviour:
   Dodge: Dodge_P1
   PrimaryAttack: PrimaryAttack_P1
   PowerUp: PowerUp_P1
+  Guard: Guard_P1
 --- !u!114 &114386484180866898
 MonoBehaviour:
   m_ObjectHideFlags: 1

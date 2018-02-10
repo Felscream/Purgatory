@@ -326,6 +326,7 @@ MonoBehaviour:
   Dodge: Dodge_P4
   PrimaryAttack: PrimaryAttack_P4
   PowerUp: PowerUp_P4
+  Guard: Guard_P4
 --- !u!114 &114775800988677294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,6 +366,8 @@ MonoBehaviour:
   dodgeToken: 1
   parryStaminaCost: 30
   parryImmunityFrames: 30
+  damageReductionMultiplier: 0.2
+  blockStaminaCostMultiplier: 2
   baseStamina: 100
   staminaRegenerationPerSecond: 30
   staminaRegenerationCooldown: 1.5

@@ -229,11 +229,6 @@ Prefab:
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 108567261}
-    - target: {fileID: 114898623794700868, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
-        type: 2}
-      propertyPath: onHitRecoilForce.x
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9, type: 2}
   m_IsPrefabParent: 0
@@ -383,7 +378,7 @@ Prefab:
     - target: {fileID: 20521416546450134, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
       propertyPath: orthographic size
-      value: 12.5625
+      value: 12.90625
       objectReference: {fileID: 0}
     - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
