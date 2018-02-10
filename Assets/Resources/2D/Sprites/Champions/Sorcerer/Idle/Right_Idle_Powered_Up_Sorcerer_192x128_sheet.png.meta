@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1227335cd97662c458d89abb35d39809
-timeCreated: 1518288870
+timeCreated: 1518290623
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -125,7 +125,7 @@ TextureImporter:
       name: Right_Idle_Powered_Up_Sorcerer_192x128_sheet_1
       rect:
         serializedVersion: 2
-        x: 190
+        x: 192
         y: 0
         width: 192
         height: 128

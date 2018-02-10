@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 43030e3d7645ce54382dde0e8ed44dad
-timeCreated: 1518289335
+timeCreated: 1518290871
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -125,12 +125,12 @@ TextureImporter:
       name: Left_Idle_Powered_Up_Sorcerer_192x128_sheet_1
       rect:
         serializedVersion: 2
-        x: 193
+        x: 190
         y: 0
         width: 192
         height: 128
       alignment: 9
-      pivot: {x: 0.45, y: 0.5}
+      pivot: {x: 0.47, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -167,12 +167,12 @@ TextureImporter:
       name: Left_Idle_Powered_Up_Sorcerer_192x128_sheet_4
       rect:
         serializedVersion: 2
-        x: 770
+        x: 768
         y: 0
         width: 192
         height: 128
       alignment: 9
-      pivot: {x: 0.45, y: 0.5}
+      pivot: {x: 0.46, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,12 +181,12 @@ TextureImporter:
       name: Left_Idle_Powered_Up_Sorcerer_192x128_sheet_5
       rect:
         serializedVersion: 2
-        x: 962
+        x: 960
         y: 0
         width: 192
         height: 128
       alignment: 9
-      pivot: {x: 0.45, y: 0.5}
+      pivot: {x: 0.46, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
