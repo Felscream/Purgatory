@@ -61,7 +61,7 @@ public class Knight : Champion {
         throw new System.NotImplementedException();
     }
 
-    protected override void CastHitBox(int attackType)
+    protected override void CastHitBox(int attackType) //function fired from animation event
     {
         Debug.Log("In");
         Vector2 pos = new Vector2(0,0);

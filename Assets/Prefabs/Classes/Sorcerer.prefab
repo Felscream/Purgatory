@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1502240114522002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.68, y: -14.78, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021701327322810}
@@ -128,7 +128,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 1390101998735192}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f32aaa946fd5d8544a02cd8dae215549, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -248,7 +248,7 @@ MonoBehaviour:
   speed: 10
   jumpHeight: 10
   fatiguedSpeedReduction: 1.2
-  fallMultiplier: 0
+  fallMultiplier: 7
   jumpVelocityAtApex: 2
   dodgeSpeed: 40
   dodgeStaminaCost: 30
@@ -276,18 +276,14 @@ MonoBehaviour:
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 2048
-  comboOneSizeX: 1
-  comboOneSizeY: 1
-  comboOneOffsetX: 0
-  comboOneOffsetY: 0
+  comboOneOffset: {x: 0, y: 0}
+  comboOneSize: {x: 1, y: 1}
   comboOneStunLock: 5
   comboOneRecoilForce: {x: 0, y: 0}
   playerHUD: {fileID: 0}
   comboTwoDamage: 20
-  comboTwoSizeX: 1
-  comboTwoSizeY: 1
-  comboTwoOffsetX: 0
-  comboTwoOffsetY: 0
+  comboTwoOffset: {x: 0, y: 0}
+  comboTwoSize: {x: 1, y: 1}
   comboTwoStunLock: 5
   comboTwoRecoilForce: {x: 0, y: 0}
 --- !u!212 &212742080940867160

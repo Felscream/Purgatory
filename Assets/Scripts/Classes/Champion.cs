@@ -394,7 +394,7 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    protected void CheckDodge()
+    protected virtual void CheckDodge()
     {
         switch (dodgeStatus)
         {
