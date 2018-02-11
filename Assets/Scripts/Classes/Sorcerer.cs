@@ -97,14 +97,16 @@ public class Sorcerer : Champion
         {
             destination = new Vector2(hit.point.x - halfColliderWidth * facing, hit.point.y);
             
+            //for debugging purposes
             /*Gizmos.color = Color.green;
             Gizmos.DrawSphere(hit.point, 0.3f);*/
         }
-        
+
+        //for debugging purposes
         /*Gizmos.color = Color.red;
         Gizmos.DrawSphere(new Vector3(destination.x, destination.y, 0), 0.5f);*/
+
         Vector2 teleportation = new Vector2(destination.x - wp.x, 0);
-        Debug.Log(destination + " " + wp + " " + teleportation);
         transform.Translate(teleportation);
     }
 
