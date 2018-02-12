@@ -170,7 +170,6 @@ public abstract class Champion : MonoBehaviour {
             }
             else
             {
-                Debug.Log(Input.GetAxisRaw(PowerUpButton));
                 if (Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
                 {
                     Debug.Log("PowerUp");

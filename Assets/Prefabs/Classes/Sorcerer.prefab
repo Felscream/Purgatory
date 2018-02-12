@@ -107,7 +107,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0148193985, y: 0}
+  m_Offset: {x: -0.014819384, y: -0.03740406}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.54, y: 0.5}
@@ -118,7 +118,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9039519, y: 2}
+  m_Size: {x: 0.9039519, y: 2.0748081}
   m_EdgeRadius: 0
 --- !u!70 &70807988273192756
 CapsuleCollider2D:
@@ -250,11 +250,11 @@ MonoBehaviour:
   fatiguedSpeedReduction: 1.2
   fallMultiplier: 7
   jumpVelocityAtApex: 2
-  dodgeSpeed: 40
-  dodgeStaminaCost: 30
-  dodgeFrames: 12
-  dodgeImmunityStartFrame: 2
-  dodgeImmunityEndFrame: 10
+  dodgeSpeed: 10
+  dodgeStaminaCost: 0
+  dodgeFrames: 30
+  dodgeImmunityStartFrame: 3
+  dodgeImmunityEndFrame: 15
   maxDodgeToken: 1
   dodgeToken: 1
   parryStaminaCost: 60
@@ -265,27 +265,27 @@ MonoBehaviour:
   staminaRegenerationPerSecond: 15
   staminaRegenerationCooldown: 1.5
   staminaFatigueCooldown: 3
-  primaryFireStaminaCost: 20
+  primaryFireStaminaCost: 0
   secondaryFireStaminaCost: 40
   maxLimitBreakGauge: 100
   limitBreakPerSecond: 0.4
   limitBreakOnHit: 2.5
   limitBreakOnDamage: 1
   comboOneDamage: 10
-  primaryAttackMovementForce: 2
+  primaryAttackMovementForce: 5
   hitBoxLayer:
     serializedVersion: 2
-    m_Bits: 2048
-  comboOneOffset: {x: 0, y: 0}
-  comboOneSize: {x: 1, y: 1}
+    m_Bits: 256
+  comboOneOffset: {x: 1.47, y: 0.06}
+  comboOneSize: {x: 2.37, y: 1.24}
   comboOneStunLock: 5
-  comboOneRecoilForce: {x: 0, y: 0}
+  comboOneRecoilForce: {x: 5, y: 0}
   playerHUD: {fileID: 0}
   comboTwoDamage: 20
-  comboTwoOffset: {x: 0, y: 0}
-  comboTwoSize: {x: 1, y: 1}
+  comboTwoOffset: {x: 1.6, y: 0}
+  comboTwoSize: {x: 2.86, y: 2.07}
   comboTwoStunLock: 5
-  comboTwoRecoilForce: {x: 0, y: 0}
+  comboTwoRecoilForce: {x: 5, y: 0}
 --- !u!212 &212742080940867160
 SpriteRenderer:
   m_ObjectHideFlags: 1

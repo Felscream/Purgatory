@@ -61,9 +61,8 @@ public class Knight : Champion {
         throw new System.NotImplementedException();
     }
 
-    protected override void CastHitBox(int attackType) //function fired from animation event
+    protected override void CastHitBox(int attackType) //function fired from animation event (check knight's normal and enhanced attacks with the animation tool)
     {
-        Debug.Log("In");
         Vector2 pos = new Vector2(0,0);
         Vector2 size = new Vector2(0, 0);
         Vector2 recoilForce = Vector2.zero;
@@ -76,7 +75,6 @@ public class Knight : Champion {
             switch (attackType)
             {
                 case 0: //combo one
-                    Debug.Log("1");
                     pos = new Vector2(comboOneOffset.x * dir, comboOneOffset.y) + (Vector2)transform.position;
                     size = comboOneSize;
                     damage = comboOneDamage;
@@ -115,9 +113,9 @@ public class Knight : Champion {
         {
             foreach(Collider2D col in hits)
             {
-                if(col.gameObject.transform.parent.name != transform.parent.name && !col.gameObject.GetComponent<Champion>().Dead)
+                if(col.transform.root.name != transform.parent.name && !col.gameObject.GetComponent<Champion>().Dead) //transform.root gets the first entity in the element hierarchy
                 {
-                    Debug.Log("Hit " + col.gameObject.name);
+                    Debug.Log("Hit " + col.transform.root.name);
                     col.gameObject.GetComponent<Champion>().ApplyDamage(damage, facing, stunLock, recoilForce);
                 }
             }

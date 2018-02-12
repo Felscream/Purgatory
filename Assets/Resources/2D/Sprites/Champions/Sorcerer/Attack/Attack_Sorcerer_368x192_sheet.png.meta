@@ -1,0 +1,647 @@
+fileFormatVersion: 2
+guid: 31db48a54b88e044db05fe9149712b73
+timeCreated: 1518457945
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Attack_Sorcerer_368x192_sheet_0
+    21300002: Attack_Sorcerer_368x192_sheet_1
+    21300004: Attack_Sorcerer_368x192_sheet_2
+    21300006: Attack_Sorcerer_368x192_sheet_3
+    21300008: Attack_Sorcerer_368x192_sheet_4
+    21300010: Attack_Sorcerer_368x192_sheet_5
+    21300012: Attack_Sorcerer_368x192_sheet_6
+    21300014: Attack_Sorcerer_368x192_sheet_7
+    21300016: Attack_Sorcerer_368x192_sheet_8
+    21300018: Attack_Sorcerer_368x192_sheet_9
+    21300020: Attack_Sorcerer_368x192_sheet_10
+    21300022: Attack_Sorcerer_368x192_sheet_11
+    21300024: Attack_Sorcerer_368x192_sheet_12
+    21300026: Attack_Sorcerer_368x192_sheet_13
+    21300028: Attack_Sorcerer_368x192_sheet_14
+    21300030: Attack_Sorcerer_368x192_sheet_15
+    21300032: Attack_Sorcerer_368x192_sheet_16
+    21300034: Attack_Sorcerer_368x192_sheet_17
+    21300036: Attack_Sorcerer_368x192_sheet_18
+    21300038: Attack_Sorcerer_368x192_sheet_19
+    21300040: Attack_Sorcerer_368x192_sheet_20
+    21300042: Attack_Sorcerer_368x192_sheet_21
+    21300044: Attack_Sorcerer_368x192_sheet_22
+    21300046: Attack_Sorcerer_368x192_sheet_23
+    21300048: Attack_Sorcerer_368x192_sheet_24
+    21300050: Attack_Sorcerer_368x192_sheet_25
+    21300052: Attack_Sorcerer_368x192_sheet_26
+    21300054: Attack_Sorcerer_368x192_sheet_27
+    21300056: Attack_Sorcerer_368x192_sheet_28
+    21300058: Attack_Sorcerer_368x192_sheet_29
+    21300060: Attack_Sorcerer_368x192_sheet_30
+    21300062: Attack_Sorcerer_368x192_sheet_31
+    21300064: Attack_Sorcerer_368x192_sheet_32
+    21300066: Attack_Sorcerer_368x192_sheet_33
+    21300068: Attack_Sorcerer_368x192_sheet_34
+    21300070: Attack_Sorcerer_368x192_sheet_35
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 64
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 960
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 960
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 960
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 960
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 960
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 960
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 768
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 768
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 768
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 768
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 768
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 576
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 576
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 576
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 576
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 576
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 576
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_19
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 384
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_20
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 384
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_21
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 384
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_22
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 384
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_23
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 384
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_25
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 192
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_26
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 192
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_27
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 192
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_28
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 192
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_29
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 192
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_31
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 0
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_32
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 0
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_33
+      rect:
+        serializedVersion: 2
+        x: 1104
+        y: 0
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_34
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 0
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Attack_Sorcerer_368x192_sheet_35
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 0
+        width: 368
+        height: 192
+      alignment: 9
+      pivot: {x: 0.5, y: 0.36}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

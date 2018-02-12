@@ -45,7 +45,6 @@ public abstract class PowerUp : MonoBehaviour {
 	
 	// Update is called once per frame
 	virtual protected void LateUpdate () {
-        Debug.Log(powerUpStatus);
         switch (powerUpStatus)
         {
             case Enum_PowerUpStatus.available:
@@ -73,7 +72,6 @@ public abstract class PowerUp : MonoBehaviour {
         
         if(powerUpStatus == Enum_PowerUpStatus.available)
         {
-            Debug.Log("PowerUp");
             powerUpStatus = Enum_PowerUpStatus.activated;
             activationTimer = 0.0f;
             anim.SetBool("PoweredUp", true);
