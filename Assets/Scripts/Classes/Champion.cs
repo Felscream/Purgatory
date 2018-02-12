@@ -85,7 +85,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected Vector2 comboOneRecoilForce;
 
     [Header("HUDSettings")]
-    [SerializeField] protected CanvasGroup playerHUD;
+    [SerializeField] public CanvasGroup playerHUD;
 
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -104,7 +104,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
-    protected Image powerUpImageSlider;
+    
     protected Image ultiImageSlider;
 
     // INPUTS valeurs par défaut
@@ -142,7 +142,7 @@ public abstract class Champion : MonoBehaviour {
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
-        powerUpImageSlider = playerHUD.transform.Find("PowerUpImage").Find("RadialSliderImage").GetComponent<Image>();
+        
         ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
     }
@@ -170,6 +170,7 @@ public abstract class Champion : MonoBehaviour {
             }
             else
             {
+                Debug.Log(Input.GetAxisRaw(PowerUpButton));
                 if (Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
                 {
                     Debug.Log("PowerUp");
@@ -559,10 +560,10 @@ public abstract class Champion : MonoBehaviour {
 
 
         //--- Ci-dessous : A modifier par les vrais valeurs ---------
-        powerUpImageSlider.fillAmount = 0.75f; //entre 0 (déchargé) à 1 (chargé)
+        
         ultiImageSlider.fillAmount = 0.75f;
 
-        PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
+        //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
         UltiAvailable(true);
     }
 
@@ -573,13 +574,13 @@ public abstract class Champion : MonoBehaviour {
         else if (determination == 1)
             playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
     }
-    public void PowerUpAvailable(bool b)
+    /*public void PowerUpAvailable(bool b)
     {
         float a = 0.4f;
         if (b)
             a = 1f;
         playerHUD.transform.Find("PowerUpImage").Find("AbilityImage1").GetComponent<Image>().color = new Color(255, 255, 255, a);
-    }
+    }*/
     public void UltiAvailable(bool b)
     {
         float a = 0.4f;
