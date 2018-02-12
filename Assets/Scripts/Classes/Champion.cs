@@ -79,11 +79,11 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected LayerMask hitBoxLayer;
 
     [Header("Combo1Settings")]
-    [SerializeField] protected Vector2 comboOneOffset = new Vector2(0,0);
+    [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
     [SerializeField] protected int comboOneStunLock = 5;
     [SerializeField] protected Vector2 comboOneRecoilForce;
-    
+
     [Header("HUDSettings")]
     [SerializeField] protected CanvasGroup playerHUD;
 
@@ -104,6 +104,8 @@ public abstract class Champion : MonoBehaviour {
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
+    protected Image powerUpImageSlider;
+    protected Image ultiImageSlider;
 
     // INPUTS valeurs par défaut
     protected string HorizontalCtrl = "Horizontal";
@@ -123,8 +125,9 @@ public abstract class Champion : MonoBehaviour {
     {
         facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
     }
+
     protected void Start()
-    {   
+    {
         health = baseHealth;
         stamina = baseStamina;
         limitBreakGauge = 0.0f;
@@ -139,6 +142,8 @@ public abstract class Champion : MonoBehaviour {
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
+        powerUpImageSlider = playerHUD.transform.Find("PowerUpImage").Find("RadialSliderImage").GetComponent<Image>();
+        ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
     }
 
@@ -178,12 +183,12 @@ public abstract class Champion : MonoBehaviour {
                         PrimaryAttack();
                     }
 
-                    if(Input.GetAxisRaw(GuardButton) != 0 && guardStatus != Enum_GuardStatus.parrying)
+                    if (Input.GetAxisRaw(GuardButton) != 0 && guardStatus != Enum_GuardStatus.parrying)
                     {
                         guardStatus = Enum_GuardStatus.guarding;
                         animator.SetBool("Guarding", true);
                     }
-                    if(Input.GetAxis(GuardButton) != 1)
+                    if (Input.GetAxis(GuardButton) != 1)
                     {
                         guardStatus = Enum_GuardStatus.noGuard;
                         animator.SetBool("Guarding", false);
@@ -206,14 +211,14 @@ public abstract class Champion : MonoBehaviour {
                     if (InputStatus != Enum_InputStatus.blocked)
                     {
                         movementX = Input.GetAxisRaw(HorizontalCtrl);
-                        if (!IsGrounded() && Input.GetAxis(VerticalCtrl) == -1 )
+                        if (!IsGrounded() && Input.GetAxis(VerticalCtrl) == -1)
                         {
                             Fall();
                         }
                     }
 
                 }
-                
+
             }
         }
     }
@@ -241,7 +246,7 @@ public abstract class Champion : MonoBehaviour {
         animator.SetBool("Jump", false);
         rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
 
-            animator.SetBool("Fall", true);
+        animator.SetBool("Fall", true);
     }
     protected virtual void RegenerateStaminaPerSecond()
     {
@@ -253,7 +258,7 @@ public abstract class Champion : MonoBehaviour {
                 break;
             case Enum_StaminaRegeneration.blocked:
                 staminablockedTimer += Time.deltaTime;
-                if (Fatigue){
+                if (Fatigue) {
                     inputStatus = Enum_InputStatus.onlyMovement;
                     guardStatus = Enum_GuardStatus.noGuard;
                     animator.SetBool("Guarding", false);
@@ -262,14 +267,14 @@ public abstract class Champion : MonoBehaviour {
                         staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
                         inputStatus = Enum_InputStatus.allowed;
                     }
-	            }
-                else{
-                    if(staminablockedTimer > staminaRegenerationCooldown)
+                }
+                else {
+                    if (staminablockedTimer > staminaRegenerationCooldown)
                     {
                         staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
 
                     }
-	            }
+                }
                 break;
         }
     }
@@ -288,7 +293,7 @@ public abstract class Champion : MonoBehaviour {
     {
 
     }
-    
+
     protected abstract void CastHitBox(int attackType);
     protected virtual void MoveOnAttack()
     {
@@ -332,7 +337,7 @@ public abstract class Champion : MonoBehaviour {
 
     public void CheckStunLock()
     {
-        if(framesToStunLock > 0)
+        if (framesToStunLock > 0)
         {
             stunlockFrameCounter++;
             if (stunlockFrameCounter >= framesToStunLock)
@@ -348,9 +353,9 @@ public abstract class Champion : MonoBehaviour {
 
     public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce)
     {
-        if (!Immunity )
+        if (!Immunity)
         {
-            if(guardStatus == Enum_GuardStatus.guarding && attackerFacing != facing) // attacker is in front of the player and player is guarding
+            if (guardStatus == Enum_GuardStatus.guarding && attackerFacing != facing) // attacker is in front of the player and player is guarding
             {
                 health = Mathf.Max(health - (int)Mathf.Ceil(dmg * damageReductionMultiplier), 0);
                 ReduceStamina(dmg * blockStaminaCostMultiplier);
@@ -383,7 +388,7 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void CheckFatigue()
     {
-        if(stamina == 0)
+        if (stamina == 0)
         {
             fatigued = true;
 
@@ -404,13 +409,13 @@ public abstract class Champion : MonoBehaviour {
                 {
                     dodgeToken = maxDodgeToken;
                 }
-                if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed && 
+                if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed &&
                     guardStatus == Enum_GuardStatus.noGuard && !fatigued && dodgeToken > 0)
                 {
                     dodgeFrameCounter = 0;
                     playerBox.enabled = false;
                     rb.velocity = new Vector2(0, 0);
-                    rb.AddForce(new Vector2(facing * dodgeSpeed,0), ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(facing * dodgeSpeed, 0), ForceMode2D.Impulse);
                     ReduceStamina(dodgeStaminaCost);
                     dodgeStatus = Enum_DodgeStatus.dodging;
                     inputStatus = Enum_InputStatus.blocked;
@@ -422,11 +427,11 @@ public abstract class Champion : MonoBehaviour {
                 break;
             case Enum_DodgeStatus.dodging:
                 dodgeFrameCounter++;
-                if(dodgeFrameCounter >= dodgeImmunityStartFrame && dodgeFrameCounter < dodgeImmunityEndFrame)
+                if (dodgeFrameCounter >= dodgeImmunityStartFrame && dodgeFrameCounter < dodgeImmunityEndFrame)
                 {
                     immune = true;
                 }
-                if(dodgeFrameCounter >= dodgeImmunityEndFrame)
+                if (dodgeFrameCounter >= dodgeImmunityEndFrame)
                 {
                     immune = false;
                 }
@@ -438,12 +443,12 @@ public abstract class Champion : MonoBehaviour {
                     playerBox.enabled = true;
                     dodgeStatus = Enum_DodgeStatus.ready;
                     inputStatus = Enum_InputStatus.allowed;
-                    
+
                 }
                 break;
         }
     }
-    
+
     public virtual void Move(float moveX, float moveY)
     {
         float currentSpeed = Fatigue ? speed / fatiguedSpeedReduction : speed;
@@ -466,7 +471,7 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Moving", true);
             transform.Translate(movement * Time.deltaTime);
         }
-        
+
     }
 
     protected void StopMovement(int stopForce)
@@ -489,7 +494,7 @@ public abstract class Champion : MonoBehaviour {
         {
             if (rb != null && !IsGrounded())
             {
-                rb.AddForce(new Vector2(0, - jumpHeight * rb.mass), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(0, -jumpHeight * rb.mass), ForceMode2D.Impulse);
                 animator.SetBool("Jump", true);
                 jumping = false;
             }
@@ -502,7 +507,7 @@ public abstract class Champion : MonoBehaviour {
         Vector2 center = new Vector2(physicBox.bounds.center.x, physicBox.bounds.min.y);//+ (Vector2)transform.position;
         float radius = 0.2f;
 
-        if(Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")))
+        if (Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")))
         {
             animator.SetBool("Jump", false);
             animator.SetBool("Fall", false);
@@ -550,6 +555,37 @@ public abstract class Champion : MonoBehaviour {
     {
         healthSlider.value = health;
         staminaSlider.value = stamina;
+        ChangeColorHealthSlider();
+
+
+        //--- Ci-dessous : A modifier par les vrais valeurs ---------
+        powerUpImageSlider.fillAmount = 0.75f; //entre 0 (déchargé) à 1 (chargé)
+        ultiImageSlider.fillAmount = 0.75f;
+
+        PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
+        UltiAvailable(true);
+    }
+
+    public void ChangeColorHealthSlider()
+    {
+        if (determination == 2)
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 155, 0);
+        else if (determination == 1)
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
+    }
+    public void PowerUpAvailable(bool b)
+    {
+        float a = 0.4f;
+        if (b)
+            a = 1f;
+        playerHUD.transform.Find("PowerUpImage").Find("AbilityImage1").GetComponent<Image>().color = new Color(255, 255, 255, a);
+    }
+    public void UltiAvailable(bool b)
+    {
+        float a = 0.4f;
+        if (b)
+            a = 1f;
+        playerHUD.transform.Find("UltiImage").Find("AbilityImage2").GetComponent<Image>().color = new Color(255, 255, 255, a);
     }
 
     public float Facing
