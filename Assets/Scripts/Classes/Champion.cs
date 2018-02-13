@@ -36,6 +36,9 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int determination = 3;
     [SerializeField] protected float speed = 10;
 
+    [Header("HUDSettings")]
+    [SerializeField] public CanvasGroup playerHUD;
+
     [Header("Jump Settings")]
     [SerializeField] protected float jumpHeight = 10;
     [SerializeField] protected float fatiguedSpeedReduction = 1.2f;
@@ -77,15 +80,14 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int comboOneDamage = 10;
     [SerializeField] protected float primaryAttackMovementForce = 2;
     [SerializeField] protected LayerMask hitBoxLayer;
-
+    
     [Header("Combo1Settings")]
     [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
     [SerializeField] protected int comboOneStunLock = 5;
     [SerializeField] protected Vector2 comboOneRecoilForce;
 
-    [Header("HUDSettings")]
-    [SerializeField] public CanvasGroup playerHUD;
+    
 
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -101,6 +103,8 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
     protected Enum_GuardStatus guardStatus = Enum_GuardStatus.noGuard;
+    protected float movementX, movementY;
+    protected PowerUp powerUp;
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
@@ -113,13 +117,10 @@ public abstract class Champion : MonoBehaviour {
     protected string JumpButton = "Jump";
     protected string DodgeButton = "Dodge";
     protected string PrimaryAttackButton = "PrimaryAttack";
+    protected string SecondaryAttackButton = "SecondaryAttack";
     protected string PowerUpButton = "Up";
     protected string GuardButton = "Guard";
 
-
-    protected float movementX, movementY;
-
-    protected PowerUp powerUp;
 
     protected void Awake()
     {
@@ -178,9 +179,17 @@ public abstract class Champion : MonoBehaviour {
 
                 if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
                 {
-                    if (Input.GetButtonDown(PrimaryAttackButton) && guardStatus == Enum_GuardStatus.noGuard)
+                    if (guardStatus == Enum_GuardStatus.noGuard)
                     {
-                        PrimaryAttack();
+                        if (Input.GetButtonDown(PrimaryAttackButton))
+                        {
+                            PrimaryAttack();
+                        }
+
+                        if (Input.GetButtonDown(SecondaryAttackButton))
+                        {
+                            SecondaryAttack();
+                        }
                     }
 
                     if (Input.GetAxisRaw(GuardButton) != 0 && guardStatus != Enum_GuardStatus.parrying)
@@ -291,7 +300,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void SecondaryAttack()
     {
-
+        animator.SetTrigger("SecondaryAttack");
     }
 
     protected abstract void CastHitBox(int attackType);
@@ -539,6 +548,11 @@ public abstract class Champion : MonoBehaviour {
     public void SetPrimaryAttackButton(string PAButton)
     {
         PrimaryAttackButton = PAButton;
+    }
+
+    public void SetSecondaryAttackButton(string SAButton)
+    {
+        SecondaryAttackButton = SAButton;
     }
 
     public void SetPowerUpButton(string PUButton)

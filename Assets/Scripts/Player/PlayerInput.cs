@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour {
     public string Jump;
     public string Dodge;
     public string PrimaryAttack;
+    public string SecondaryAttack;
     public string PowerUp;
     public string Guard;
 
@@ -23,7 +24,6 @@ public class PlayerInput : MonoBehaviour {
     private void Start()
     {
         GetPlayerControlInput();
-
     }
 
     private bool ObjectsInstantiated()
@@ -56,6 +56,9 @@ public class PlayerInput : MonoBehaviour {
 
             //PRIMARYATTACK
             fighter.SetPrimaryAttackButton(PrimaryAttack);
+
+            //SECONDARYATTACK
+            fighter.SetSecondaryAttackButton(SecondaryAttack);
 
             //POWERUP
             fighter.SetPowerUpButton(PowerUp);

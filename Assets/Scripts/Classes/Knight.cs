@@ -58,7 +58,7 @@ public class Knight : Champion {
     }
     protected override void SecondaryAttack()
     {
-        throw new System.NotImplementedException();
+        base.SecondaryAttack();
     }
 
     protected override void CastHitBox(int attackType) //function fired from animation event (check knight's normal and enhanced attacks with the animation tool)
