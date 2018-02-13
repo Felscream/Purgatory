@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 82036418054192300}
   - component: {fileID: 114244444951551434}
   - component: {fileID: 95341825283554814}
+  - component: {fileID: 114208792370089698}
   m_Layer: 8
   m_Name: Sorcerer
   m_TagString: Champion
@@ -232,6 +233,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114208792370089698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502240114522002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59eb0dd0b7988c14e8fd6c4ae8d9a61a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  duration: 20
+  staminaCost: 0
+  transparencyOnCooldown: 0.4
+  transparencyAvailable: 1
+  staminaCostReductionMultiplier: 0.5
 --- !u!114 &114244444951551434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -252,7 +270,7 @@ MonoBehaviour:
   fallMultiplier: 7
   jumpVelocityAtApex: 2
   dodgeSpeed: 10
-  dodgeStaminaCost: 0
+  dodgeStaminaCost: 40
   dodgeFrames: 30
   dodgeImmunityStartFrame: 3
   dodgeImmunityEndFrame: 15
@@ -263,10 +281,10 @@ MonoBehaviour:
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
   baseStamina: 100
-  staminaRegenerationPerSecond: 15
+  staminaRegenerationPerSecond: 30
   staminaRegenerationCooldown: 1.5
   staminaFatigueCooldown: 3
-  primaryFireStaminaCost: 0
+  primaryFireStaminaCost: 20
   secondaryFireStaminaCost: 40
   maxLimitBreakGauge: 100
   limitBreakPerSecond: 0.4

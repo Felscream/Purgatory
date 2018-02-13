@@ -173,8 +173,10 @@ public abstract class Champion : MonoBehaviour {
             {
                 if (Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
                 {
-                    Debug.Log("PowerUp");
-                    powerUp.ActivatePowerUp();
+                    if(powerUp != null)
+                    {
+                        powerUp.ActivatePowerUp();
+                    }
                 }
 
                 if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
@@ -325,7 +327,7 @@ public abstract class Champion : MonoBehaviour {
         CheckFatigue();
         attacking = false;
     }
-    public void ReduceStamina(float amount)
+    public virtual void ReduceStamina(float amount)
     {
         if (amount != 0.0f)
         {
@@ -354,6 +356,7 @@ public abstract class Champion : MonoBehaviour {
                 framesToStunLock = 0;
                 stunlockFrameCounter = 0;
                 rb.velocity = new Vector2(0, rb.velocity.y);
+                attacking = false;
                 animator.SetBool("Damaged", false);
                 inputStatus = Enum_InputStatus.allowed;
             }
@@ -541,6 +544,10 @@ public abstract class Champion : MonoBehaviour {
         return false;
     }
 
+    public void AllowInputs()   //activated in the animation controller
+    {
+        inputStatus = Enum_InputStatus.allowed;
+    }
     public void SetHorizontalCtrl(string HCtrl)
     {
         HorizontalCtrl = HCtrl;

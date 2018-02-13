@@ -38,9 +38,29 @@ public class Sorcerer : Champion
     }
     protected override void SecondaryAttack()
     {
-        throw new System.NotImplementedException();
+        base.SecondaryAttack();
+        inputStatus = Enum_InputStatus.blocked;
     }
 
+    public override void ReduceStamina(float amount)
+    {
+        if (amount != 0.0f)
+        {
+            if (powerUp is StaminaSaving)
+            {
+                if (powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+                {
+                    StaminaSaving temp = (StaminaSaving)powerUp;
+                    amount *= temp.StaminaCostReductionMultiplier;
+                }
+            }
+
+            stamina = Mathf.Max(stamina - amount, 0);
+            CheckFatigue();
+            staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
+            staminablockedTimer = 0.0f;
+        }
+    }
     protected override void CastHitBox(int attackType)
     {
         Vector2 pos = new Vector2(0, 0);
