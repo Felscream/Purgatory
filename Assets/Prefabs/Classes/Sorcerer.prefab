@@ -37,10 +37,10 @@ GameObject:
   - component: {fileID: 4978229222632030}
   - component: {fileID: 212742080940867160}
   - component: {fileID: 50404255181043676}
-  - component: {fileID: 95790284439910244}
   - component: {fileID: 61274467242913296}
   - component: {fileID: 82036418054192300}
   - component: {fileID: 114244444951551434}
+  - component: {fileID: 95341825283554814}
   m_Layer: 8
   m_Name: Sorcerer
   m_TagString: Champion
@@ -215,7 +215,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95790284439910244
+--- !u!95 &95341825283554814
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -246,6 +246,7 @@ MonoBehaviour:
   baseHealth: 100
   determination: 3
   speed: 10
+  playerHUD: {fileID: 0}
   jumpHeight: 10
   fatiguedSpeedReduction: 1.2
   fallMultiplier: 7
@@ -280,7 +281,6 @@ MonoBehaviour:
   comboOneSize: {x: 2.37, y: 1.24}
   comboOneStunLock: 5
   comboOneRecoilForce: {x: 5, y: 0}
-  playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoOffset: {x: 1.6, y: 0}
   comboTwoSize: {x: 2.86, y: 2.07}
