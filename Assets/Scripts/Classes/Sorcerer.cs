@@ -79,10 +79,11 @@ public class Sorcerer : Champion
         {
             foreach (Collider2D col in hits)
             {
-                if (col.transform.root.name != transform.parent.name && !col.gameObject.GetComponent<Champion>().Dead)
+                Champion foe = col.gameObject.GetComponent<Champion>();
+                if (foe != null && foe !=  this && !foe.Dead)
                 {
-                    Debug.Log("Hit " + col.transform.root.name);
-                    col.gameObject.GetComponent<Champion>().ApplyDamage(damage, facing, stunLock, recoilForce);
+                    Debug.Log("Hit " + foe.transform.parent.name);
+                    foe.ApplyDamage(damage, facing, stunLock, recoilForce);
                 }
             }
         }
