@@ -411,6 +411,31 @@ Prefab:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114663528687064120, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
+        type: 2}
+      propertyPath: SecondaryAttack
+      value: SecondaryAttack_P2
+      objectReference: {fileID: 0}
+    - target: {fileID: 61130074220086312, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: -0.0148193985
+      objectReference: {fileID: 0}
+    - target: {fileID: 61130074220086312, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61130074220086312, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 61130074220086312, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.9039519
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e590ab5eb3c7bd14aa4a99faba5e3fc9, type: 2}
   m_IsPrefabParent: 0
@@ -755,7 +780,7 @@ Prefab:
     - target: {fileID: 20521416546450134, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
       propertyPath: orthographic size
-      value: 13.375
+      value: 14.1875
       objectReference: {fileID: 0}
     - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
@@ -771,6 +796,11 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114291417897368404, guid: 6c5785512f800f44689a8c7d80f59777,
+        type: 2}
+      propertyPath: lockSpeed
+      value: 0.216
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c5785512f800f44689a8c7d80f59777, type: 2}
@@ -861,6 +891,7 @@ MonoBehaviour:
   Jump: Jump_P1
   Dodge: Dodge_P1
   PrimaryAttack: PrimaryAttack_P1
+  SecondaryAttack: SecondaryAttack_P1
   PowerUp: PowerUp_P1
   Guard: Guard_P1
 --- !u!4 &1960508596
