@@ -483,6 +483,22 @@ public abstract class Champion : MonoBehaviour {
 
     }
 
+    protected void DealDamageToEnnemies(Collider2D[] ennemies, int damage, int stunLock, Vector2 recoilForce)
+    {
+        if (ennemies.Length > 0)
+        {
+            foreach (Collider2D col in ennemies)
+            {
+                Champion foe = col.gameObject.GetComponent<Champion>();
+                if (foe != null && foe != this && !foe.Dead)
+                {
+                    Debug.Log("Hit " + foe.transform.parent.name);
+                    foe.ApplyDamage(damage, facing, stunLock, recoilForce);
+                }
+            }
+        }
+    }
+
     protected void StopMovement(int stopForce)
     {
         movementX = 0;

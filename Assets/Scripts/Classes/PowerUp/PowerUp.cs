@@ -69,7 +69,6 @@ public abstract class PowerUp : MonoBehaviour {
 
     public virtual void ActivatePowerUp()
     {
-        
         if(powerUpStatus == Enum_PowerUpStatus.available)
         {
             powerUpStatus = Enum_PowerUpStatus.activated;

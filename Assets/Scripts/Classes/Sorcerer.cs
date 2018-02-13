@@ -75,18 +75,7 @@ public class Sorcerer : Champion
             }
         }
         hits = Physics2D.OverlapBoxAll(pos, size, Vector2.Angle(Vector2.zero, transform.position), hitBoxLayer);
-        if (hits.Length > 0)
-        {
-            foreach (Collider2D col in hits)
-            {
-                Champion foe = col.gameObject.GetComponent<Champion>();
-                if (foe != null && foe !=  this && !foe.Dead)
-                {
-                    Debug.Log("Hit " + foe.transform.parent.name);
-                    foe.ApplyDamage(damage, facing, stunLock, recoilForce);
-                }
-            }
-        }
+        DealDamageToEnnemies(hits, damage, stunLock, recoilForce);
     }
 
     protected override void CheckDodge()
