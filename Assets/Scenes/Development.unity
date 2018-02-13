@@ -673,12 +673,12 @@ Prefab:
     - target: {fileID: 20521416546450134, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
       propertyPath: orthographic size
-      value: 8
+      value: 13.375
       objectReference: {fileID: 0}
     - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
       propertyPath: pixelScale
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114548799539799264, guid: 6c5785512f800f44689a8c7d80f59777,
         type: 2}
@@ -746,6 +746,26 @@ Prefab:
         type: 2}
       propertyPath: m_Size.y
       value: 2.016652
+      objectReference: {fileID: 0}
+    - target: {fileID: 61274467242913296, guid: 07d47c73da75d6948b85cc3bbbc00e77,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 61274467242913296, guid: 07d47c73da75d6948b85cc3bbbc00e77,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 61274467242913296, guid: 07d47c73da75d6948b85cc3bbbc00e77,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 61274467242913296, guid: 07d47c73da75d6948b85cc3bbbc00e77,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07d47c73da75d6948b85cc3bbbc00e77, type: 2}
@@ -1083,3 +1103,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &2143658620 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1237077253660904, guid: 6c5785512f800f44689a8c7d80f59777,
+    type: 2}
+  m_PrefabInternal: {fileID: 1329311424}
+--- !u!114 &2143658627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2143658620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a695d4aa6cd99744cb7a0d01ef595bf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
