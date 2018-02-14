@@ -13,13 +13,18 @@ public class Sorcerer : Champion
     [SerializeField] protected int comboTwoStunLock = 5;
     [SerializeField] protected Vector2 comboTwoRecoilForce;
 
+    [Header("ProjectileSetting")]
+    [SerializeField] protected GameObject manabomb;
+    [SerializeField] protected Vector2 projectileSpawnOffset;
+
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(new Vector3(comboOneOffset.x, comboOneOffset.y, 0) + transform.position, new Vector3(comboOneSize.x, comboOneSize.y, 1));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(comboTwoOffset.x, comboTwoOffset.y, 0) + transform.position, new Vector3(comboTwoSize.x, comboTwoSize.y, 1));
-
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(projectileSpawnOffset + (Vector2)transform.position, 0.3f);
         //uncomment to teleportation, you'll have to comment transform.Translate(Teleportation) in WarpOut()
         //WarpOut();
     }
@@ -41,7 +46,6 @@ public class Sorcerer : Champion
         base.SecondaryAttack();
         inputStatus = Enum_InputStatus.blocked;
     }
-
     public override void ReduceStamina(float amount)
     {
         if (amount != 0.0f)
@@ -169,5 +173,14 @@ public class Sorcerer : Champion
         animator.SetBool("Dodge", false);
         dodgeStatus = Enum_DodgeStatus.ready;
         inputStatus = Enum_InputStatus.allowed;
+    }
+
+    public void SpawnManaBomb()
+    {
+        Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffset.x * facing, transform.position.y + projectileSpawnOffset.y);
+        GameObject bomb = Instantiate(manabomb, SpawnPoint, transform.rotation);
+        Manabomb mb = bomb.GetComponent<Manabomb>();
+        mb.Owner = this;
+        mb.Direction = facing;
     }
 }

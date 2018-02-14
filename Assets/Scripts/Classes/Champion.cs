@@ -303,6 +303,7 @@ public abstract class Champion : MonoBehaviour {
     protected virtual void SecondaryAttack()
     {
         animator.SetTrigger("SecondaryAttack");
+        ReduceStamina(secondaryFireStaminaCost);
     }
 
     protected abstract void CastHitBox(int attackType);
@@ -384,17 +385,20 @@ public abstract class Champion : MonoBehaviour {
 
         Debug.Log("Health :" + health);
 
-        //TO REMOVE LATER
+        
         if (health == 0)
         {
             inputStatus = Enum_InputStatus.blocked;
             foreach (AnimatorControllerParameter parameter in animator.parameters)
             {
                 if (parameter.type == AnimatorControllerParameterType.Bool)
+                {
                     animator.SetBool(parameter.name, false);
+                }
             }
             dead = true;
             playerBox.enabled = false;
+            StopMovement(1);
             Debug.Log(transform.parent.name + " died");
         }
     }

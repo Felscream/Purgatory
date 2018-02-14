@@ -304,6 +304,8 @@ MonoBehaviour:
   comboTwoSize: {x: 2.86, y: 2.07}
   comboTwoStunLock: 5
   comboTwoRecoilForce: {x: 5, y: 0}
+  manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
+  projectileSpawnOffset: {x: 1.84, y: 0.31}
 --- !u!212 &212742080940867160
 SpriteRenderer:
   m_ObjectHideFlags: 1
