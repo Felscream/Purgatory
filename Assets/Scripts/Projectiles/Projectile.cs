@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour {
 
-    [SerializeField] protected float distanceUnitPerSeonds;
+    [SerializeField] protected float distanceUnitPerSeconds;
     [SerializeField] protected float maxTravelDistance;
     [SerializeField] protected int damage;
     [SerializeField] protected int stunLock;
@@ -24,7 +24,7 @@ public abstract class Projectile : MonoBehaviour {
         {
             anim.SetFloat("Direction", direction);
         }
-        translation = new Vector2(distanceUnitPerSeonds * direction, 0) * Time.deltaTime;
+        translation = new Vector2(distanceUnitPerSeconds * direction, 0) * Time.deltaTime;
         hits.Clear();
     }
 	
@@ -43,9 +43,9 @@ public abstract class Projectile : MonoBehaviour {
             {
                 if (distanceTraveled >= maxTravelDistance)
                 {
-                    Destroy(gameObject);
+                    anim.SetTrigger("Impact");
                 }
-                distanceTraveled += distanceUnitPerSeonds * Time.deltaTime;
+                distanceTraveled += distanceUnitPerSeconds * Time.deltaTime;
             }
         }
     }

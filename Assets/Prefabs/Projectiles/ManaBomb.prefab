@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35c3f5c5884c18488faf8e174ca0af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceUnitPerSeonds: 20
+  distanceUnitPerSeconds: 20
   maxTravelDistance: 0
   damage: 10
   stunLock: 5

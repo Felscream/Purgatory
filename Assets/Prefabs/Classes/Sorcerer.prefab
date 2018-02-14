@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1502240114522002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.46, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021701327322810}
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 100
-  determination: 3
+  determination: 2
   speed: 10
   playerHUD: {fileID: 0}
   jumpHeight: 10
@@ -305,7 +305,7 @@ MonoBehaviour:
   comboTwoStunLock: 5
   comboTwoRecoilForce: {x: 5, y: 0}
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
-  projectileSpawnOffset: {x: 1.84, y: 0.31}
+  projectileSpawnOffset: {x: 3.2, y: 0.31}
 --- !u!212 &212742080940867160
 SpriteRenderer:
   m_ObjectHideFlags: 1

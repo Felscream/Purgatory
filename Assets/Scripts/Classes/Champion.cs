@@ -181,7 +181,7 @@ public abstract class Champion : MonoBehaviour {
 
                 if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
                 {
-                    if (guardStatus == Enum_GuardStatus.noGuard)
+                    if (guardStatus == Enum_GuardStatus.noGuard && !Fatigue)
                     {
                         if (Input.GetButtonDown(PrimaryAttackButton))
                         {
@@ -194,7 +194,7 @@ public abstract class Champion : MonoBehaviour {
                         }
                     }
 
-                    if (Input.GetAxisRaw(GuardButton) != 0 && guardStatus != Enum_GuardStatus.parrying)
+                    if (Input.GetAxisRaw(GuardButton) != 0 && guardStatus != Enum_GuardStatus.parrying && !Fatigue)
                     {
                         guardStatus = Enum_GuardStatus.guarding;
                         animator.SetBool("Guarding", true);
@@ -270,13 +270,16 @@ public abstract class Champion : MonoBehaviour {
             case Enum_StaminaRegeneration.blocked:
                 staminablockedTimer += Time.deltaTime;
                 if (Fatigue) {
-                    inputStatus = Enum_InputStatus.onlyMovement;
-                    guardStatus = Enum_GuardStatus.noGuard;
-                    animator.SetBool("Guarding", false);
-                    if (staminablockedTimer > staminaFatigueCooldown && !attacking)
+                    if(inputStatus != Enum_InputStatus.onlyAttack && inputStatus != Enum_InputStatus.blocked)
                     {
-                        staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
-                        inputStatus = Enum_InputStatus.allowed;
+                        inputStatus = Enum_InputStatus.onlyMovement;
+                        guardStatus = Enum_GuardStatus.noGuard;
+                        animator.SetBool("Guarding", false);
+                        if (staminablockedTimer > staminaFatigueCooldown && !attacking)
+                        {
+                            staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
+                            inputStatus = Enum_InputStatus.allowed;
+                        }
                     }
                 }
                 else {
