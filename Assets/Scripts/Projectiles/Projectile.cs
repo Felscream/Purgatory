@@ -38,7 +38,6 @@ public abstract class Projectile : MonoBehaviour {
         if (!impact)
         {
             transform.Translate(translation);
-            Debug.Log(translation);
             if (maxTravelDistance != 0)
             {
                 if (distanceTraveled >= maxTravelDistance)

@@ -179,6 +179,11 @@ public abstract class Champion : MonoBehaviour {
                     }
                 }
 
+                if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
+                {
+                    SecondaryAttack();
+                }
+
                 if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
                 {
                     if (guardStatus == Enum_GuardStatus.noGuard && !Fatigue)
@@ -186,11 +191,6 @@ public abstract class Champion : MonoBehaviour {
                         if (Input.GetButtonDown(PrimaryAttackButton))
                         {
                             PrimaryAttack();
-                        }
-
-                        if (Input.GetButtonDown(SecondaryAttackButton))
-                        {
-                            SecondaryAttack();
                         }
                     }
 
@@ -246,7 +246,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false)
+        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
         {
             Fall();
         }
@@ -307,6 +307,9 @@ public abstract class Champion : MonoBehaviour {
     {
         animator.SetTrigger("SecondaryAttack");
         ReduceStamina(secondaryFireStaminaCost);
+        inputStatus = Enum_InputStatus.blocked;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0.0f;
     }
 
     protected abstract void CastHitBox(int attackType);
@@ -342,6 +345,14 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
+    public virtual void ConsumeStamina(float amount) //DOESN'T TRIGGER THE STAMINA BLOCKED TIMER
+    {
+        if (amount != 0.0f)
+        {
+            stamina = Mathf.Max(stamina - amount, 0);
+            CheckFatigue();
+        }
+    }
     public void ApplyStunLock(int duration) // Player can't execute action while damaged
     {
         stunlockFrameCounter = 0;
@@ -553,6 +564,7 @@ public abstract class Champion : MonoBehaviour {
 
     public void AllowInputs()   //activated in the animation controller
     {
+        rb.gravityScale = 1.0f;
         inputStatus = Enum_InputStatus.allowed;
     }
     public void SetHorizontalCtrl(string HCtrl)

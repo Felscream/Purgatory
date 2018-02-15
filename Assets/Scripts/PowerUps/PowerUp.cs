@@ -71,6 +71,7 @@ public abstract class PowerUp : MonoBehaviour {
     {
         if(powerUpStatus == Enum_PowerUpStatus.available)
         {
+            Debug.Log("PoweredUp");
             powerUpStatus = Enum_PowerUpStatus.activated;
             activationTimer = 0.0f;
             anim.SetBool("PoweredUp", true);
@@ -80,27 +81,33 @@ public abstract class PowerUp : MonoBehaviour {
 
     protected virtual void CheckActivationDuration()
     {
-        activationTimer += Time.deltaTime;
-        powerUpImageSlider.fillAmount = 1 - activationTimer / duration;
-        if (activationTimer >= duration)
+        if(duration != 0)
         {
-            powerUpStatus = Enum_PowerUpStatus.onCooldown;
-            
-            cooldownTimer = 0.0f;
-            anim.SetBool("PoweredUp", false);
+            activationTimer += Time.deltaTime;
+            powerUpImageSlider.fillAmount = 1 - activationTimer / duration;
+            if (activationTimer >= duration)
+            {
+                powerUpStatus = Enum_PowerUpStatus.onCooldown;
+                cooldownTimer = 0.0f;
+                anim.SetBool("PoweredUp", false);
+            }
         }
+        
     }
     
     protected virtual void CheckCooldownDuration()
     {
-
-        anim.SetBool("PoweredUp", false);
-        cooldownTimer += Time.deltaTime;
-        powerUpImageSlider.fillAmount = cooldownTimer / cooldown;
-        if (cooldownTimer >= cooldown)
+        if(cooldown != 0)
         {
-            powerUpStatus = Enum_PowerUpStatus.available;
-        }      
+            anim.SetBool("PoweredUp", false);
+            cooldownTimer += Time.deltaTime;
+            powerUpImageSlider.fillAmount = cooldownTimer / cooldown;
+            if (cooldownTimer >= cooldown)
+            {
+                powerUpStatus = Enum_PowerUpStatus.available;
+            }
+        }
+            
     }
 
     public Enum_PowerUpStatus PowerUpStatus

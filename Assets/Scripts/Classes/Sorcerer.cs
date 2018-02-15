@@ -182,5 +182,7 @@ public class Sorcerer : Champion
         Manabomb mb = bomb.GetComponent<Manabomb>();
         mb.Owner = this;
         mb.Direction = facing;
+        rb.gravityScale = 1.0f;
+        AllowInputs();
     }
 }

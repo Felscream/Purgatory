@@ -244,10 +244,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0b65d1f7e38864185894813c41d2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
-  duration: 10
+  cooldown: 0.75
+  duration: 0
   staminaCost: 0
+  transparencyOnCooldown: 0.4
+  transparencyAvailable: 1
   timeToDisable: 1.5
+  staminaCostPerSecond: 10
 --- !u!114 &114897680576201150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,6 +265,7 @@ MonoBehaviour:
   baseHealth: 100
   determination: 3
   speed: 10
+  playerHUD: {fileID: 0}
   jumpHeight: 10
   fatiguedSpeedReduction: 1.5
   fallMultiplier: 7
@@ -296,7 +300,6 @@ MonoBehaviour:
   comboOneSize: {x: 2.2, y: 1.6}
   comboOneStunLock: 5
   comboOneRecoilForce: {x: 5, y: 0}
-  playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoOffset: {x: 1.72, y: 0.1}
   comboTwoSize: {x: 2.55, y: 2.19}
