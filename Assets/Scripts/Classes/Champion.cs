@@ -44,6 +44,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float fatiguedSpeedReduction = 1.2f;
     [SerializeField] protected float fallMultiplier;
     [SerializeField] protected float jumpVelocityAtApex = 2.0f;
+    [SerializeField] protected int coyoteTimeFrames = 6; //To implement coyote time
 
     [Header("Dodge Settings")]
     [SerializeField] protected float dodgeSpeed = 40.0f;
@@ -92,6 +93,7 @@ public abstract class Champion : MonoBehaviour {
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter;
+    protected int coyoteFrameCounter;
     protected float distToGround, facing;
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -121,7 +123,10 @@ public abstract class Champion : MonoBehaviour {
     protected string PowerUpButton = "Up";
     protected string GuardButton = "Guard";
 
-
+    private void OnDrawGizmos()
+    {
+        //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
+    }
     protected void Awake()
     {
         facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
@@ -154,14 +159,17 @@ public abstract class Champion : MonoBehaviour {
         if (jumping)
         {
             Jump();
+            jumping = false;
         }
         Move(movementX, movementY);
     }
 
     protected virtual void Update()
     {
+        
         if (!dead)
         {
+            ControlCoyote();
             CheckStunLock();
             CheckFatigue();
             CheckDodge();
@@ -206,19 +214,13 @@ public abstract class Champion : MonoBehaviour {
                     }
                 }
 
-                if (InputStatus != Enum_InputStatus.onlyAttack)
+                if (InputStatus != Enum_InputStatus.onlyAttack )
                 {
-                    if (Input.GetButtonDown(JumpButton) && IsGrounded())
+                    if (Input.GetButtonDown(JumpButton))
                     {
                         jumping = true;
-                    } else
-                    {
-                        if (Input.GetButtonDown(JumpButton) && !IsGrounded())
-                        {
-                            jumping = true;
-                        }
                     }
-
+                    
                     if (InputStatus != Enum_InputStatus.blocked)
                     {
                         movementX = Input.GetAxisRaw(HorizontalCtrl);
@@ -246,7 +248,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
+        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && coyoteFrameCounter > coyoteTimeFrames && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
         {
             Fall();
         }
@@ -256,7 +258,6 @@ public abstract class Champion : MonoBehaviour {
     {
         animator.SetBool("Jump", false);
         rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-
         animator.SetBool("Fall", true);
     }
     protected virtual void RegenerateStaminaPerSecond()
@@ -529,33 +530,49 @@ public abstract class Champion : MonoBehaviour {
             rb.velocity = Vector2.zero;
         }
     }
+    protected void ControlCoyote()
+    {
+        if (!IsGrounded())
+        {
+            ++coyoteFrameCounter;
+        }
+        else
+        {
+            coyoteFrameCounter = 0;
+        }
+    }
     public virtual void Jump()
     {
-        if (rb != null && IsGrounded())
+        if(rb != null)
         {
-            rb.AddForce(new Vector2(0, jumpHeight * rb.mass), ForceMode2D.Impulse);
-            animator.SetBool("Jump", true);
-            jumping = false;
-        } else
-        {
-            if (rb != null && !IsGrounded())
+            if (coyoteFrameCounter <= coyoteTimeFrames)
             {
-                rb.AddForce(new Vector2(0, -jumpHeight * rb.mass), ForceMode2D.Impulse);
+                rb.velocity = Vector2.zero;
+                rb.AddForce(new Vector2(0, jumpHeight * rb.mass), ForceMode2D.Impulse);
                 animator.SetBool("Jump", true);
-                jumping = false;
+                coyoteFrameCounter = coyoteTimeFrames + 1;
+            }
+            else
+            {
+                if (!IsGrounded())
+                {
+                    Debug.Log(coyoteFrameCounter + ", " + jumping);
+                    rb.AddForce(new Vector2(0, -jumpHeight * rb.mass), ForceMode2D.Impulse);
+                }
             }
         }
+        
+        
     }
 
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
-        Vector2 center = new Vector2(physicBox.bounds.center.x, physicBox.bounds.min.y);//+ (Vector2)transform.position;
-        float radius = 0.2f;
+        Vector2 center = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+        float radius = 0.1f;
 
         if (Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")))
         {
-            animator.SetBool("Jump", false);
             animator.SetBool("Fall", false);
             return true;
         }

@@ -27,6 +27,8 @@ public class Sorcerer : Champion
         Gizmos.DrawWireSphere(projectileSpawnOffset + (Vector2)transform.position, 0.3f);
         //uncomment to teleportation, you'll have to comment transform.Translate(Teleportation) in WarpOut()
         //WarpOut();
+
+        
     }
     protected override void Update()
     {

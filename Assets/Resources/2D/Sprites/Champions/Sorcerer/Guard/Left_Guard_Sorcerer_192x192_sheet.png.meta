@@ -1,17 +1,12 @@
 fileFormatVersion: 2
-guid: 1c1f76745b628014e9aa4fae2b0b305a
-timeCreated: 1518764451
+guid: b3418d24057301343858e4b362f88cbe
+timeCreated: 1518753532
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Right_Running_Sorcerer_192x192_sheet_0
-    21300002: Right_Running_Sorcerer_192x192_sheet_1
-    21300004: Right_Running_Sorcerer_192x192_sheet_2
-    21300006: Right_Running_Sorcerer_192x192_sheet_3
-    21300008: Right_Running_Sorcerer_192x192_sheet_4
-    21300010: Right_Running_Sorcerer_192x192_sheet_5
-    21300012: Right_Running_Sorcerer_192x192_sheet_6
-    21300014: Right_Running_Sorcerer_192x192_sheet_7
+    21300000: Left_Guard_Sorcerer_192x192_sheet_0
+    21300002: Left_Guard_Sorcerer_192x192_sheet_1
+    21300004: Left_Guard_Sorcerer_192x192_sheet_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -51,7 +46,7 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
+  alignment: 9
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 64
@@ -108,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_0
+      name: Left_Guard_Sorcerer_192x192_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -116,13 +111,13 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 9
-      pivot: {x: 0.48, y: 0.35}
+      pivot: {x: 0.54, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_1
+      name: Left_Guard_Sorcerer_192x192_sheet_1
       rect:
         serializedVersion: 2
         x: 192
@@ -130,13 +125,13 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 9
-      pivot: {x: 0.48, y: 0.35}
+      pivot: {x: 0.54, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_2
+      name: Left_Guard_Sorcerer_192x192_sheet_2
       rect:
         serializedVersion: 2
         x: 384
@@ -144,77 +139,7 @@ TextureImporter:
         width: 192
         height: 192
       alignment: 9
-      pivot: {x: 0.48, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 192
-        height: 192
-      alignment: 9
-      pivot: {x: 0.48, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_4
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 192
-        height: 192
-      alignment: 9
-      pivot: {x: 0.48, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 960
-        y: 0
-        width: 192
-        height: 192
-      alignment: 9
-      pivot: {x: 0.48, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 1152
-        y: 0
-        width: 192
-        height: 192
-      alignment: 9
-      pivot: {x: 0.48, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Right_Running_Sorcerer_192x192_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 1344
-        y: 0
-        width: 192
-        height: 192
-      alignment: 9
-      pivot: {x: 0.48, y: 0.35}
+      pivot: {x: 0.54, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
