@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour {
 
-    [SerializeField] protected float distanceUnitPerSeconds;
+    [SerializeField] protected Vector2 force;
     [SerializeField] protected float maxTravelDistance;
     [SerializeField] protected int damage;
     [SerializeField] protected int stunLock;
@@ -16,6 +16,8 @@ public abstract class Projectile : MonoBehaviour {
     protected List<Champion> hits = new List<Champion>();
     protected Vector2 translation;
     protected bool impact = false;
+    protected Vector3 lastPosition;
+    protected Rigidbody2D rb;
 	// Use this for initialization
 	void Start () {
         distanceTraveled = 0.0f;
@@ -24,8 +26,10 @@ public abstract class Projectile : MonoBehaviour {
         {
             anim.SetFloat("Direction", direction);
         }
-        translation = new Vector2(distanceUnitPerSeconds * direction, 0) * Time.deltaTime;
+        //translation = new Vector2(distanceUnitPerSeconds * direction, 0) * Time.deltaTime;
+        lastPosition = transform.position;
         hits.Clear();
+        rb = GetComponent<Rigidbody2D>();
     }
 	
     protected virtual void FixedUpdate()
@@ -35,16 +39,13 @@ public abstract class Projectile : MonoBehaviour {
 
     protected virtual void UpdatePosition()
     {
-        if (!impact)
+        if (maxTravelDistance != 0)
         {
-            transform.Translate(translation);
-            if (maxTravelDistance != 0)
+            distanceTraveled += Vector3.Distance(lastPosition, transform.position);
+            lastPosition = transform.position;
+            if (distanceTraveled >= maxTravelDistance)
             {
-                if (distanceTraveled >= maxTravelDistance)
-                {
-                    anim.SetTrigger("Impact");
-                }
-                distanceTraveled += distanceUnitPerSeconds * Time.deltaTime;
+                SetImpact();
             }
         }
     }
@@ -73,16 +74,20 @@ public abstract class Projectile : MonoBehaviour {
                 {
                     hits.Add(foe);
                     foe.ApplyDamage(damage, direction, stunLock, recoilForce);
-                    anim.SetTrigger("Impact");
-                    impact = true;
+                    SetImpact();
                 }
             }
         }
         else //we hit a wall
         {
-            anim.SetTrigger("Impact");
-            impact = true;
+            SetImpact();
         }
+    }
+
+    protected virtual void SetImpact()
+    {
+        rb.velocity = Vector2.zero;
+        anim.SetTrigger("Impact");
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
@@ -120,6 +125,14 @@ public abstract class Projectile : MonoBehaviour {
         set
         {
             owner = value;
+        }
+    }
+
+    public Vector2 Force
+    {
+        get
+        {
+            return force;
         }
     }
 }

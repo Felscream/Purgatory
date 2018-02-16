@@ -60,7 +60,6 @@ public class Sorcerer : Champion
                     amount *= temp.StaminaCostReductionMultiplier;
                 }
             }
-
             stamina = Mathf.Max(stamina - amount, 0);
             CheckFatigue();
             staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
@@ -184,6 +183,7 @@ public class Sorcerer : Champion
         Manabomb mb = bomb.GetComponent<Manabomb>();
         mb.Owner = this;
         mb.Direction = facing;
+        mb.GetComponent<Rigidbody2D>().AddForce(mb.Force * facing);
         rb.gravityScale = 1.0f;
         AllowInputs();
     }
