@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: b3418d24057301343858e4b362f88cbe
-timeCreated: 1518800146
+guid: 0964ffe50786dac42b62af93da64f6ce
+timeCreated: 1518800120
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Left_Guard_Sorcerer_192x192_sheet_0
-    21300002: Left_Guard_Sorcerer_192x192_sheet_1
-    21300004: Left_Guard_Sorcerer_192x192_sheet_2
-    21300006: Left_Guard_Sorcerer_192x192_sheet_3
-    21300008: Left_Guard_Sorcerer_192x192_sheet_4
-    21300010: Left_Guard_Sorcerer_192x192_sheet_5
-    21300012: Left_Guard_Sorcerer_192x192_sheet_6
-    21300014: Left_Guard_Sorcerer_192x192_sheet_7
-    21300016: Left_Guard_Sorcerer_192x192_sheet_8
-    21300018: Left_Guard_Sorcerer_192x192_sheet_9
-    21300020: Left_Guard_Sorcerer_192x192_sheet_10
+    21300000: Left_Guard_Enhanced_Sorcerer_192x192_sheet_0
+    21300002: Left_Guard_Enhanced_Sorcerer_192x192_sheet_1
+    21300004: Left_Guard_Enhanced_Sorcerer_192x192_sheet_2
+    21300006: Left_Guard_Enhanced_Sorcerer_192x192_sheet_3
+    21300008: Left_Guard_Enhanced_Sorcerer_192x192_sheet_4
+    21300010: Left_Guard_Enhanced_Sorcerer_192x192_sheet_5
+    21300012: Left_Guard_Enhanced_Sorcerer_192x192_sheet_6
+    21300014: Left_Guard_Enhanced_Sorcerer_192x192_sheet_7
+    21300016: Left_Guard_Enhanced_Sorcerer_192x192_sheet_8
+    21300018: Left_Guard_Enhanced_Sorcerer_192x192_sheet_9
+    21300020: Left_Guard_Enhanced_Sorcerer_192x192_sheet_10
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -111,7 +111,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_0
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -125,7 +125,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_1
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_1
       rect:
         serializedVersion: 2
         x: 256
@@ -139,7 +139,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_2
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_2
       rect:
         serializedVersion: 2
         x: 512
@@ -153,7 +153,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_3
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_3
       rect:
         serializedVersion: 2
         x: 768
@@ -167,7 +167,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_4
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_4
       rect:
         serializedVersion: 2
         x: 1024
@@ -181,7 +181,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_5
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_5
       rect:
         serializedVersion: 2
         x: 1280
@@ -195,7 +195,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_6
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_6
       rect:
         serializedVersion: 2
         x: 1536
@@ -209,7 +209,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_7
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_7
       rect:
         serializedVersion: 2
         x: 1792
@@ -223,7 +223,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_8
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_8
       rect:
         serializedVersion: 2
         x: 2048
@@ -237,7 +237,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_9
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_9
       rect:
         serializedVersion: 2
         x: 2304
@@ -251,7 +251,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_10
+      name: Left_Guard_Enhanced_Sorcerer_192x192_sheet_10
       rect:
         serializedVersion: 2
         x: 2560

@@ -556,7 +556,6 @@ public abstract class Champion : MonoBehaviour {
             {
                 if (!IsGrounded())
                 {
-                    Debug.Log(coyoteFrameCounter + ", " + jumping);
                     rb.AddForce(new Vector2(0, -jumpHeight * rb.mass), ForceMode2D.Impulse);
                 }
             }

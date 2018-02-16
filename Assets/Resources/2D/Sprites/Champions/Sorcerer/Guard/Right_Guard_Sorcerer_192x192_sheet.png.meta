@@ -1,12 +1,20 @@
 fileFormatVersion: 2
 guid: aada102c864080e4f8303a50173ec81c
-timeCreated: 1518753551
+timeCreated: 1518800164
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Right_Guard_Sorcerer_192x192_sheet_0
     21300002: Right_Guard_Sorcerer_192x192_sheet_1
     21300004: Right_Guard_Sorcerer_192x192_sheet_2
+    21300006: Right_Guard_Sorcerer_192x192_sheet_3
+    21300008: Right_Guard_Sorcerer_192x192_sheet_4
+    21300010: Right_Guard_Sorcerer_192x192_sheet_5
+    21300012: Right_Guard_Sorcerer_192x192_sheet_6
+    21300014: Right_Guard_Sorcerer_192x192_sheet_7
+    21300016: Right_Guard_Sorcerer_192x192_sheet_8
+    21300018: Right_Guard_Sorcerer_192x192_sheet_9
+    21300020: Right_Guard_Sorcerer_192x192_sheet_10
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -46,7 +54,7 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
+  alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 64
@@ -60,7 +68,7 @@ TextureImporter:
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -70,7 +78,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -80,7 +88,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -90,7 +98,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: WebGL
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -108,10 +116,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 192
+        width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.54, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -120,12 +128,12 @@ TextureImporter:
       name: Right_Guard_Sorcerer_192x192_sheet_1
       rect:
         serializedVersion: 2
-        x: 192
+        x: 256
         y: 0
-        width: 192
+        width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.54, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +142,124 @@ TextureImporter:
       name: Right_Guard_Sorcerer_192x192_sheet_2
       rect:
         serializedVersion: 2
-        x: 384
+        x: 512
         y: 0
-        width: 192
+        width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.54, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Right_Guard_Sorcerer_192x192_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 256
+        height: 192
+      alignment: 9
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

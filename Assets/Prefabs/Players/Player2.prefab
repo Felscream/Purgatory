@@ -191,7 +191,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 1651438110165964}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f32aaa946fd5d8544a02cd8dae215549, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -363,6 +363,7 @@ MonoBehaviour:
   fatiguedSpeedReduction: 1.5
   fallMultiplier: 7
   jumpVelocityAtApex: 3
+  coyoteTimeFrames: 6
   dodgeSpeed: 20
   dodgeStaminaCost: 10
   dodgeFrames: 7

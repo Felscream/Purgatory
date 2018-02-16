@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: b3418d24057301343858e4b362f88cbe
-timeCreated: 1518800146
+guid: 83e3d550b1527544bb732c3aca0af840
+timeCreated: 1518800156
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Left_Guard_Sorcerer_192x192_sheet_0
-    21300002: Left_Guard_Sorcerer_192x192_sheet_1
-    21300004: Left_Guard_Sorcerer_192x192_sheet_2
-    21300006: Left_Guard_Sorcerer_192x192_sheet_3
-    21300008: Left_Guard_Sorcerer_192x192_sheet_4
-    21300010: Left_Guard_Sorcerer_192x192_sheet_5
-    21300012: Left_Guard_Sorcerer_192x192_sheet_6
-    21300014: Left_Guard_Sorcerer_192x192_sheet_7
-    21300016: Left_Guard_Sorcerer_192x192_sheet_8
-    21300018: Left_Guard_Sorcerer_192x192_sheet_9
-    21300020: Left_Guard_Sorcerer_192x192_sheet_10
+    21300000: Right_Guard_Enhanced_Sorcerer_192x192_sheet_0
+    21300002: Right_Guard_Enhanced_Sorcerer_192x192_sheet_1
+    21300004: Right_Guard_Enhanced_Sorcerer_192x192_sheet_2
+    21300006: Right_Guard_Enhanced_Sorcerer_192x192_sheet_3
+    21300008: Right_Guard_Enhanced_Sorcerer_192x192_sheet_4
+    21300010: Right_Guard_Enhanced_Sorcerer_192x192_sheet_5
+    21300012: Right_Guard_Enhanced_Sorcerer_192x192_sheet_6
+    21300014: Right_Guard_Enhanced_Sorcerer_192x192_sheet_7
+    21300016: Right_Guard_Enhanced_Sorcerer_192x192_sheet_8
+    21300018: Right_Guard_Enhanced_Sorcerer_192x192_sheet_9
+    21300020: Right_Guard_Enhanced_Sorcerer_192x192_sheet_10
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -111,7 +111,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_0
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,13 +119,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_1
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_1
       rect:
         serializedVersion: 2
         x: 256
@@ -133,13 +133,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_2
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_2
       rect:
         serializedVersion: 2
         x: 512
@@ -147,13 +147,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_3
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_3
       rect:
         serializedVersion: 2
         x: 768
@@ -161,13 +161,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_4
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_4
       rect:
         serializedVersion: 2
         x: 1024
@@ -175,13 +175,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_5
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_5
       rect:
         serializedVersion: 2
         x: 1280
@@ -189,13 +189,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_6
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_6
       rect:
         serializedVersion: 2
         x: 1536
@@ -203,13 +203,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_7
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_7
       rect:
         serializedVersion: 2
         x: 1792
@@ -217,13 +217,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_8
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_8
       rect:
         serializedVersion: 2
         x: 2048
@@ -231,13 +231,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_9
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_9
       rect:
         serializedVersion: 2
         x: 2304
@@ -245,13 +245,13 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Left_Guard_Sorcerer_192x192_sheet_10
+      name: Right_Guard_Enhanced_Sorcerer_192x192_sheet_10
       rect:
         serializedVersion: 2
         x: 2560
@@ -259,7 +259,7 @@ TextureImporter:
         width: 256
         height: 192
       alignment: 9
-      pivot: {x: 0.47, y: 0.34}
+      pivot: {x: 0.53, y: 0.34}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
