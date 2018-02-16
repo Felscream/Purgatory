@@ -25,7 +25,7 @@ public class Sorcerer : Champion
         Gizmos.DrawWireCube(new Vector3(comboTwoOffset.x, comboTwoOffset.y, 0) + transform.position, new Vector3(comboTwoSize.x, comboTwoSize.y, 1));
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(projectileSpawnOffset + (Vector2)transform.position, 0.3f);
-        //uncomment to teleportation, you'll have to comment transform.Translate(Teleportation) in WarpOut()
+        //uncomment to teleport, you'll have to comment transform.Translate(Teleportation) in WarpOut()
         //WarpOut();
 
         

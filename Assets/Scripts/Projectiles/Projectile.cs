@@ -78,7 +78,7 @@ public abstract class Projectile : MonoBehaviour {
                 }
             }
         }
-        else //we hit a wall
+        else //we hit a wall or another projectile
         {
             SetImpact();
         }
