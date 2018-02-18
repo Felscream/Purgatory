@@ -113,7 +113,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.54, y: 0.5}
     oldSize: {x: 3, y: 2}
-    newSize: {x: 3, y: 2}
+    newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59eb0dd0b7988c14e8fd6c4ae8d9a61a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
-  duration: 20
+  cooldown: 1
+  duration: 10
   staminaCost: 0
   transparencyOnCooldown: 0.4
   transparencyAvailable: 1
@@ -271,14 +271,15 @@ MonoBehaviour:
   jumpVelocityAtApex: 2
   coyoteTimeFrames: 10
   dodgeSpeed: 10
-  dodgeStaminaCost: 40
+  dodgeStaminaCost: 0
   dodgeFrames: 30
   dodgeImmunityStartFrame: 3
   dodgeImmunityEndFrame: 15
   maxDodgeToken: 1
   dodgeToken: 1
   parryStaminaCost: 60
-  parryImmunityFrames: 30
+  parryImmunityStartFrame: 2
+  parryImmunityEndFrame: 12
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
   baseStamina: 100
@@ -346,7 +347,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 2}
+  m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

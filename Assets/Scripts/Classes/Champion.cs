@@ -57,7 +57,8 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Parry Settings")]
     [SerializeField] protected int parryStaminaCost = 60;
-    [SerializeField] protected int parryImmunityFrames = 30;
+    [SerializeField] protected int parryImmunityStartFrame = 2;
+    [SerializeField] protected int parryImmunityEndFrame = 8;
 
     [Header("Guard Settings")]
     [SerializeField] protected float damageReductionMultiplier = 0.2f;
@@ -92,8 +93,9 @@ public abstract class Champion : MonoBehaviour {
 
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
-    protected int dodgeFrameCounter;
-    protected int coyoteFrameCounter;
+    protected int dodgeFrameCounter = 0;
+    protected int coyoteFrameCounter = 0;
+    protected int parryFrameCounter = 0;
     protected float distToGround, facing;
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -122,6 +124,7 @@ public abstract class Champion : MonoBehaviour {
     protected string SecondaryAttackButton = "SecondaryAttack";
     protected string PowerUpButton = "Up";
     protected string GuardButton = "Guard";
+    protected string ParryButton = "Parry";
 
     private void OnDrawGizmos()
     {
@@ -173,6 +176,7 @@ public abstract class Champion : MonoBehaviour {
             CheckStunLock();
             CheckFatigue();
             CheckDodge();
+            CheckParry();
             if (InputStatus == Enum_InputStatus.blocked)
             {
                 StopMovement(0);
@@ -397,6 +401,13 @@ public abstract class Champion : MonoBehaviour {
                 rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
             }
         }
+        else
+        {
+            if(guardStatus == Enum_GuardStatus.parrying)
+            {
+                Debug.Log("Parried");
+            }
+        }
 
         Debug.Log("Health :" + health);
 
@@ -430,6 +441,38 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
+    protected virtual void CheckParry()
+    {
+        Debug.Log(parryFrameCounter);
+        switch (guardStatus)
+        {
+            case Enum_GuardStatus.noGuard:
+                if (Input.GetButtonDown(ParryButton) && inputStatus == Enum_InputStatus.allowed && !fatigued && IsGrounded())
+                {
+                    parryFrameCounter = 0;
+                    guardStatus = Enum_GuardStatus.parrying;
+                    inputStatus = Enum_InputStatus.blocked;
+                    animator.SetTrigger("Parry");
+                    ReduceStamina(parryStaminaCost);
+                }
+                break;
+            case Enum_GuardStatus.parrying:
+                parryFrameCounter++;
+                if (parryFrameCounter >= parryImmunityStartFrame && parryFrameCounter < parryImmunityEndFrame)
+                {
+                    immune = true;
+                }
+                if (parryFrameCounter >= parryImmunityEndFrame)
+                {
+                    immune = false;
+                    guardStatus = Enum_GuardStatus.noGuard;
+                    inputStatus = Enum_InputStatus.allowed;
+                }
+                break;
+            default:
+                break;
+        }
+    }
     protected virtual void CheckDodge()
     {
         switch (dodgeStatus)
@@ -622,7 +665,10 @@ public abstract class Champion : MonoBehaviour {
     {
         GuardButton = GButton;
     }
-
+    public void SetParryButton(string PButton)
+    {
+        ParryButton = PButton;
+    }
     public void UpdateHUD()
     {
         healthSlider.value = health;

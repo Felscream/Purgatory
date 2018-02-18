@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour {
     public string SecondaryAttack;
     public string PowerUp;
     public string Guard;
+    public string Parry;
 
     private void Awake()
     {
@@ -65,6 +66,9 @@ public class PlayerInput : MonoBehaviour {
 
             //GUARD
             fighter.SetGuardButton(Guard);
+
+            //PARRY
+            fighter.SetParryButton(Parry);
         }
     }
 }

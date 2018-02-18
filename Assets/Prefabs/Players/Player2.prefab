@@ -344,6 +344,7 @@ MonoBehaviour:
   SecondaryAttack: SecondaryAttack_P2
   PowerUp: PowerUp_P2
   Guard: Guard_P2
+  Parry: Parry_P2
 --- !u!114 &114898623794700868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -372,7 +373,8 @@ MonoBehaviour:
   maxDodgeToken: 1
   dodgeToken: 1
   parryStaminaCost: 30
-  parryImmunityFrames: 30
+  parryImmunityStartFrame: 2
+  parryImmunityEndFrame: 8
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
   baseStamina: 100

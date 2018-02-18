@@ -320,7 +320,10 @@ MonoBehaviour:
   cooldown: 10
   duration: 10
   staminaCost: 0
+  transparencyOnCooldown: 0.4
+  transparencyAvailable: 1
   timeToDisable: 1.5
+  staminaCostPerSecond: 10
 --- !u!114 &114812706367538482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,10 +338,12 @@ MonoBehaviour:
   baseHealth: 100
   determination: 3
   speed: 10
+  playerHUD: {fileID: 0}
   jumpHeight: 10
   fatiguedSpeedReduction: 1.5
   fallMultiplier: 7
   jumpVelocityAtApex: 3
+  coyoteTimeFrames: 6
   dodgeSpeed: 20
   dodgeStaminaCost: 10
   dodgeFrames: 7
@@ -347,7 +352,8 @@ MonoBehaviour:
   maxDodgeToken: 1
   dodgeToken: 1
   parryStaminaCost: 30
-  parryImmunityFrames: 30
+  parryImmunityStartFrame: 2
+  parryImmunityEndFrame: 8
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
   baseStamina: 100
@@ -369,7 +375,6 @@ MonoBehaviour:
   comboOneSize: {x: 2.2, y: 1.6}
   comboOneStunLock: 5
   comboOneRecoilForce: {x: 5, y: 0}
-  playerHUD: {fileID: 0}
   comboTwoDamage: 20
   comboTwoOffset: {x: 1.72, y: 0.1}
   comboTwoSize: {x: 2.55, y: 2.19}
@@ -399,8 +404,10 @@ MonoBehaviour:
   Jump: Jump_P3
   Dodge: Dodge_P3
   PrimaryAttack: PrimaryAttack_P3
+  SecondaryAttack: SecondaryAttack_P3
   PowerUp: PowerUp_P3
   Guard: Guard_P3
+  Parry: Parry_P3
 --- !u!212 &212266402935134566
 SpriteRenderer:
   m_ObjectHideFlags: 1
