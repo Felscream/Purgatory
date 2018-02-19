@@ -269,9 +269,9 @@ MonoBehaviour:
   fatiguedSpeedReduction: 1.2
   fallMultiplier: 7
   jumpVelocityAtApex: 2
-  coyoteTimeFrames: 10
+  coyoteTimeFrames: 3
   dodgeSpeed: 10
-  dodgeStaminaCost: 0
+  dodgeStaminaCost: 20
   dodgeFrames: 30
   dodgeImmunityStartFrame: 3
   dodgeImmunityEndFrame: 15

@@ -253,7 +253,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && coyoteFrameCounter > coyoteTimeFrames && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
+        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() /*&& coyoteFrameCounter > coyoteTimeFrames*/ && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
         {
             Fall();
         }
@@ -594,6 +594,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 rb.velocity = Vector2.zero;
                 rb.AddForce(new Vector2(0, jumpHeight * rb.mass), ForceMode2D.Impulse);
+                animator.SetBool("Fall", false);
                 animator.SetBool("Jump", true);
                 coyoteFrameCounter = coyoteTimeFrames + 1;
             }

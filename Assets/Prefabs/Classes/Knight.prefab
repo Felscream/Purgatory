@@ -249,10 +249,10 @@ MonoBehaviour:
   speed: 10
   playerHUD: {fileID: 0}
   jumpHeight: 10
-  fatiguedSpeedReduction: 1.5
+  fatiguedSpeedReduction: 1.2
   fallMultiplier: 7
   jumpVelocityAtApex: 3
-  coyoteTimeFrames: 6
+  coyoteTimeFrames: 3
   dodgeSpeed: 20
   dodgeStaminaCost: 10
   dodgeFrames: 7

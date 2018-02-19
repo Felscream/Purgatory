@@ -201,7 +201,12 @@ public class Sorcerer : Champion
         mb.Direction = facing;
         Vector2 alForce = new Vector2(mb.AltForce.x * facing, mb.AltForce.y);
         mb.GetComponent<Rigidbody2D>().AddForce(alForce);
-        rb.gravityScale = 1.0f;
         AllowInputs();
+    }
+
+    public void AltManaBombRecoil()
+    {
+        rb.AddForce(new Vector2(-4 * facing, 4), ForceMode2D.Impulse);
+        rb.gravityScale = 1.0f;
     }
 }

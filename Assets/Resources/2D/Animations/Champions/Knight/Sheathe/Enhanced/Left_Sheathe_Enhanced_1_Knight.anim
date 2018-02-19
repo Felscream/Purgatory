@@ -53,6 +53,12 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 136
+      - serializedVersion: 2
+        time: 0.33333334
+        value: -0.028232098
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -77,6 +83,12 @@ AnimationClip:
         tangentMode: 136
       - serializedVersion: 2
         time: 0.25
+        value: 2.0564642
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.33333334
         value: 2.0564642
         inSlope: 0
         outSlope: 0
@@ -223,6 +235,12 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 136
+      - serializedVersion: 2
+        time: 0.33333334
+        value: -0.028232098
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -247,6 +265,12 @@ AnimationClip:
         tangentMode: 136
       - serializedVersion: 2
         time: 0.25
+        value: 2.0564642
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.33333334
         value: 2.0564642
         inSlope: 0
         outSlope: 0
@@ -286,7 +310,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 0.125
+  - time: 0.33333334
     functionName: EndAttackString
     data: 
     objectReferenceParameter: {fileID: 0}
