@@ -133,6 +133,7 @@ public abstract class Champion : MonoBehaviour {
     protected void Awake()
     {
         facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
+        coyoteFrameCounter = coyoteTimeFrames; //to allow players to fall at the beginning
     }
 
     protected void Start()
@@ -360,6 +361,7 @@ public abstract class Champion : MonoBehaviour {
     }
     public void ApplyStunLock(int duration) // Player can't execute action while damaged
     {
+        rb.gravityScale = 1.0f;
         stunlockFrameCounter = 0;
         framesToStunLock = duration;
         inputStatus = Enum_InputStatus.blocked;
@@ -400,6 +402,7 @@ public abstract class Champion : MonoBehaviour {
                 ApplyStunLock(stunLock);
                 rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
             }
+            
         }
         else
         {
@@ -443,7 +446,6 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void CheckParry()
     {
-        Debug.Log(parryFrameCounter);
         switch (guardStatus)
         {
             case Enum_GuardStatus.noGuard:

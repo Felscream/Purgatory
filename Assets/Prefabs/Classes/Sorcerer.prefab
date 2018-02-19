@@ -308,6 +308,8 @@ MonoBehaviour:
   comboTwoRecoilForce: {x: 5, y: 0}
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
   projectileSpawnOffset: {x: 3.2, y: 0.31}
+  altProjectileSpawnOffset: {x: 1.65, y: -0.73}
+  altRotation: {x: 0, y: 0, z: -45}
 --- !u!212 &212742080940867160
 SpriteRenderer:
   m_ObjectHideFlags: 1

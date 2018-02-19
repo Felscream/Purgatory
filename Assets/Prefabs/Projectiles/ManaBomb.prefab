@@ -112,6 +112,8 @@ MonoBehaviour:
   damage: 10
   stunLock: 5
   recoilForce: {x: 10, y: 0}
+  altForce: {x: 0.1, y: -0.1}
+  altRotation: {x: 0, y: 0, z: -45}
 --- !u!212 &212635049011900046
 SpriteRenderer:
   m_ObjectHideFlags: 1

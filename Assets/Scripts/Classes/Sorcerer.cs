@@ -16,6 +16,8 @@ public class Sorcerer : Champion
     [Header("ProjectileSetting")]
     [SerializeField] protected GameObject manabomb;
     [SerializeField] protected Vector2 projectileSpawnOffset;
+    [SerializeField] protected Vector2 altProjectileSpawnOffset;
+    [SerializeField] private Vector3 altRotation;
 
     public void OnDrawGizmosSelected()
     {
@@ -25,10 +27,12 @@ public class Sorcerer : Champion
         Gizmos.DrawWireCube(new Vector3(comboTwoOffset.x, comboTwoOffset.y, 0) + transform.position, new Vector3(comboTwoSize.x, comboTwoSize.y, 1));
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(projectileSpawnOffset + (Vector2)transform.position, 0.3f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(altProjectileSpawnOffset + (Vector2)transform.position, 0.3f);
         //uncomment to teleport, you'll have to comment transform.Translate(Teleportation) in WarpOut()
         //WarpOut();
 
-        
+
     }
     protected override void Update()
     {
@@ -184,6 +188,19 @@ public class Sorcerer : Champion
         mb.Owner = this;
         mb.Direction = facing;
         mb.GetComponent<Rigidbody2D>().AddForce(mb.Force * facing);
+        rb.gravityScale = 1.0f;
+        AllowInputs();
+    }
+
+    public void SpawnAltManaBomb()
+    {
+        Vector2 SpawnPoint = new Vector2(transform.position.x + altProjectileSpawnOffset.x * facing, transform.position.y + altProjectileSpawnOffset.y);
+        GameObject bomb = Instantiate(manabomb, SpawnPoint, Quaternion.Euler(altRotation * facing));
+        Manabomb mb = bomb.GetComponent<Manabomb>();
+        mb.Owner = this;
+        mb.Direction = facing;
+        Vector2 alForce = new Vector2(mb.AltForce.x * facing, mb.AltForce.y);
+        mb.GetComponent<Rigidbody2D>().AddForce(alForce);
         rb.gravityScale = 1.0f;
         AllowInputs();
     }
