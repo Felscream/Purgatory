@@ -30,6 +30,15 @@ public enum Enum_StaminaRegeneration
     blocked
 }
 
+public enum Enum_SpecialStatus
+{
+    normal,
+    stun,
+    poison,
+    slow,
+    projected
+}
+
 public abstract class Champion : MonoBehaviour {
 
     [SerializeField] protected int baseHealth = 100;
@@ -550,27 +559,29 @@ public abstract class Champion : MonoBehaviour {
 
     }
 
-    protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce)
+    protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce, bool specialEffect = false)
     {
         if (enemies.Length > 0)
-        {
             foreach (Collider2D enemy in enemies)
             {
-                DealDamageToEnemy(enemy, damage, stunLock, recoilForce);
+                DealDamageToEnemy(enemy, damage, stunLock, recoilForce, specialEffect);
             }
-        }
     }
 
-    protected void DealDamageToEnemy(Collider2D enemy, int damage, int stunLock, Vector2 recoilForce)
+    protected void DealDamageToEnemy(Collider2D enemy, int damage, int stunLock, Vector2 recoilForce, bool specialEffect)
     {
         Champion foe = enemy.gameObject.GetComponent<Champion>();
         if (foe != null && foe != this && !foe.Dead)
         {
             Debug.Log("Hit " + foe.transform.parent.name);
             foe.ApplyDamage(damage, facing, stunLock, recoilForce);
+            ApplySpecialEffect(foe);
         }
     }
-
+    protected virtual void ApplySpecialEffect(Champion enemy)
+    {
+        Debug.Log("No special effect on this attack");
+    }
     protected void StopMovement(int stopForce)
     {
         movementX = 0;

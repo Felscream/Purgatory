@@ -42,6 +42,8 @@ public class Knight : Champion {
         Gizmos.DrawWireCube(new Vector3(EnhancedComboOneOffset.x, EnhancedComboOneOffset.y, 0) + transform.position, new Vector3(EnhancedComboOneSize.x, EnhancedComboOneSize.y, 1));
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(new Vector3(EnhancedComboTwoOffset.x, EnhancedComboTwoOffset.y, 1) + transform.position, new Vector3(EnhancedComboTwoSize.x, EnhancedComboTwoSize.y, 1));
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector3(SpecialAttackOffset.x, SpecialAttackOffset.y, 1) + transform.position, new Vector3(SpecialAttackSize.x, SpecialAttackSize.y, 1));
     }
 
     protected override void Update()
@@ -71,14 +73,16 @@ public class Knight : Champion {
     }
     protected override void CastHitBox(int attackType) //function fired from animation event (check knight's normal and enhanced attacks with the animation tool)
     {
-        Vector2 pos = new Vector2(0,0);
+        Vector2 pos = new Vector2(0, 0);
         Vector2 size = new Vector2(0, 0);
         Vector2 recoilForce = Vector2.zero;
         int damage = 0;
         int stunLock = 0;
         float dir = facing != 0.0f ? facing : 1;
         Collider2D[] hits;
-        if(attackType >= 0 && attackType < 5)
+        bool specialEffect = false;
+
+        if (attackType >= 0 && attackType < 5)
         {
             switch (attackType)
             {
@@ -110,6 +114,14 @@ public class Knight : Champion {
                     stunLock = EnhancedComboTwoStunLock;
                     recoilForce = EnhancedComboTwoRecoilForce;
                     break;
+                case 4: // special
+                    pos = new Vector2(SpecialAttackOffset.x * dir, SpecialAttackOffset.y) + (Vector2)transform.position;
+                    size = new Vector2(SpecialAttackSize.x, SpecialAttackSize.y);
+                    damage = SpecialAttackDamage;
+                    stunLock = SpecialAttackStunLock;
+                    recoilForce = SpecialAttackRecoilForce;
+                    specialEffect = true;
+                    break;
                 //to implement : ultimate and special
                 default:
                     Debug.LogError("Unknown AttackType");
@@ -117,28 +129,14 @@ public class Knight : Champion {
             }
         }
         hits = Physics2D.OverlapBoxAll(pos, size, Vector2.Angle(Vector2.zero, transform.position), hitBoxLayer);
-        DealDamageToEnemies(hits, damage, stunLock, recoilForce);
-    }
-    protected void SecondaryAttackStart()
-    {
-        Debug.Log("Secondary Attack");
-        float dir = facing != 0.0f ? facing : 1;
-        secondaryAttackRunning = true;
-        CapsuleCollider2D c = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
-        c.offset = new Vector2(0.5f * dir, 0);
+        DealDamageToEnemies(hits, damage, stunLock, recoilForce, specialEffect);
     }
 
-    protected void SecondaryAttackEnd()
+    protected override void ApplySpecialEffect(Champion enemy)
     {
-        Debug.Log("Secondary Attack end");
-        secondaryAttackRunning = false;
-    }
+        Vector2 force = new Vector2(facing * SpecialAttackRecoilForce.x, SpecialAttackRecoilForce.y);
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(secondaryAttackRunning)
-        {
-            DealDamageToEnemy(collision.collider, SpecialAttackDamage, SpecialAttackStunLock, SpecialAttackRecoilForce);
-        }
+        enemy.ApplyStunLock(SpecialAttackStunLock);
+        enemy.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
     }
 }

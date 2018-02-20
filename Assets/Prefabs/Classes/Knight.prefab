@@ -134,7 +134,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!82 &82723315811734672
 AudioSource:
@@ -203,7 +203,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -297,6 +297,11 @@ MonoBehaviour:
   EnhancedComboTwoSize: {x: 5.15, y: 3.76}
   EnhancedComboTwoStunLock: 5
   EnhancedComboTwoRecoilForce: {x: 5, y: 0}
+  SpecialAttackDamage: 1
+  SpecialAttackOffset: {x: 0.8, y: 0}
+  SpecialAttackSize: {x: 0.7, y: 2.4}
+  SpecialAttackStunLock: 5
+  SpecialAttackRecoilForce: {x: 0, y: 0}
 --- !u!114 &114615723824182320
 MonoBehaviour:
   m_ObjectHideFlags: 1
