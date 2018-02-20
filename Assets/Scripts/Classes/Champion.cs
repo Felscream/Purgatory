@@ -44,6 +44,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int baseHealth = 100;
     [SerializeField] protected int determination = 3;
     [SerializeField] protected float speed = 10;
+    [SerializeField] protected LayerMask deadLayer;
 
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
@@ -438,6 +439,17 @@ public abstract class Champion : MonoBehaviour {
             playerBox.enabled = false;
             StopMovement(1);
             Debug.Log(transform.parent.name + " died");
+
+            //TO DO : find a way to use the deadLayer variable since this doesn't work 
+            /*if(deadLayer == null)
+            {
+                deadLayer = LayerMask.NameToLayer("Dead");
+                
+            }
+            gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
+            */
+            //this works but uses a string
+            gameObject.layer = LayerMask.NameToLayer("Dead");
         }
     }
     protected void CheckFatigue()
@@ -454,7 +466,7 @@ public abstract class Champion : MonoBehaviour {
     }
 
     protected virtual void CheckParry()
-    {/*
+    {
         switch (guardStatus)
         {
             case Enum_GuardStatus.noGuard:
@@ -482,7 +494,7 @@ public abstract class Champion : MonoBehaviour {
                 break;
             default:
                 break;
-        }*/
+        }
     }
     protected virtual void CheckDodge()
     {

@@ -18,6 +18,7 @@ public class Sorcerer : Champion
     [SerializeField] protected Vector2 projectileSpawnOffset;
     [SerializeField] protected Vector2 altProjectileSpawnOffset;
     [SerializeField] private Vector3 altRotation;
+    [SerializeField] private Vector2 altRecoil = new Vector2(-4,4);
 
     public void OnDrawGizmosSelected()
     {
@@ -206,7 +207,7 @@ public class Sorcerer : Champion
 
     public void AltManaBombRecoil()
     {
-        rb.AddForce(new Vector2(-4 * facing, 4), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(altRecoil.x * facing, altRecoil.y), ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;
     }
 }

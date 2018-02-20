@@ -264,6 +264,9 @@ MonoBehaviour:
   baseHealth: 100
   determination: 2
   speed: 10
+  deadLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   playerHUD: {fileID: 0}
   jumpHeight: 10
   fatiguedSpeedReduction: 1.2
@@ -310,6 +313,7 @@ MonoBehaviour:
   projectileSpawnOffset: {x: 3.2, y: 0.31}
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
   altRotation: {x: 0, y: 0, z: -45}
+  altRecoil: {x: -4, y: 4}
 --- !u!212 &212742080940867160
 SpriteRenderer:
   m_ObjectHideFlags: 1

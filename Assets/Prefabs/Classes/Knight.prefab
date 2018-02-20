@@ -247,6 +247,9 @@ MonoBehaviour:
   baseHealth: 100
   determination: 3
   speed: 10
+  deadLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   playerHUD: {fileID: 0}
   jumpHeight: 10
   fatiguedSpeedReduction: 1.2
@@ -297,9 +300,15 @@ MonoBehaviour:
   EnhancedComboTwoSize: {x: 5.15, y: 3.76}
   EnhancedComboTwoStunLock: 5
   EnhancedComboTwoRecoilForce: {x: 5, y: 0}
+<<<<<<< HEAD
   SpecialAttackDamage: 1
   SpecialAttackOffset: {x: 0.8, y: 0}
   SpecialAttackSize: {x: 0.7, y: 2.4}
+=======
+  SpecialAttackDamage: 20
+  SpecialAttackOffset: {x: 0, y: 0}
+  SpecialAttackSize: {x: 1, y: 1}
+>>>>>>> 0b82f87a8004b1154818e6c8fc43c5381eab1abd
   SpecialAttackStunLock: 5
   SpecialAttackRecoilForce: {x: 0, y: 0}
 --- !u!114 &114615723824182320
