@@ -445,7 +445,7 @@ public abstract class Champion : MonoBehaviour {
     }
 
     protected virtual void CheckParry()
-    {
+    {/*
         switch (guardStatus)
         {
             case Enum_GuardStatus.noGuard:
@@ -473,7 +473,7 @@ public abstract class Champion : MonoBehaviour {
                 break;
             default:
                 break;
-        }
+        }*/
     }
     protected virtual void CheckDodge()
     {
@@ -550,19 +550,24 @@ public abstract class Champion : MonoBehaviour {
 
     }
 
-    protected void DealDamageToEnnemies(Collider2D[] ennemies, int damage, int stunLock, Vector2 recoilForce)
+    protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce)
     {
-        if (ennemies.Length > 0)
+        if (enemies.Length > 0)
         {
-            foreach (Collider2D col in ennemies)
+            foreach (Collider2D enemy in enemies)
             {
-                Champion foe = col.gameObject.GetComponent<Champion>();
-                if (foe != null && foe != this && !foe.Dead)
-                {
-                    Debug.Log("Hit " + foe.transform.parent.name);
-                    foe.ApplyDamage(damage, facing, stunLock, recoilForce);
-                }
+                DealDamageToEnemy(enemy, damage, stunLock, recoilForce);
             }
+        }
+    }
+
+    protected void DealDamageToEnemy(Collider2D enemy, int damage, int stunLock, Vector2 recoilForce)
+    {
+        Champion foe = enemy.gameObject.GetComponent<Champion>();
+        if (foe != null && foe != this && !foe.Dead)
+        {
+            Debug.Log("Hit " + foe.transform.parent.name);
+            foe.ApplyDamage(damage, facing, stunLock, recoilForce);
         }
     }
 

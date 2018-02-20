@@ -34,6 +34,12 @@ AnimationClip:
       - serializedVersion: 2
         time: 0.375
         value: -0.101441205
+        inSlope: 1.9007298
+        outSlope: 1.9007298
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.41666666
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -50,6 +56,12 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: 0.046198368
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.41666666
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -136,6 +148,13 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 0
+      attribute: 1872933342
+      script: {fileID: 0}
+      typeID: 61
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 0
       attribute: 4197328169
       script: {fileID: 0}
       typeID: 61
@@ -148,13 +167,6 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
-    - serializedVersion: 2
-      path: 0
-      attribute: 1872933342
-      script: {fileID: 0}
-      typeID: 61
-      customType: 0
-      isPPtrCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2368279999
@@ -207,6 +219,12 @@ AnimationClip:
       - serializedVersion: 2
         time: 0.375
         value: -0.101441205
+        inSlope: 1.9007298
+        outSlope: 1.9007298
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.41666666
+        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -223,6 +241,12 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: 0.046198368
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+      - serializedVersion: 2
+        time: 0.41666666
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -282,8 +306,22 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
+  - time: 0.125
+    functionName: SecondaryAttackStart
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.375
     functionName: AllowInputs
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
+    functionName: SecondaryAttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

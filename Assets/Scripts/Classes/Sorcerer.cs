@@ -104,7 +104,7 @@ public class Sorcerer : Champion
             }
         }
         hits = Physics2D.OverlapBoxAll(pos, size, Vector2.Angle(Vector2.zero, transform.position), hitBoxLayer);
-        DealDamageToEnnemies(hits, damage, stunLock, recoilForce);
+        DealDamageToEnemies(hits, damage, stunLock, recoilForce);
     }
 
     protected override void CheckDodge()

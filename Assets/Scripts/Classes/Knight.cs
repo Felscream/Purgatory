@@ -23,6 +23,15 @@ public class Knight : Champion {
     [SerializeField] protected int EnhancedComboTwoStunLock = 5;
     [SerializeField] protected Vector2 EnhancedComboTwoRecoilForce;
 
+    [Header("SpecialAttackSettings")]
+    [SerializeField] protected int SpecialAttackDamage = 20;
+    [SerializeField] protected Vector2 SpecialAttackOffset = new Vector2(0, 0);
+    [SerializeField] protected Vector2 SpecialAttackSize = new Vector2(1, 1);
+    [SerializeField] protected int SpecialAttackStunLock = 5;
+    [SerializeField] protected Vector2 SpecialAttackRecoilForce;
+
+    protected bool secondaryAttackRunning = false;
+
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -46,11 +55,11 @@ public class Knight : Champion {
                 temp.StopPowerUp();
             }
         }
+        
     }
     protected override void LateUpdate()
     {
         base.LateUpdate();
-
     }
     protected override void PrimaryAttack()
     {
@@ -60,7 +69,6 @@ public class Knight : Champion {
     {
         base.SecondaryAttack();
     }
-
     protected override void CastHitBox(int attackType) //function fired from animation event (check knight's normal and enhanced attacks with the animation tool)
     {
         Vector2 pos = new Vector2(0,0);
@@ -102,13 +110,35 @@ public class Knight : Champion {
                     stunLock = EnhancedComboTwoStunLock;
                     recoilForce = EnhancedComboTwoRecoilForce;
                     break;
-                //to implement : special and ultimate
+                //to implement : ultimate and special
                 default:
                     Debug.LogError("Unknown AttackType");
                     break;
             }
         }
         hits = Physics2D.OverlapBoxAll(pos, size, Vector2.Angle(Vector2.zero, transform.position), hitBoxLayer);
-        DealDamageToEnnemies(hits, damage, stunLock, recoilForce);
+        DealDamageToEnemies(hits, damage, stunLock, recoilForce);
+    }
+    protected void SecondaryAttackStart()
+    {
+        Debug.Log("Secondary Attack");
+        float dir = facing != 0.0f ? facing : 1;
+        secondaryAttackRunning = true;
+        CapsuleCollider2D c = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
+        c.offset = new Vector2(0.5f * dir, 0);
+    }
+
+    protected void SecondaryAttackEnd()
+    {
+        Debug.Log("Secondary Attack end");
+        secondaryAttackRunning = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(secondaryAttackRunning)
+        {
+            DealDamageToEnemy(collision.collider, SpecialAttackDamage, SpecialAttackStunLock, SpecialAttackRecoilForce);
+        }
     }
 }
