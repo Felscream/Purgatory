@@ -19,7 +19,7 @@ public class Arrow : Projectile
     [SerializeField] protected GameObject poisonSprite;
     [SerializeField] protected GameObject slowSprite;
 
-    //private bool isStunned = false, isPoisonned = false, isSlowed = false;
+    private bool isStunned = false, isPoisonned = false, isSlowed = false;
     
     void Start()
     {
