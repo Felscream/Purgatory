@@ -131,6 +131,8 @@ public abstract class Champion : MonoBehaviour {
     
     protected Image ultiImageSlider;
 
+
+    protected CameraControl cameraController;
     // INPUTS valeurs par défaut
     protected string HorizontalCtrl = "Horizontal";
     protected string VerticalCtrl = "Vertical";
@@ -172,6 +174,8 @@ public abstract class Champion : MonoBehaviour {
         ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
         ResetAttackTokens();
+
+        cameraController = Camera.main.GetComponent<CameraControl>();
     }
 
     protected void FixedUpdate()
@@ -415,16 +419,21 @@ public abstract class Champion : MonoBehaviour {
         {
             if (guardStatus == Enum_GuardStatus.guarding && attackerFacing != facing) // attacker is in front of the player and player is guarding
             {
-                health = Mathf.Max(health - (int)Mathf.Ceil(dmg * damageReductionMultiplier), 0);
                 ReduceStamina(dmg * blockStaminaCostMultiplier);
+                dmg = (int)Mathf.Ceil(dmg * damageReductionMultiplier);
                 animator.SetTrigger("Blocked");
             }
             else //attacker is behind the player or player is not guarding
             {
-                health = Mathf.Max(health - dmg, 0);
+                
                 animator.SetFloat("AttackerFacing", attackerFacing);
                 ApplyStunLock(stunLock);
                 rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
+            }
+            health = Mathf.Max(health - dmg, 0);
+            if (cameraController != null)
+            {
+                cameraController.Shake(dmg/10, 5, 100);
             }
             ResetAttackTokens();
         }
