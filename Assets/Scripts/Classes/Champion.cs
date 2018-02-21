@@ -433,7 +433,7 @@ public abstract class Champion : MonoBehaviour {
             health = Mathf.Max(health - dmg, 0);
             if (cameraController != null)
             {
-                cameraController.Shake(dmg/10, 5, 100);
+                cameraController.Shake(dmg, 5, 1000);
             }
             ResetAttackTokens();
         }

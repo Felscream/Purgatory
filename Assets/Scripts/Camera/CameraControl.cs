@@ -9,6 +9,7 @@ public class CameraControl : MonoBehaviour {
     [SerializeField] private Transform shakeAxis;
 
     private float baseX, baseY;
+    private int shakeReduction = 10;
     private bool isShaking = false, isMoving = false;
     private int shakeCount;
     private float shakeIntensity;
@@ -79,7 +80,7 @@ public class CameraControl : MonoBehaviour {
         enabled = true;
         isShaking = true;
         shakeCount = shakes;
-        shakeIntensity = intensity;
+        shakeIntensity = intensity / 10;
         shakeSpeed = speed;
     }
 
