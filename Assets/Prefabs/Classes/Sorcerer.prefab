@@ -269,7 +269,6 @@ MonoBehaviour:
     m_Bits: 16384
   playerHUD: {fileID: 0}
   jumpHeight: 10
-  fatiguedSpeedReduction: 1.2
   fallMultiplier: 7
   jumpVelocityAtApex: 2
   coyoteTimeFrames: 3
@@ -295,11 +294,14 @@ MonoBehaviour:
   limitBreakPerSecond: 0.4
   limitBreakOnHit: 2.5
   limitBreakOnDamage: 1
+  fatiguedSpeedReduction: 0.833333
+  slowSpeedReduction: 0.8333333
   comboOneDamage: 10
   primaryAttackMovementForce: 5
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 256
+  maxAttackToken: 2
   comboOneOffset: {x: 1.47, y: 0.06}
   comboOneSize: {x: 2.37, y: 1.24}
   comboOneStunLock: 5

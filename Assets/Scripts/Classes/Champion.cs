@@ -95,6 +95,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int comboOneDamage = 10;
     [SerializeField] protected float primaryAttackMovementForce = 2;
     [SerializeField] protected LayerMask hitBoxLayer;
+    [SerializeField] protected int maxAttackToken = 1;
     
     [Header("Combo1Settings")]
     [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
@@ -109,6 +110,7 @@ public abstract class Champion : MonoBehaviour {
     protected int dodgeFrameCounter = 0;
     protected int coyoteFrameCounter = 0;
     protected int parryFrameCounter = 0;
+    protected int attackToken = 1;
     protected float distToGround, facing;
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -169,6 +171,7 @@ public abstract class Champion : MonoBehaviour {
         
         ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
+        ResetAttackTokens();
     }
 
     protected void FixedUpdate()
@@ -185,6 +188,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void Update()
     {
+        Debug.Log(attackToken);
         if (!dead)
         {
             ControlCoyote();
@@ -320,7 +324,12 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void PrimaryAttack()
     {
-        animator.SetTrigger("PrimaryAttack");
+        if(attackToken > 0)
+        {
+            animator.SetTrigger("PrimaryAttack");
+            attackToken--;
+        }
+        
     }
 
     protected virtual void SecondaryAttack()
@@ -353,6 +362,7 @@ public abstract class Champion : MonoBehaviour {
         inputStatus = Enum_InputStatus.allowed;
         CheckFatigue();
         attacking = false;
+        ResetAttackTokens();
     }
     public virtual void ReduceStamina(float amount)
     {
@@ -416,7 +426,7 @@ public abstract class Champion : MonoBehaviour {
                 ApplyStunLock(stunLock);
                 rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
             }
-            
+            ResetAttackTokens();
         }
         else
         {
@@ -576,7 +586,10 @@ public abstract class Champion : MonoBehaviour {
         }
 
     }
-
+    public void ResetAttackTokens()
+    {
+        attackToken = maxAttackToken;
+    }
     protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce, bool specialEffect = false)
     {
         if (enemies.Length > 0)
@@ -662,6 +675,7 @@ public abstract class Champion : MonoBehaviour {
     {
         rb.gravityScale = 1.0f;
         inputStatus = Enum_InputStatus.allowed;
+        ResetAttackTokens();
     }
     public void SetHorizontalCtrl(string HCtrl)
     {
