@@ -51,7 +51,6 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Jump Settings")]
     [SerializeField] protected float jumpHeight = 10;
-    [SerializeField] protected float fatiguedSpeedReduction = 1.2f;
     [SerializeField] protected float fallMultiplier;
     [SerializeField] protected float jumpVelocityAtApex = 2.0f;
     [SerializeField] protected int coyoteTimeFrames = 6; //To implement coyote time
@@ -88,6 +87,10 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float limitBreakOnHit = 2.5f;
     [SerializeField] protected float limitBreakOnDamage = 1.0f;
 
+    [Header("Status Settings")]
+    [SerializeField] protected float fatiguedSpeedReduction = 1/1.2f;
+    [SerializeField] protected float slowSpeedReduction = 1/1.2f;
+
     [Header("Attack Settings")]
     [SerializeField] protected int comboOneDamage = 10;
     [SerializeField] protected float primaryAttackMovementForce = 2;
@@ -117,6 +120,7 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
     protected Enum_GuardStatus guardStatus = Enum_GuardStatus.noGuard;
+    protected Enum_SpecialStatus specialStatus = Enum_SpecialStatus.normal;
     protected float movementX, movementY;
     protected PowerUp powerUp;
 
@@ -169,7 +173,8 @@ public abstract class Champion : MonoBehaviour {
 
     protected void FixedUpdate()
     {
-        DynamicFall();
+        if(specialStatus != Enum_SpecialStatus.projected)
+            DynamicFall();
         if (jumping)
         {
             Jump();
@@ -180,7 +185,6 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void Update()
     {
-        
         if (!dead)
         {
             ControlCoyote();
@@ -548,7 +552,9 @@ public abstract class Champion : MonoBehaviour {
 
     public virtual void Move(float moveX, float moveY)
     {
-        float currentSpeed = Fatigue ? speed / fatiguedSpeedReduction : speed;
+        float currentSpeed = Fatigue ? speed * fatiguedSpeedReduction : speed;
+        if(specialStatus == Enum_SpecialStatus.slow)
+            currentSpeed *= slowSpeedReduction;
         //LIMIT DIAGONAL SPEED
         Vector2 movement = new Vector2(moveX, moveY).normalized * currentSpeed;
 
@@ -807,7 +813,6 @@ public abstract class Champion : MonoBehaviour {
             return fatigued;
         }
     }
-    
     public bool Attack
     {
         get
@@ -815,7 +820,6 @@ public abstract class Champion : MonoBehaviour {
             return attacking;
         }
     }
-
     public bool Dead
     {
         get
