@@ -43,6 +43,10 @@ public class Archer : Champion
             forceArrow = (Time.time - keyTimer);
             SecondaryAttack();
         }*/
+        if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
+        {
+            SecondaryAttack();
+        }
 
         base.Update();
     }

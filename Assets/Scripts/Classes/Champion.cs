@@ -850,4 +850,24 @@ public abstract class Champion : MonoBehaviour {
             return dead;
         }
     }
+
+    public void SetNormalStatus()
+    {
+        specialStatus = Enum_SpecialStatus.normal;
+    }
+
+    public void SetStunStatus()
+    {
+        specialStatus = Enum_SpecialStatus.stun;
+    }
+
+    public void SetPoisonStatus()
+    {
+        specialStatus = Enum_SpecialStatus.poison;
+    }
+
+    public void SetSlowStatus()
+    {
+        specialStatus = Enum_SpecialStatus.slow;
+    }
 }
