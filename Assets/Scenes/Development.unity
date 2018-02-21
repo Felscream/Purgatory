@@ -409,31 +409,6 @@ Prefab:
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 678915509}
-    - target: {fileID: 61042058907217612, guid: e31ae7b694638b345a0c56e2cf54ac0f,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 61042058907217612, guid: e31ae7b694638b345a0c56e2cf54ac0f,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 61042058907217612, guid: e31ae7b694638b345a0c56e2cf54ac0f,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 61042058907217612, guid: e31ae7b694638b345a0c56e2cf54ac0f,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
-        type: 2}
-      propertyPath: maxAttackToken
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e31ae7b694638b345a0c56e2cf54ac0f, type: 2}
   m_IsPrefabParent: 0
@@ -486,16 +461,6 @@ Prefab:
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 1850887883}
-    - target: {fileID: 114244444951551434, guid: 07d47c73da75d6948b85cc3bbbc00e77,
-        type: 2}
-      propertyPath: fatiguedSpeedReduction
-      value: 0.833333
-      objectReference: {fileID: 0}
-    - target: {fileID: 114244444951551434, guid: 07d47c73da75d6948b85cc3bbbc00e77,
-        type: 2}
-      propertyPath: maxAttackToken
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07d47c73da75d6948b85cc3bbbc00e77, type: 2}
   m_IsPrefabParent: 0
