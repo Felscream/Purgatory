@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1125265771351122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9, y: -14.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.7632234, y: -13.343526, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -113,7 +113,6 @@ MonoBehaviour:
   stunLock: 5
   recoilForce: {x: 10, y: 0}
   altForce: {x: 0.1, y: -0.1}
-  altRotation: {x: 0, y: 0, z: -45}
 --- !u!212 &212635049011900046
 SpriteRenderer:
   m_ObjectHideFlags: 1
