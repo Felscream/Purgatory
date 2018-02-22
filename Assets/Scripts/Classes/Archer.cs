@@ -11,7 +11,6 @@ public class Archer : Champion
 
     // Tenir bouton enfoncé
     protected float keyTimer = 0.0f; //Our timer
-    protected float keyLength= 5.0f; //The duration needed to trigger the function
     protected float forceArrow = 0.3f; //The force of the arrow
     protected bool isKeyActive = false;
 
@@ -28,25 +27,32 @@ public class Archer : Champion
 
     protected override void Update()
     {
-        /*
         //Initial key press
-        if (Input.GetButtonDown(SecondaryAttackButton) && !isKeyActive && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
+        if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
         {
             //Get the timestamp
             keyTimer = Time.time;
-
+            while(Input.GetButtonUp(SecondaryAttackButton) || (Time.time - keyTimer) >= 0.3f)
+            {
+                // Do nothing
+            }
+            forceArrow = (Time.time - keyTimer);
+            SecondaryAttack();
         }
-        //Key released
+        
+        
+        /*//Key released
         //This will not execute if the button is held (isKeyActive is false)
-        if (Input.GetButtonUp(SecondaryAttackButton) && isKeyActive)
+        if (Input.GetButtonUp(SecondaryAttackButton))
         {
             forceArrow = (Time.time - keyTimer);
             SecondaryAttack();
-        }*/
+        }
+
         if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
         {
             SecondaryAttack();
-        }
+        }*/
 
         base.Update();
     }
@@ -95,7 +101,8 @@ public class Archer : Champion
             }
             ar.Owner = this;
             ar.Direction = facing;
-            ar.GetComponent<Rigidbody2D>().AddForce(ar.Force * facing);
+            float forceArr = forceArrow * facing;
+            ar.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceArr, 0));
             rb.gravityScale = 1.0f;
             AllowInputs();
         }

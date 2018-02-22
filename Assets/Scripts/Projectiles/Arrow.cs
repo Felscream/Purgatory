@@ -74,7 +74,7 @@ public class Arrow : Projectile
                 {
                     hits.Add(foe);
                     foe.ApplyDamage(damage, direction, stunLock, recoilForce);
-                    ShowDebuff(foe);
+                    ApplyAndShowDebuf(foe);
                     //impact = true;
                     DestroyProjectile();
                 }
@@ -86,7 +86,7 @@ public class Arrow : Projectile
             //impact = true;
         }
     }
-    void ShowDebuff(Champion foe)
+    void ApplyAndShowDebuf(Champion foe)
     {
         if (arrowStatus == Enum_ArrowStatus.stun)
         {
@@ -95,7 +95,7 @@ public class Arrow : Projectile
             stunAnim.transform.Translate(new Vector3(0.0f, 1.25f, 0.0f));
             stunAnim.transform.localScale += new Vector3(1.5F, 1.5F, 0);
             Destroy(stunAnim, 5.0f);
-            //foe.SetStun();
+            foe.SetStunStatus();
         }
         else
         {
@@ -106,17 +106,18 @@ public class Arrow : Projectile
                 stunAnim.transform.Translate(new Vector3(0.0f, 0.0f, -0.1f));
                 stunAnim.transform.localScale += new Vector3(1.25F, 1.3F, 0);
                 Destroy(stunAnim, 5f);
-                            
+                foe.SetPoisonStatus();
             }
             else
             {
                 if (arrowStatus == Enum_ArrowStatus.slow)
                 {
-                    /*GameObject slowAnim = Instantiate(slowSprite, foe.transform.position, foe.transform.rotation);
+                    GameObject slowAnim = Instantiate(slowSprite, foe.transform.position, foe.transform.rotation);
                     slowAnim.transform.SetParent(foe.transform);
-                    slowAnim.transform.Translate(new Vector3(0.0f, 0.0f, -0.1f));
-                    slowAnim.transform.localScale += new Vector3(1.25F, 1.3F, 0);
-                    Destroy(slowAnim, 5f);*/
+                    slowAnim.transform.Translate(new Vector3(0.2f, 0.0f, -0.1f));
+                    slowAnim.transform.localScale += new Vector3(1.0F, 1.5F, 0);
+                    Destroy(slowAnim, 5f);
+                    foe.SetSlowStatus();
                 }
             }
         }   

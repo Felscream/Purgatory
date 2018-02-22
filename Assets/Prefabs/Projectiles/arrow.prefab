@@ -99,7 +99,7 @@ MonoBehaviour:
   stunSprite: {fileID: 1385759158095934, guid: 6d39ce9c4ff41e34dbe840e5f6e170ce, type: 2}
   poisonSprite: {fileID: 1205473987782494, guid: 4a36daeb237ea5444bd39f13d09979c0,
     type: 2}
-  slowSprite: {fileID: 0}
+  slowSprite: {fileID: 1716638970708628, guid: 7bcf50c581bd04f43a19e7a42066ae5d, type: 2}
 --- !u!114 &114984677698657860
 MonoBehaviour:
   m_ObjectHideFlags: 1
