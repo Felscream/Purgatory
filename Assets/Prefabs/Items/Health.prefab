@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212161649488885894}
   - component: {fileID: 61832770910187580}
   - component: {fileID: 95396946829069424}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Health
   m_TagString: Pick Up
   m_Icon: {fileID: 0}

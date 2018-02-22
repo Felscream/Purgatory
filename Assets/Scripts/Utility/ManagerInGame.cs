@@ -14,18 +14,29 @@ public class ManagerInGame : MonoBehaviour {
 	private bool SpawnStamina;
 	private bool SpawnOrb;
 	private PlayerHealthSlider _playerhealth;
-	public Champion player1;
+	/*public Champion player1;
 	public Champion player2;
 	public Champion player3;
 	public Champion player4;
 	public bool playerAlive1 = false;
 	public bool playerAlive2 = false;
 	public bool playerAlive3 = false;
-	public bool playerAlive4 = false;
+	public bool playerAlive4 = false;*/
 	//private bool SpawnPlateform;
 	private int PlayerAlive=0;
+	public Component[] Players;
+
 
 	void Awake(){
+		Players = GetComponentsInChildren<Champion>();
+		foreach (Champion player in Players) {
+			if (player != null) {
+				PlayerAlive += 1;
+				Debug.Log ("test concluant");
+			}
+		}
+		Debug.Log (PlayerAlive);
+		/*
 		if (player1 != null) {
 			PlayerAlive+=1 ;
 			playerAlive1 = true;
@@ -41,8 +52,8 @@ public class ManagerInGame : MonoBehaviour {
 		if (player4 != null) {
 			PlayerAlive+=1 ;
 			playerAlive4 = true;
-		}
-		Debug.Log(PlayerAlive);
+		}*/
+		Debug.Log("fin Awake");
 	}
 	void Update () {
 		Timer += Time.deltaTime;
@@ -65,7 +76,20 @@ public class ManagerInGame : MonoBehaviour {
 			SpawnStamina = true;
 		}
 
-		if (player1 != null)
+		foreach (Champion player in Players) {
+			if (player != null) {
+				if (player.Health <= 0) {
+					PlayerAlive -= 1;
+					//Destroy(player);
+					//manage playeralive pour enlever 1 fois/perso
+					//player.gameObject.;
+					Debug.Log (PlayerAlive);
+				}
+			}
+		}
+
+
+		/*if (player1 != null)
 		{
 			if (player1.Health <= 0 && playerAlive1) {
 				PlayerAlive -= 1;
@@ -78,6 +102,7 @@ public class ManagerInGame : MonoBehaviour {
 			if (player2.Health <= 0 && playerAlive2) {
 				PlayerAlive -= 1;
 				playerAlive2 = false;
+				Debug.Log ("bonjour");
 			}
 		}
 
@@ -95,14 +120,14 @@ public class ManagerInGame : MonoBehaviour {
 				PlayerAlive -= 1;
 				playerAlive4 = false;
 			}
-		}
+		}*/
 
 
 		if (PlayerAlive == 1) {
-			SceneManager.LoadScene (2);
+			SceneManager.LoadScene (1);
 			//Ajout de la suite
 		}
 
-		Debug.Log (PlayerAlive);
+		//Debug.Log (PlayerAlive);
 	}
 }
