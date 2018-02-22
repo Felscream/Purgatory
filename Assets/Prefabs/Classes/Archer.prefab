@@ -303,7 +303,7 @@ MonoBehaviour:
   primaryAttackMovementForce: 2
   hitBoxLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 33024
   maxAttackToken: 1
   comboOneOffset: {x: 0, y: 0}
   comboOneSize: {x: 1, y: 1}

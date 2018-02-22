@@ -29,7 +29,7 @@ public class BreakableLife : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (!beginLowering)
+        /*if (!beginLowering)
         {
             timer += Time.deltaTime;
             if (timer >= 5) // Ammorce la descente après 5 secondes
@@ -40,8 +40,16 @@ public class BreakableLife : MonoBehaviour {
             }
         }
         else
+        {*/
+        /*if (!hasFallen && !isLowest && life<=0)
         {
-            if (!hasFallen && !isLowest)
+            timer += Time.deltaTime;
+            ascendant.position = new Vector3(1, Random.value * 0.1f, 0);
+            descendant.position = new Vector3(0, 10 - timer, 0);            // Abaisse la plateforme jusqu'à un offset vertical de 0
+        }*/
+        if (life <= 0)
+        {
+            if (!hasFallen && !isLowest && life <= 0)
             {
                 timer += Time.deltaTime;
                 ascendant.position = new Vector3(1, Random.value * 0.1f, 0);
@@ -51,21 +59,25 @@ public class BreakableLife : MonoBehaviour {
             {
                 isLowest = true;
             }
+
+            if (descendant.position.y <= 0)
+            {
+                Fall();
+                isLowest = true;
+            }
         }
+       // }
 	}
 
     public void TakeDamage(int dmg)
     {
         Debug.Log("Take damage");
-        if (beginLowering)
-        {
+        /*if (beginLowering)
+        {*/
             life -= dmg;
-            if (life <= 0)
-            {
-                Fall();
-                hasFallen = true;
-            }
-        }
+            
+            
+        //}
     }
 
     void Fall()
@@ -75,5 +87,6 @@ public class BreakableLife : MonoBehaviour {
         ascendant.gameObject.SetActive(false);
         descendant.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
+        hasFallen = true;
     }
 }
