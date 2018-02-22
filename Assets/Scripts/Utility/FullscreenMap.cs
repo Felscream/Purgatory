@@ -12,16 +12,10 @@ public class FullscreenMap : MonoBehaviour {
         float cameraHeight = Camera.main.orthographicSize * 2;
         Vector2 cameraSize = new Vector2(Camera.main.aspect * cameraHeight, cameraHeight);
         Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+        //spriteSize = new Vector2(1920, 1080);
         Vector2 scale = transform.localScale;
-
-        if (cameraSize.x >= cameraSize.y)
-        { // Landscape (or equal)
-            scale *= cameraSize.x / spriteSize.x;
-        }
-        else
-        { // Portrait
-            scale *= cameraSize.y / spriteSize.y;
-        }
+        
+        scale *= Mathf.Min(cameraSize.x / spriteSize.x, cameraSize.y / spriteSize.y);
 
         transform.position = Vector2.zero; // Optional
         transform.localScale = scale;
