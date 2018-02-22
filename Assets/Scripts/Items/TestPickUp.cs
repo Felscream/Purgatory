@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TestPickUp : MonoBehaviour {
 
-	void OnTriggerEnter(Collider other) 
+	void OnTriggerEnter2D (Collider2D other) 
 	{
-		if (other.gameObject.CompareTag ("Player1"))
+		if (other.gameObject.tag.Equals("Pick Up"))
 		{
+			Debug.Log ("oui");
 			other.gameObject.SetActive (false);
 		}
 	}
 }
+

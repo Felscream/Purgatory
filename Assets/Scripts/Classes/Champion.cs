@@ -192,7 +192,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void Update()
     {
-        Debug.Log(attackToken);
+//        Debug.Log(attackToken);
         if (!dead)
         {
             ControlCoyote();
