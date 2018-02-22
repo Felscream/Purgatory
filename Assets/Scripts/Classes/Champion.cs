@@ -96,14 +96,14 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float primaryAttackMovementForce = 2;
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
-    
+
     [Header("Combo1Settings")]
     [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
     [SerializeField] protected int comboOneStunLock = 5;
     [SerializeField] protected Vector2 comboOneRecoilForce;
 
-    
+
 
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -128,7 +128,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
-    
+
     protected Image ultiImageSlider;
 
 
@@ -170,7 +170,7 @@ public abstract class Champion : MonoBehaviour {
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
-        
+
         ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
         ResetAttackTokens();
@@ -192,7 +192,6 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void Update()
     {
-        Debug.Log(attackToken);
         if (!dead)
         {
             ControlCoyote();
@@ -247,7 +246,7 @@ public abstract class Champion : MonoBehaviour {
                     {
                         jumping = true;
                     }
-                    
+
                     if (InputStatus != Enum_InputStatus.blocked)
                     {
                         movementX = Input.GetAxisRaw(HorizontalCtrl);
@@ -333,7 +332,7 @@ public abstract class Champion : MonoBehaviour {
             animator.SetTrigger("PrimaryAttack");
             attackToken--;
         }
-        
+
     }
 
     protected virtual void SecondaryAttack()
@@ -425,7 +424,7 @@ public abstract class Champion : MonoBehaviour {
             }
             else //attacker is behind the player or player is not guarding
             {
-                
+
                 animator.SetFloat("AttackerFacing", attackerFacing);
                 ApplyStunLock(stunLock);
                 rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
@@ -447,7 +446,7 @@ public abstract class Champion : MonoBehaviour {
 
         Debug.Log("Health :" + health);
 
-        
+
         if (health == 0)
         {
             inputStatus = Enum_InputStatus.blocked;
@@ -463,11 +462,11 @@ public abstract class Champion : MonoBehaviour {
             StopMovement(1);
             Debug.Log(transform.parent.name + " died");
 
-            //TO DO : find a way to use the deadLayer variable since this doesn't work 
+            //TO DO : find a way to use the deadLayer variable since this doesn't work
             /*if(deadLayer == null)
             {
                 deadLayer = LayerMask.NameToLayer("Dead");
-                
+
             }
             gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
             */
@@ -670,8 +669,8 @@ public abstract class Champion : MonoBehaviour {
                 }
             }
         }
-        
-        
+
+
     }
 
     public virtual bool IsGrounded()
@@ -745,7 +744,7 @@ public abstract class Champion : MonoBehaviour {
 
 
         //--- Ci-dessous : A modifier par les vrais valeurs ---------
-        
+
         ultiImageSlider.fillAmount = 0.75f;
 
         //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
@@ -824,7 +823,7 @@ public abstract class Champion : MonoBehaviour {
         }
     }
     public int Health
-    { 
+    {
         get
         {
             return health;

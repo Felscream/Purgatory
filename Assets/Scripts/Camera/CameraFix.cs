@@ -16,7 +16,7 @@ public class CameraFix : MonoBehaviour
 
     private void Start()
     {
-        Screen.SetResolution(1920, 1080, isFullscreen, 30);
+        //Screen.SetResolution(1920, 1080, isFullscreen, 30);
     }
 
     void Update()
