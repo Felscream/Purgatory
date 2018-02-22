@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 100
-  determination: 2
+  determination: 3
   speed: 10
   deadLayer:
     serializedVersion: 2

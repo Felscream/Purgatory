@@ -192,7 +192,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void Update()
     {
-//        Debug.Log(attackToken);
+        Debug.Log(attackToken);
         if (!dead)
         {
             ControlCoyote();
@@ -604,7 +604,15 @@ public abstract class Champion : MonoBehaviour {
         if (enemies.Length > 0)
             foreach (Collider2D enemy in enemies)
             {
-                DealDamageToEnemy(enemy, damage, stunLock, recoilForce, specialEffect);
+                if (enemy.gameObject.tag.Equals("Breakable"))
+                {
+                    BreakableLife breakableLife = enemy.gameObject.GetComponent<BreakableLife>();
+                    breakableLife.TakeDamage(1);
+                }
+                else
+                {
+                    DealDamageToEnemy(enemy, damage, stunLock, recoilForce, specialEffect);
+                }
             }
     }
 
