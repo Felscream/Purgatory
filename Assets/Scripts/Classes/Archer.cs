@@ -28,7 +28,7 @@ public class Archer : Champion
     protected override void Update()
     {
         //Initial key press
-        if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
+        /*if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
         {
             //Get the timestamp
             keyTimer = Time.time;
@@ -41,18 +41,18 @@ public class Archer : Champion
         }
         
         
-        /*//Key released
+        //Key released
         //This will not execute if the button is held (isKeyActive is false)
         if (Input.GetButtonUp(SecondaryAttackButton))
         {
             forceArrow = (Time.time - keyTimer);
             SecondaryAttack();
-        }
+        }*/
 
         if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
         {
             SecondaryAttack();
-        }*/
+        }
 
         base.Update();
     }
