@@ -97,6 +97,11 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
 
+    [Header("Guard Break Settings")]
+    [SerializeField] protected int guardBreakDamage = 5;
+    [SerializeField] protected int guardBreakstunLock = 15;
+    [SerializeField] protected Vector2 guardBreakRecoilForce;
+
     [Header("Combo1Settings")]
     [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
@@ -117,6 +122,7 @@ public abstract class Champion : MonoBehaviour {
     protected Vector2 savedVelocity;
     protected Collider2D playerBox;
     protected Collider2D physicBox;
+    protected Collider2D diveBox;
     protected bool jumping, immune = false, parrying = false, fatigued = false, attacking = false, dead = false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
@@ -147,6 +153,7 @@ public abstract class Champion : MonoBehaviour {
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
+        //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y,0), 0.2f);
     }
     protected void Awake()
     {
@@ -160,11 +167,13 @@ public abstract class Champion : MonoBehaviour {
         stamina = baseStamina;
         limitBreakGauge = 0.0f;
         physicBox = GetComponent<Collider2D>();
+        
         distToGround = physicBox.bounds.extents.y;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         animator.SetFloat("FaceX", facing);
         playerBox = transform.Find("PlayerBox").GetComponentInChildren<Collider2D>();
+        diveBox = transform.Find("DiveBox").GetComponentInChildren<Collider2D>();
         powerUp = GetComponent<PowerUp>();
 
         playerHUD.alpha = 1;
@@ -391,8 +400,11 @@ public abstract class Champion : MonoBehaviour {
         rb.gravityScale = 1.0f;
         stunlockFrameCounter = 0;
         framesToStunLock = duration;
+        guardStatus = Enum_GuardStatus.noGuard;
         inputStatus = Enum_InputStatus.blocked;
         animator.SetBool("Damaged", true);
+        Debug.Log("What ?");
+        animator.SetBool("Guarding", false);
     }
 
     public void CheckStunLock()
@@ -412,29 +424,50 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce)
+    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false)
     {
         if (!Immunity)
         {
-            if (guardStatus == Enum_GuardStatus.guarding && attackerFacing != facing) // attacker is in front of the player and player is guarding
+            if (guardStatus == Enum_GuardStatus.guarding) // attacker is in front of the player and player is guarding, the attacker isn't guard breaking
             {
-                ReduceStamina(dmg * blockStaminaCostMultiplier);
-                dmg = (int)Mathf.Ceil(dmg * damageReductionMultiplier);
-                animator.SetTrigger("Blocked");
+                if (!guardBreaker && attackerFacing != facing)
+                {
+                    ReduceStamina(dmg * blockStaminaCostMultiplier);
+                    dmg = (int)Mathf.Ceil(dmg * damageReductionMultiplier);
+                    animator.SetTrigger("Blocked");
+                    ResetAttackTokens();
+                }
+                else
+                {
+                    animator.SetFloat("AttackerFacing", attackerFacing);
+                    ApplyStunLock(stunLock);
+                    rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
+                    ResetAttackTokens();
+                }
+                health = Mathf.Max(health - dmg, 0);
+                Debug.Log("Health :" + health);
+                if (cameraController != null)
+                {
+                    cameraController.Shake(dmg, 5, 1000);
+                }
             }
-            else //attacker is behind the player or player is not guarding
+            else //attacker is behind the player or the player is not guarding
             {
-
-                animator.SetFloat("AttackerFacing", attackerFacing);
-                ApplyStunLock(stunLock);
-                rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
+                if (!guardBreaker)
+                {
+                    animator.SetFloat("AttackerFacing", attackerFacing);
+                    ApplyStunLock(stunLock);
+                    rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
+                    health = Mathf.Max(health - dmg, 0);
+                    Debug.Log("Health :" + health);
+                    if (cameraController != null)
+                    {
+                        cameraController.Shake(dmg, 5, 1000);
+                    }
+                    ResetAttackTokens();
+                }
+                //else we do nothing
             }
-            health = Mathf.Max(health - dmg, 0);
-            if (cameraController != null)
-            {
-                cameraController.Shake(dmg, 5, 1000);
-            }
-            ResetAttackTokens();
         }
         else
         {
@@ -444,7 +477,7 @@ public abstract class Champion : MonoBehaviour {
             }
         }
 
-        Debug.Log("Health :" + health);
+        
 
 
         if (health == 0)
@@ -666,22 +699,24 @@ public abstract class Champion : MonoBehaviour {
                 if (!IsGrounded())
                 {
                     rb.AddForce(new Vector2(0, -jumpHeight * rb.mass), ForceMode2D.Impulse);
+                    EnableDiveBox();
                 }
             }
         }
-
-
     }
+
 
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
-        Vector2 center = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+        Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+        Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
         float radius = 0.1f;
 
-        if (Physics2D.OverlapCircle(center, radius, LayerMask.GetMask("Obstacle")))
+        if (Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle")))
         {
             animator.SetBool("Fall", false);
+            DisableDiveBox();
             return true;
         }
         return false;
@@ -692,6 +727,23 @@ public abstract class Champion : MonoBehaviour {
         rb.gravityScale = 1.0f;
         inputStatus = Enum_InputStatus.allowed;
         ResetAttackTokens();
+    }
+
+    protected void DisableDiveBox()
+    {
+       if(diveBox != null)
+       {
+            diveBox.GetComponent<Hitbox>().enabled = false;
+            diveBox.enabled = false;
+       }
+    }
+    protected void EnableDiveBox()
+    {
+        if (diveBox != null)
+        {
+            diveBox.GetComponent<Hitbox>().enabled = true;
+            diveBox.enabled = true;
+        }
     }
     public void SetHorizontalCtrl(string HCtrl)
     {
@@ -857,7 +909,29 @@ public abstract class Champion : MonoBehaviour {
             return dead;
         }
     }
+    
+    public int GuardBreakDamage
+    {
+        get
+        {
+            return guardBreakDamage;
+        }
+    }
 
+    public int GuardBreakStunLock
+    {
+        get
+        {
+            return guardBreakstunLock;
+        }
+    }
+    public Vector2 GuardBreakRecoilForce
+    {
+        get
+        {
+            return guardBreakRecoilForce;
+        }
+    }
     public void SetNormalStatus()
     {
         specialStatus = Enum_SpecialStatus.normal;

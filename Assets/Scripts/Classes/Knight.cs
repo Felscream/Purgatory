@@ -134,6 +134,7 @@ public class Knight : Champion {
 
     protected override void ApplySpecialEffect(Champion enemy)
     {
+
         Vector2 force = new Vector2(facing * SpecialAttackRecoilForce.x, SpecialAttackRecoilForce.y);
 
         enemy.ApplyStunLock(SpecialAttackStunLock);
