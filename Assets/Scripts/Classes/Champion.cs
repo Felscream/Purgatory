@@ -403,7 +403,6 @@ public abstract class Champion : MonoBehaviour {
         guardStatus = Enum_GuardStatus.noGuard;
         inputStatus = Enum_InputStatus.blocked;
         animator.SetBool("Damaged", true);
-        Debug.Log("What ?");
         animator.SetBool("Guarding", false);
     }
 
@@ -428,16 +427,16 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!Immunity)
         {
-            if (guardStatus == Enum_GuardStatus.guarding) // attacker is in front of the player and player is guarding, the attacker isn't guard breaking
+            if (guardStatus == Enum_GuardStatus.guarding) 
             {
-                if (!guardBreaker && attackerFacing != facing)
+                if (!guardBreaker && attackerFacing != facing) // attacker is in front of the player and player is guarding, the attacker isn't guard breaking
                 {
                     ReduceStamina(dmg * blockStaminaCostMultiplier);
                     dmg = (int)Mathf.Ceil(dmg * damageReductionMultiplier);
                     animator.SetTrigger("Blocked");
                     ResetAttackTokens();
                 }
-                else
+                else //the attack is coming from behind or the attack is a guard breaker
                 {
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     ApplyStunLock(stunLock);
@@ -453,7 +452,7 @@ public abstract class Champion : MonoBehaviour {
             }
             else //attacker is behind the player or the player is not guarding
             {
-                if (!guardBreaker)
+                if (!guardBreaker) //if the attack isn't a guard break
                 {
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     ApplyStunLock(stunLock);
@@ -466,7 +465,7 @@ public abstract class Champion : MonoBehaviour {
                     }
                     ResetAttackTokens();
                 }
-                //else we do nothing
+                //else we do nothing, guard breaks are ineffective against non guarding enemies
             }
         }
         else
