@@ -15,7 +15,7 @@ public class FullscreenMap : MonoBehaviour {
         //spriteSize = new Vector2(1920, 1080);
         Vector2 scale = transform.localScale;
         
-        scale *= Mathf.Min(cameraSize.x / spriteSize.x, cameraSize.y / spriteSize.y);
+        scale *= Mathf.Min(cameraSize.x / spriteSize.x, cameraSize.y / spriteSize.y)/2f;
 
         transform.position = Vector2.zero; // Optional
         transform.localScale = scale;

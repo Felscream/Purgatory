@@ -44,8 +44,8 @@ public class BreakableLife : MonoBehaviour {
             if (!hasFallen && !isLowest)
             {
                 timer += Time.deltaTime;
-                ascendant.position = new Vector3(1, Random.value * 0.1f, 0);
-                descendant.position = new Vector3(0, 10 - timer, 0);            // Abaisse la plateforme jusqu'à un offset vertical de 0
+                ascendant.localPosition = new Vector3(1, Random.value * 0.1f, 0);
+                descendant.localPosition = new Vector3(0, 10 - timer, 0);            // Abaisse la plateforme jusqu'à un offset vertical de 0
             }
             if (descendant.position.y <= 0)
             {
