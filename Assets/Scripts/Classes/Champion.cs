@@ -837,6 +837,9 @@ public abstract class Champion : MonoBehaviour {
         {
             return stamina;
         }
+		set{ 
+			stamina = value;
+		}
     }
     public float BaseStamina
     {
@@ -879,6 +882,9 @@ public abstract class Champion : MonoBehaviour {
         {
             return health;
         }
+		set{ 
+			health = value;
+		}
     }
     public bool Immunity
     {

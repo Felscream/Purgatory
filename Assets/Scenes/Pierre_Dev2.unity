@@ -876,7 +876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &456902730
 Transform:
   m_ObjectHideFlags: 0
@@ -919,6 +919,24 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 225236377006330362, guid: 0789771afc11e494da3f44d562202730,
     type: 2}
   m_PrefabInternal: {fileID: 155516688}
+--- !u!1 &584928379 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1502240114522002, guid: 07d47c73da75d6948b85cc3bbbc00e77,
+    type: 2}
+  m_PrefabInternal: {fileID: 2063775368}
+--- !u!114 &584928387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 584928379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa94d7afa0b3444592201e847f87179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addHealth: 20
+  addStamina: 20
 --- !u!1 &664333133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &809192295
 Transform:
   m_ObjectHideFlags: 0
@@ -2130,7 +2148,6 @@ MonoBehaviour:
   Health: {fileID: 1416848120963890, guid: fad8ec71f8ea97540b17e895ef224548, type: 2}
   Stamina: {fileID: 1607867619309306, guid: 35420c958a6dffd49abe962dda4242e3, type: 2}
   Orb: {fileID: 1485432959634340, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
-  Plateform: {fileID: 0}
   Players: []
 --- !u!4 &1533679671 stripped
 Transform:

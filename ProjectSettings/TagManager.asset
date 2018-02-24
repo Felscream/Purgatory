@@ -8,7 +8,10 @@ TagManager:
   - Champion
   - HitBox
   - Breakable
-  - Pick Up
+  - Health
+  - Stamina
+  - Undefined
+  - Orb
   layers:
   - Default
   - TransparentFX
