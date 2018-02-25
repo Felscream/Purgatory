@@ -24,6 +24,14 @@ public class FollowPlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = champ.position + offset;
+        if (champ != null)
+        {
+            transform.position = champ.position + offset;
+        }
 	}
+
+    public void SetChampion (Champion champ)
+    {
+        this.champ = champ.transform;
+    }
 }

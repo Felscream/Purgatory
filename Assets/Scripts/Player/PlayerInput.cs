@@ -27,7 +27,12 @@ public class PlayerInput : MonoBehaviour {
         GetPlayerControlInput();
     }
 
-    private bool ObjectsInstantiated()
+    public void SetChampion (Champion champ)
+    {
+        fighter = champ;
+    }
+
+    public bool ObjectsInstantiated()
     {
         if(fighter != null)
             return true;

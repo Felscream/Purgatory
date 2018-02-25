@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114607506804390492}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Player1
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6eeb04a979bd6241b815dd9fde67748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1, z: 0}
+  offset: {x: 0, y: 2, z: 0}
 --- !u!212 &212180587366344588
 SpriteRenderer:
   m_ObjectHideFlags: 1
