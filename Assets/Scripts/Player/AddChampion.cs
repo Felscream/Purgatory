@@ -68,7 +68,7 @@ public class AddChampion : MonoBehaviour {
             player3.SetActive(true);
             if (!player3.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer3 = Instantiate(prefabArcher, player3.transform, false);
+                Champion championPlayer3 = Instantiate(prefabKnight, player3.transform, false);
                 championPlayer3.transform.localPosition = new Vector3(0, 0, 0);
                 championPlayer3.playerHUD = HUDPlayer3;
                 player3.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer3);
