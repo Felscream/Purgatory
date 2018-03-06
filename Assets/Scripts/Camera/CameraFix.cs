@@ -11,8 +11,13 @@ public class CameraFix : MonoBehaviour
 
     private int pixelsPerUnit = 16;
     private float halfScreen = 0.5f;
-
+    private bool isFullscreen = true;
     private Camera _camera;
+
+    private void Start()
+    {
+        //Screen.SetResolution(1920, 1080, isFullscreen, 30);
+    }
 
     void Update()
     {

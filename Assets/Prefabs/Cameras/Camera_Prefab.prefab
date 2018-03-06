@@ -22,8 +22,7 @@ GameObject:
   - component: {fileID: 20521416546450134}
   - component: {fileID: 124056929100209404}
   - component: {fileID: 81758169189532150}
-  - component: {fileID: 114291417897368404}
-  - component: {fileID: 114548799539799264}
+  - component: {fileID: 114735670608050350}
   m_Layer: 0
   m_Name: Camera_Prefab
   m_TagString: MainCamera
@@ -38,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1237077253660904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -13.4, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,7 +52,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -64,7 +63,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.6875
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -87,7 +86,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1237077253660904}
   m_Enabled: 1
---- !u!114 &114291417897368404
+--- !u!114 &114735670608050350
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -95,23 +94,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1237077253660904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f46da65a015f5c42b3e11bc99e336f0, type: 3}
+  m_Script: {fileID: 11500000, guid: d48b5afa0de92d745a98cff40d808121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockSpeed: 0.3
-  offset: {x: 0, y: 0, z: -1}
---- !u!114 &114548799539799264
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237077253660904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37bffafb8f2c6a54591b1096bed20a8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pixelScale: 2
 --- !u!124 &124056929100209404
 Behaviour:
   m_ObjectHideFlags: 1

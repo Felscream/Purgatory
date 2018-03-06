@@ -1,21 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ManagerInGame : MonoBehaviour {
 
 	public GameObject Health;
 	public GameObject Stamina;
 	public GameObject Orb;
-	public GameObject Plateform;
 	private float Timer = 0.0f;
 	private bool SpawnHealth;
 	private bool SpawnStamina;
 	private bool SpawnOrb;
-	//private bool SpawnPlateform;
-	//private int PlayerAlive;
+	private int PlayerAlive=0;
+	public Component[] Players;
+
+
+	void Awake(){
+		Players = GetComponentsInChildren<Champion>();
+	}
 
 	void Update () {
+		PlayerAlive = 0;
 		Timer += Time.deltaTime;
 
 		//Apparition des items sur la map à partir des prefabs
@@ -24,19 +30,28 @@ public class ManagerInGame : MonoBehaviour {
 			SpawnHealth = true;
 		}
 
-		if (Timer >= 20 && !SpawnOrb) {
+		if (Timer >= 5 && !SpawnOrb) {
 			Instantiate (Orb);
-			Instantiate (Plateform);
+			//Instantiate (Plateform);
 			SpawnOrb = true;
 		}
 
-		if (Timer >= 10 && !SpawnStamina) {
+		if (Timer >= 5 && !SpawnStamina) {
 			Instantiate (Stamina);
 			SpawnStamina = true;
 		}
 
-		/*if (PlayerAlive == 1) {
+		foreach (Champion player in Players) {
+			if (player != null) {
+				if (player.Health > 0) {
+					PlayerAlive += 1;
+				}
+			}
+		}
 			
-		}*/
+		if (PlayerAlive == 1) {
+			SceneManager.LoadScene (1);
+			//ici ajouter le changement de scène et toute les modifs à prendre en compte
+		}
 	}
 }
