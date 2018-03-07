@@ -123,7 +123,7 @@ public abstract class Champion : MonoBehaviour {
     protected Collider2D playerBox;
     protected Collider2D physicBox;
     protected Collider2D diveBox;
-    protected bool jumping, immune = false, parrying = false, fatigued = false, attacking = false, dead = false;
+    protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
@@ -294,6 +294,7 @@ public abstract class Champion : MonoBehaviour {
         animator.SetBool("Jump", false);
         rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         animator.SetBool("Fall", true);
+        falling = true;
     }
     protected virtual void RegenerateStaminaPerSecond()
     {
@@ -574,6 +575,7 @@ public abstract class Champion : MonoBehaviour {
                     animator.SetBool("Jump", false);
                     animator.SetBool("Fall", false);
                     animator.SetBool("Dodge", true);
+                    falling = false;
                 }
                 break;
             case Enum_DodgeStatus.dodging:
@@ -716,6 +718,7 @@ public abstract class Champion : MonoBehaviour {
         {
             animator.SetBool("Fall", false);
             DisableDiveBox();
+            falling = false;
             return true;
         }
         return false;
@@ -955,5 +958,13 @@ public abstract class Champion : MonoBehaviour {
     public void SetSlowStatus()
     {
         specialStatus = Enum_SpecialStatus.slow;
+    }
+    public bool IsJumping()
+    {
+        return (IsGrounded() && !falling);
+    }
+    public bool IsFalling()
+    {
+        return falling;
     }
 }
