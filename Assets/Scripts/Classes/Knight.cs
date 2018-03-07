@@ -2,26 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Knight : Champion {
-
+public class Knight : Champion
+{
+    /*
+    * ORIGINAL
+    */
+    /*
     [Header("Combo2Settings")]
     [SerializeField] protected int comboTwoDamage = 20;
     [SerializeField] protected Vector2 comboTwoOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 comboTwoSize = new Vector2(1, 1);
     [SerializeField] protected int comboTwoStunLock = 5;
     [SerializeField] protected Vector2 comboTwoRecoilForce;
+    
 
     [Header("EnhancedCombo1Settings")]
     [SerializeField] protected Vector2 EnhancedComboOneOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 EnhancedComboOneSize = new Vector2(1, 1);
     [SerializeField] protected int EnhancedComboOneStunLock = 5;
     [SerializeField] protected Vector2 EnhancedComboOneRecoilForce;
+    
 
     [Header("EnhancedCombo2Settings")]
     [SerializeField] protected Vector2 EnhancedComboTwoOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 EnhancedComboTwoSize = new Vector2(1, 1);
     [SerializeField] protected int EnhancedComboTwoStunLock = 5;
     [SerializeField] protected Vector2 EnhancedComboTwoRecoilForce;
+    
 
     [Header("SpecialAttackSettings")]
     [SerializeField] protected int SpecialAttackDamage = 20;
@@ -29,29 +36,33 @@ public class Knight : Champion {
     [SerializeField] protected Vector2 SpecialAttackSize = new Vector2(1, 1);
     [SerializeField] protected int SpecialAttackStunLock = 5;
     [SerializeField] protected Vector2 SpecialAttackRecoilForce;
+    */
+    /*
+    * REFACTORING
+    */
+
+    public Attack combo2;
+    public Attack enhancedCombo1;
+    public Attack enhancedCombo2;
+    public Attack specialAttack;
+
+    /*
+    * END
+    */
 
     protected bool secondaryAttackRunning = false;
 
     public void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.cyan;
+
 
         /*
          * ORIGINAL
          */
 
-        //Gizmos.DrawWireCube(new Vector3(comboOneOffset.x, comboOneOffset.y, 0) + transform.position, new Vector3(comboOneSize.x, comboOneSize.y, 1));
-
         /*
-         * REFACTORING
-         */
-
-        Gizmos.DrawWireCube(new Vector3(combo1.offset.x, combo1.offset.y, 0) + transform.position, new Vector3(combo1.size.x, combo1.size.y, 1));
-
-        /*
-         * END
-         */
-
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(new Vector3(comboOneOffset.x, comboOneOffset.y, 0) + transform.position, new Vector3(comboOneSize.x, comboOneSize.y, 1));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(comboTwoOffset.x, comboTwoOffset.y, 0) + transform.position, new Vector3(comboTwoSize.x, comboTwoSize.y, 1));
         Gizmos.color = Color.yellow;
@@ -60,7 +71,41 @@ public class Knight : Champion {
         Gizmos.DrawWireCube(new Vector3(EnhancedComboTwoOffset.x, EnhancedComboTwoOffset.y, 1) + transform.position, new Vector3(EnhancedComboTwoSize.x, EnhancedComboTwoSize.y, 1));
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(new Vector3(SpecialAttackOffset.x, SpecialAttackOffset.y, 1) + transform.position, new Vector3(SpecialAttackSize.x, SpecialAttackSize.y, 1));
+        */
+
+        /*
+         * REFACTORING
+         */
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(new Vector3(combo1.offset.x, combo1.offset.y, 0) + transform.position, new Vector3(combo1.size.x, combo1.size.y, 1));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(new Vector3(combo2.offset.x, combo2.offset.y, 0) + transform.position, new Vector3(combo2.size.x, combo2.size.y, 1));
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(new Vector3(enhancedCombo1.offset.x, enhancedCombo1.offset.y, 0) + transform.position, new Vector3(enhancedCombo1.size.x, enhancedCombo1.size.y, 1));
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(new Vector3(enhancedCombo2.offset.x, enhancedCombo2.offset.y, 1) + transform.position, new Vector3(enhancedCombo2.size.x, enhancedCombo2.size.y, 1));
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector3(specialAttack.offset.x, specialAttack.offset.y, 1) + transform.position, new Vector3(specialAttack.size.x, specialAttack.size.y, 1));
+
+        /*
+         * END
+         */
     }
+
+    /*
+    * REFACTORING
+    */
+    protected override void Start()
+    {
+        base.Start();
+        combo2.SetUser(this);
+        enhancedCombo1.SetUser(this);
+        enhancedCombo2.SetUser(this);
+        specialAttack.SetUser(this);
+    }
+    /*
+    * END
+    */
 
     protected override void Update()
     {
@@ -175,6 +220,18 @@ public class Knight : Champion {
             case 1:
                 combo1.CastHitBox();
                 break;
+            case 2:
+                combo1.CastHitBox();
+                break;
+            case 3:
+                combo1.CastHitBox();
+                break;
+            case 4:
+                combo1.CastHitBox();
+                break;
+            case 5:
+                combo1.CastHitBox();
+                break;
             default:
                 Debug.LogError("Unknown AttackType");
                 break;
@@ -186,6 +243,18 @@ public class Knight : Champion {
         switch (attackID)
         {
             case 1:
+                combo1.MoveOnAttack();
+                break;
+            case 2:
+                combo1.MoveOnAttack();
+                break;
+            case 3:
+                combo1.MoveOnAttack();
+                break;
+            case 4:
+                combo1.MoveOnAttack();
+                break;
+            case 5:
                 combo1.MoveOnAttack();
                 break;
             default:

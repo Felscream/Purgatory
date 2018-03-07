@@ -99,15 +99,24 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int guardBreakstunLock = 15;
     [SerializeField] protected Vector2 guardBreakRecoilForce;
 
-    public Attack combo1;
-
+    
+    /*
+     * ORIGINAL
+     */
+     /*
     [Header("Combo1Settings")]
     [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
     [SerializeField] protected int comboOneStunLock = 5;
     [SerializeField] protected Vector2 comboOneRecoilForce;
-
-
+    */
+    /*
+    * REFACTORING
+    */
+    public Attack combo1;
+    /*
+    * END
+    */
 
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -159,7 +168,7 @@ public abstract class Champion : MonoBehaviour {
         facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
         coyoteFrameCounter = coyoteTimeFrames; //to allow players to fall at the beginning
     }
-    protected void Start()
+    protected virtual void Start()
     {
         health = baseHealth;
         stamina = baseStamina;
@@ -174,7 +183,14 @@ public abstract class Champion : MonoBehaviour {
         diveBox = transform.Find("DiveBox").GetComponentInChildren<Collider2D>();
         powerUp = GetComponent<PowerUp>();
 
+
+        /*
+         * REFACTORING
+         */
         combo1.SetUser(this);
+        /*
+         * END
+         */
 
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();

@@ -1192,6 +1192,126 @@ Prefab:
       propertyPath: combo1.movementForce
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: combo2.damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: combo2.offset.x
+      value: 1.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: combo2.offset.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: combo2.size.x
+      value: 2.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: combo2.size.y
+      value: 2.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: combo2.recoilForce.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo1.offset.x
+      value: 2.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo1.offset.y
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo1.size.x
+      value: 3.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo1.size.y
+      value: 2.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo1.recoilForce.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: combo2.animatorTrigger
+      value: PrimaryAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo1.animatorTrigger
+      value: PrimaryAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo2.animatorTrigger
+      value: PrimaryAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: specialAttack.animatorTrigger
+      value: SecondaryAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo2.offset.x
+      value: 2.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo2.offset.y
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo2.size.x
+      value: 5.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo2.size.y
+      value: 3.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: enhancedCombo2.recoilForce.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: specialAttack.damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: specialAttack.offset.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: specialAttack.size.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
+        type: 2}
+      propertyPath: specialAttack.size.y
+      value: 2.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e31ae7b694638b345a0c56e2cf54ac0f, type: 2}
   m_IsPrefabParent: 0
