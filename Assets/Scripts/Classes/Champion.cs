@@ -11,7 +11,6 @@ public enum Enum_InputStatus
     onlyAttack,
     onlyMovement
 }
-
 public enum Enum_GuardStatus
 {
     noGuard,
@@ -23,13 +22,11 @@ public enum Enum_DodgeStatus
     ready,
     dodging
 }
-
 public enum Enum_StaminaRegeneration
 {
     regenerating,
     blocked
 }
-
 public enum Enum_SpecialStatus
 {
     normal,
@@ -88,8 +85,8 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float limitBreakOnDamage = 1.0f;
 
     [Header("Status Settings")]
-    [SerializeField] protected float fatiguedSpeedReduction = 1/1.2f;
-    [SerializeField] protected float slowSpeedReduction = 1/1.2f;
+    [SerializeField] protected float fatiguedSpeedReduction = 1 / 1.2f;
+    [SerializeField] protected float slowSpeedReduction = 1 / 1.2f;
 
     [Header("Attack Settings")]
     [SerializeField] protected int comboOneDamage = 10;
@@ -101,6 +98,8 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int guardBreakDamage = 5;
     [SerializeField] protected int guardBreakstunLock = 15;
     [SerializeField] protected Vector2 guardBreakRecoilForce;
+
+    public Attack combo1;
 
     [Header("Combo1Settings")]
     [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
@@ -160,7 +159,6 @@ public abstract class Champion : MonoBehaviour {
         facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
         coyoteFrameCounter = coyoteTimeFrames; //to allow players to fall at the beginning
     }
-
     protected void Start()
     {
         health = baseHealth;
@@ -176,6 +174,8 @@ public abstract class Champion : MonoBehaviour {
         diveBox = transform.Find("DiveBox").GetComponentInChildren<Collider2D>();
         powerUp = GetComponent<PowerUp>();
 
+        combo1.SetUser(this);
+
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
@@ -186,7 +186,6 @@ public abstract class Champion : MonoBehaviour {
 
         cameraController = Camera.main.GetComponent<CameraControl>();
     }
-
     protected void FixedUpdate()
     {
         if(specialStatus != Enum_SpecialStatus.projected)
@@ -338,7 +337,21 @@ public abstract class Champion : MonoBehaviour {
     {
         if(attackToken > 0)
         {
-            animator.SetTrigger("PrimaryAttack");
+            /*
+             * ORIGINAL
+             */
+
+            //animator.SetTrigger("PrimaryAttack");
+
+            /*
+             *  REFACTORING
+             */
+            combo1.StartAttack();
+
+            /*
+             * END
+             */
+
             attackToken--;
         }
 
@@ -354,12 +367,18 @@ public abstract class Champion : MonoBehaviour {
     }
 
     protected abstract void CastHitBox(int attackType);
+
+    /*
+     * ORIGINAL
+     */
+
+    /*
     protected virtual void MoveOnAttack()
     {
         Vector2 force = new Vector2(facing * primaryAttackMovementForce, 0);
         rb.AddForce(force, ForceMode2D.Impulse);
     }
-
+    
     protected void StartAttackString()
     {
         ReduceStamina(primaryFireStaminaCost);
@@ -369,6 +388,41 @@ public abstract class Champion : MonoBehaviour {
         attacking = true;
         rb.velocity = Vector2.zero;
     }
+    */
+
+    /*
+     * REFACTORING
+     */
+
+    protected void StartAttackString()
+    {
+        ReduceStamina(combo1.staminaCost);
+        inputStatus = Enum_InputStatus.onlyAttack;
+        movementX = 0;
+        movementY = 0;
+        attacking = true;
+        rb.velocity = Vector2.zero;
+    }
+
+    protected virtual void MoveOnAttack()
+    {
+        Vector2 force = new Vector2(facing * combo1.movementForce, 0);
+        rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
+    public void ComboOneMoveOnAttack()
+    {
+        combo1.MoveOnAttack();
+    }
+
+    public void ComboOneCastHitBox()
+    {
+        combo1.CastHitBox();
+    }
+    /*
+     * END
+     */
+
     protected virtual void EndAttackString()
     {
         inputStatus = Enum_InputStatus.allowed;
@@ -630,6 +684,12 @@ public abstract class Champion : MonoBehaviour {
     {
         attackToken = maxAttackToken;
     }
+
+    /*
+     * ORIGINAL
+     */
+
+    /*
     protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce, bool specialEffect = false)
     {
         if (enemies.Length > 0)
@@ -646,7 +706,6 @@ public abstract class Champion : MonoBehaviour {
                 }
             }
     }
-
     protected void DealDamageToEnemy(Collider2D enemy, int damage, int stunLock, Vector2 recoilForce, bool specialEffect)
     {
         Champion foe = enemy.gameObject.GetComponent<Champion>();
@@ -656,7 +715,20 @@ public abstract class Champion : MonoBehaviour {
             foe.ApplyDamage(damage, facing, stunLock, recoilForce);
             ApplySpecialEffect(foe);
         }
+    }*/
+
+    /*
+     * REFACTORING
+     */
+    protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce, bool specialEffect = false)
+    {
+
     }
+
+    /*
+    * END
+    */
+
     protected virtual void ApplySpecialEffect(Champion enemy)
     {
         Debug.Log("No special effect on this attack");
@@ -703,8 +775,6 @@ public abstract class Champion : MonoBehaviour {
             }
         }
     }
-
-
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
@@ -744,41 +814,35 @@ public abstract class Champion : MonoBehaviour {
             diveBox.enabled = true;
         }
     }
+
     public void SetHorizontalCtrl(string HCtrl)
     {
         HorizontalCtrl = HCtrl;
     }
-
     public void SetVerticalCtrl(string VCtrl)
     {
         VerticalCtrl = VCtrl;
     }
-
     public void SetJumpButton(string JButton)
     {
         JumpButton = JButton;
     }
-
     public void SetDodgeButton(string DButton)
     {
         DodgeButton = DButton;
     }
-
     public void SetPrimaryAttackButton(string PAButton)
     {
         PrimaryAttackButton = PAButton;
     }
-
     public void SetSecondaryAttackButton(string SAButton)
     {
         SecondaryAttackButton = SAButton;
     }
-
     public void SetPowerUpButton(string PUButton)
     {
         PowerUpButton = PUButton;
     }
-
     public void SetGuardButton(string GButton)
     {
         GuardButton = GButton;
@@ -787,6 +851,7 @@ public abstract class Champion : MonoBehaviour {
     {
         ParryButton = PButton;
     }
+
     public void UpdateHUD()
     {
         healthSlider.value = health;
@@ -914,7 +979,22 @@ public abstract class Champion : MonoBehaviour {
             return dead;
         }
     }
-    
+    public Animator Animator
+    {
+        get { return animator; }
+    } 
+    public Rigidbody2D RB
+    {
+        get { return rb; }
+    }
+    public LayerMask HitBoxLayer
+    {
+        get { return hitBoxLayer; }
+    }
+    public Vector2 Position
+    {
+        get { return transform.position; }
+    }
     public int GuardBreakDamage
     {
         get
@@ -922,7 +1002,6 @@ public abstract class Champion : MonoBehaviour {
             return guardBreakDamage;
         }
     }
-
     public int GuardBreakStunLock
     {
         get
@@ -941,17 +1020,14 @@ public abstract class Champion : MonoBehaviour {
     {
         specialStatus = Enum_SpecialStatus.normal;
     }
-
     public void SetStunStatus()
     {
         specialStatus = Enum_SpecialStatus.stun;
     }
-
     public void SetPoisonStatus()
     {
         specialStatus = Enum_SpecialStatus.poison;
     }
-
     public void SetSlowStatus()
     {
         specialStatus = Enum_SpecialStatus.slow;

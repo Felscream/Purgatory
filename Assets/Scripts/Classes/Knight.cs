@@ -35,7 +35,23 @@ public class Knight : Champion {
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(new Vector3(comboOneOffset.x, comboOneOffset.y, 0) + transform.position, new Vector3(comboOneSize.x, comboOneSize.y, 1));
+
+        /*
+         * ORIGINAL
+         */
+
+        //Gizmos.DrawWireCube(new Vector3(comboOneOffset.x, comboOneOffset.y, 0) + transform.position, new Vector3(comboOneSize.x, comboOneSize.y, 1));
+
+        /*
+         * REFACTORING
+         */
+
+        Gizmos.DrawWireCube(new Vector3(combo1.offset.x, combo1.offset.y, 0) + transform.position, new Vector3(combo1.size.x, combo1.size.y, 1));
+
+        /*
+         * END
+         */
+
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(comboTwoOffset.x, comboTwoOffset.y, 0) + transform.position, new Vector3(comboTwoSize.x, comboTwoSize.y, 1));
         Gizmos.color = Color.yellow;
@@ -71,6 +87,12 @@ public class Knight : Champion {
     {
         base.SecondaryAttack();
     }
+
+    /*
+     * ORIGINAL
+     */
+
+    /*
     protected override void CastHitBox(int attackType) //function fired from animation event (check knight's normal and enhanced attacks with the animation tool)
     {
         Vector2 pos = new Vector2(0, 0);
@@ -140,4 +162,39 @@ public class Knight : Champion {
         enemy.ApplyStunLock(SpecialAttackStunLock);
         enemy.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
     }
+    */
+
+    /*
+     *  REFACT
+     */
+
+    protected override void CastHitBox(int attackType)
+    {
+        switch (attackType)
+        {
+            case 1:
+                combo1.CastHitBox();
+                break;
+            default:
+                Debug.LogError("Unknown AttackType");
+                break;
+        }
+    }
+
+    protected void MoveOnAttack(int attackID)
+    {
+        switch (attackID)
+        {
+            case 1:
+                combo1.MoveOnAttack();
+                break;
+            default:
+                Debug.LogError("Unknown AttackType");
+                break;
+        }
+    }
+
+    /*
+     * END
+     */
 }
