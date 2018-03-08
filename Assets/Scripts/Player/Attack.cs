@@ -9,7 +9,6 @@ public class Attack {
     public Vector2 size = new Vector2(1, 1);
     public int stunLock = 5;
     public Vector2 recoilForce;
-    public string animatorTrigger;
     public float staminaCost;
     public int damage = 10;
     public float movementForce = 2;
@@ -30,13 +29,7 @@ public class Attack {
         rb = user.RB;
         hitBoxLayer = user.HitBoxLayer;
     }
-
-    public void StartAttack()
-    {
-        animator.SetTrigger(animatorTrigger);
-        //rb.velocity = Vector2.zero;
-    }
-
+    
     public void MoveOnAttack()
     {
         Vector2 force = new Vector2(user.Facing * movementForce, 0);
@@ -78,13 +71,32 @@ public class Attack {
         {
             Debug.Log("Hit " + foe.transform.parent.name);
             foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce);
-            ApplySpecialEffect(foe);
+            if(haveSpecialEffect)
+                ApplySpecialEffect(foe);
         }
     }
 
     protected void ApplySpecialEffect(Champion enemy)
     {
-        Debug.Log("No special effect on this attack");
+        switch(specialEffect)
+        {
+            case Enum_SpecialStatus.stun :
+                enemy.SetStunStatus();
+                break;
+            case Enum_SpecialStatus.poison:
+                enemy.SetPoisonStatus();
+                break;
+            case Enum_SpecialStatus.slow:
+                enemy.SetSlowStatus();
+                break;
+            case Enum_SpecialStatus.projected:
+                enemy.SetProjectedStatus();
+                break;
+            default:
+                Debug.Log("No special effect on this attack");
+            break;
+        }
+        
     }
 
 

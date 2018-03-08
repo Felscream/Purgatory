@@ -88,32 +88,47 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float fatiguedSpeedReduction = 1 / 1.2f;
     [SerializeField] protected float slowSpeedReduction = 1 / 1.2f;
 
-    [Header("Attack Settings")]
-    [SerializeField] protected int comboOneDamage = 10;
-    [SerializeField] protected float primaryAttackMovementForce = 2;
-    [SerializeField] protected LayerMask hitBoxLayer;
-    [SerializeField] protected int maxAttackToken = 1;
-
     [Header("Guard Break Settings")]
     [SerializeField] protected int guardBreakDamage = 5;
     [SerializeField] protected int guardBreakstunLock = 15;
     [SerializeField] protected Vector2 guardBreakRecoilForce;
 
-    
+    [Header("Attack Settings")]
     /*
-     * ORIGINAL
-     */
-     /*
-    [Header("Combo1Settings")]
-    [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
-    [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
-    [SerializeField] protected int comboOneStunLock = 5;
-    [SerializeField] protected Vector2 comboOneRecoilForce;
+    * ORIGINAL
     */
+
+    /*
+    [SerializeField] protected int comboOneDamage = 10;
+    [SerializeField] protected float primaryAttackMovementForce = 2;
+    */
+
+    /*
+    * END
+    */
+
+    [SerializeField] protected LayerMask hitBoxLayer;
+    [SerializeField] protected int maxAttackToken = 1;
+
+    /*
+    * ORIGINAL
+    */
+
+    /*
+   [Header("Combo1Settings")]
+   [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
+   [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
+   [SerializeField] protected int comboOneStunLock = 5;
+   [SerializeField] protected Vector2 comboOneRecoilForce;
+   */
+
     /*
     * REFACTORING
     */
+
+    public Attack specialAttack;
     public Attack combo1;
+
     /*
     * END
     */
@@ -188,6 +203,7 @@ public abstract class Champion : MonoBehaviour {
          * REFACTORING
          */
         combo1.SetUser(this);
+        specialAttack.SetUser(this);
         /*
          * END
          */
@@ -357,12 +373,12 @@ public abstract class Champion : MonoBehaviour {
              * ORIGINAL
              */
 
-            //animator.SetTrigger("PrimaryAttack");
+            animator.SetTrigger("PrimaryAttack");
 
             /*
              *  REFACTORING
              */
-            combo1.StartAttack();
+            //combo1.StartAttack();
 
             /*
              * END
@@ -375,8 +391,9 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void SecondaryAttack()
     {
+        
         animator.SetTrigger("SecondaryAttack");
-        ReduceStamina(secondaryFireStaminaCost);
+        ReduceStamina(specialAttack.staminaCost);
         inputStatus = Enum_InputStatus.blocked;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0.0f;
@@ -1047,5 +1064,9 @@ public abstract class Champion : MonoBehaviour {
     public void SetSlowStatus()
     {
         specialStatus = Enum_SpecialStatus.slow;
+    }
+    public void SetProjectedStatus()
+    {
+        specialStatus = Enum_SpecialStatus.projected;
     }
 }

@@ -7,6 +7,7 @@ public class Knight : Champion
     /*
     * ORIGINAL
     */
+
     /*
     [Header("Combo2Settings")]
     [SerializeField] protected int comboTwoDamage = 20;
@@ -37,6 +38,7 @@ public class Knight : Champion
     [SerializeField] protected int SpecialAttackStunLock = 5;
     [SerializeField] protected Vector2 SpecialAttackRecoilForce;
     */
+
     /*
     * REFACTORING
     */
@@ -44,7 +46,7 @@ public class Knight : Champion
     public Attack combo2;
     public Attack enhancedCombo1;
     public Attack enhancedCombo2;
-    public Attack specialAttack;
+    
 
     /*
     * END
@@ -101,7 +103,6 @@ public class Knight : Champion
         combo2.SetUser(this);
         enhancedCombo1.SetUser(this);
         enhancedCombo2.SetUser(this);
-        specialAttack.SetUser(this);
     }
     /*
     * END
@@ -221,16 +222,16 @@ public class Knight : Champion
                 combo1.CastHitBox();
                 break;
             case 2:
-                combo1.CastHitBox();
+                combo2.CastHitBox();
                 break;
             case 3:
-                combo1.CastHitBox();
+                enhancedCombo1.CastHitBox();
                 break;
             case 4:
-                combo1.CastHitBox();
+                enhancedCombo2.CastHitBox();
                 break;
             case 5:
-                combo1.CastHitBox();
+                specialAttack.CastHitBox();
                 break;
             default:
                 Debug.LogError("Unknown AttackType");
@@ -246,16 +247,16 @@ public class Knight : Champion
                 combo1.MoveOnAttack();
                 break;
             case 2:
-                combo1.MoveOnAttack();
+                combo2.MoveOnAttack();
                 break;
             case 3:
-                combo1.MoveOnAttack();
+                enhancedCombo1.MoveOnAttack();
                 break;
             case 4:
-                combo1.MoveOnAttack();
+                enhancedCombo2.MoveOnAttack();
                 break;
             case 5:
-                combo1.MoveOnAttack();
+                specialAttack.MoveOnAttack();
                 break;
             default:
                 Debug.LogError("Unknown AttackType");

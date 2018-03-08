@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1502240114522002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.46, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4021701327322810}
@@ -352,24 +352,43 @@ MonoBehaviour:
   limitBreakOnDamage: 1
   fatiguedSpeedReduction: 0.833333
   slowSpeedReduction: 0.8333333
-  comboOneDamage: 10
-  primaryAttackMovementForce: 5
+  guardBreakDamage: 5
+  guardBreakstunLock: 30
+  guardBreakRecoilForce: {x: 0, y: 0}
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 33024
   maxAttackToken: 2
-  guardBreakDamage: 5
-  guardBreakstunLock: 30
-  guardBreakRecoilForce: {x: 0, y: 0}
-  comboOneOffset: {x: 1.47, y: 0.06}
-  comboOneSize: {x: 2.37, y: 1.24}
-  comboOneStunLock: 10
-  comboOneRecoilForce: {x: 5, y: 0}
-  comboTwoDamage: 20
-  comboTwoOffset: {x: 1.6, y: 0}
-  comboTwoSize: {x: 2.86, y: 2.07}
-  comboTwoStunLock: 10
-  comboTwoRecoilForce: {x: 5, y: 0}
+  specialAttack:
+    offset: {x: 0, y: 0}
+    size: {x: 1, y: 1}
+    stunLock: 5
+    recoilForce: {x: 0, y: 0}
+    staminaCost: 40
+    damage: 10
+    movementForce: 2
+    haveSpecialEffect: 0
+    specialEffect: 0
+  combo1:
+    offset: {x: 1.47, y: 0.06}
+    size: {x: 2.37, y: 1.24}
+    stunLock: 10
+    recoilForce: {x: 5, y: 0}
+    staminaCost: 10
+    damage: 10
+    movementForce: 2
+    haveSpecialEffect: 0
+    specialEffect: 0
+  combo2:
+    offset: {x: 1.6, y: 0}
+    size: {x: 2.86, y: 2.07}
+    stunLock: 10
+    recoilForce: {x: 5, y: 0}
+    staminaCost: 10
+    damage: 20
+    movementForce: 2
+    haveSpecialEffect: 0
+    specialEffect: 0
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
   projectileSpawnOffset: {x: 3.2, y: 0.31}
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
