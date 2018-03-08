@@ -40,7 +40,7 @@ public class ClipController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        
+
         if (!clipStart.isPlaying && clipStart.time >= 1.0f)
         {
             clipStart.targetCameraAlpha = 0.6f;
