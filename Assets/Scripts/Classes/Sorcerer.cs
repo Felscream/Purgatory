@@ -4,36 +4,77 @@ using UnityEngine;
 
 public class Sorcerer : Champion
 {
-
+    /*
+     * ORIGINAL
+    */
+    /*
     [Header("Combo2Settings")]
-    [SerializeField]
-    protected int comboTwoDamage = 20;
+    [SerializeField] protected int comboTwoDamage = 20;
     [SerializeField] protected Vector2 comboTwoOffset = new Vector2(0, 0);
     [SerializeField] protected Vector2 comboTwoSize = new Vector2(1, 1);
     [SerializeField] protected int comboTwoStunLock = 5;
     [SerializeField] protected Vector2 comboTwoRecoilForce;
+    */
+    
+    /*
+     * REFACTORING
+    */
+
+    public Attack combo2;
+
+    /*
+     * END
+    */
 
     [Header("ProjectileSetting")]
     [SerializeField] protected GameObject manabomb;
     [SerializeField] protected Vector2 projectileSpawnOffset;
     [SerializeField] protected Vector2 altProjectileSpawnOffset;
     [SerializeField] private Vector3 altRotation;
-    [SerializeField] private Vector2 altRecoil = new Vector2(-4,4);
+    [SerializeField] private Vector2 altRecoil = new Vector2(-4, 4);
 
     public void OnDrawGizmosSelected()
     {
+        /*
+         * ORIGINAL
+         */
+        /*
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(new Vector3(comboOneOffset.x, comboOneOffset.y, 0) + transform.position, new Vector3(comboOneSize.x, comboOneSize.y, 1));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(comboTwoOffset.x, comboTwoOffset.y, 0) + transform.position, new Vector3(comboTwoSize.x, comboTwoSize.y, 1));
+        */
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(projectileSpawnOffset + (Vector2)transform.position, 0.3f);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(altProjectileSpawnOffset + (Vector2)transform.position, 0.3f);
         //uncomment to teleport, you'll have to comment transform.Translate(Teleportation) in WarpOut()
         //WarpOut();
+        
 
+        /*
+         * REFACTORING
+         */
 
+        Gizmos.DrawWireCube(new Vector3(combo1.offset.x, combo1.offset.y, 0) + transform.position, new Vector3(combo1.size.x, combo1.size.y, 1));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(new Vector3(combo2.offset.x, combo2.offset.y, 0) + transform.position, new Vector3(combo2.size.x, combo2.size.y, 1));
+        /*
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(new Vector3(projectileSpawnOffset.x, projectileSpawnOffset.y, 0) + transform.position, new Vector3(projectile.size.x, projectile.size.y, 1));
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(new Vector3(altProjectile.offset.x, altProjectile.offset.y, 1) + transform.position, new Vector3(altProjectile.size.x, altProjectile.size.y, 1));
+        */
+
+         /*
+         * END
+         */
+
+    }
+    protected override void Start()
+    {
+        base.Start();
+        combo2.SetUser(this);
     }
     protected override void Update()
     {
@@ -51,10 +92,21 @@ public class Sorcerer : Champion
     protected override void SecondaryAttack()
     {
         base.SecondaryAttack();
-        inputStatus = Enum_InputStatus.blocked;
+        /*
+         * ORIGINAL
+         */
+        //inputStatus = Enum_InputStatus.blocked;
+        /*
+         * END
+         */
     }
     public override void ReduceStamina(float amount)
     {
+        /*
+         * ORIGINAL
+         */
+
+        /*
         if (amount != 0.0f)
         {
             if (powerUp is StaminaSaving)
@@ -65,11 +117,30 @@ public class Sorcerer : Champion
                     amount *= temp.StaminaCostReductionMultiplier;
                 }
             }
-            stamina = Mathf.Max(stamina - amount, 0);
-            CheckFatigue();
-            staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
-            staminablockedTimer = 0.0f;
+           stamina = Mathf.Max(stamina - amount, 0);
+           CheckFatigue();
+           staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
+           staminablockedTimer = 0.0f;
         }
+        */
+
+        /*
+         * REFACTORING
+         */
+
+        if (powerUp is StaminaSaving)
+        {
+            if (powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+            {
+                StaminaSaving temp = (StaminaSaving)powerUp;
+                amount *= temp.StaminaCostReductionMultiplier;
+            }
+        }
+        base.ReduceStamina(amount);
+
+        /*
+         * END
+         */
     }
     protected override void CastHitBox(int attackType)
     {
@@ -85,18 +156,10 @@ public class Sorcerer : Champion
             switch (attackType)
             {
                 case 0: //combo one
-                    pos = new Vector2(comboOneOffset.x * dir, comboOneOffset.y) + (Vector2)transform.position;
-                    size = comboOneSize;
-                    damage = comboOneDamage;
-                    stunLock = comboOneStunLock;
-                    recoilForce = comboOneRecoilForce;
+                    combo1.CastHitBox();
                     break;
                 case 1: //combo two
-                    pos = new Vector2(comboTwoOffset.x * dir, comboTwoOffset.y) + (Vector2)transform.position;
-                    size = comboTwoSize;
-                    damage = comboTwoDamage;
-                    stunLock = comboTwoStunLock;
-                    recoilForce = comboTwoRecoilForce;
+                    combo2.CastHitBox();
                     break;
                 //to implement : special and ultimate
                 default:

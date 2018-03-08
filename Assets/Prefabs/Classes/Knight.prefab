@@ -347,37 +347,63 @@ MonoBehaviour:
   limitBreakOnDamage: 0.25
   fatiguedSpeedReduction: 0.8333333
   slowSpeedReduction: 0.8333333
-  comboOneDamage: 10
-  primaryAttackMovementForce: 4
+  guardBreakDamage: 5
+  guardBreakstunLock: 30
+  guardBreakRecoilForce: {x: 0, y: 0}
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 33024
   maxAttackToken: 2
-  guardBreakDamage: 5
-  guardBreakstunLock: 30
-  guardBreakRecoilForce: {x: 0, y: 0}
-  comboOneOffset: {x: 1.6, y: 0.12}
-  comboOneSize: {x: 2.2, y: 1.6}
-  comboOneStunLock: 5
-  comboOneRecoilForce: {x: 5, y: 0}
-  comboTwoDamage: 20
-  comboTwoOffset: {x: 1.72, y: 0.1}
-  comboTwoSize: {x: 2.55, y: 2.19}
-  comboTwoStunLock: 5
-  comboTwoRecoilForce: {x: 5, y: 0}
-  EnhancedComboOneOffset: {x: 2.26, y: 0.18}
-  EnhancedComboOneSize: {x: 3.8, y: 2.02}
-  EnhancedComboOneStunLock: 5
-  EnhancedComboOneRecoilForce: {x: 5, y: 0}
-  EnhancedComboTwoOffset: {x: 2.94, y: 0.74}
-  EnhancedComboTwoSize: {x: 5.15, y: 3.76}
-  EnhancedComboTwoStunLock: 5
-  EnhancedComboTwoRecoilForce: {x: 5, y: 0}
-  SpecialAttackDamage: 1
-  SpecialAttackOffset: {x: 0.8, y: 0}
-  SpecialAttackSize: {x: 0.7, y: 2.4}
-  SpecialAttackStunLock: 5
-  SpecialAttackRecoilForce: {x: 0, y: 0}
+  specialAttack:
+    offset: {x: 0.8, y: 0}
+    size: {x: 0.7, y: 2.4}
+    stunLock: 5
+    recoilForce: {x: 20, y: 1}
+    staminaCost: 0
+    damage: 1
+    movementForce: 2
+    haveSpecialEffect: 1
+    specialEffect: 4
+  combo1:
+    offset: {x: 1.6, y: 0.12}
+    size: {x: 2.2, y: 1.6}
+    stunLock: 5
+    recoilForce: {x: 5, y: 0}
+    staminaCost: 10
+    damage: 10
+    movementForce: 2
+    haveSpecialEffect: 0
+    specialEffect: 0
+  combo2:
+    offset: {x: 1.72, y: 0.1}
+    size: {x: 2.55, y: 2.19}
+    stunLock: 5
+    recoilForce: {x: 5, y: 0}
+    staminaCost: 0
+    damage: 20
+    movementForce: 2
+    haveSpecialEffect: 0
+    specialEffect: 0
+  enhancedCombo1:
+    offset: {x: 2.26, y: 0.18}
+    size: {x: 3.8, y: 2.02}
+    stunLock: 5
+    recoilForce: {x: 5, y: 0}
+    staminaCost: 0
+    damage: 10
+    movementForce: 2
+    haveSpecialEffect: 0
+    specialEffect: 0
+  enhancedCombo2:
+    offset: {x: 2.94, y: 0.74}
+    size: {x: 5.15, y: 3.76}
+    stunLock: 5
+    recoilForce: {x: 5, y: 0}
+    staminaCost: 0
+    damage: 10
+    movementForce: 2
+    haveSpecialEffect: 0
+    specialEffect: 0
 --- !u!114 &114615723824182320
 MonoBehaviour:
   m_ObjectHideFlags: 1
