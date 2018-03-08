@@ -331,11 +331,11 @@ MonoBehaviour:
   fallMultiplier: 7
   jumpVelocityAtApex: 2
   coyoteTimeFrames: 3
-  dodgeSpeed: 10
+  dodgeSpeed: 20
   dodgeStaminaCost: 20
-  dodgeFrames: 30
-  dodgeImmunityStartFrame: 3
-  dodgeImmunityEndFrame: 15
+  dodgeFrames: 12
+  dodgeImmunityStartFrame: 4
+  dodgeImmunityEndFrame: 12
   maxDodgeToken: 1
   dodgeToken: 1
   parryStaminaCost: 60
