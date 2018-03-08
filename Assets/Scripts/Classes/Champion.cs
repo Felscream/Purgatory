@@ -1052,7 +1052,11 @@ public abstract class Champion : MonoBehaviour {
             return guardBreakRecoilForce;
         }
     }
-    public void SetNormalStatus()
+    public void SetProjectedStatus()
+    {
+        specialStatus = Enum_SpecialStatus.projected;
+    }
+public void SetNormalStatus()
     {
         specialStatus = Enum_SpecialStatus.normal;
     }
