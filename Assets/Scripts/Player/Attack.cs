@@ -12,6 +12,7 @@ public class Attack {
     public float staminaCost;
     public int damage = 10;
     public float movementForce = 2;
+    public bool guardBreaker = false;
     public bool haveSpecialEffect = false;
     public Enum_SpecialStatus specialEffect;
 
@@ -70,7 +71,7 @@ public class Attack {
         if (foe != null && foe != user && !foe.Dead)
         {
             Debug.Log("Hit " + foe.transform.parent.name);
-            foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce);
+            foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce, guardBreaker);
             if(haveSpecialEffect)
                 ApplySpecialEffect(foe);
         }

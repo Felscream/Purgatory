@@ -393,6 +393,21 @@ public abstract class Champion : MonoBehaviour {
             staminablockedTimer = 0.0f;
         }
     }
+    public virtual void ReduceHealth(int amount, bool clashPossible = false)
+    {
+        if (amount >= health && clashPossible)
+        {
+            Health = 1;
+            Clash();
+        }
+        else
+            Health = Health - amount;
+    }
+
+    public void Clash()
+    {
+        Debug.Log("Clash !");
+    }
 
     public virtual void ConsumeStamina(float amount) //DOESN'T TRIGGER THE STAMINA BLOCKED TIMER
     {
@@ -430,7 +445,7 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false)
+    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clash = false)
     {
         if (!Immunity)
         {
@@ -450,7 +465,7 @@ public abstract class Champion : MonoBehaviour {
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ResetAttackTokens();
                 }
-                health = Mathf.Max(health - dmg, 0);
+                ReduceHealth(dmg);
                 Debug.Log("Health :" + health);
                 if (cameraController != null)
                 {
@@ -464,7 +479,7 @@ public abstract class Champion : MonoBehaviour {
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     ApplyStunLock(stunLock);
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
-                    health = Mathf.Max(health - dmg, 0);
+                    ReduceHealth(dmg);
                     Debug.Log("Health :" + health);
                     if (cameraController != null)
                     {
@@ -859,7 +874,7 @@ public abstract class Champion : MonoBehaviour {
             return health;
         }
 		set{ 
-			health = value;
+			health = Mathf.Min(Mathf.Max(value, 0),BaseHealth);
 		}
     }
     public bool Immunity
@@ -931,7 +946,7 @@ public abstract class Champion : MonoBehaviour {
     {
         specialStatus = Enum_SpecialStatus.projected;
     }
-public void SetNormalStatus()
+    public void SetNormalStatus()
     {
         specialStatus = Enum_SpecialStatus.normal;
     }
