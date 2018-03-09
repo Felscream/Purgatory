@@ -94,44 +94,12 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected Vector2 guardBreakRecoilForce;
 
     [Header("Attack Settings")]
-    /*
-    * ORIGINAL
-    */
-
-    /*
-    [SerializeField] protected int comboOneDamage = 10;
-    [SerializeField] protected float primaryAttackMovementForce = 2;
-    */
-
-    /*
-    * END
-    */
 
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
 
-    /*
-    * ORIGINAL
-    */
-
-    /*
-   [Header("Combo1Settings")]
-   [SerializeField] protected Vector2 comboOneOffset = new Vector2(0, 0);
-   [SerializeField] protected Vector2 comboOneSize = new Vector2(1, 1);
-   [SerializeField] protected int comboOneStunLock = 5;
-   [SerializeField] protected Vector2 comboOneRecoilForce;
-   */
-
-    /*
-    * REFACTORING
-    */
-
     public Attack specialAttack;
     public Attack combo1;
-
-    /*
-    * END
-    */
 
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -197,16 +165,9 @@ public abstract class Champion : MonoBehaviour {
         playerBox = transform.Find("PlayerBox").GetComponentInChildren<Collider2D>();
         diveBox = transform.Find("DiveBox").GetComponentInChildren<Collider2D>();
         powerUp = GetComponent<PowerUp>();
-
-
-        /*
-         * REFACTORING
-         */
+        
         combo1.SetUser(this);
         specialAttack.SetUser(this);
-        /*
-         * END
-         */
 
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
@@ -369,20 +330,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if(attackToken > 0)
         {
-            /*
-             * ORIGINAL
-             */
-
             animator.SetTrigger("PrimaryAttack");
-
-            /*
-             *  REFACTORING
-             */
-            //combo1.StartAttack();
-
-            /*
-             * END
-             */
 
             attackToken--;
         }
@@ -400,33 +348,7 @@ public abstract class Champion : MonoBehaviour {
     }
 
     protected abstract void CastHitBox(int attackType);
-
-    /*
-     * ORIGINAL
-     */
-
-    /*
-    protected virtual void MoveOnAttack()
-    {
-        Vector2 force = new Vector2(facing * primaryAttackMovementForce, 0);
-        rb.AddForce(force, ForceMode2D.Impulse);
-    }
     
-    protected void StartAttackString()
-    {
-        ReduceStamina(primaryFireStaminaCost);
-        inputStatus = Enum_InputStatus.onlyAttack;
-        movementX = 0;
-        movementY = 0;
-        attacking = true;
-        rb.velocity = Vector2.zero;
-    }
-    */
-
-    /*
-     * REFACTORING
-     */
-
     protected void StartAttackString()
     {
         ReduceStamina(combo1.staminaCost);
@@ -452,9 +374,6 @@ public abstract class Champion : MonoBehaviour {
     {
         combo1.CastHitBox();
     }
-    /*
-     * END
-     */
 
     protected virtual void EndAttackString()
     {
@@ -717,50 +636,6 @@ public abstract class Champion : MonoBehaviour {
     {
         attackToken = maxAttackToken;
     }
-
-    /*
-     * ORIGINAL
-     */
-
-    /*
-    protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce, bool specialEffect = false)
-    {
-        if (enemies.Length > 0)
-            foreach (Collider2D enemy in enemies)
-            {
-                if (enemy.gameObject.tag.Equals("Breakable"))
-                {
-                    BreakableLife breakableLife = enemy.gameObject.GetComponent<BreakableLife>();
-                    breakableLife.TakeDamage(1);
-                }
-                else
-                {
-                    DealDamageToEnemy(enemy, damage, stunLock, recoilForce, specialEffect);
-                }
-            }
-    }
-    protected void DealDamageToEnemy(Collider2D enemy, int damage, int stunLock, Vector2 recoilForce, bool specialEffect)
-    {
-        Champion foe = enemy.gameObject.GetComponent<Champion>();
-        if (foe != null && foe != this && !foe.Dead)
-        {
-            Debug.Log("Hit " + foe.transform.parent.name);
-            foe.ApplyDamage(damage, facing, stunLock, recoilForce);
-            ApplySpecialEffect(foe);
-        }
-    }*/
-
-    /*
-     * REFACTORING
-     */
-    protected void DealDamageToEnemies(Collider2D[] enemies, int damage, int stunLock, Vector2 recoilForce, bool specialEffect = false)
-    {
-
-    }
-
-    /*
-    * END
-    */
 
     protected virtual void ApplySpecialEffect(Champion enemy)
     {
