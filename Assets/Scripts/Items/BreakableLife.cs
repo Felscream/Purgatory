@@ -7,15 +7,19 @@ public class BreakableLife : MonoBehaviour {
 
     public int maxLife = 4;
     private int life = 4;
+    public float colorChangeTime = .2f;
     public Transform ascendant;
     public Transform descendant;
     public Transform falling;
     private bool    hasFallen = false,
                     isLowest = false,
                     beginLowering = false;
-    private bool damaged = false;
+
     private Color initialColor;
     private SpriteRenderer leverColor;
+
+    // Timer to change the color of the breakable when hit
+    private float timerColor;
 
     // Timer to low the plateform
     private float timer;
@@ -30,6 +34,7 @@ public class BreakableLife : MonoBehaviour {
         descendant.gameObject.SetActive(true);
         falling.gameObject.SetActive(false);
         timer = 0.0f;
+        timerColor = colorChangeTime;
     }
 	
 	// Update is called once per frame
@@ -58,14 +63,14 @@ public class BreakableLife : MonoBehaviour {
                 isLowest = true;
             }
         }
-        if (damaged)
+        if (timerColor < colorChangeTime)
         {
             leverColor.color = new Color(255, 0, 0);
+            timerColor += Time.deltaTime;
         } else
         {
-            leverColor.color = Color.Lerp(leverColor.color, initialColor, .8f);
+            leverColor.color = initialColor;
         }
-        damaged = false;
 	}
 
     public void TakeDamage(int dmg)
@@ -79,7 +84,7 @@ public class BreakableLife : MonoBehaviour {
                 Fall();
                 hasFallen = true;
             }
-            damaged = true;
+            timerColor = 0f;
         }
     }
 

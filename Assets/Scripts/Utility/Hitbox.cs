@@ -51,7 +51,6 @@ public class Hitbox : MonoBehaviour {
                         return;
                     }
                 }
-                Debug.Log(foe.gameObject.name);
                 foe.ApplyDamage(owner.GuardBreakDamage, owner.Facing, owner.GuardBreakStunLock, owner.GuardBreakRecoilForce, true);
                 hits.Add(foe);
             }
