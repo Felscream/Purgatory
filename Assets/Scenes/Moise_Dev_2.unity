@@ -1832,11 +1832,6 @@ Prefab:
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 1237335144}
-    - target: {fileID: 114244444951551434, guid: 07d47c73da75d6948b85cc3bbbc00e77,
-        type: 2}
-      propertyPath: combo1.offset.x
-      value: 1.47
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07d47c73da75d6948b85cc3bbbc00e77, type: 2}
   m_IsPrefabParent: 0
