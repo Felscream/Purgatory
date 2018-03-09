@@ -167,6 +167,7 @@ public abstract class Champion : MonoBehaviour {
         powerUp = GetComponent<PowerUp>();
         
         combo1.SetUser(this);
+        combo1.Clasheable();
         specialAttack.SetUser(this);
 
         playerHUD.alpha = 1;
@@ -445,7 +446,7 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clash = false)
+    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false)
     {
         if (!Immunity)
         {
@@ -465,7 +466,7 @@ public abstract class Champion : MonoBehaviour {
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ResetAttackTokens();
                 }
-                ReduceHealth(dmg);
+                ReduceHealth(dmg, clashPossible);
                 Debug.Log("Health :" + health);
                 if (cameraController != null)
                 {
@@ -479,7 +480,7 @@ public abstract class Champion : MonoBehaviour {
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     ApplyStunLock(stunLock);
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
-                    ReduceHealth(dmg);
+                    ReduceHealth(dmg, clashPossible);
                     Debug.Log("Health :" + health);
                     if (cameraController != null)
                     {
