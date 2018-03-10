@@ -5,8 +5,10 @@ using UnityEngine;
 public class PickUp : MonoBehaviour {
 
 	private Champion player;
-	public int addHealth = 20;
-	public int addStamina = 20;
+	public int HealthAmount = 20;
+	public int StaminaAmount = 20;
+	private int countHealth = 0;
+	private int countStamina = 0;
 
 	void Awake(){
 		player = GetComponentInChildren<Champion> ();
@@ -17,17 +19,41 @@ public class PickUp : MonoBehaviour {
 			//16: layer collectables
 		{
 			if (other.gameObject.tag.Equals("Health")){
-				player.Health += addHealth;
+				InvokeRepeating ("HealthRecover", 3, 5);
+				//player.Health += addHealth;
 				Debug.Log("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
-				player.Stamina += addStamina;
-				Debug.Log("Health: " + player.Stamina);
+				InvokeRepeating ("StaminaRecover", 3, 5);
+				//player.Stamina += StaminaAmount;
+				Debug.Log("Stamina: " + player.Stamina);
 			}
 			if (other.gameObject.tag.Equals ("Orb")) {
 				//ajouter la commande de recharge d'ulti
 			}
 			other.gameObject.SetActive (false);
+		}
+	}
+
+	void HealthRecover (){
+		player.Health += 1;
+		Debug.Log ("Health: " + player.Health);
+		countHealth += 1;
+		if (HealthAmount == countHealth) {
+			Debug.Log ("End Recovery");
+			CancelInvoke ("HealthRecover");
+			countHealth = 0;
+		}
+	}
+
+	void StaminaRecover (){
+		player.Stamina += 1;
+		Debug.Log ("Stamina: " + player.Stamina);
+		countStamina += 1;
+		if (StaminaAmount == countStamina) {
+			Debug.Log ("End Recovery");
+			CancelInvoke ("StaminaRecover");
+			countStamina = 0;
 		}
 	}
 }
