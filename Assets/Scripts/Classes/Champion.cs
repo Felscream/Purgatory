@@ -128,7 +128,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected Image ultiImageSlider;
 
-
+    protected SpriteRenderer sr;
     protected CameraControl cameraController;
     // INPUTS valeurs par défaut
     protected string HorizontalCtrl = "Horizontal";
@@ -179,6 +179,7 @@ public abstract class Champion : MonoBehaviour {
         ResetAttackTokens();
 
         cameraController = Camera.main.GetComponent<CameraControl>();
+        sr = GetComponent<SpriteRenderer>();
     }
     protected void FixedUpdate()
     {
@@ -605,10 +606,12 @@ public abstract class Champion : MonoBehaviour {
                 if (dodgeFrameCounter >= dodgeImmunityStartFrame && dodgeFrameCounter < dodgeImmunityEndFrame)
                 {
                     immune = true;
+                    InvincibilityVisualizer(true);
                 }
                 if (dodgeFrameCounter >= dodgeImmunityEndFrame)
                 {
                     immune = false;
+                    InvincibilityVisualizer(false);
                 }
                 if (dodgeFrameCounter >= dodgeFrames)
                 {
@@ -742,6 +745,17 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
+    protected void InvincibilityVisualizer(bool enable)
+    {
+        if (enable)
+        {
+            sr.color = Color.yellow;
+        }
+        else
+        {
+            sr.color = Color.white;
+        }
+    }
     public void SetHorizontalCtrl(string HCtrl)
     {
         HorizontalCtrl = HCtrl;

@@ -331,11 +331,11 @@ MonoBehaviour:
   fallMultiplier: 7
   jumpVelocityAtApex: 2
   coyoteTimeFrames: 3
-  dodgeSpeed: 10
+  dodgeSpeed: 25
   dodgeStaminaCost: 20
-  dodgeFrames: 30
+  dodgeFrames: 10
   dodgeImmunityStartFrame: 3
-  dodgeImmunityEndFrame: 15
+  dodgeImmunityEndFrame: 7
   maxDodgeToken: 1
   dodgeToken: 1
   parryStaminaCost: 60
@@ -355,19 +355,35 @@ MonoBehaviour:
   limitBreakOnDamage: 1
   fatiguedSpeedReduction: 0.8333333
   slowSpeedReduction: 0.8333333
-  comboOneDamage: 10
-  primaryAttackMovementForce: 2
+  guardBreakDamage: 5
+  guardBreakstunLock: 15
+  guardBreakRecoilForce: {x: 0, y: 0}
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 33024
   maxAttackToken: 1
-  guardBreakDamage: 5
-  guardBreakstunLock: 15
-  guardBreakRecoilForce: {x: 0, y: 0}
-  comboOneOffset: {x: 0, y: 0}
-  comboOneSize: {x: 1, y: 1}
-  comboOneStunLock: 5
-  comboOneRecoilForce: {x: 0, y: 0}
+  specialAttack:
+    offset: {x: 0, y: 0}
+    size: {x: 1, y: 1}
+    stunLock: 5
+    recoilForce: {x: 0, y: 0}
+    staminaCost: 0
+    damage: 10
+    movementForce: 2
+    guardBreaker: 0
+    haveSpecialEffect: 0
+    specialEffect: 0
+  combo1:
+    offset: {x: 0, y: 0}
+    size: {x: 1, y: 1}
+    stunLock: 5
+    recoilForce: {x: 0, y: 0}
+    staminaCost: 0
+    damage: 10
+    movementForce: 2
+    guardBreaker: 0
+    haveSpecialEffect: 0
+    specialEffect: 0
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
   projectileSpawnOffsetArrow: {x: 1.21, y: -0.34}
 --- !u!114 &114782146192993706
