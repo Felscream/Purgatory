@@ -6,7 +6,8 @@ using UnityEngine;
 public class Archer : Champion
 {
     [Header("ProjectileSettingArrow")]
-    [SerializeField] protected GameObject arrow;
+    [SerializeField]
+    protected GameObject arrow;
     [SerializeField] protected Vector2 projectileSpawnOffsetArrow;
 
     // Tenir bouton enfoncé
@@ -14,6 +15,11 @@ public class Archer : Champion
     protected float forceArrow = 0.3f; //The force of the arrow
     protected bool isKeyActive = false;
 
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(new Vector3(combo1.offset.x, combo1.offset.y, 0) + transform.position, new Vector3(combo1.size.x, combo1.size.y, 1));
+    }
 
     protected override void LateUpdate()
     {
@@ -110,6 +116,14 @@ public class Archer : Champion
 
     protected override void CastHitBox(int attackType)
     {
-        throw new NotImplementedException();
+        switch (attackType)
+        {
+            case 1:
+                combo1.CastHitBox();
+                break;
+            default:
+                Debug.LogError("Unknown AttackType");
+                break;
+        }
     }
 }

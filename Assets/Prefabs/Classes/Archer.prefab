@@ -374,13 +374,13 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
   combo1:
-    offset: {x: 0, y: 0}
-    size: {x: 1, y: 1}
+    offset: {x: 0.6, y: 0}
+    size: {x: 1.94, y: 1.18}
     stunLock: 5
-    recoilForce: {x: 0, y: 0}
-    staminaCost: 0
+    recoilForce: {x: 2, y: 0}
+    staminaCost: 20
     damage: 10
-    movementForce: 2
+    movementForce: 20
     guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
