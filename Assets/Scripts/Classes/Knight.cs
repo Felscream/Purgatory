@@ -31,6 +31,9 @@ public class Knight : Champion
         combo2.SetUser(this);
         enhancedCombo1.SetUser(this);
         enhancedCombo2.SetUser(this);
+        combo2.Clasheable();
+        enhancedCombo1.Clasheable();
+        enhancedCombo2.Clasheable();
     }
 
     protected override void Update()

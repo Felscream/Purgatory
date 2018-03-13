@@ -30,6 +30,7 @@ public class Sorcerer : Champion
     {
         base.Start();
         combo2.SetUser(this);
+        combo2.Clasheable();
     }
     protected override void Update()
     {

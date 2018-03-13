@@ -14,10 +14,18 @@ public class ManagerInGame : MonoBehaviour {
 	private bool SpawnOrb;
 	private int PlayerAlive=0;
 	public Component[] Players;
-
-
-	void Awake(){
-		Players = GetComponentsInChildren<Champion>();
+    private static ManagerInGame instance = null;
+    
+    void Awake(){
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        Players = GetComponentsInChildren<Champion>();
 	}
 
 	void Update () {
@@ -54,4 +62,14 @@ public class ManagerInGame : MonoBehaviour {
 			//ici ajouter le changement de scène et toute les modifs à prendre en compte
 		}
 	}
+
+    public static ManagerInGame GetInstance()
+    {
+        if (instance == null)
+        {
+            Debug.Log("No instance of " + typeof(ManagerInGame));
+            return null;
+        }
+        return instance;
+    }
 }

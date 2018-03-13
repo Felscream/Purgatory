@@ -16,7 +16,8 @@ public class Attack {
     public bool haveSpecialEffect = false;
     public Enum_SpecialStatus specialEffect;
 
-    protected bool canClash=false;
+    [SerializeField]protected bool canClash=false;
+
     protected Animator animator;
     protected Rigidbody2D rb;
     protected Champion user;
@@ -72,7 +73,7 @@ public class Attack {
         if (foe != null && foe != user && !foe.Dead)
         {
             Debug.Log("Hit " + foe.transform.parent.name);
-            foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce, guardBreaker, canClash);
+            foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce, guardBreaker, canClash, user);
             if(haveSpecialEffect)
                 ApplySpecialEffect(foe);
         }
