@@ -1,32 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Lever : MonoBehaviour {
 
     public GameObject trap;
-    public float timeToStayEnabled;
     public Sprite secondPositionLever;
+    public bool canEngage = true;
 
     private Sprite firstPositionLever;
-    private bool canEngage = true;
 
 
     // Use this for initialization
     void Start () {
 
-        firstPositionLever = GetComponent<Sprite>();
-
+        firstPositionLever = GetComponent<SpriteRenderer>().sprite;
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void Engage()
     {
-        canEngage = false;
+        if (canEngage)
+        {
+            canEngage = false;
+            gameObject.GetComponent<SpriteRenderer>().sprite = secondPositionLever;
+            trap.GetComponent<Trap>().Engage();
+            trap.SetActive(true);
+        }
+    }
+
+    public void Disengage()
+    {
+        canEngage = true;
+        gameObject.GetComponent<SpriteRenderer>().sprite = firstPositionLever;
+        trap.SetActive(false);
     }
 
 }

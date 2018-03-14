@@ -11,7 +11,12 @@ TagManager:
   - Health
   - Stamina
   - Undefined
+<<<<<<< HEAD
   - BreakingOrb
+=======
+  - Orb
+  - Lever
+>>>>>>> 48efd7890eaf2c6180009123abe2beaa81141486
   layers:
   - Default
   - TransparentFX
