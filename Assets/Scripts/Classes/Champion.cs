@@ -94,7 +94,6 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected Vector2 guardBreakRecoilForce;
 
     [Header("Attack Settings")]
-
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
 
@@ -122,6 +121,7 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_SpecialStatus specialStatus = Enum_SpecialStatus.normal;
     protected float movementX, movementY;
     protected PowerUp powerUp;
+    protected Lever trapLever;
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
@@ -222,6 +222,16 @@ public abstract class Champion : MonoBehaviour {
                     SecondaryAttack();
                 }
 
+                // Action button
+                if (Input.GetButtonDown(ActionButton) && trapLever != null && InputStatus != Enum_InputStatus.onlyMovement)
+                {
+                    Debug.Log("ActionButton");
+                    if ( trapLever.canEngage)
+                    {
+                        trapLever.Engage();
+                    }
+                }
+
                 if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
                 {
                     if (guardStatus == Enum_GuardStatus.noGuard && !Fatigue)
@@ -275,6 +285,16 @@ public abstract class Champion : MonoBehaviour {
         }
         UpdateHUD();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Lever")
+        {
+            Lever lever = collision.gameObject.GetComponent<Lever>();
+            trapLever = lever;
+        }
+    }
+
 
     protected void DynamicFall()
     {
@@ -843,6 +863,11 @@ public abstract class Champion : MonoBehaviour {
         if (b)
             a = 1f;
         playerHUD.transform.Find("UltiImage").Find("AbilityImage2").GetComponent<Image>().color = new Color(255, 255, 255, a);
+    }
+
+    public void SetTrapLever(Lever lever)
+    {
+        trapLever = lever;
     }
 
     public float Facing

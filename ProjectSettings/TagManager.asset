@@ -12,6 +12,7 @@ TagManager:
   - Stamina
   - Undefined
   - Orb
+  - Lever
   layers:
   - Default
   - TransparentFX
