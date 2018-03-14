@@ -28,10 +28,6 @@ public class PickUp : MonoBehaviour {
 				//player.Stamina += StaminaAmount;
 				Debug.Log("Stamina: " + player.Stamina);
 			}
-			if (other.gameObject.tag.Equals ("Orb")) {
-				//ajouter la commande de recharge d'ulti
-			}
-			other.gameObject.SetActive (false);
 		}
 	}
 

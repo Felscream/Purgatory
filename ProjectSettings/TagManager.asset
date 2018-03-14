@@ -11,7 +11,7 @@ TagManager:
   - Health
   - Stamina
   - Undefined
-  - Orb
+  - BreakingOrb
   layers:
   - Default
   - TransparentFX

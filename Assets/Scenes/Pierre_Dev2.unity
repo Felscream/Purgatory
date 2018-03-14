@@ -738,11 +738,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4548562902181806, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7
+      value: 3.56
       objectReference: {fileID: 0}
     - target: {fileID: 4548562902181806, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.43
+      value: 2.02
       objectReference: {fileID: 0}
     - target: {fileID: 4548562902181806, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
       propertyPath: m_LocalPosition.z
@@ -768,7 +768,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1485432959634340, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
+      propertyPath: m_TagString
+      value: BreakingOrb
+      objectReference: {fileID: 0}
+    - target: {fileID: 1485432959634340, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58384741994464746, guid: e7006dfe1fb9b12489a990792e3318cc,
+        type: 2}
+      propertyPath: m_Radius
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 58384741994464746, guid: e7006dfe1fb9b12489a990792e3318cc,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114202797589333932, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &664333133
@@ -1650,6 +1673,8 @@ MonoBehaviour:
   Stamina: {fileID: 1607867619309306, guid: 35420c958a6dffd49abe962dda4242e3, type: 2}
   Orb: {fileID: 1485432959634340, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
   Players: []
+  ClashSlider: {fileID: 0}
+  ClashCanvas: {fileID: 0}
 --- !u!4 &1533679671 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1,
@@ -1817,7 +1842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c739717ca7864ad498e3e940e0be005f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLife: 0
   life: 0
 --- !u!1 &1833066238
 GameObject:

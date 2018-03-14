@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 114244444951551434}
   - component: {fileID: 95341825283554814}
   - component: {fileID: 114208792370089698}
+  - component: {fileID: 114729434679529130}
   m_Layer: 8
   m_Name: Sorcerer
   m_TagString: Champion
@@ -367,8 +368,10 @@ MonoBehaviour:
     staminaCost: 40
     damage: 10
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
   combo1:
     offset: {x: 1.47, y: 0.06}
     size: {x: 2.37, y: 1.24}
@@ -377,8 +380,10 @@ MonoBehaviour:
     staminaCost: 10
     damage: 10
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
   combo2:
     offset: {x: 1.6, y: 0}
     size: {x: 2.86, y: 2.07}
@@ -387,8 +392,10 @@ MonoBehaviour:
     staminaCost: 10
     damage: 20
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
   projectileSpawnOffset: {x: 3.2, y: 0.31}
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
@@ -406,6 +413,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionOffset: {x: 0.5, y: -1}
+--- !u!114 &114729434679529130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502240114522002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa94d7afa0b3444592201e847f87179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthAmount: 20
+  StaminaAmount: 20
 --- !u!212 &212742080940867160
 SpriteRenderer:
   m_ObjectHideFlags: 1
