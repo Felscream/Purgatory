@@ -8,6 +8,7 @@ public class BreakableLife : MonoBehaviour {
     public int maxLife = 4;
     private int life = 4;
     public float colorChangeTime = .2f;
+    public float timeBeforeLowering = 5f;
     public Transform ascendant;
     public Transform descendant;
     public Transform falling;
@@ -17,6 +18,7 @@ public class BreakableLife : MonoBehaviour {
 
     private Color initialColor;
     private SpriteRenderer leverColor;
+    private Transform hitMask;
 
     // Timer to change the color of the breakable when hit
     private float timerColor;
@@ -35,6 +37,7 @@ public class BreakableLife : MonoBehaviour {
         falling.gameObject.SetActive(false);
         timer = 0.0f;
         timerColor = colorChangeTime;
+        hitMask = transform.GetChild(0);
     }
 	
 	// Update is called once per frame
@@ -43,33 +46,45 @@ public class BreakableLife : MonoBehaviour {
         if (!beginLowering)
         {
             timer += Time.deltaTime;
-            if (timer >= 8) // Ammorce la descente après 5 secondes
+            if (timer >= timeBeforeLowering) // Ammorce la descente après 5 secondes
             {
                 beginLowering = true;
                 this.transform.rotation = new Quaternion(0, 0, 0, 0);
                 timer = 0.0f;
             }
         }
-        else
+        else // Si on a commencé à descendre la plateforme
         {
             if (!hasFallen && !isLowest)
             {
                 timer += Time.deltaTime;
                 ascendant.localPosition = new Vector3(1, Random.value * 0.1f, 0);
                 descendant.localPosition = new Vector3(0, 10 - timer/2, 0);            // Abaisse la plateforme jusqu'à un offset vertical de 0
-            }
-            if (descendant.position.y <= 0)
-            {
-                isLowest = true;
+
+                // Fait tourner l'engrenage
+                transform.Rotate(0,0,1);
+
+                if (descendant.position.y <= 0)
+                {
+                    isLowest = true;
+                }
             }
         }
         if (timerColor < colorChangeTime)
         {
             leverColor.color = new Color(255, 0, 0);
             timerColor += Time.deltaTime;
+            if (hitMask != null)
+            {
+                hitMask.gameObject.SetActive(true);
+            }
         } else
         {
             leverColor.color = initialColor;
+            if (hitMask != null)
+            {
+                hitMask.gameObject.SetActive(false);
+            }
         }
 	}
 
@@ -95,7 +110,7 @@ public class BreakableLife : MonoBehaviour {
         ascendant.gameObject.SetActive(false);
         descendant.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
+        falling.gameObject.GetComponentInChildren<FallingPlatform>().height = falling.position.y;
         Destroy(falling.gameObject, 5f);
-        
     }
 }
