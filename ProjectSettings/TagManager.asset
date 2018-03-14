@@ -4,19 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player1
   - Champion
   - HitBox
-  - Breakable
-  - Health
-  - Stamina
-  - Undefined
-<<<<<<< HEAD
-  - BreakingOrb
-=======
   - Orb
-  - Lever
->>>>>>> 48efd7890eaf2c6180009123abe2beaa81141486
   layers:
   - Default
   - TransparentFX
@@ -26,15 +16,15 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Obstacle
-  - HitBox
-  - PlayerBox
-  - Map
-  - Projectile
-  - Dead
-  - Breakable
-  - Collectable
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -51,15 +41,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
-    uniqueID: 2803515757
-    locked: 0
-  - name: Middleground
-    uniqueID: 1348760825
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Obstacles
-    uniqueID: 1526803403
     locked: 0

@@ -14,6 +14,10 @@ public class SelectionPlayer : MonoBehaviour {
 
     public RectTransform KnightPlayer1;
     private Animator KnightPlayer1Anim;
+    public RectTransform ArcherPlayer1;
+    private Animator ArcherPlayer1Anim;
+    public RectTransform SorcererPlayer1;
+    private Animator SorcererPlayer1Anim;
 
     public string Jump_P1, Jump_P2, Jump_P3, Jump_P4, Horizontal_P1, Horizontal_P2, Horizontal_P3, Horizontal_P4;
     private RectTransform player1Selection, player2Selection, player3Selection, player4Selection;
@@ -23,17 +27,21 @@ public class SelectionPlayer : MonoBehaviour {
     private bool player1IsHere = false, player2IsHere = false, player3IsHere = false, player4IsHere = false;
     private bool player1Choosed = false;
 
+    [SerializeField] GameObject player1KnightButton;
     [SerializeField] GameObject player1ArcherButton;
     [SerializeField] GameObject player1SorcererButton;
 
-    [SerializeField] Transform player2ArcherButton;
-    [SerializeField] Transform player2SorcererButton;
+    [SerializeField] GameObject player2KnightButton;
+    [SerializeField] GameObject player2ArcherButton;
+    [SerializeField] GameObject player2SorcererButton;
 
-    [SerializeField] Transform player3ArcherButton;
-    [SerializeField] Transform player3SorcererButton;
+    [SerializeField] GameObject player3KnightButton;
+    [SerializeField] GameObject player3ArcherButton;
+    [SerializeField] GameObject player3SorcererButton;
 
-    [SerializeField] Transform player4ArcherButton;
-    [SerializeField] Transform player4SorcererButton;
+    [SerializeField] GameObject player4KnightButton;
+    [SerializeField] GameObject player4ArcherButton;
+    [SerializeField] GameObject player4SorcererButton;
 
     [SerializeField] Transform quitter;
     [SerializeField] Transform back;
@@ -65,6 +73,8 @@ public class SelectionPlayer : MonoBehaviour {
 
 
         KnightPlayer1Anim = KnightPlayer1.GetComponent<Animator>();
+        ArcherPlayer1Anim = ArcherPlayer1.GetComponent<Animator>();
+        SorcererPlayer1Anim = SorcererPlayer1.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -75,7 +85,6 @@ public class SelectionPlayer : MonoBehaviour {
         {
             player1Join.gameObject.SetActive(false);
             player1Selection.gameObject.SetActive(true);
-            KnightPlayer1Anim.SetBool("isActive", true);
             SelectedIndexPlayer1();
             player1IsHere = true;
         }
@@ -108,10 +117,31 @@ public class SelectionPlayer : MonoBehaviour {
         switch (selectionIndexPlayer1)
         {
             case 0:
-                player1ArcherButton.GetComponent<Button>().Select();
+                player1KnightButton.GetComponent<Button>().Select();
+                KnightPlayer1.gameObject.SetActive(true);
+                SorcererPlayer1.gameObject.SetActive(false);
+                ArcherPlayer1.gameObject.SetActive(false);
+                KnightPlayer1Anim.SetBool("isActive", true);
+                SorcererPlayer1Anim.SetBool("isActive", false);
+                ArcherPlayer1Anim.SetBool("isActive", false);
                 break;
             case 1:
                 player1SorcererButton.GetComponent<Button>().Select();
+                KnightPlayer1.gameObject.SetActive(false);
+                SorcererPlayer1.gameObject.SetActive(true);
+                ArcherPlayer1.gameObject.SetActive(false);
+                KnightPlayer1Anim.SetBool("isActive", false);
+                SorcererPlayer1Anim.SetBool("isActive", true);
+                ArcherPlayer1Anim.SetBool("isActive", false);
+                break;
+            case 2:
+                player1ArcherButton.GetComponent<Button>().Select();
+                KnightPlayer1.gameObject.SetActive(false);
+                SorcererPlayer1.gameObject.SetActive(false);
+                ArcherPlayer1.gameObject.SetActive(true);
+                KnightPlayer1Anim.SetBool("isActive", false);
+                SorcererPlayer1Anim.SetBool("isActive", false);
+                ArcherPlayer1Anim.SetBool("isActive", true);
                 break;
             default:
                 print("Incorrect intelligence level.");
