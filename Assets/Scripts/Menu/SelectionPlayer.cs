@@ -11,6 +11,10 @@ public class SelectionPlayer : MonoBehaviour {
     private int selectionIndexPlayer3 = 0;
     private int selectionIndexPlayer4 = 0;
 
+
+    public RectTransform KnightPlayer1;
+    private Animator KnightPlayer1Anim;
+
     public string Jump_P1, Jump_P2, Jump_P3, Jump_P4, Horizontal_P1, Horizontal_P2, Horizontal_P3, Horizontal_P4;
     private RectTransform player1Selection, player2Selection, player3Selection, player4Selection;
     private RectTransform player1Validate, player2Validate, player3Validate, player4Validate;
@@ -58,6 +62,9 @@ public class SelectionPlayer : MonoBehaviour {
 
         player1Validate = (RectTransform)this.transform.GetChild(8);
         player1Validate.gameObject.SetActive(false);
+
+
+        KnightPlayer1Anim = KnightPlayer1.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -68,6 +75,7 @@ public class SelectionPlayer : MonoBehaviour {
         {
             player1Join.gameObject.SetActive(false);
             player1Selection.gameObject.SetActive(true);
+            KnightPlayer1Anim.SetBool("isActive", true);
             SelectedIndexPlayer1();
             player1IsHere = true;
         }
