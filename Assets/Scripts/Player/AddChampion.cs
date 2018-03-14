@@ -9,8 +9,7 @@ public class AddChampion : MonoBehaviour {
     public CanvasGroup HUDPlayer1, HUDPlayer2, HUDPlayer3, HUDPlayer4;
     public Champion prefabKnight, prefabSorcerer, prefabArcher;
     public string Start_P1, Start_P2, Start_P3, Start_P4;
-
-
+    
     // Use this for initialization
     void Start ()
     {
