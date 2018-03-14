@@ -140,6 +140,7 @@ public abstract class Champion : MonoBehaviour {
     protected string PowerUpButton = "Up";
     protected string GuardButton = "Guard";
     protected string ParryButton = "Parry";
+    protected string ActionButton = "Action";
 
     private void OnDrawGizmos()
     {
@@ -792,6 +793,10 @@ public abstract class Champion : MonoBehaviour {
     public void SetParryButton(string PButton)
     {
         ParryButton = PButton;
+    }
+    public void SetActionButton(string AButton)
+    {
+        ActionButton = AButton;
     }
 
     public void UpdateHUD()

@@ -341,6 +341,7 @@ MonoBehaviour:
   PowerUp: PowerUp_P3
   Guard: Guard_P3
   Parry: Parry_P3
+  Action: Action_P3
 --- !u!114 &114288738626747448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,6 +374,7 @@ MonoBehaviour:
   PowerUp: PowerUp_P4
   Guard: Guard_P4
   Parry: Parry_P4
+  Action: Action_P4
 --- !u!114 &114525441887683448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -405,6 +407,7 @@ MonoBehaviour:
   PowerUp: PowerUp_P2
   Guard: Guard_P2
   Parry: Parry_P2
+  Action: Action_P2
 --- !u!114 &114793510842524062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -425,6 +428,7 @@ MonoBehaviour:
   PowerUp: PowerUp_P1
   Guard: Guard_P1
   Parry: Parry_P1
+  Action: Action_P1
 --- !u!114 &114828648359946018
 MonoBehaviour:
   m_ObjectHideFlags: 1

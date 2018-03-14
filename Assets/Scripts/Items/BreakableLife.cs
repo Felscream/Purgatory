@@ -110,7 +110,7 @@ public class BreakableLife : MonoBehaviour {
         ascendant.gameObject.SetActive(false);
         descendant.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
+        falling.gameObject.GetComponentInChildren<FallingPlatform>().height = falling.position.y;
         Destroy(falling.gameObject, 5f);
-        
     }
 }
