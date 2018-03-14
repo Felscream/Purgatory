@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ManagerInGame : MonoBehaviour {
@@ -15,7 +16,19 @@ public class ManagerInGame : MonoBehaviour {
 	private int PlayerAlive=0;
 	public Component[] Players;
     private static ManagerInGame instance = null;
-    
+    public Slider ClashSlider;
+    public Canvas ClashCanvas;
+
+    public static ManagerInGame GetInstance()
+    {
+        if (instance == null)
+        {
+            Debug.Log("No instance of " + typeof(ManagerInGame));
+            return null;
+        }
+        return instance;
+    }
+
     void Awake(){
         if (instance == null)
         {
@@ -63,13 +76,15 @@ public class ManagerInGame : MonoBehaviour {
 		}
 	}
 
-    public static ManagerInGame GetInstance()
+    public void Clash(Champion defender, Champion attacker)
     {
-        if (instance == null)
-        {
-            Debug.Log("No instance of " + typeof(ManagerInGame));
-            return null;
-        }
-        return instance;
+        ClashCanvas.gameObject.SetActive(true);
+        ClashSlider.gameObject.SetActive(true);
+
+        Time.timeScale = 0.0001f;
+
+        defender.ClashMode();
+        attacker.ClashMode();
     }
+    
 }

@@ -397,7 +397,7 @@ public abstract class Champion : MonoBehaviour {
     }
     public virtual void ReduceHealth(int amount, bool clashPossible = false, Champion attacker = null)
     {
-        if (amount >= health && clashPossible)
+        if (amount >= health && clashPossible && attacker != null)
         {
             Health = 1;
             Clash(attacker);
@@ -409,7 +409,16 @@ public abstract class Champion : MonoBehaviour {
     public void Clash(Champion attacker)
     {
         Debug.Log("Clash !");
+        ManagerInGame.GetInstance().Clash(this, attacker);
+    }
 
+    public void ClashMode()
+    {
+        animator.speed = (1 / Time.timeScale);
+    }
+    public void NormalMode()
+    {
+        animator.speed = 1;
     }
 
     public virtual void ConsumeStamina(float amount) //DOESN'T TRIGGER THE STAMINA BLOCKED TIMER
@@ -482,7 +491,7 @@ public abstract class Champion : MonoBehaviour {
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     ApplyStunLock(stunLock);
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
-                    ReduceHealth(dmg, clashPossible);
+                    ReduceHealth(dmg, clashPossible, attacker);
                     Debug.Log("Health :" + health);
                     if (cameraController != null)
                     {
