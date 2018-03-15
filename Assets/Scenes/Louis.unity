@@ -402,7 +402,12 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 225958608992984542, guid: 67a0b3fc2ddd9ba4fbebcd77dcbe444c,
     type: 2}
   m_PrefabInternal: {fileID: 776093273}
---- !u!1001 &1239018587
+--- !u!225 &1411047573 stripped
+CanvasGroup:
+  m_PrefabParentObject: {fileID: 225101483611862450, guid: 67a0b3fc2ddd9ba4fbebcd77dcbe444c,
+    type: 2}
+  m_PrefabInternal: {fileID: 776093273}
+--- !u!1001 &1847877318
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -441,24 +446,34 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114689290028106728, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: recoilForce.y
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 114972877539547568, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
-      propertyPath: hDir
-      value: -1
+      propertyPath: recoilForce.x
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114689290028106728, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
-      propertyPath: vDir
-      value: 1
+      propertyPath: recoilForce.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114972877539547568, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: movingSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114972877539547568, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: recoilForce.y
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3633296bc15d2145a19448e709630d0, type: 2}
   m_IsPrefabParent: 0
---- !u!225 &1411047573 stripped
-CanvasGroup:
-  m_PrefabParentObject: {fileID: 225101483611862450, guid: 67a0b3fc2ddd9ba4fbebcd77dcbe444c,
-    type: 2}
-  m_PrefabInternal: {fileID: 776093273}
 --- !u!1001 &1938684488
 Prefab:
   m_ObjectHideFlags: 0

@@ -18,7 +18,9 @@ public class ManagerInGame : MonoBehaviour {
     private static ManagerInGame instance = null;
     public Slider ClashSlider;
     public Canvas ClashCanvas;
-    public int attackerClick, defenderClick;
+    [SerializeField] private int clashTime = 10;
+    [SerializeField] private int defenderHealthGain = 30;
+    [SerializeField] private int attackerHealthLoss = 10;
 
     public static ManagerInGame GetInstance()
     {
@@ -77,27 +79,20 @@ public class ManagerInGame : MonoBehaviour {
 		}
 	}
 
-    public void Clash(Champion defender, Champion attacker)
+    public IEnumerator ClashRoutine(Champion defender, Champion attacker)
     {
         ClashCanvas.gameObject.SetActive(true);
         ClashSlider.gameObject.SetActive(true);
 
-
         Time.timeScale = 0.0001f;
+
         defender.ClashMode();
         attacker.ClashMode();
-        StartCoroutine(ClashRoutine(defender, attacker));
-        
-    }
-
-    IEnumerator ClashRoutine(Champion defender, Champion attacker)
-    {
-
         float time = 0;
         int value = 50;
-        while (time < 30 && value < 100 && value > 0)
+
+        while (time < clashTime && value < 100 && value > 0)
         {
-            Debug.Log("Je boucle : time " + time + " value " + value);
             time += Time.unscaledDeltaTime;
             value = 50 + (attacker.clashClick * attacker.determination - defender.clashClick * defender.determination);
             ClashSlider.value = value;
@@ -110,8 +105,8 @@ public class ManagerInGame : MonoBehaviour {
         else
         {
             defender.determination--;
-            defender.Health += 30;
-            attacker.ReduceHealth(15);
+            defender.Health += defenderHealthGain;
+            attacker.ReduceHealth(attackerHealthLoss);
         }
 
         ClashCanvas.gameObject.SetActive(false);

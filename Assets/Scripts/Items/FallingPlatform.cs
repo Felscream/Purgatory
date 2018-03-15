@@ -11,18 +11,19 @@ public class FallingPlatform : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         float facing = collision.transform.position.x.CompareTo(0); // -1 if <0, 0 if ==0 and 1 if >0
-        int damage = (int) (height - collision.transform.position.y)*10;
-        Vector2 recoil = new Vector2(facing * 5, -1);
+        // les dommages seront proportionnels à la hauteur de chute
+        int damage = (int) (height - collision.transform.position.y);
+        Vector2 recoil = new Vector2(facing * 10, 5);
         Champion champion = collision.GetComponent<Champion>();
-        Debug.Log(transform.position.y +" "+ collision.name);
 
         if (canDealDamage && champion != null)
         {
-            Debug.Log(damage + " ici " + facing);
-            champion.ApplyDamage(damage, facing, 0, recoil, true);
+            Physics2D.IgnoreCollision(collision, this.GetComponent<Collider2D>());
+            Debug.Log(damage + " infligés à " + collision.gameObject.name);
+            champion.ApplyDamage(damage, facing, 1, recoil);
         }
 
-        if (collision.tag == "obstacle") // on the ground
+        if (collision.tag == "ground") // on the ground
         {
             canDealDamage = false;
         }
