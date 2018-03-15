@@ -197,6 +197,7 @@ MonoBehaviour:
   PowerUp: PowerUp_P2
   Guard: Guard_P2
   Parry: Parry_P2
+  Action: 
 --- !u!4 &117252617
 Transform:
   m_ObjectHideFlags: 0
@@ -1186,7 +1187,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.0625
+  orthographic size: 6.1875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1987,6 +1988,7 @@ MonoBehaviour:
   PowerUp: PowerUp_P1
   Guard: Guard_P1
   Parry: Parry_P1
+  Action: 
 --- !u!4 &1960508596
 Transform:
   m_ObjectHideFlags: 0
