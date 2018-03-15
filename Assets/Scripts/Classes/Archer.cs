@@ -3,18 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Enum_ChargeLevel
+{
+    low = 0,
+    medium = 1,
+    high = 2
+}
+
 public class Archer : Champion
 {
+    [Header("ChargeSettings")]
+    
+    [SerializeField] protected float firstLevelTime = 0.75f;
+    [SerializeField] protected float firstLevelMultiplier = 1.5f;
+    [SerializeField] protected float secondLevelTime = 1.5f;
+    [SerializeField] protected float secondLevelMultiplier = 2.5f;
+
     [Header("ProjectileSettingArrow")]
-    [SerializeField]
-    protected GameObject arrow;
+    [SerializeField] protected GameObject arrow;
     [SerializeField] protected Vector2 projectileSpawnOffsetArrow;
 
     // Tenir bouton enfoncé
-    protected float keyTimer = 0.0f; //Our timer
+    protected float baseChargeMultiplier = 1.0f;
+    protected float chargeTimer = 0.0f; //Our timer
     protected float forceArrow = 0.3f; //The force of the arrow
     protected bool isKeyActive = false;
-
+    protected Enum_ChargeLevel chargeLevel = Enum_ChargeLevel.low;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -55,14 +69,44 @@ public class Archer : Champion
             SecondaryAttack();
         }*/
 
-        if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
-        {
-            SecondaryAttack();
-        }
+        
 
         base.Update();
+        if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard && IsGrounded() && !dead)
+        {
+            Charge();
+        }
     }
 
+    protected override void SecondaryAttack()
+    {
+        //nothing
+    }
+
+    private void Charge()
+    {
+        if(chargeTimer == 0)
+        {
+            animator.SetTrigger("Draw");
+        }
+        chargeTimer += Time.deltaTime;
+        if(chargeTimer > 0)
+        {
+            animator.SetBool("Hold", true);
+        }
+        if(chargeTimer > secondLevelTime)
+        {
+            chargeLevel = Enum_ChargeLevel.high;
+        }
+        else if(chargeTimer > secondLevelTime)
+        {
+            chargeLevel = Enum_ChargeLevel.medium;
+        }
+        else
+        {
+            chargeLevel = Enum_ChargeLevel.low;
+        }
+    }
 
     public void SpawnArrow()
     {
