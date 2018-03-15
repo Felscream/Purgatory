@@ -13,17 +13,17 @@ public class FallingPlatform : MonoBehaviour {
         float facing = collision.transform.position.x.CompareTo(0); // -1 if <0, 0 if ==0 and 1 if >0
         // les dommages seront proportionnels à la hauteur de chute
         int damage = (int) (height - collision.transform.position.y);
-        Vector2 recoil = new Vector2(facing * 10, 5);
+        Vector2 recoil = new Vector2(facing * 10, 2);
         Champion champion = collision.GetComponent<Champion>();
 
         if (canDealDamage && champion != null)
         {
             Physics2D.IgnoreCollision(collision, this.GetComponent<Collider2D>());
             Debug.Log(damage + " infligés à " + collision.gameObject.name);
-            champion.ApplyDamage(damage, facing, 1, recoil);
+            champion.ApplyDamage(damage, facing, 20, recoil);
         }
 
-        if (collision.tag == "ground") // on the ground
+        if (collision.name == "ground") // on the ground
         {
             canDealDamage = false;
         }

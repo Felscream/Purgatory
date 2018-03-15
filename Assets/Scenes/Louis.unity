@@ -449,17 +449,17 @@ Prefab:
     - target: {fileID: 114689290028106728, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: recoilForce.y
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114972877539547568, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: recoilForce.x
-      value: 10
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 114689290028106728, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: recoilForce.x
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114972877539547568, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
@@ -469,7 +469,21 @@ Prefab:
     - target: {fileID: 114972877539547568, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: recoilForce.y
-      value: 10
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114689290028106728, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: stayTime
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114972877539547568, guid: e3633296bc15d2145a19448e709630d0,
+        type: 2}
+      propertyPath: rotationSpeed
+      value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883722072641838, guid: e3633296bc15d2145a19448e709630d0, type: 2}
+      propertyPath: m_TagString
+      value: ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3633296bc15d2145a19448e709630d0, type: 2}
