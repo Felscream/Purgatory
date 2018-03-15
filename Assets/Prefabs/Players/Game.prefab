@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4094471163677108}
   - component: {fileID: 212582378973868160}
+  - component: {fileID: 58381710610946396}
   - component: {fileID: 114972877539547568}
   m_Layer: 13
   m_Name: saw 1
@@ -306,7 +307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1439648879035602
 GameObject:
   m_ObjectHideFlags: 1
@@ -1170,8 +1171,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1489408380950850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.44, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.75, z: 1}
+  m_LocalPosition: {x: 5.28, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 4423983098481174}
   m_RootOrder: 3
@@ -1374,6 +1375,21 @@ CircleCollider2D:
   m_Offset: {x: 0.00000023841858, y: 0}
   serializedVersion: 2
   m_Radius: 2.3400004
+--- !u!58 &58381710610946396
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034342771298840}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0000038146973, y: 0.0000009536743}
+  serializedVersion: 2
+  m_Radius: 3.74
 --- !u!58 &58879283394305698
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2137,6 +2153,7 @@ MonoBehaviour:
   lever: {fileID: 1773772044680710}
   hDir: 0
   vDir: 1
+  damage: 15
 --- !u!114 &114792384103716494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2182,6 +2199,7 @@ MonoBehaviour:
   lever: {fileID: 1102500187874390}
   hDir: -1
   vDir: 0
+  damage: 15
 --- !u!212 &212071760081826872
 SpriteRenderer:
   m_ObjectHideFlags: 1
