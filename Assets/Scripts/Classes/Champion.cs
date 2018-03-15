@@ -439,7 +439,7 @@ public abstract class Champion : MonoBehaviour {
     public void Clash(Champion attacker)
     {
         Debug.Log("Clash !");
-        ManagerInGame.GetInstance().Clash(this, attacker);
+        StartCoroutine(ManagerInGame.GetInstance().ClashRoutine(this, attacker));
     }
 
     public void ClashMode()
