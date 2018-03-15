@@ -35,6 +35,7 @@ public abstract class Projectile : MonoBehaviour {
     protected virtual void FixedUpdate()
     {
         UpdatePosition();
+        Debug.Log(damage);
     }
 
     protected virtual void UpdatePosition()
@@ -86,8 +87,8 @@ public abstract class Projectile : MonoBehaviour {
 
     protected virtual void SetImpact()
     {
-        anim.SetTrigger("Impact");
-        rb.velocity = Vector2.zero;
+        //anim.SetTrigger("Impact");
+        //rb.velocity = Vector2.zero;
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
@@ -102,6 +103,18 @@ public abstract class Projectile : MonoBehaviour {
     public virtual void DestroyProjectile()
     {
         Destroy(gameObject);
+    }
+
+    public int Damage
+    {
+        get
+        {
+            return damage;
+        }
+        set
+        {
+            damage = value;
+        }
     }
     
     public float Direction

@@ -40,7 +40,7 @@ public abstract class Champion : MonoBehaviour {
 
     [SerializeField] protected int baseHealth = 100;
     [SerializeField] public int determination = 3;
-    [SerializeField] protected float speed = 10;
+    [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
 
     [Header("HUDSettings")]
@@ -101,6 +101,7 @@ public abstract class Champion : MonoBehaviour {
     public Attack combo1;
 
     protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
+    protected float speed;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter = 0;
     protected int coyoteFrameCounter = 0;
@@ -157,6 +158,7 @@ public abstract class Champion : MonoBehaviour {
     {
         health = baseHealth;
         stamina = baseStamina;
+        speed = baseSpeed;
         limitBreakGauge = 0.0f;
         physicBox = GetComponent<Collider2D>();
         

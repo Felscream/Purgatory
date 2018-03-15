@@ -388,8 +388,12 @@ MonoBehaviour:
     specialEffect: 0
     canClash: 0
   clashClick: 0
+  firstLevelTime: 0.75
+  firstLevelMultiplier: 1.5
+  secondLevelTime: 1.5
+  secondLevelMultiplier: 2.5
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
-  projectileSpawnOffsetArrow: {x: 1.21, y: -0.34}
+  projectileSpawnOffsetArrow: {x: 1.21, y: 0}
 --- !u!114 &114782146192993706
 MonoBehaviour:
   m_ObjectHideFlags: 1
