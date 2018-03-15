@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: "Assets/Scenes/Sc\xE8nes Adrien/Menu.unity"
     guid: 0819c91578d833749853946d06ea1fd8
-  - enabled: 1
+  - enabled: 0
     path: "Assets/Scenes/Sc\xE8nes Adrien/LobbyScene.unity"
     guid: 90897ff1897e1d04c88a4f322ab73f50
   - enabled: 1
