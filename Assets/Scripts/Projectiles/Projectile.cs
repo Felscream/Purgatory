@@ -19,7 +19,7 @@ public abstract class Projectile : MonoBehaviour {
     protected Vector3 lastPosition;
     protected Rigidbody2D rb;
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
         distanceTraveled = 0.0f;
         anim = GetComponent<Animator>();
         if (anim != null)
@@ -73,7 +73,7 @@ public abstract class Projectile : MonoBehaviour {
                 if (appearance == null)     //if we didn't, we deal damage
                 {
                     hits.Add(foe);
-                    foe.ApplyDamage(damage, direction, stunLock, recoilForce);
+                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
                     SetImpact();
                 }
             }

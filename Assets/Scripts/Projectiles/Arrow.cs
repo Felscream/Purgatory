@@ -13,26 +13,20 @@ public class Arrow : Projectile
     [SerializeField] protected GameObject slowSprite;
     
     
-    void Start()
+    protected override void Start()
     {
-        // Change color of the arrow
-        if (arrowStatus == Enum_SpecialStatus.poison) 
+        base.Start();
+        switch (arrowStatus)
         {
-            GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        else
-        {
-            if (arrowStatus == Enum_SpecialStatus.stun)
-            {
-                GetComponent<SpriteRenderer>().color = Color.red;
-            }
-            else
-            {
-                if (arrowStatus == Enum_SpecialStatus.slow)
-                {
-                    GetComponent<SpriteRenderer>().color = Color.blue;
-                }
-            }
+            case Enum_SpecialStatus.poison:
+                anim.SetTrigger("Poison");
+                break;
+            case Enum_SpecialStatus.slow:
+                anim.SetTrigger("Slow");
+                break;
+            case Enum_SpecialStatus.stun:
+                anim.SetTrigger("Stun");
+                break;
         }
     }
 
@@ -65,7 +59,7 @@ public class Arrow : Projectile
                 if (appearance == null)     //if we didn't, we deal damage
                 {
                     hits.Add(foe);
-                    foe.ApplyDamage(damage, direction, stunLock, recoilForce);
+                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
                     ApplyAndShowDebuf(foe);
                     //impact = true;
                     DestroyProjectile();

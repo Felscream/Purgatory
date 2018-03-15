@@ -20,11 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4806527027639634}
   - component: {fileID: 212191022795552856}
+  - component: {fileID: 95786910891969826}
   - component: {fileID: 50939326437762750}
   - component: {fileID: 70464804104778972}
   - component: {fileID: 114211903699205360}
   - component: {fileID: 114984677698657860}
-  - component: {fileID: 95786910891969826}
   m_Layer: 13
   m_Name: arrow
   m_TagString: Untagged
@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1571805999357984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.91, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0059108725, y: 0.013773131}
-  m_Size: {x: 1.2746379, y: 0.35972926}
+  m_Size: {x: 1.87, y: 0.7}
   m_Direction: 1
 --- !u!95 &95786910891969826
 Animator:
@@ -113,7 +113,6 @@ MonoBehaviour:
   damage: 10
   stunLock: 2
   recoilForce: {x: 10, y: 0}
-  arrowStatus: 0
   stunSprite: {fileID: 1385759158095934, guid: 6d39ce9c4ff41e34dbe840e5f6e170ce, type: 2}
   poisonSprite: {fileID: 1205473987782494, guid: 4a36daeb237ea5444bd39f13d09979c0,
     type: 2}
@@ -163,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9bb141a5bc37bd6419a6e0c92aa1fd21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 31843bd317a332445a5b0d9c8ac82cd4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

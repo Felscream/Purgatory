@@ -80,12 +80,13 @@ public class Archer : Champion
         {
             if (Input.GetButtonDown(SecondaryAttackButton))
             {
-                ReduceStamina(secondaryFireStaminaCost);
+                ReduceStamina(secondaryFireStaminaCost); //remove stamina once
             }
-            Charge();
+            Charge(); //only charge when grounded
         }
         else if (Input.GetButtonUp(SecondaryAttackButton))
         {
+            Debug.Log("Release");
             Release();
         }
     }

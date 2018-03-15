@@ -438,6 +438,7 @@ public abstract class Champion : MonoBehaviour {
    
     public virtual void ReduceHealth(int amount, bool clashPossible = false, Champion attacker = null)
     {
+        Debug.Log(attacker);
         if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
             Health = 1;

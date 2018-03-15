@@ -24,7 +24,6 @@ public class SpecialArrowEffect : PowerUp
     {
         if (powerUpStatus == Enum_PowerUpStatus.available && currentStacks > 0)
         {
-            Debug.Log("PoweredUp");
             powerUpStatus = Enum_PowerUpStatus.activated;
             GetRandomPowerUp();
             if (reloadStackCoroutine != null)
