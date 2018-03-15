@@ -941,7 +941,8 @@ public abstract class Champion : MonoBehaviour {
             return health;
         }
 		set{ 
-			health = Mathf.Min(Mathf.Max(value, 0),BaseHealth);
+			//health = Mathf.Min(Mathf.Max(value, 0),BaseHealth);
+			health = value;
 		}
     }
     public bool Immunity
