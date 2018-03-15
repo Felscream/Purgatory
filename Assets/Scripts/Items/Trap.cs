@@ -16,12 +16,14 @@ public class Trap : MonoBehaviour {
     private Lever leverScript;
     private float timer = 0f;
     private bool isEngaged = false;
+    private Quaternion startRotation;
 
     // Use this for initialization
     void Start () {
 
         startPosition = transform.localPosition;
         leverScript = lever.GetComponent<Lever>();
+        startRotation = transform.localRotation;
     }
 	
 	// Update is called once per frame
@@ -63,6 +65,7 @@ public class Trap : MonoBehaviour {
     {
         leverScript.Disengage();
         transform.localPosition = startPosition;
+        transform.localRotation = startRotation;
         isEngaged = false;
     }
 

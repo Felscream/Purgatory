@@ -554,32 +554,7 @@ public abstract class Champion : MonoBehaviour {
         
 
 
-        if (health == 0)
-        {
-            inputStatus = Enum_InputStatus.blocked;
-            foreach (AnimatorControllerParameter parameter in animator.parameters)
-            {
-                if (parameter.type == AnimatorControllerParameterType.Bool)
-                {
-                    animator.SetBool(parameter.name, false);
-                }
-            }
-            dead = true;
-            playerBox.enabled = false;
-            StopMovement(1);
-            Debug.Log(transform.parent.name + " died");
-
-            //TO DO : find a way to use the deadLayer variable since this doesn't work
-            /*if(deadLayer == null)
-            {
-                deadLayer = LayerMask.NameToLayer("Dead");
-
-            }
-            gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
-            */
-            //this works but uses a string
-            gameObject.layer = LayerMask.NameToLayer("Dead");
-        }
+        
     }
     protected void CheckFatigue()
     {
@@ -970,9 +945,34 @@ public abstract class Champion : MonoBehaviour {
             return health;
         }
 		set{ 
-			//health = Mathf.Min(Mathf.Max(value, 0),BaseHealth);
-			health = value;
-		}
+			health = Mathf.Min(Mathf.Max(value, 0),BaseHealth);
+            if (health == 0)
+            {
+                inputStatus = Enum_InputStatus.blocked;
+                foreach (AnimatorControllerParameter parameter in animator.parameters)
+                {
+                    if (parameter.type == AnimatorControllerParameterType.Bool)
+                    {
+                        animator.SetBool(parameter.name, false);
+                    }
+                }
+                dead = true;
+                playerBox.enabled = false;
+                StopMovement(1);
+                Debug.Log(transform.parent.name + " died");
+
+                //TO DO : find a way to use the deadLayer variable since this doesn't work
+                /*if(deadLayer == null)
+                {
+                    deadLayer = LayerMask.NameToLayer("Dead");
+
+                }
+                gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
+                */
+                //this works but uses a string
+                gameObject.layer = LayerMask.NameToLayer("Dead");
+            }
+        }
     }
     public bool Immunity
     {
