@@ -31,25 +31,28 @@ public abstract class PowerUp : MonoBehaviour {
     protected Image powerUpImageSlider;
     protected Image powerUpAbilityImage;
     // Use this for initialization
-    protected void Start () {
+    protected virtual void Start () {
         holder = GetComponent<Champion>();
-        if(holder != null)
+        
+        if (holder != null)
         {
             powerUpStatus = Enum_PowerUpStatus.available;
             canvasgrp = holder.playerHUD;
             powerUpImageSlider = canvasgrp.transform.Find("PowerUpImage").Find("RadialSliderImage").GetComponent<Image>();
+            powerUpImageSlider.fillAmount = 1.0f;
             powerUpAbilityImage = canvasgrp.transform.Find("PowerUpImage").Find("AbilityImage1").GetComponent<Image>();
         }
         anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
-	virtual protected void LateUpdate () {
+	 protected virtual void LateUpdate () {
         switch (powerUpStatus)
         {
             case Enum_PowerUpStatus.available:
                 powerUpImageSlider.fillAmount = 1.0f;
                 powerUpAbilityImage.color = new Color(255, 255, 255, transparencyAvailable);
+                powerUpAbilityImage.transform.parent.localScale = new Vector2(1.0f, 1.0f);
                 break;
             case Enum_PowerUpStatus.activated:
 

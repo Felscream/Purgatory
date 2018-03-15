@@ -35,7 +35,6 @@ public abstract class Projectile : MonoBehaviour {
     protected virtual void FixedUpdate()
     {
         UpdatePosition();
-        Debug.Log(damage);
     }
 
     protected virtual void UpdatePosition()

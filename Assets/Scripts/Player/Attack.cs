@@ -52,6 +52,7 @@ public class Attack {
     protected void DealDamageToEnemies(Collider2D[] enemies)
     {
         if (enemies.Length > 0)
+        {
             foreach (Collider2D enemy in enemies)
             {
                 if (enemy.gameObject.tag.Equals("Breakable"))
@@ -59,18 +60,20 @@ public class Attack {
                     BreakableLife breakableLife = enemy.gameObject.GetComponent<BreakableLife>();
                     breakableLife.TakeDamage(1);
                 }
-				if (enemy.gameObject.tag.Equals ("BreakingOrb")) {
-					Debug.Log ("Test1");
-					BreakingOrb breakingOrb = enemy.gameObject.GetComponent<BreakingOrb> ();
-					Debug.Log ("Test2");
-					breakingOrb.TakeDamage (1);
-					Debug.Log ("Test3");
-				}
+                if (enemy.gameObject.tag.Equals("BreakingOrb"))
+                {
+                    Debug.Log("Test1");
+                    BreakingOrb breakingOrb = enemy.gameObject.GetComponent<BreakingOrb>();
+                    Debug.Log("Test2");
+                    breakingOrb.TakeDamage(1);
+                    Debug.Log("Test3");
+                }
                 else
                 {
                     DealDamageToEnemy(enemy);
                 }
             }
+        }  
     }
 
     protected void DealDamageToEnemy(Collider2D enemy)
@@ -81,8 +84,10 @@ public class Attack {
         {
             Debug.Log("Hit " + foe.transform.parent.name);
             foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce, guardBreaker, canClash, user);
-            if(haveSpecialEffect)
+            if (haveSpecialEffect)
+            {
                 ApplySpecialEffect(foe);
+            }
         }
     }
 

@@ -4,39 +4,31 @@ using UnityEngine;
 
 public class Arrow : Projectile
 {
-    public enum Enum_ArrowStatus
-    {
-        normal,
-        poison,
-        stun,
-        slow
-    }
 
-    public Enum_ArrowStatus arrowStatus = Enum_ArrowStatus.normal;
+    private Enum_SpecialStatus arrowStatus = Enum_SpecialStatus.normal;
 
     [Header("Animations Stu/Poison/Slow")]
     [SerializeField] protected GameObject stunSprite;
     [SerializeField] protected GameObject poisonSprite;
     [SerializeField] protected GameObject slowSprite;
-
-    private bool isStunned = false, isPoisonned = false, isSlowed = false;
+    
     
     void Start()
     {
         // Change color of the arrow
-        if (arrowStatus == Enum_ArrowStatus.poison) 
+        if (arrowStatus == Enum_SpecialStatus.poison) 
         {
             GetComponent<SpriteRenderer>().color = Color.green;
         }
         else
         {
-            if (arrowStatus == Enum_ArrowStatus.stun)
+            if (arrowStatus == Enum_SpecialStatus.stun)
             {
                 GetComponent<SpriteRenderer>().color = Color.red;
             }
             else
             {
-                if (arrowStatus == Enum_ArrowStatus.slow)
+                if (arrowStatus == Enum_SpecialStatus.slow)
                 {
                     GetComponent<SpriteRenderer>().color = Color.blue;
                 }
@@ -88,7 +80,7 @@ public class Arrow : Projectile
     }
     void ApplyAndShowDebuf(Champion foe)
     {
-        if (arrowStatus == Enum_ArrowStatus.stun)
+        if (arrowStatus == Enum_SpecialStatus.stun)
         {
             GameObject stunAnim = Instantiate(stunSprite, foe.transform.position, foe.transform.rotation);
             stunAnim.transform.SetParent(foe.transform);
@@ -99,7 +91,7 @@ public class Arrow : Projectile
         }
         else
         {
-            if (arrowStatus == Enum_ArrowStatus.poison)
+            if (arrowStatus == Enum_SpecialStatus.poison)
             {
                 GameObject stunAnim = Instantiate(poisonSprite, foe.transform.position, foe.transform.rotation);
                 stunAnim.transform.SetParent(foe.transform);
@@ -110,7 +102,7 @@ public class Arrow : Projectile
             }
             else
             {
-                if (arrowStatus == Enum_ArrowStatus.slow)
+                if (arrowStatus == Enum_SpecialStatus.slow)
                 {
                     GameObject slowAnim = Instantiate(slowSprite, foe.transform.position, foe.transform.rotation);
                     slowAnim.transform.SetParent(foe.transform);
@@ -123,4 +115,15 @@ public class Arrow : Projectile
         }   
     }
 
+    public Enum_SpecialStatus ArrowStatus
+    {
+        get
+        {
+            return arrowStatus;
+        }
+        set
+        {
+            arrowStatus = value;
+        }
+    }
 }

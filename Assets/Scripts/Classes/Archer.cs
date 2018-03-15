@@ -119,7 +119,6 @@ public class Archer : Champion
         {
             chargeLevel = Enum_ChargeLevel.low;
         }
-        Debug.Log(chargeLevel +" "+ chargeTimer);
     }
 
     private void Release()
@@ -137,11 +136,11 @@ public class Archer : Champion
             float damageMultiplier = 1.0f;
             if (powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
             {
-                temp.getRandomPowerUp();
+                temp.GetRandomPowerUp();
             }
             else
             {
-                temp.getNoPowerUp();
+                temp.ResetPowerUp();
             }
 
             Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffsetArrow.x * facing, transform.position.y + projectileSpawnOffsetArrow.y);
@@ -162,8 +161,16 @@ public class Archer : Champion
 
             }
             ar.Damage = Mathf.CeilToInt(ar.Damage * damageMultiplier);
-
-            if (temp.getPoisonState)
+            if(powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+            {
+                ar.ArrowStatus = temp.StatusEffect;
+                temp.UseStack();
+            }
+            else
+            {
+                ar.ArrowStatus = Enum_SpecialStatus.normal;
+            }
+            /*if (temp.getPoisonState)
             {
                 ar.arrowStatus = Arrow.Enum_ArrowStatus.poison;
             }
@@ -184,7 +191,7 @@ public class Archer : Champion
                         ar.arrowStatus = Arrow.Enum_ArrowStatus.normal;
                     }
                 }
-            }
+            }*/
             ar.Owner = this;
             ar.Direction = facing;
             float forceArr = forceArrow * facing;
@@ -196,10 +203,28 @@ public class Archer : Champion
 
     protected override void CastHitBox(int attackType)
     {
+        SpecialArrowEffect temp = (SpecialArrowEffect)powerUp;
+        if (powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+        {
+            temp.GetRandomPowerUp();
+            combo1.haveSpecialEffect = true;
+            combo1.specialEffect = temp.StatusEffect; //appliquer l'effet sur l'attaque
+        }
+        else
+        {
+            temp.ResetPowerUp();
+            combo1.haveSpecialEffect = false;
+            combo1.specialEffect = Enum_SpecialStatus.normal;
+        }
+
+
         switch (attackType)
         {
             case 1:
                 combo1.CastHitBox();
+                if (powerUp.PowerUpStatus == Enum_PowerUpStatus.activated) { 
+                    temp.UseStack();
+                }
                 break;
             default:
                 Debug.LogError("Unknown AttackType");

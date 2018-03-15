@@ -220,6 +220,7 @@ public abstract class Champion : MonoBehaviour {
             }
             else
             {
+                
                 if (Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
                 {
                     if(powerUp != null)
@@ -227,7 +228,7 @@ public abstract class Champion : MonoBehaviour {
                         powerUp.ActivatePowerUp();
                     }
                 }
-
+                
                 if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
                 {
                     SecondaryAttack();

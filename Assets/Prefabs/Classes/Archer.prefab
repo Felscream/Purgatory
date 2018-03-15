@@ -191,7 +191,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1, y: 2}
   m_Direction: 0
 --- !u!82 &82985628220472390
 AudioSource:
@@ -301,15 +301,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98460cfd4ff3064c96e2e32e1678cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 1
+  cooldown: 5
   duration: 10
   staminaCost: 0
   transparencyOnCooldown: 0.4
   transparencyAvailable: 1
-  isNormal: 1
-  isStunned: 0
-  isPoisonned: 0
-  isSlowed: 0
+  maxStacks: 3
 --- !u!114 &114463133747941946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseHealth: 100
   determination: 3
-  speed: 10
+  baseSpeed: 10
   deadLayer:
     serializedVersion: 2
     m_Bits: 16384
@@ -392,6 +389,7 @@ MonoBehaviour:
   firstLevelMultiplier: 1.5
   secondLevelTime: 1.5
   secondLevelMultiplier: 2.5
+  speedReductionMultiplier: 0.75
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
   projectileSpawnOffsetArrow: {x: 1.21, y: 0}
 --- !u!114 &114782146192993706
