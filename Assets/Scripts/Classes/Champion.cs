@@ -472,7 +472,7 @@ public abstract class Champion : MonoBehaviour {
             CheckFatigue();
         }
     }
-    public void ApplyStunLock(int duration) // Player can't execute action while damaged
+    public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
     {
         rb.gravityScale = 1.0f;
         stunlockFrameCounter = 0;

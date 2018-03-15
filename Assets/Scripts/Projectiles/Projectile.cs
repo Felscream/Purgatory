@@ -87,8 +87,8 @@ public abstract class Projectile : MonoBehaviour {
 
     protected virtual void SetImpact()
     {
-        //anim.SetTrigger("Impact");
-        //rb.velocity = Vector2.zero;
+        anim.SetTrigger("Impact");
+        rb.velocity = Vector2.zero;
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {

@@ -24,7 +24,8 @@ GameObject:
   - component: {fileID: 70464804104778972}
   - component: {fileID: 114211903699205360}
   - component: {fileID: 114984677698657860}
-  m_Layer: 0
+  - component: {fileID: 95786910891969826}
+  m_Layer: 13
   m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,6 +80,23 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0059108725, y: 0.013773131}
   m_Size: {x: 1.2746379, y: 0.35972926}
   m_Direction: 1
+--- !u!95 &95786910891969826
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571805999357984}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09a88ae1f1fef984f8e5c17e29291270, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114211903699205360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 0.3, y: 0}
-  maxTravelDistance: 5
+  maxTravelDistance: 0
   damage: 10
   stunLock: 2
   recoilForce: {x: 10, y: 0}

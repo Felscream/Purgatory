@@ -206,4 +206,12 @@ public class Archer : Champion
                 break;
         }
     }
+
+    public override void ApplyStunLock(int duration)
+    {
+        base.ApplyStunLock(duration);
+        chargeTimer = 0.0f;
+        animator.SetBool("Hold", false);
+    }
+
 }
