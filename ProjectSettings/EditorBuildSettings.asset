@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: "Assets/Scenes/Sc\xE8nes Adrien/Menu.unity"
     guid: 0819c91578d833749853946d06ea1fd8
   - enabled: 1
+    path: "Assets/Scenes/Sc\xE8nes Adrien/LobbyScene.unity"
+    guid: 90897ff1897e1d04c88a4f322ab73f50
+  - enabled: 1
     path: Assets/Scenes/Louis.unity
     guid: bef6e585c3746994dac3800c6023ca47
