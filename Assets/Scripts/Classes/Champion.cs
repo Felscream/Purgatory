@@ -308,7 +308,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if (other.tag == "Lever")
         {
-            //trapLever = null;
+            trapLever = null;
         }
     }
 
