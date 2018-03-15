@@ -82,19 +82,28 @@ public class ManagerInGame : MonoBehaviour {
         ClashCanvas.gameObject.SetActive(true);
         ClashSlider.gameObject.SetActive(true);
 
-        Time.timeScale = 0.0001f;
 
+        Time.timeScale = 0.0001f;
         defender.ClashMode();
         attacker.ClashMode();
+        StartCoroutine(ClashRoutine(defender, attacker));
+        
+    }
+
+    IEnumerator ClashRoutine(Champion defender, Champion attacker)
+    {
+
         float time = 0;
-        int value = 0;
-        while (time < 10 && value<100 && value>0)
+        int value = 50;
+        while (time < 30 && value < 100 && value > 0)
         {
+            Debug.Log("Je boucle : time " + time + " value " + value);
             time += Time.unscaledDeltaTime;
             value = 50 + (attacker.clashClick * attacker.determination - defender.clashClick * defender.determination);
             ClashSlider.value = value;
+            yield return null;
         }
-        if(value >= 50)
+        if (value >= 50)
         {
             defender.ReduceHealth(1);
         }

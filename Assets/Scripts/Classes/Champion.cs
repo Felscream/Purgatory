@@ -205,7 +205,6 @@ public abstract class Champion : MonoBehaviour {
                 {
                     clashClick++;
                 }
-                return;
             }
 
             ControlCoyote();
