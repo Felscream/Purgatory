@@ -126,7 +126,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
-
+    protected int timerDamageHUD = 40;
     protected Image ultiImageSlider;
 
     protected SpriteRenderer sr;
@@ -843,14 +843,35 @@ public abstract class Champion : MonoBehaviour {
 
     public void UpdateHUD()
     {
+        float a = healthSlider.value;
         healthSlider.value = health;
-        staminaSlider.value = stamina;
-        ChangeColorHealthSlider();
+        float b = healthSlider.value;
+        if (a != b) //si recu des degats, barre colorée supplémentaire
+        {
+            timerDamageHUD = 40;
+            staminaSlider.value = stamina;
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
+            if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
+            }
+            else
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
+            }
+        }
+        else
+        {
+            if (timerDamageHUD < 0) // au bout de x ticks, on fait disparaitre la barre
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+            }
+        }
 
-
-        //--- Ci-dessous : A modifier par les vrais valeurs ---------
-
+        timerDamageHUD -= 1;
         ultiImageSlider.fillAmount = 0.75f;
+        ChangeColorHealthSlider();
 
         //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
         UltiAvailable(true);
