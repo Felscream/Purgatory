@@ -39,7 +39,7 @@ public enum Enum_SpecialStatus
 public abstract class Champion : MonoBehaviour {
 
     [SerializeField] protected int baseHealth = 100;
-    [SerializeField] protected int determination = 3;
+    [SerializeField] public int determination = 3;
     [SerializeField] protected float speed = 10;
     [SerializeField] protected LayerMask deadLayer;
 
@@ -113,7 +113,7 @@ public abstract class Champion : MonoBehaviour {
     protected Collider2D playerBox;
     protected Collider2D physicBox;
     protected Collider2D diveBox;
-    protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false;
+    protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false, isClashing=false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
@@ -122,6 +122,7 @@ public abstract class Champion : MonoBehaviour {
     protected float movementX, movementY;
     protected PowerUp powerUp;
     protected Lever trapLever;
+    public int clashClick=0;
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
@@ -198,6 +199,15 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!dead)
         {
+            if (isClashing)
+            {
+                if(Input.GetButtonDown(JumpButton))
+                {
+                    clashClick++;
+                }
+                return;
+            }
+
             ControlCoyote();
             CheckStunLock();
             CheckFatigue();
@@ -436,10 +446,13 @@ public abstract class Champion : MonoBehaviour {
     public void ClashMode()
     {
         animator.speed = (1 / Time.timeScale);
+        isClashing = true;
     }
     public void NormalMode()
     {
+        clashClick = 0;
         animator.speed = 1;
+        isClashing = false;
     }
 
     public virtual void ConsumeStamina(float amount) //DOESN'T TRIGGER THE STAMINA BLOCKED TIMER
