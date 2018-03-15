@@ -374,27 +374,27 @@ public class SelectionPlayer : MonoBehaviour {
                 KnightPlayer4.gameObject.SetActive(true);
                 SorcererPlayer4.gameObject.SetActive(false);
                 ArcherPlayer4.gameObject.SetActive(false);
-                //KnightPlayer4Anim.SetBool("isActive", true);
-                //SorcererPlayer4Anim.SetBool("isActive", false);
-                //ArcherPlayer4Anim.SetBool("isActive", false);
+                KnightPlayer4Anim.SetBool("isActive", true);
+                SorcererPlayer4Anim.SetBool("isActive", false);
+                ArcherPlayer4Anim.SetBool("isActive", false);
                 break;
             case 1:
                 player4SorcererButton.GetComponent<Button>().Select();
                 KnightPlayer4.gameObject.SetActive(false);
                 SorcererPlayer4.gameObject.SetActive(true);
                 ArcherPlayer4.gameObject.SetActive(false);
-                //KnightPlayer4Anim.SetBool("isActive", false);
-                //SorcererPlayer4Anim.SetBool("isActive", true);
-                //ArcherPlayer4Anim.SetBool("isActive", false);
+                KnightPlayer4Anim.SetBool("isActive", false);
+                SorcererPlayer4Anim.SetBool("isActive", true);
+                ArcherPlayer4Anim.SetBool("isActive", false);
                 break;
             case 2:
                 player4ArcherButton.GetComponent<Button>().Select();
                 KnightPlayer4.gameObject.SetActive(false);
                 SorcererPlayer4.gameObject.SetActive(false);
                 ArcherPlayer4.gameObject.SetActive(true);
-                //KnightPlayer4Anim.SetBool("isActive", false);
-                //SorcererPlayer4Anim.SetBool("isActive", false);
-                //ArcherPlayer4Anim.SetBool("isActive", true);
+                KnightPlayer4Anim.SetBool("isActive", false);
+                SorcererPlayer4Anim.SetBool("isActive", false);
+                ArcherPlayer4Anim.SetBool("isActive", true);
                 break;
             default:
                 print("Incorrect intelligence level.");
