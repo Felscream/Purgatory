@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 82723315811734672}
   - component: {fileID: 114470239705895466}
   - component: {fileID: 114615723824182320}
+  - component: {fileID: 114859489625276804}
   m_Layer: 8
   m_Name: Knight
   m_TagString: Champion
@@ -362,8 +363,10 @@ MonoBehaviour:
     staminaCost: 0
     damage: 1
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 1
     specialEffect: 4
+    canClash: 0
   combo1:
     offset: {x: 1.6, y: 0.12}
     size: {x: 2.2, y: 1.6}
@@ -372,8 +375,11 @@ MonoBehaviour:
     staminaCost: 10
     damage: 10
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
+  clashClick: 0
   combo2:
     offset: {x: 1.72, y: 0.1}
     size: {x: 2.55, y: 2.19}
@@ -382,8 +388,10 @@ MonoBehaviour:
     staminaCost: 0
     damage: 20
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
   enhancedCombo1:
     offset: {x: 2.26, y: 0.18}
     size: {x: 3.8, y: 2.02}
@@ -392,8 +400,10 @@ MonoBehaviour:
     staminaCost: 0
     damage: 10
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
   enhancedCombo2:
     offset: {x: 2.94, y: 0.74}
     size: {x: 5.15, y: 3.76}
@@ -402,8 +412,10 @@ MonoBehaviour:
     staminaCost: 0
     damage: 10
     movementForce: 2
+    guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
 --- !u!114 &114615723824182320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -422,6 +434,19 @@ MonoBehaviour:
   transparencyAvailable: 1
   timeToDisable: 0.75
   staminaCostPerSecond: 10
+--- !u!114 &114859489625276804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1662724183502682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa94d7afa0b3444592201e847f87179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthAmount: 20
+  StaminaAmount: 20
 --- !u!212 &212568267683648498
 SpriteRenderer:
   m_ObjectHideFlags: 1

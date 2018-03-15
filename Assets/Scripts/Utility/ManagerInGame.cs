@@ -6,18 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class ManagerInGame : MonoBehaviour {
 
-	public GameObject Health;
-	public GameObject Stamina;
-	public GameObject Orb;
-	private float Timer = 0.0f;
-	private bool SpawnHealth;
-	private bool SpawnStamina;
-	private bool SpawnOrb;
-	private int PlayerAlive=0;
-	public Component[] Players;
+    public GameObject Health;
+    public GameObject Stamina;
+    public GameObject Orb;
+    private float Timer = 0.0f;
+    private bool SpawnHealth;
+    private bool SpawnStamina;
+    private bool SpawnOrb;
+    private int PlayerAlive = 0;
+    public Component[] Players;
     private static ManagerInGame instance = null;
     public Slider ClashSlider;
     public Canvas ClashCanvas;
+    [SerializeField] private int clashTime = 10;
+    [SerializeField] private int defenderHealthGain = 30;
+    [SerializeField] private int attackerHealthLoss = 10;
 
     public static ManagerInGame GetInstance()
     {
@@ -76,7 +79,7 @@ public class ManagerInGame : MonoBehaviour {
 		}
 	}
 
-    public void Clash(Champion defender, Champion attacker)
+    public IEnumerator ClashRoutine(Champion defender, Champion attacker)
     {
         ClashCanvas.gameObject.SetActive(true);
         ClashSlider.gameObject.SetActive(true);
@@ -85,6 +88,34 @@ public class ManagerInGame : MonoBehaviour {
 
         defender.ClashMode();
         attacker.ClashMode();
+        float time = 0;
+        int value = 50;
+
+        while (time < clashTime && value < 100 && value > 0)
+        {
+            time += Time.unscaledDeltaTime;
+            value = 50 + (attacker.clashClick * attacker.determination - defender.clashClick * defender.determination);
+            ClashSlider.value = value;
+            yield return null;
+        }
+        if (value >= 50)
+        {
+            defender.ReduceHealth(1);
+        }
+        else
+        {
+            defender.determination--;
+            defender.Health += defenderHealthGain;
+            attacker.ReduceHealth(attackerHealthLoss);
+        }
+
+        ClashCanvas.gameObject.SetActive(false);
+        ClashSlider.gameObject.SetActive(false);
+
+        Time.timeScale = 1f;
+
+        defender.NormalMode();
+        attacker.NormalMode();
     }
     
 }

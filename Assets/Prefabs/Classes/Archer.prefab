@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 95256147257553612}
   - component: {fileID: 114463133747941946}
   - component: {fileID: 114172280717244984}
+  - component: {fileID: 114818198767246124}
   m_Layer: 8
   m_Name: Archer
   m_TagString: Champion
@@ -373,6 +374,7 @@ MonoBehaviour:
     guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
   combo1:
     offset: {x: 0.6, y: 0}
     size: {x: 1.94, y: 1.18}
@@ -384,6 +386,8 @@ MonoBehaviour:
     guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
+    canClash: 0
+  clashClick: 0
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
   projectileSpawnOffsetArrow: {x: 1.21, y: -0.34}
 --- !u!114 &114782146192993706
@@ -398,6 +402,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionOffset: {x: 0.5, y: -1}
+--- !u!114 &114818198767246124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1819163756522318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa94d7afa0b3444592201e847f87179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthAmount: 20
+  StaminaAmount: 20
 --- !u!212 &212047580136296860
 SpriteRenderer:
   m_ObjectHideFlags: 1

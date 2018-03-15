@@ -20,14 +20,15 @@ public class PickUp : MonoBehaviour {
 		{
 			if (other.gameObject.tag.Equals("Health")){
 				InvokeRepeating ("HealthRecover", 3, 5);
-				//player.Health += addHealth;
+				//player.Health += 20 /*addHealth*/;
 				Debug.Log("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
-				InvokeRepeating ("StaminaRecover", 3, 5);
-				//player.Stamina += StaminaAmount;
+				//InvokeRepeating ("StaminaRecover", 3, 5);
+				player.Stamina += 20 /*StaminaAmount*/;
 				Debug.Log("Stamina: " + player.Stamina);
 			}
+			other.gameObject.SetActive (false);
 		}
 	}
 
@@ -42,7 +43,7 @@ public class PickUp : MonoBehaviour {
 		}
 	}
 
-	void StaminaRecover (){
+	/*void StaminaRecover (){
 		player.Stamina += 1;
 		Debug.Log ("Stamina: " + player.Stamina);
 		countStamina += 1;
@@ -51,5 +52,5 @@ public class PickUp : MonoBehaviour {
 			CancelInvoke ("StaminaRecover");
 			countStamina = 0;
 		}
-	}
+	}*/
 }

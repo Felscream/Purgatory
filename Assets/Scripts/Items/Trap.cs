@@ -10,17 +10,20 @@ public class Trap : MonoBehaviour {
     public float rotationSpeed = 0f;
     public float stayTime = 1f;
     public GameObject lever;
-    public int hDir = 0, vDir = 0;
+    public Vector2 recoilForce;
+    public int damage = 15;
 
     private Lever leverScript;
     private float timer = 0f;
     private bool isEngaged = false;
+    private Quaternion startRotation;
 
     // Use this for initialization
     void Start () {
 
         startPosition = transform.localPosition;
         leverScript = lever.GetComponent<Lever>();
+        startRotation = transform.localRotation;
     }
 	
 	// Update is called once per frame
@@ -62,11 +65,23 @@ public class Trap : MonoBehaviour {
     {
         leverScript.Disengage();
         transform.localPosition = startPosition;
+        transform.localRotation = startRotation;
         isEngaged = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // A IMPLEMENTER
+        float facing = 1; // -1 if <0, 0 if ==0 and 1 if >0
+        // les dommages seront proportionnels à la hauteur de chute
+        Champion champion = collision.GetComponent<Champion>();
+
+        Debug.Log(damage + "  à " + collision.gameObject.name);
+
+        if (champion != null)
+        {
+            Debug.Log(damage + " infligés à " + collision.gameObject.name);
+            champion.ApplyDamage(damage, facing, 20, recoilForce);
+        }   
     }
+
 }

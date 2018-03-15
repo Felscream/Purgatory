@@ -39,7 +39,7 @@ public enum Enum_SpecialStatus
 public abstract class Champion : MonoBehaviour {
 
     [SerializeField] protected int baseHealth = 100;
-    [SerializeField] protected int determination = 3;
+    [SerializeField] public int determination = 3;
     [SerializeField] protected float speed = 10;
     [SerializeField] protected LayerMask deadLayer;
 
@@ -113,7 +113,7 @@ public abstract class Champion : MonoBehaviour {
     protected Collider2D playerBox;
     protected Collider2D physicBox;
     protected Collider2D diveBox;
-    protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false;
+    protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false, isClashing=false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
@@ -122,10 +122,11 @@ public abstract class Champion : MonoBehaviour {
     protected float movementX, movementY;
     protected PowerUp powerUp;
     protected Lever trapLever;
+    public int clashClick=0;
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
-
+    protected int timerDamageHUD = 40;
     protected Image ultiImageSlider;
 
     protected SpriteRenderer sr;
@@ -198,6 +199,14 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!dead)
         {
+            if (isClashing)
+            {
+                if(Input.GetButtonDown(JumpButton))
+                {
+                    clashClick++;
+                }
+            }
+
             ControlCoyote();
             CheckStunLock();
             CheckFatigue();
@@ -295,6 +304,13 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Lever")
+        {
+            trapLever = null;
+        }
+    }
 
     protected void DynamicFall()
     {
@@ -416,9 +432,10 @@ public abstract class Champion : MonoBehaviour {
             staminablockedTimer = 0.0f;
         }
     }
+   
     public virtual void ReduceHealth(int amount, bool clashPossible = false, Champion attacker = null)
     {
-        if (amount >= health && clashPossible && attacker != null)
+        if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
             Health = 1;
             Clash(attacker);
@@ -430,16 +447,19 @@ public abstract class Champion : MonoBehaviour {
     public void Clash(Champion attacker)
     {
         Debug.Log("Clash !");
-        ManagerInGame.GetInstance().Clash(this, attacker);
+        StartCoroutine(ManagerInGame.GetInstance().ClashRoutine(this, attacker));
     }
 
     public void ClashMode()
     {
         animator.speed = (1 / Time.timeScale);
+        isClashing = true;
     }
     public void NormalMode()
     {
+        clashClick = 0;
         animator.speed = 1;
+        isClashing = false;
     }
 
     public virtual void ConsumeStamina(float amount) //DOESN'T TRIGGER THE STAMINA BLOCKED TIMER
@@ -534,32 +554,7 @@ public abstract class Champion : MonoBehaviour {
         
 
 
-        if (health == 0)
-        {
-            inputStatus = Enum_InputStatus.blocked;
-            foreach (AnimatorControllerParameter parameter in animator.parameters)
-            {
-                if (parameter.type == AnimatorControllerParameterType.Bool)
-                {
-                    animator.SetBool(parameter.name, false);
-                }
-            }
-            dead = true;
-            playerBox.enabled = false;
-            StopMovement(1);
-            Debug.Log(transform.parent.name + " died");
-
-            //TO DO : find a way to use the deadLayer variable since this doesn't work
-            /*if(deadLayer == null)
-            {
-                deadLayer = LayerMask.NameToLayer("Dead");
-
-            }
-            gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
-            */
-            //this works but uses a string
-            gameObject.layer = LayerMask.NameToLayer("Dead");
-        }
+        
     }
     protected void CheckFatigue()
     {
@@ -830,14 +825,35 @@ public abstract class Champion : MonoBehaviour {
 
     public void UpdateHUD()
     {
+        float a = healthSlider.value;
         healthSlider.value = health;
-        staminaSlider.value = stamina;
-        ChangeColorHealthSlider();
+        float b = healthSlider.value;
+        if (a != b) //si recu des degats, barre colorée supplémentaire
+        {
+            timerDamageHUD = 40;
+            staminaSlider.value = stamina;
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
+            if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
+            }
+            else
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
+            }
+        }
+        else
+        {
+            if (timerDamageHUD < 0) // au bout de x ticks, on fait disparaitre la barre
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+            }
+        }
 
-
-        //--- Ci-dessous : A modifier par les vrais valeurs ---------
-
+        timerDamageHUD -= 1;
         ultiImageSlider.fillAmount = 0.75f;
+        ChangeColorHealthSlider();
 
         //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
         UltiAvailable(true);
@@ -930,7 +946,33 @@ public abstract class Champion : MonoBehaviour {
         }
 		set{ 
 			health = Mathf.Min(Mathf.Max(value, 0),BaseHealth);
-		}
+            if (health == 0)
+            {
+                inputStatus = Enum_InputStatus.blocked;
+                foreach (AnimatorControllerParameter parameter in animator.parameters)
+                {
+                    if (parameter.type == AnimatorControllerParameterType.Bool)
+                    {
+                        animator.SetBool(parameter.name, false);
+                    }
+                }
+                dead = true;
+                playerBox.enabled = false;
+                StopMovement(1);
+                Debug.Log(transform.parent.name + " died");
+
+                //TO DO : find a way to use the deadLayer variable since this doesn't work
+                /*if(deadLayer == null)
+                {
+                    deadLayer = LayerMask.NameToLayer("Dead");
+
+                }
+                gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
+                */
+                //this works but uses a string
+                gameObject.layer = LayerMask.NameToLayer("Dead");
+            }
+        }
     }
     public bool Immunity
     {
