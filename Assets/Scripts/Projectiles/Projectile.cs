@@ -35,6 +35,7 @@ public abstract class Projectile : MonoBehaviour {
     protected virtual void FixedUpdate()
     {
         UpdatePosition();
+        Debug.Log(damage);
     }
 
     protected virtual void UpdatePosition()
@@ -102,6 +103,18 @@ public abstract class Projectile : MonoBehaviour {
     public virtual void DestroyProjectile()
     {
         Destroy(gameObject);
+    }
+
+    public int Damage
+    {
+        get
+        {
+            return damage;
+        }
+        set
+        {
+            damage = value;
+        }
     }
     
     public float Direction
