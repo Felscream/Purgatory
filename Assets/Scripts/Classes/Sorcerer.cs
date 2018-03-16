@@ -12,6 +12,9 @@ public class Sorcerer : Champion
     [SerializeField] private float minToMaxTimeTransition = .75f;
     [SerializeField] private float ultimateDuration = 2.5f;
     [SerializeField] private float ultimateDamage = 12;
+    [SerializeField] private float shakeIntensity = 15.0f;
+    [SerializeField] private int shakeNumber = 4;
+    [SerializeField] private int shakeSpeed = 100;
 
     [Header("ProjectileSettings")]
     [SerializeField] protected GameObject manabomb;
@@ -211,6 +214,7 @@ public class Sorcerer : Champion
             radius = Mathf.Min(radius + difference * Time.deltaTime, ultimateMaxRadius);
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius, hitBoxLayer);
             UltimateHits(hits);
+            cameraController.Shake(shakeIntensity, shakeNumber, shakeSpeed);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -229,11 +233,12 @@ public class Sorcerer : Champion
         Debug.Log(damage);
         foreach(Collider2D col in hits)
         {
+            float direction = Mathf.Sign(col.transform.position.x - transform.position.x);
             Champion temp = col.GetComponent<Champion>();
 
             if(temp != null && temp != this && !temp.Dead)
             {
-                temp.ApplyDamage(damage, facing, 1, new Vector2(0, 0), false, true, this);
+                temp.ApplyDamage(damage, direction, 1, new Vector2(0, 0), false, true, this);
                 
             }
         }

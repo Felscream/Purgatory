@@ -18,17 +18,19 @@ public class CameraControl : MonoBehaviour {
     private float currentSpeed;
     private Vector3 nextShakePosition;
     private Vector3 newPosition;
+    private ManagerInGame manager;
 	// Use this for initialization
     void Awake()
     {
-        enabled = false;
+        //enabled = false;
         shakeAxis = Camera.main.GetComponent<Transform>();
         baseX = shakeAxis.localPosition.x;
         baseY = shakeAxis.localPosition.y;
     }
 	void Start () {
-		
-	}
+        manager = ManagerInGame.GetInstance();
+        Debug.Log(manager.PlayerAlive);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -81,7 +83,15 @@ public class CameraControl : MonoBehaviour {
         enabled = true;
         isShaking = true;
         shakeCount = shakes;
-        shakeIntensity = intensity / intensityReduction;
+        int playerCount = manager.PlayerAlive != 0 ? manager.PlayerAlive : 1;
+        if(manager != null)
+        {
+            shakeIntensity = intensity / (intensityReduction * playerCount);
+        }
+        else
+        {
+            shakeIntensity = intensity / intensityReduction;
+        }
         shakeSpeed = speed;
     }
 

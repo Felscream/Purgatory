@@ -13,7 +13,7 @@ public class ManagerInGame : MonoBehaviour {
     private bool SpawnHealth;
     private bool SpawnStamina;
     private bool SpawnOrb;
-    private int PlayerAlive = 0;
+    private int playerAlive = 0;
     public Component[] Players;
     private static ManagerInGame instance = null;
     public Slider ClashSlider;
@@ -44,9 +44,14 @@ public class ManagerInGame : MonoBehaviour {
         Players = GetComponentsInChildren<Champion>();
 	}
 
-	void Update () {
-		PlayerAlive = 0;
-		Timer += Time.deltaTime;
+    private void Start()
+    {
+        CheckPlayerAlive();
+    }
+    void Update () {
+        CheckPlayerAlive();
+        Debug.Log(PlayerAlive);
+        Timer += Time.deltaTime;
 
 		//Apparition des items sur la map à partir des prefabs
 		if (Timer >= 5 && !SpawnHealth) {
@@ -65,18 +70,12 @@ public class ManagerInGame : MonoBehaviour {
 			SpawnStamina = true;
 		}
 
-		foreach (Champion player in Players) {
-			if (player != null) {
-				if (player.Health > 0) {
-					PlayerAlive += 1;
-				}
-			}
-		}
+		
 			
-		if (PlayerAlive == 1) {
+		/*if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
 			SceneManager.LoadScene (1);
 			//ici ajouter le changement de scène et toute les modifs à prendre en compte
-		}
+		}*/
 	}
 
     public IEnumerator ClashRoutine(Champion defender, Champion attacker)
@@ -117,5 +116,26 @@ public class ManagerInGame : MonoBehaviour {
         defender.NormalMode();
         attacker.NormalMode();
     }
-    
+
+    public void CheckPlayerAlive()
+    {
+        int temp = 0;
+        Players = GetComponentsInChildren<Champion>();
+        foreach (Champion player in Players)
+        {
+            if (player != null && !player.Dead)
+            {
+                temp++;
+            }
+        }
+        playerAlive = temp;
+    }
+
+    public int PlayerAlive
+    {
+        get
+        {
+            return playerAlive;
+        }
+    }
 }
