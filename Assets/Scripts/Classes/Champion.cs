@@ -125,6 +125,8 @@ public abstract class Champion : MonoBehaviour {
     protected Lever trapLever;
     public int clashClick=0;
 
+    protected ParticleSystem ps;
+
     protected Slider healthSlider;
     protected Slider staminaSlider;
     protected int timerDamageHUD = 40;
@@ -184,6 +186,7 @@ public abstract class Champion : MonoBehaviour {
 
         cameraController = Camera.main.GetComponent<CameraControl>();
         sr = GetComponent<SpriteRenderer>();
+        ps = GetComponentInChildren<ParticleSystem>();
     }
     protected void FixedUpdate()
     {
@@ -1070,5 +1073,13 @@ public abstract class Champion : MonoBehaviour {
     public bool IsFalling()
     {
         return falling;
+    }
+
+    public ParticleSystem PS
+    {
+        get
+        {
+            return ps;
+        }
     }
 }

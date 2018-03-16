@@ -14,16 +14,19 @@ public class IncreasedRange : PowerUp
         if (holder.Fatigue)
         {
             powerUpStatus = Enum_PowerUpStatus.onCooldown;
+            DisableParticleSystem();
         }
         base.LateUpdate();
         if(powerUpStatus == Enum_PowerUpStatus.activated)
         {
+            EnableParticleSystem();
             disableTimer += Time.deltaTime;
             holder.ConsumeStamina(staminaCostPerSecond * Time.deltaTime);
         }
         else
         {
             disableTimer = 0.0f;
+            DisableParticleSystem();
         }
         
     }
@@ -38,5 +41,16 @@ public class IncreasedRange : PowerUp
             
         }
     }
-    
+
+    public void EnableParticleSystem()
+    {
+        ParticleSystem.EmissionModule temp = holder.PS.emission;
+        temp.enabled = true;
+    }
+    public void DisableParticleSystem()
+    {
+        ParticleSystem.EmissionModule temp = holder.PS.emission;
+        temp.enabled = false;
+    }
+
 }

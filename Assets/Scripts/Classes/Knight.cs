@@ -9,7 +9,7 @@ public class Knight : Champion
     public Attack enhancedCombo2;
 
     protected bool secondaryAttackRunning = false;
-
+    
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -34,6 +34,8 @@ public class Knight : Champion
         combo2.Clasheable();
         enhancedCombo1.Clasheable();
         enhancedCombo2.Clasheable();
+        ParticleSystem.EmissionModule temp = ps.emission;
+        temp.enabled = false;
     }
 
     protected override void Update()
