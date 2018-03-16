@@ -189,6 +189,11 @@ public abstract class Champion : MonoBehaviour {
         cameraController = Camera.main.GetComponent<CameraControl>();
         sr = GetComponent<SpriteRenderer>();
         ps = GetComponentInChildren<ParticleSystem>();
+        if(ps != null)
+        {
+            ParticleSystem.EmissionModule temp = ps.emission;
+            temp.enabled = false;
+        }
     }
     protected void FixedUpdate()
     {

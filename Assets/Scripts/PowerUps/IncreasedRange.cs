@@ -41,16 +41,6 @@ public class IncreasedRange : PowerUp
             
         }
     }
-
-    public void EnableParticleSystem()
-    {
-        ParticleSystem.EmissionModule temp = holder.PS.emission;
-        temp.enabled = true;
-    }
-    public void DisableParticleSystem()
-    {
-        ParticleSystem.EmissionModule temp = holder.PS.emission;
-        temp.enabled = false;
-    }
+    
 
 }
