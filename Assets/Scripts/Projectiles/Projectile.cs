@@ -18,6 +18,8 @@ public abstract class Projectile : MonoBehaviour {
     protected bool impact = false;
     protected Vector3 lastPosition;
     protected Rigidbody2D rb;
+    protected SpriteRenderer sr;
+    protected ParticleSystem ps;
 	// Use this for initialization
 	protected virtual void Start () {
         distanceTraveled = 0.0f;
@@ -30,6 +32,8 @@ public abstract class Projectile : MonoBehaviour {
         lastPosition = transform.position;
         hits.Clear();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        ps = GetComponentInChildren<ParticleSystem>();
     }
 	
     protected virtual void FixedUpdate()
@@ -86,8 +90,13 @@ public abstract class Projectile : MonoBehaviour {
 
     protected virtual void SetImpact()
     {
-        anim.SetTrigger("Impact");
+        
+        //anim.SetTrigger("Impact");
+        GetComponent<Collider2D>().enabled = false;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         rb.velocity = Vector2.zero;
+        sr.sortingOrder = -3;
+
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
@@ -96,6 +105,7 @@ public abstract class Projectile : MonoBehaviour {
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
+        
         HandleImpact(collision);
     }
 
