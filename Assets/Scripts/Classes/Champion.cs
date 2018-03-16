@@ -38,7 +38,7 @@ public enum Enum_SpecialStatus
 
 public abstract class Champion : MonoBehaviour {
 
-    [SerializeField] protected int baseHealth = 100;
+    [SerializeField] protected float baseHealth = 100;
     [SerializeField] public int determination = 3;
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
@@ -101,8 +101,8 @@ public abstract class Champion : MonoBehaviour {
     public Attack specialAttack;
     public Attack combo1;
 
-    protected int health, framesToStunLock = 0, stunlockFrameCounter = 0;
-    protected float speed;
+    protected int framesToStunLock = 0, stunlockFrameCounter = 0;
+    protected float health, speed;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
     protected int dodgeFrameCounter = 0;
     protected int coyoteFrameCounter = 0;
@@ -226,8 +226,11 @@ public abstract class Champion : MonoBehaviour {
             }
             else
             {
-                
-                if (Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
+                if(Input.GetAxis(PowerUpButton) >= 0.6f && Input.GetAxis(GuardButton) >= 0.6f)
+                {
+                    CheckUltimate();
+                }
+                else if (Input.GetAxis(PowerUpButton) >= 0.6f && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
                 {
                     if(powerUp != null)
                     {
@@ -403,6 +406,17 @@ public abstract class Champion : MonoBehaviour {
 
     protected abstract void CastHitBox(int attackType);
     
+    protected virtual void CheckUltimate()
+    {
+        if(limitBreakGauge == maxLimitBreakGauge)
+        {
+            Debug.Log("Ultimate");
+            Ultimate();
+        }
+        Debug.Log("Not available");
+    }
+
+    protected abstract void Ultimate();
     protected void StartAttackString()
     {
         ReduceStamina(combo1.staminaCost);
@@ -447,7 +461,7 @@ public abstract class Champion : MonoBehaviour {
         }
     }
    
-    public virtual void ReduceHealth(int amount, bool clashPossible = false, Champion attacker = null)
+    public virtual void ReduceHealth(float amount, bool clashPossible = false, Champion attacker = null)
     {
         Debug.Log(attacker);
         IncreaseLimitBreak(limitBreakOnDamage); //increase limit break
@@ -514,7 +528,7 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public void ApplyDamage(int dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false, Champion attacker=null)
+    public void ApplyDamage(float dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false, Champion attacker=null)
     {
         if (!Immunity)
         {
@@ -523,7 +537,7 @@ public abstract class Champion : MonoBehaviour {
                 if (!guardBreaker && attackerFacing != facing) // attacker is in front of the player and player is guarding, the attacker isn't guard breaking
                 {
                     ReduceStamina(dmg * blockStaminaCostMultiplier);
-                    dmg = (int)Mathf.Ceil(dmg * damageReductionMultiplier);
+                    dmg = dmg * damageReductionMultiplier;
                     animator.SetTrigger("Blocked");
                     ResetAttackTokens();
                 }
@@ -549,7 +563,7 @@ public abstract class Champion : MonoBehaviour {
                     ApplyStunLock(stunLock);
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ReduceHealth(dmg, clashPossible, attacker);
-                    Debug.Log("Health :" + health);
+                    //Debug.Log("Health :" + health);
                     if (cameraController != null)
                     {
                         cameraController.Shake(dmg, 5, 1000);
@@ -784,9 +798,9 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    protected void InvincibilityVisualizer(bool enable)
+    protected void InvincibilityVisualizer(bool enable = false)
     {
-        if (enable)
+        if (immune)
         {
             sr.color = Color.yellow;
         }
@@ -843,7 +857,6 @@ public abstract class Champion : MonoBehaviour {
         staminaSlider.value = stamina;
         if(limitBreakSlider != null)
         {
-            Debug.Log("update");
             limitBreakSlider.value = limitBreakGauge;
         }
         float b = healthSlider.value;
@@ -977,14 +990,14 @@ public abstract class Champion : MonoBehaviour {
             return baseHealth;
         }
     }
-    public int Health
+    public float Health
     {
         get
         {
             return health;
         }
 		set{ 
-			health = Mathf.Min(Mathf.Max(value, 0),BaseHealth);
+			health = Mathf.Min(Mathf.Max(value, 0.0f),BaseHealth);
             if (health == 0)
             {
                 inputStatus = Enum_InputStatus.blocked;

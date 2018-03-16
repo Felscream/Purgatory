@@ -86,7 +86,6 @@ public class Archer : Champion
         }
         else if (Input.GetButtonUp(SecondaryAttackButton))
         {
-            Debug.Log("Release");
             Release();
         }
     }
@@ -239,5 +238,8 @@ public class Archer : Champion
         chargeTimer = 0.0f;
         animator.SetBool("Hold", false);
     }
-
+    protected override void Ultimate()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -92,7 +92,6 @@ public class SpecialArrowEffect : PowerUp
 
     private IEnumerator ReloadStack()
     {
-        Debug.Log(currentStacks + "... reloading ");
         reloading = true;
         float elapsed = 0.0f;
         while(elapsed <= cooldown)

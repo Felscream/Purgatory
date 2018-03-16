@@ -6,7 +6,14 @@ public class Sorcerer : Champion
 {
     public Attack combo2;
 
-    [Header("ProjectileSetting")]
+    [Header("UltimateSettings")]
+    [SerializeField] private float ultimateMinRadius = 2.0f;
+    [SerializeField] private float ultimateMaxRadius = 10.0f;
+    [SerializeField] private float minToMaxTimeTransition = .75f;
+    [SerializeField] private float ultimateDuration = 2.5f;
+    [SerializeField] private float ultimateDamage = 12;
+
+    [Header("ProjectileSettings")]
     [SerializeField] protected GameObject manabomb;
     [SerializeField] protected Vector2 projectileSpawnOffset;
     [SerializeField] protected Vector2 altProjectileSpawnOffset;
@@ -24,7 +31,9 @@ public class Sorcerer : Champion
         Gizmos.DrawWireCube(new Vector3(combo1.offset.x, combo1.offset.y, 0) + transform.position, new Vector3(combo1.size.x, combo1.size.y, 1));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(combo2.offset.x, combo2.offset.y, 0) + transform.position, new Vector3(combo2.size.x, combo2.size.y, 1));
-
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, ultimateMinRadius);
+        Gizmos.DrawWireSphere(transform.position, ultimateMaxRadius);
     }
     protected override void Start()
     {
@@ -179,5 +188,52 @@ public class Sorcerer : Champion
     {
         rb.AddForce(new Vector2(altRecoil.x * facing, altRecoil.y), ForceMode2D.Impulse);
         rb.gravityScale = 1.0f;
+    }
+    protected override void Ultimate()
+    {
+        StartCoroutine(CastBarrier());
+    }
+
+    private IEnumerator CastBarrier()
+    {
+        inputStatus = Enum_InputStatus.blocked;
+        float timer = 0.0f;
+        float radius = ultimateMinRadius;
+        float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
+        rb.velocity = Vector2.zero;
+        rb.isKinematic = true;
+        rb.gravityScale = 0.0f;
+        immune = true;
+        
+        while (timer <= ultimateDuration)
+        {
+            InvincibilityVisualizer();
+            radius = Mathf.Min(radius + difference * Time.deltaTime, ultimateMaxRadius);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius, hitBoxLayer);
+            UltimateHits(hits);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        
+        immune = false;
+        InvincibilityVisualizer();
+        rb.isKinematic = false;
+        rb.gravityScale = 1.0f;
+        inputStatus = Enum_InputStatus.allowed;
+        ResetLimitBreak();
+    }
+
+    private void UltimateHits(Collider2D[] hits)
+    {
+        int damage = (int)Mathf.Ceil(ultimateDamage * Time.deltaTime);
+        foreach(Collider2D col in hits)
+        {
+            Champion temp = col.GetComponent<Champion>();
+
+            if(temp != null && temp != this && !temp.Dead)
+            {
+                temp.ApplyDamage(damage, facing, 1, new Vector2(0, 0), false, true, this);
+            }
+        }
     }
 }

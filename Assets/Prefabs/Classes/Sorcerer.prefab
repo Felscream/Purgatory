@@ -398,6 +398,11 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
+  ultimateMinRadius: 2
+  ultimateMaxRadius: 6.5
+  MinToMaxTimeTransition: 0.75
+  ultimateDuration: 2.5
+  ultimateDamage: 12
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
   projectileSpawnOffset: {x: 3.2, y: 0.31}
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}

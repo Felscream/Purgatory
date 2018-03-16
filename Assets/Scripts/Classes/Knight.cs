@@ -114,4 +114,9 @@ public class Knight : Champion
         }
     }
 
+    protected override void Ultimate()
+    {
+        throw new System.NotImplementedException();
+    }
+
 }
