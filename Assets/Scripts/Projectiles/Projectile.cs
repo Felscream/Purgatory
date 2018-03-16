@@ -81,6 +81,7 @@ public abstract class Projectile : MonoBehaviour {
                 {
                     hits.Add(foe);
                     foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
+                    owner.IncreaseLimitBreak(owner.LimitBreakOnHit);
                     SetImpact();
                 }
             }

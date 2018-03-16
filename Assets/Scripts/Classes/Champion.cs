@@ -130,6 +130,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
+    protected Slider limitBreakSlider;
     protected int timerDamageHUD = 40;
     protected Image ultiImageSlider;
 
@@ -180,7 +181,7 @@ public abstract class Champion : MonoBehaviour {
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
-
+        limitBreakSlider = playerHUD.transform.Find("LimitBreakSlider").GetComponent<Slider>();
         ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
         ResetAttackTokens();
@@ -840,6 +841,11 @@ public abstract class Champion : MonoBehaviour {
         float a = healthSlider.value;
         healthSlider.value = health;
         staminaSlider.value = stamina;
+        if(limitBreakSlider != null)
+        {
+            Debug.Log("update");
+            limitBreakSlider.value = limitBreakGauge;
+        }
         float b = healthSlider.value;
         if (a != b) //si recu des degats, barre colorée supplémentaire
         {

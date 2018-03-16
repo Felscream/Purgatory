@@ -868,7 +868,7 @@ ParticleSystem:
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 0.35593224
+          value: 0
           inSlope: 1
           outSlope: 1
           tangentMode: 0
