@@ -50,7 +50,6 @@ public class ManagerInGame : MonoBehaviour {
     }
     void Update () {
         CheckPlayerAlive();
-        Debug.Log(PlayerAlive);
         Timer += Time.deltaTime;
 
 		//Apparition des items sur la map à partir des prefabs

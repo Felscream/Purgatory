@@ -51,7 +51,7 @@ public class CameraControl : MonoBehaviour {
 
         if (isShaking)
         {
-            shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.deltaTime * shakeSpeed);
+            shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.unscaledDeltaTime * shakeSpeed);
 
             if(Vector2.Distance(shakeAxis.localPosition, nextShakePosition) < shakeIntensity/5f)
             {
