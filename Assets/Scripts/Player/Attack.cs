@@ -84,6 +84,7 @@ public class Attack {
         {
             Debug.Log("Hit " + foe.transform.parent.name);
             foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce, guardBreaker, canClash, user);
+            user.IncreaseLimitBreak(user.LimitBreakOnHit);  //increase limit break
             if (haveSpecialEffect)
             {
                 ApplySpecialEffect(foe);

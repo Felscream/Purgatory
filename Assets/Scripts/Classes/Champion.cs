@@ -83,6 +83,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float limitBreakPerSecond = 0.40f;
     [SerializeField] protected float limitBreakOnHit = 2.5f;
     [SerializeField] protected float limitBreakOnDamage = 1.0f;
+    [SerializeField] protected float limitBreakOnParry = 15.0f;
 
     [Header("Status Settings")]
     [SerializeField] protected float fatiguedSpeedReduction = 1 / 1.2f;
@@ -211,7 +212,8 @@ public abstract class Champion : MonoBehaviour {
                     clashClick++;
                 }
             }
-
+            RegenerateStaminaPerSecond();
+            RegenerateLimitBreakPerSecond();
             ControlCoyote();
             CheckStunLock();
             CheckFatigue();
@@ -293,11 +295,6 @@ public abstract class Champion : MonoBehaviour {
 
     protected virtual void LateUpdate()
     {
-        if (!dead)
-        {
-            RegenerateStaminaPerSecond();
-            IncreaseLimitBreakPerSecond();
-        }
         UpdateHUD();
     }
 
@@ -367,9 +364,19 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    protected virtual void IncreaseLimitBreakPerSecond()
+    protected void RegenerateLimitBreakPerSecond()
     {
         limitBreakGauge = Mathf.Min(limitBreakGauge + limitBreakPerSecond * Time.deltaTime, maxLimitBreakGauge);
+    }
+
+    public virtual void IncreaseLimitBreak(float modifier)
+    {
+        limitBreakGauge = Mathf.Max(Mathf.Min(limitBreakGauge + modifier, maxLimitBreakGauge),0.0f);
+    }
+
+    public void ResetLimitBreak()
+    {
+        limitBreakGauge = 0.0f;
     }
 
     protected virtual void PrimaryAttack()
@@ -442,6 +449,7 @@ public abstract class Champion : MonoBehaviour {
     public virtual void ReduceHealth(int amount, bool clashPossible = false, Champion attacker = null)
     {
         Debug.Log(attacker);
+        IncreaseLimitBreak(limitBreakOnDamage); //increase limit break
         if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
             Health = 1;
@@ -555,13 +563,9 @@ public abstract class Champion : MonoBehaviour {
             if(guardStatus == Enum_GuardStatus.parrying)
             {
                 Debug.Log("Parried");
+                IncreaseLimitBreak(limitBreakOnParry);
             }
         }
-
-        
-
-
-        
     }
     protected void CheckFatigue()
     {
@@ -575,6 +579,7 @@ public abstract class Champion : MonoBehaviour {
             fatigued = false;
         }
     }
+
 
     protected virtual void CheckParry()
     {
@@ -834,11 +839,11 @@ public abstract class Champion : MonoBehaviour {
     {
         float a = healthSlider.value;
         healthSlider.value = health;
+        staminaSlider.value = stamina;
         float b = healthSlider.value;
         if (a != b) //si recu des degats, barre colorée supplémentaire
         {
             timerDamageHUD = 40;
-            staminaSlider.value = stamina;
             playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
             playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
             if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
@@ -915,6 +920,27 @@ public abstract class Champion : MonoBehaviour {
         get
         {
             return baseStamina;
+        }
+    }
+    public float LimitBreakGauge
+    {
+        get
+        {
+            return limitBreakGauge;
+        }
+    }
+    public float LimitBreakOnDamage
+    {
+        get
+        {
+            return limitBreakOnDamage;
+        }
+    }
+    public float LimitBreakOnHit
+    {
+        get
+        {
+            return limitBreakOnHit;
         }
     }
     public float DodgeStaminaCost
