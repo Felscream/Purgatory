@@ -983,7 +983,7 @@ public abstract class Champion : MonoBehaviour {
             return dodgeStatus;
         }
     }
-    public int BaseHealth
+    public float BaseHealth
     {
         get
         {

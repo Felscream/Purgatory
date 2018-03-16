@@ -225,7 +225,8 @@ public class Sorcerer : Champion
 
     private void UltimateHits(Collider2D[] hits)
     {
-        int damage = (int)Mathf.Ceil(ultimateDamage * Time.deltaTime);
+        float damage = ultimateDamage * Time.deltaTime;
+        Debug.Log(damage);
         foreach(Collider2D col in hits)
         {
             Champion temp = col.GetComponent<Champion>();
@@ -233,6 +234,7 @@ public class Sorcerer : Champion
             if(temp != null && temp != this && !temp.Dead)
             {
                 temp.ApplyDamage(damage, facing, 1, new Vector2(0, 0), false, true, this);
+                
             }
         }
     }
