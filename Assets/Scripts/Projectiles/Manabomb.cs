@@ -17,10 +17,8 @@ public class Manabomb : Projectile {
     protected override void SetImpact()
     {
         base.SetImpact();
-        Destroy(transform.GetChild(0).gameObject);
         GameObject newps = Instantiate(explosionEffect, this.transform);
         newps.transform.localPosition = newps.transform.localPosition * direction;
-        sr.enabled = false;
-        Destroy(gameObject, 1.2f);
+        Destroy(gameObject, timeToDestroy);
     }
 }

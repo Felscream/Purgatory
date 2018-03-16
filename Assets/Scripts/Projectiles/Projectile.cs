@@ -9,6 +9,8 @@ public abstract class Projectile : MonoBehaviour {
     [SerializeField] protected int damage;
     [SerializeField] protected int stunLock;
     [SerializeField] protected Vector2 recoilForce;
+    [SerializeField] protected float timeToDestroy = 1.0f;
+    
 
     protected float direction = 1.0f, distanceTraveled;
     protected Animator anim;
@@ -34,6 +36,7 @@ public abstract class Projectile : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         ps = GetComponentInChildren<ParticleSystem>();
+        
     }
 	
     protected virtual void FixedUpdate()
@@ -92,11 +95,9 @@ public abstract class Projectile : MonoBehaviour {
     {
         
         //anim.SetTrigger("Impact");
-        GetComponent<Collider2D>().enabled = false;
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        rb.velocity = Vector2.zero;
-        sr.sortingOrder = -3;
-
+        DestroyProjectile();
+        
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
@@ -111,7 +112,13 @@ public abstract class Projectile : MonoBehaviour {
 
     public virtual void DestroyProjectile()
     {
-        Destroy(gameObject);
+        ParticleSystem.EmissionModule temp = ps.emission;
+        temp.enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        rb.velocity = Vector2.zero;
+        sr.sortingOrder = -3;
+        sr.enabled = false;
+        Destroy(gameObject, timeToDestroy);
     }
 
     public int Damage
