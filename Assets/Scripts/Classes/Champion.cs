@@ -521,11 +521,12 @@ public abstract class Champion : MonoBehaviour {
     {
         if(duration != 0)
         {
-            rb.gravityScale = 1.0f;
+            rb.gravityScale = 0.0f;
             stunlockFrameCounter = 0;
             framesToStunLock = duration;
             guardStatus = Enum_GuardStatus.noGuard;
             inputStatus = Enum_InputStatus.blocked;
+
             animator.SetBool("Damaged", true);
             animator.SetBool("Guarding", false);
         }
@@ -851,14 +852,18 @@ public abstract class Champion : MonoBehaviour {
 
     public IEnumerator ProcDivineShield(float time)
     {
-        immune = true;
-        AllowInputs();
-        ResetAttackTokens();
-        rb.gravityScale = 1.0f;
-        inputStatus = Enum_InputStatus.onlyMovement;
-        yield return new WaitForSeconds(time);
-        inputStatus = Enum_InputStatus.allowed;
-        immune = false;
+        if (!dead)
+        {
+            immune = true;
+            inputStatus = Enum_InputStatus.onlyMovement;
+            InvincibilityVisualizer();
+            rb.gravityScale = 1.0f;
+            yield return new WaitForSeconds(time);
+            rb.gravityScale = 1.0f;
+            inputStatus = Enum_InputStatus.allowed;
+            immune = false;
+            InvincibilityVisualizer();
+        }
     }
 
     protected void DisableDiveBox()

@@ -9,6 +9,7 @@ public class Knight : Champion
     public Attack enhancedCombo2;
 
     protected bool secondaryAttackRunning = false;
+    private bool usePowerUp = false;
     
     public void OnDrawGizmosSelected()
     {
@@ -39,13 +40,18 @@ public class Knight : Champion
     protected override void Update()
     {
         base.Update();
-        if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+        if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated && usePowerUp)
         {
             if(powerUp is IncreasedRange)
             {
                 IncreasedRange temp = (IncreasedRange)powerUp;
                 temp.StopPowerUp();
+                usePowerUp = false;
             }
+        }
+        if (Input.GetAxis(PowerUpButton) == 0)
+        {
+            usePowerUp = true;
         }
         
     }

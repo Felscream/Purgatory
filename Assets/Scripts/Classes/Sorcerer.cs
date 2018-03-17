@@ -265,7 +265,7 @@ public class Sorcerer : Champion
                 float direction = Mathf.Sign(col.transform.position.x - transform.position.x);
                 temp.ApplyDamage(damage, direction, ultimateStunLock, new Vector2(0, 0), false, true, this);
                 temp.RB.velocity = Vector2.zero;
-                temp.RB.gravityScale = 0.0f;
+                //temp.RB.gravityScale = 0.0f;
             }
         }
     }

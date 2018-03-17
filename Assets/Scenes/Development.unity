@@ -1098,6 +1098,10 @@ Prefab:
       propertyPath: stayTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1102500187874390, guid: e3633296bc15d2145a19448e709630d0, type: 2}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3633296bc15d2145a19448e709630d0, type: 2}
   m_IsPrefabParent: 0

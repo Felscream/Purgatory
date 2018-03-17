@@ -21,6 +21,7 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] private int clashTime = 10;
     [SerializeField] private int defenderHealthGain = 30;
     [SerializeField] private int attackerHealthLoss = 10;
+    [SerializeField] private float defenderImmunityTime = 1.5f;
 
     public static ManagerInGame GetInstance()
     {
@@ -81,7 +82,7 @@ public class ManagerInGame : MonoBehaviour {
     {
         ClashCanvas.gameObject.SetActive(true);
         ClashSlider.gameObject.SetActive(true);
-
+        
         Time.timeScale = 0.0001f;
 
         defender.ClashMode();
@@ -98,13 +99,12 @@ public class ManagerInGame : MonoBehaviour {
         }
         if (value >= 50)
         {
-            defender.ReduceHealth(1);
+            defender.ReduceHealth(defender.Health);
         }
         else
         {
             defender.determination--;
             defender.Health += defenderHealthGain;
-            StartCoroutine(defender.ProcDivineShield(1.5f));
             attacker.ReduceHealth(attackerHealthLoss);
         }
 
@@ -115,6 +115,7 @@ public class ManagerInGame : MonoBehaviour {
 
         defender.NormalMode();
         attacker.NormalMode();
+        StartCoroutine(defender.ProcDivineShield(defenderImmunityTime));
     }
 
     public void CheckPlayerAlive()
