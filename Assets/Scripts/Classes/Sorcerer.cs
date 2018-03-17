@@ -236,7 +236,7 @@ public class Sorcerer : Champion
             radius = Mathf.Min(radius + difference * Time.deltaTime, ultimateMaxRadius);
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius, hitBoxLayer);
             UltimateHits(hits);
-            cameraController.Shake(shakeIntensity, shakeNumber, shakeSpeed);
+            cameraController.Shake(shakeIntensity, shakeNumber, shakeSpeed, true);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -247,6 +247,10 @@ public class Sorcerer : Champion
         rb.isKinematic = false;
         rb.gravityScale = 1.0f;
         animator.SetBool("Barrier", false);
+        if (!IsGrounded())
+        {
+            DynamicFall();
+        }
         AllowInputs();
         EndAttackString();
         ResetLimitBreak();
@@ -266,7 +270,8 @@ public class Sorcerer : Champion
             {
                 float direction = Mathf.Sign(col.transform.position.x - transform.position.x);
                 temp.ApplyDamage(damage, direction, ultimateStunLock, new Vector2(0, 0), false, true, this);
-                
+                temp.RB.velocity = Vector2.zero;
+                //temp.RB.gravityScale = 0.0f;
             }
         }
     }

@@ -39,7 +39,7 @@ public class AddChampion : MonoBehaviour {
             player1.SetActive(true);
             if (!player1.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer1 = Instantiate(prefabKnight, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                Champion championPlayer1 = Instantiate(prefabSorcerer, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
                 championPlayer1.transform.localPosition = new Vector3(0, 0, 0);
                 // On lui donne le HUD correspondant
                 championPlayer1.playerHUD = HUDPlayer1;
@@ -54,7 +54,7 @@ public class AddChampion : MonoBehaviour {
             player2.SetActive(true);
             if (!player2.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer2 = Instantiate(prefabArcher, player2.transform, false);
+                Champion championPlayer2 = Instantiate(prefabKnight, player2.transform, false);
                 championPlayer2.transform.localPosition = new Vector3(0, 0, 0);
                 championPlayer2.playerHUD = HUDPlayer2;
                 player2.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer2);

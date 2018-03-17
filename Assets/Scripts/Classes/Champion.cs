@@ -128,6 +128,7 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_SpecialStatus specialStatus = Enum_SpecialStatus.normal;
     protected float movementX, movementY;
     protected PowerUp powerUp;
+    protected bool ignorePlatforms = false;
     protected Lever trapLever;
     public int clashClick=0;
 
@@ -204,14 +205,25 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void FixedUpdate()
     {
-        if(specialStatus != Enum_SpecialStatus.projected)
+        if(specialStatus != Enum_SpecialStatus.projected || dead)
+        {
             DynamicFall();
+        }
         if (jumping && guardStatus == Enum_GuardStatus.noGuard)
         {
             Jump();
             jumping = false;
         }
         Move(movementX, movementY);
+        if (dead)
+        {
+            
+            if(!IsGrounded())
+            {
+                Debug.Log(IsGrounded());
+                Fall();
+            }
+        }
     }
 
     protected virtual void Update()
@@ -289,20 +301,16 @@ public abstract class Champion : MonoBehaviour {
 
                 if (InputStatus != Enum_InputStatus.onlyAttack )
                 {
-                    if (Input.GetButtonDown(JumpButton))
+                    if (IsGrounded() && Input.GetAxis(VerticalCtrl) == -1 && Input.GetButtonDown(JumpButton))
+                    {
+                        GoDown();
+                    }
+                    else if (Input.GetButtonDown(JumpButton))
                     {
                         jumping = true;
                     }
 
-                    if (InputStatus != Enum_InputStatus.blocked)
-                    {
-                        movementX = Input.GetAxisRaw(HorizontalCtrl);
-                        if (!IsGrounded() && Input.GetAxis(VerticalCtrl) == -1)
-                        {
-                            Fall();
-                        }
-                    }
-
+                     movementX = Input.GetAxisRaw(HorizontalCtrl); 
                 }
 
             }
@@ -333,7 +341,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() /*&& coyoteFrameCounter > coyoteTimeFrames*/ && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
+        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
         {
             Fall();
         }
@@ -511,13 +519,17 @@ public abstract class Champion : MonoBehaviour {
     }
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
     {
-        rb.gravityScale = 1.0f;
-        stunlockFrameCounter = 0;
-        framesToStunLock = duration;
-        guardStatus = Enum_GuardStatus.noGuard;
-        inputStatus = Enum_InputStatus.blocked;
-        animator.SetBool("Damaged", true);
-        animator.SetBool("Guarding", false);
+        if(duration != 0)
+        {
+            rb.gravityScale = 0.0f;
+            stunlockFrameCounter = 0;
+            framesToStunLock = duration;
+            guardStatus = Enum_GuardStatus.noGuard;
+            inputStatus = Enum_InputStatus.blocked;
+
+            animator.SetBool("Damaged", true);
+            animator.SetBool("Guarding", false);
+        }
     }
 
     public void CheckStunLock()
@@ -554,7 +566,10 @@ public abstract class Champion : MonoBehaviour {
                 else //the attack is coming from behind or the attack is a guard breaker
                 {
                     animator.SetFloat("AttackerFacing", attackerFacing);
-                    ApplyStunLock(stunLock);
+                    if(stunLock > 0)
+                    {
+                        ApplyStunLock(stunLock);
+                    }
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ResetAttackTokens();
                 }
@@ -569,7 +584,10 @@ public abstract class Champion : MonoBehaviour {
                 if (!guardBreaker) //if the attack isn't a guard break
                 {
                     animator.SetFloat("AttackerFacing", attackerFacing);
-                    ApplyStunLock(stunLock);
+                    if (stunLock > 0)
+                    {
+                        ApplyStunLock(stunLock);
+                    }
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ReduceHealth(dmg, clashPossible, attacker);
                     if (cameraController != null)
@@ -586,6 +604,7 @@ public abstract class Champion : MonoBehaviour {
             if(guardStatus == Enum_GuardStatus.parrying)
             {
                 Debug.Log("Parried");
+                rb.velocity = Vector2.zero;
                 IncreaseLimitBreak(limitBreakOnParry);
             }
         }
@@ -765,6 +784,48 @@ public abstract class Champion : MonoBehaviour {
             }
         }
     }
+    protected void GoDown()
+    {
+        Debug.Log("Go down");
+        Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+        Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+        float radius = 0.1f;
+        Collider2D[] hitOne = Physics2D.OverlapCircleAll(centerOne, radius, LayerMask.GetMask("Obstacle"));
+        if (hitOne.Length > 0)
+        {
+            foreach(Collider2D col in hitOne)
+            {
+                if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
+                {
+                    ignorePlatforms = true;
+                    Physics2D.IgnoreCollision(col, physicBox, true);
+                    Fall();
+                    break;
+                }
+            }
+        }
+        else
+        {
+            Collider2D[] hitTwo = Physics2D.OverlapCircleAll(centerTwo, radius, LayerMask.GetMask("Obstacle"));
+            if(hitTwo.Length > 0)
+            {
+                foreach (Collider2D col in hitOne)
+                {
+                    if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
+                    {
+                        ignorePlatforms = true;
+                        Physics2D.IgnoreCollision(col, physicBox, true);
+                        Fall();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                ignorePlatforms = false;
+            }
+        }
+    }
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
@@ -772,7 +833,7 @@ public abstract class Champion : MonoBehaviour {
         Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
         float radius = 0.1f;
 
-        if (Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle")))
+        if ((Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"))) && !ignorePlatforms)
         {
             animator.SetBool("Fall", false);
             DisableDiveBox();
@@ -787,6 +848,22 @@ public abstract class Champion : MonoBehaviour {
         rb.gravityScale = 1.0f;
         inputStatus = Enum_InputStatus.allowed;
         ResetAttackTokens();
+    }
+
+    public IEnumerator ProcDivineShield(float time)
+    {
+        if (!dead)
+        {
+            immune = true;
+            inputStatus = Enum_InputStatus.onlyMovement;
+            InvincibilityVisualizer();
+            rb.gravityScale = 1.0f;
+            yield return new WaitForSeconds(time);
+            rb.gravityScale = 1.0f;
+            inputStatus = Enum_InputStatus.allowed;
+            immune = false;
+            InvincibilityVisualizer();
+        }
     }
 
     protected void DisableDiveBox()
@@ -1127,7 +1204,17 @@ public abstract class Champion : MonoBehaviour {
     {
         return falling;
     }
-
+    public bool IgnorePlatforms
+    {
+        get
+        {
+            return ignorePlatforms;
+        }
+        set
+        {
+            ignorePlatforms = value;
+        }
+    }
     public ParticleSystem PowerUpParticleSystem
     {
         get

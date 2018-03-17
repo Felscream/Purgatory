@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1456016543100652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -15.7, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4242830717035286}
@@ -161,7 +161,7 @@ MonoBehaviour:
   snapDistance: 0.05
   mainAxis: {fileID: 4057907418652678}
   shakeAxis: {fileID: 4242830717035286}
-  intensityReduction: 40
+  intensityReduction: 15
 --- !u!114 &114228829400378116
 MonoBehaviour:
   m_ObjectHideFlags: 1
