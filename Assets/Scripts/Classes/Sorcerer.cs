@@ -241,6 +241,10 @@ public class Sorcerer : Champion
         rb.isKinematic = false;
         rb.gravityScale = 1.0f;
         animator.SetBool("Barrier", false);
+        if (!IsGrounded())
+        {
+            DynamicFall();
+        }
         AllowInputs();
         EndAttackString();
         ResetLimitBreak();

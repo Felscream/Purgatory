@@ -33,14 +33,18 @@ public class PickUp : MonoBehaviour {
 	}
 
 	void HealthRecover (){
-		player.Health += 1;
-		Debug.Log ("Health: " + player.Health);
-		countHealth += 1;
-		if (HealthAmount == countHealth) {
-			Debug.Log ("End Recovery");
-			CancelInvoke ("HealthRecover");
-			countHealth = 0;
-		}
+        if (!player.Dead)
+        {
+            player.Health += 1;
+            Debug.Log("Health: " + player.Health);
+            countHealth += 1;
+            if (HealthAmount == countHealth)
+            {
+                Debug.Log("End Recovery");
+                CancelInvoke("HealthRecover");
+                countHealth = 0;
+            }
+        }
 	}
 
 	/*void StaminaRecover (){
