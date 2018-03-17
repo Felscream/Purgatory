@@ -185,7 +185,7 @@ public abstract class Champion : MonoBehaviour {
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
-        //limitBreakSlider = playerHUD.transform.Find("LimitBreakSlider").GetComponent<Slider>();
+        limitBreakSlider = playerHUD.transform.Find("LimitBreakSlider").GetComponent<Slider>();
         ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
         ResetAttackTokens();
@@ -205,14 +205,25 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void FixedUpdate()
     {
-        if(specialStatus != Enum_SpecialStatus.projected)
+        if(specialStatus != Enum_SpecialStatus.projected || dead)
+        {
             DynamicFall();
+        }
         if (jumping && guardStatus == Enum_GuardStatus.noGuard)
         {
             Jump();
             jumping = false;
         }
         Move(movementX, movementY);
+        if (dead)
+        {
+            
+            if(!IsGrounded())
+            {
+                Debug.Log(IsGrounded());
+                Fall();
+            }
+        }
     }
 
     protected virtual void Update()
@@ -330,7 +341,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected void DynamicFall()
     {
-        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() /*&& coyoteFrameCounter > coyoteTimeFrames*/ && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
+        if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
         {
             Fall();
         }
@@ -592,6 +603,7 @@ public abstract class Champion : MonoBehaviour {
             if(guardStatus == Enum_GuardStatus.parrying)
             {
                 Debug.Log("Parried");
+                rb.velocity = Vector2.zero;
                 IncreaseLimitBreak(limitBreakOnParry);
             }
         }
@@ -771,7 +783,6 @@ public abstract class Champion : MonoBehaviour {
             }
         }
     }
-
     protected void GoDown()
     {
         Debug.Log("Go down");
@@ -787,6 +798,7 @@ public abstract class Champion : MonoBehaviour {
                 {
                     ignorePlatforms = true;
                     Physics2D.IgnoreCollision(col, physicBox, true);
+                    Fall();
                     break;
                 }
             }
@@ -802,6 +814,7 @@ public abstract class Champion : MonoBehaviour {
                     {
                         ignorePlatforms = true;
                         Physics2D.IgnoreCollision(col, physicBox, true);
+                        Fall();
                         break;
                     }
                 }
@@ -834,6 +847,18 @@ public abstract class Champion : MonoBehaviour {
         rb.gravityScale = 1.0f;
         inputStatus = Enum_InputStatus.allowed;
         ResetAttackTokens();
+    }
+
+    public IEnumerator ProcDivineShield(float time)
+    {
+        immune = true;
+        AllowInputs();
+        ResetAttackTokens();
+        rb.gravityScale = 1.0f;
+        inputStatus = Enum_InputStatus.onlyMovement;
+        yield return new WaitForSeconds(time);
+        inputStatus = Enum_InputStatus.allowed;
+        immune = false;
     }
 
     protected void DisableDiveBox()

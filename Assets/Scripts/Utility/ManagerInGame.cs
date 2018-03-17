@@ -104,6 +104,7 @@ public class ManagerInGame : MonoBehaviour {
         {
             defender.determination--;
             defender.Health += defenderHealthGain;
+            StartCoroutine(defender.ProcDivineShield(1.5f));
             attacker.ReduceHealth(attackerHealthLoss);
         }
 
