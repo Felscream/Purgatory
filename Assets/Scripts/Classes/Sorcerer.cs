@@ -9,6 +9,7 @@ public class Sorcerer : Champion
     [Header("UltimateSettings")]
     [SerializeField] private float ultimateMinRadius = 2.0f;
     [SerializeField] private float ultimateMaxRadius = 10.0f;
+    [SerializeField] private int ultimateStunLock = 4;
     [SerializeField] private float minToMaxTimeTransition = .75f;
     [SerializeField] private float ultimateDuration = 2.5f;
     [SerializeField] private float ultimateDamage = 12;
@@ -23,6 +24,7 @@ public class Sorcerer : Champion
     [SerializeField] private Vector3 altRotation;
     [SerializeField] private Vector2 altRecoil = new Vector2(-4, 4);
 
+    private bool ultimate = false;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -194,20 +196,34 @@ public class Sorcerer : Champion
     }
     protected override void Ultimate()
     {
-        StartCoroutine(CastBarrier());
-    }
-
-    private IEnumerator CastBarrier()
-    {
+        ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
+        temp.enabled = true;
         inputStatus = Enum_InputStatus.blocked;
-        float timer = 0.0f;
-        float radius = ultimateMinRadius;
-        float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
+        animator.SetBool("Ultimate", true);
         rb.velocity = Vector2.zero;
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
         rb.gravityScale = 0.0f;
         immune = true;
         
+    }
+
+    public void CastBarrier()
+    {
+        if (!ultimate)
+        {
+            animator.SetBool("Barrier", true);
+            animator.SetBool("Ultimate", false);
+            StartCoroutine(CastBarrierCoroutine());
+        }
+        
+    }
+    private IEnumerator CastBarrierCoroutine()
+    {
+        ultimate = true;
+        
+        float timer = 0.0f;
+        float radius = ultimateMinRadius;
+        float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
         while (timer <= ultimateDuration)
         {
             InvincibilityVisualizer();
@@ -218,27 +234,32 @@ public class Sorcerer : Champion
             timer += Time.deltaTime;
             yield return null;
         }
-        
+        ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
+        temp.enabled = false;
         immune = false;
         InvincibilityVisualizer();
         rb.isKinematic = false;
         rb.gravityScale = 1.0f;
-        inputStatus = Enum_InputStatus.allowed;
+        animator.SetBool("Barrier", false);
+        AllowInputs();
+        EndAttackString();
         ResetLimitBreak();
+        
+        ultimate = false;
     }
 
     private void UltimateHits(Collider2D[] hits)
     {
         float damage = ultimateDamage * Time.deltaTime;
-        Debug.Log(damage);
         foreach(Collider2D col in hits)
         {
-            float direction = Mathf.Sign(col.transform.position.x - transform.position.x);
+            
             Champion temp = col.GetComponent<Champion>();
 
             if(temp != null && temp != this && !temp.Dead)
             {
-                temp.ApplyDamage(damage, direction, 1, new Vector2(0, 0), false, true, this);
+                float direction = Mathf.Sign(col.transform.position.x - transform.position.x);
+                temp.ApplyDamage(damage, direction, ultimateStunLock, new Vector2(0, 0), false, true, this);
                 
             }
         }

@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 198101564183319448}
   - component: {fileID: 199338123682566240}
   m_Layer: 1
-  m_Name: Particle System
+  m_Name: PowerUpParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1662724183502682}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.45, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4855915205358940}
@@ -377,6 +377,7 @@ MonoBehaviour:
   limitBreakPerSecond: 0.4
   limitBreakOnHit: 1
   limitBreakOnDamage: 0.25
+  limitBreakOnParry: 15
   fatiguedSpeedReduction: 0.8333333
   slowSpeedReduction: 0.8333333
   guardBreakDamage: 5
@@ -410,6 +411,8 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
+  ultimateParticleSystem: {fileID: 0}
+  powerUpParticleSystem: {fileID: 198101564183319448}
   clashClick: 0
   combo2:
     offset: {x: 1.72, y: 0.1}
@@ -538,7 +541,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1441726390
+  randomSeed: -1548061157
   InitialModule:
     serializedVersion: 3
     enabled: 1

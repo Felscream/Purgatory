@@ -11,21 +11,33 @@ public class Arrow : Projectile
     [SerializeField] protected GameObject stunSprite;
     [SerializeField] protected GameObject poisonSprite;
     [SerializeField] protected GameObject slowSprite;
-    
-    
+    [SerializeField] private Gradient normal;
+    [SerializeField] private Gradient poison;
+    [SerializeField] private Gradient slow;
+    [SerializeField] private Gradient stun;
+
+    private ParticleSystem.ColorOverLifetimeModule particleColor;
     protected override void Start()
     {
         base.Start();
+        particleColor = ps.colorOverLifetime;
         switch (arrowStatus)
         {
+            
             case Enum_SpecialStatus.poison:
                 anim.SetTrigger("Poison");
+                particleColor.color = poison;
                 break;
             case Enum_SpecialStatus.slow:
                 anim.SetTrigger("Slow");
+                particleColor.color = slow;
                 break;
             case Enum_SpecialStatus.stun:
                 anim.SetTrigger("Stun");
+                particleColor.color = stun;
+                break;
+            default:
+                particleColor.color = normal;
                 break;
         }
     }

@@ -101,6 +101,11 @@ public abstract class Champion : MonoBehaviour {
     public Attack specialAttack;
     public Attack combo1;
 
+    [Header("UltimateSettings")]
+    [SerializeField] protected ParticleSystem ultimateParticleSystem;
+
+    [Header("PowerUpSettings")]
+    [SerializeField] protected ParticleSystem powerUpParticleSystem;
     protected int framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float health, speed;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -125,8 +130,6 @@ public abstract class Champion : MonoBehaviour {
     protected PowerUp powerUp;
     protected Lever trapLever;
     public int clashClick=0;
-
-    protected ParticleSystem ps;
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
@@ -188,10 +191,14 @@ public abstract class Champion : MonoBehaviour {
 
         cameraController = Camera.main.GetComponent<CameraControl>();
         sr = GetComponent<SpriteRenderer>();
-        ps = GetComponentInChildren<ParticleSystem>();
-        if(ps != null)
+        if(powerUpParticleSystem != null)
         {
-            ParticleSystem.EmissionModule temp = ps.emission;
+            ParticleSystem.EmissionModule temp = powerUpParticleSystem.emission;
+            temp.enabled = false;
+        }
+        if (ultimateParticleSystem != null)
+        {
+            ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
             temp.enabled = false;
         }
     }
@@ -199,7 +206,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if(specialStatus != Enum_SpecialStatus.projected)
             DynamicFall();
-        if (jumping)
+        if (jumping && guardStatus == Enum_GuardStatus.noGuard)
         {
             Jump();
             jumping = false;
@@ -415,10 +422,8 @@ public abstract class Champion : MonoBehaviour {
     {
         if(limitBreakGauge == maxLimitBreakGauge)
         {
-            Debug.Log("Ultimate");
             Ultimate();
         }
-        Debug.Log("Not available");
     }
 
     protected abstract void Ultimate();
@@ -468,7 +473,6 @@ public abstract class Champion : MonoBehaviour {
    
     public virtual void ReduceHealth(float amount, bool clashPossible = false, Champion attacker = null)
     {
-        Debug.Log(attacker);
         IncreaseLimitBreak(limitBreakOnDamage); //increase limit break
         if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
@@ -528,7 +532,8 @@ public abstract class Champion : MonoBehaviour {
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 attacking = false;
                 animator.SetBool("Damaged", false);
-                inputStatus = Enum_InputStatus.allowed;
+                AllowInputs();
+                ResetAttackTokens();
             }
         }
     }
@@ -554,7 +559,6 @@ public abstract class Champion : MonoBehaviour {
                     ResetAttackTokens();
                 }
                 ReduceHealth(dmg, clashPossible, attacker);
-                Debug.Log("Health :" + health);
                 if (cameraController != null)
                 {
                     cameraController.Shake(dmg, 5, 1000);
@@ -568,7 +572,6 @@ public abstract class Champion : MonoBehaviour {
                     ApplyStunLock(stunLock);
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ReduceHealth(dmg, clashPossible, attacker);
-                    //Debug.Log("Health :" + health);
                     if (cameraController != null)
                     {
                         cameraController.Shake(dmg, 5, 1000);
@@ -1125,11 +1128,11 @@ public abstract class Champion : MonoBehaviour {
         return falling;
     }
 
-    public ParticleSystem PS
+    public ParticleSystem PowerUpParticleSystem
     {
         get
         {
-            return ps;
+            return powerUpParticleSystem;
         }
     }
 }

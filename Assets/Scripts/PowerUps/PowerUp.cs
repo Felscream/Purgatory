@@ -78,7 +78,7 @@ public abstract class PowerUp : MonoBehaviour {
             powerUpStatus = Enum_PowerUpStatus.activated;
             activationTimer = 0.0f;
             anim.SetBool("PoweredUp", true);
-            if(holder.PS != null)
+            if(holder.PowerUpParticleSystem != null)
             {
                 EnableParticleSystem();
             }
@@ -96,7 +96,7 @@ public abstract class PowerUp : MonoBehaviour {
             if (activationTimer >= duration)
             {
                 powerUpStatus = Enum_PowerUpStatus.onCooldown;
-                if(holder.PS != null)
+                if(holder.PowerUpParticleSystem != null)
                 {
                     DisableParticleSystem();
                 }
@@ -124,12 +124,12 @@ public abstract class PowerUp : MonoBehaviour {
     }
     public void EnableParticleSystem()
     {
-        ParticleSystem.EmissionModule temp = holder.PS.emission;
+        ParticleSystem.EmissionModule temp = holder.PowerUpParticleSystem.emission;
         temp.enabled = true;
     }
     public void DisableParticleSystem()
     {
-        ParticleSystem.EmissionModule temp = holder.PS.emission;
+        ParticleSystem.EmissionModule temp = holder.PowerUpParticleSystem.emission;
         temp.enabled = false;
     }
     public Enum_PowerUpStatus PowerUpStatus

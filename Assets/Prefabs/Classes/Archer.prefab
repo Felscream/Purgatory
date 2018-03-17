@@ -330,7 +330,7 @@ MonoBehaviour:
   jumpVelocityAtApex: 2
   coyoteTimeFrames: 3
   dodgeSpeed: 25
-  dodgeStaminaCost: 20
+  dodgeStaminaCost: 15
   dodgeFrames: 10
   dodgeImmunityStartFrame: 3
   dodgeImmunityEndFrame: 7
@@ -345,12 +345,13 @@ MonoBehaviour:
   staminaRegenerationPerSecond: 15
   staminaRegenerationCooldown: 1.5
   staminaFatigueCooldown: 3
-  primaryFireStaminaCost: 20
-  secondaryFireStaminaCost: 40
+  primaryFireStaminaCost: 10
+  secondaryFireStaminaCost: 25
   maxLimitBreakGauge: 100
   limitBreakPerSecond: 0.4
   limitBreakOnHit: 2.5
   limitBreakOnDamage: 1
+  limitBreakOnParry: 15
   fatiguedSpeedReduction: 0.8333333
   slowSpeedReduction: 0.8333333
   guardBreakDamage: 5

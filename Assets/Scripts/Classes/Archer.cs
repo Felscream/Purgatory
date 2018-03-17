@@ -146,7 +146,8 @@ public class Archer : Champion
             Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffsetArrow.x * facing, transform.position.y + projectileSpawnOffsetArrow.y);
             GameObject arrow1 = Instantiate(arrow, SpawnPoint, transform.rotation);
             Arrow ar = arrow1.GetComponent<Arrow>();
-
+            ar.Direction = facing;
+            ar.Owner = this;
             switch (chargeLevel)
             {
                 case Enum_ChargeLevel.low:
@@ -192,8 +193,7 @@ public class Archer : Champion
                     }
                 }
             }*/
-            ar.Owner = this;
-            ar.Direction = facing;
+            
             float forceArr = forceArrow * facing;
             ar.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceArr * damageMultiplier, 0));
             rb.gravityScale = 1.0f;

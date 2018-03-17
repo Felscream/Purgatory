@@ -34,8 +34,6 @@ public class Knight : Champion
         combo2.Clasheable();
         enhancedCombo1.Clasheable();
         enhancedCombo2.Clasheable();
-        ParticleSystem.EmissionModule temp = ps.emission;
-        temp.enabled = false;
     }
 
     protected override void Update()

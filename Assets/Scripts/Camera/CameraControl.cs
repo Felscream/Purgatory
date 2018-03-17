@@ -29,7 +29,6 @@ public class CameraControl : MonoBehaviour {
     }
 	void Start () {
         manager = ManagerInGame.GetInstance();
-        Debug.Log(manager.PlayerAlive);
     }
 	
 	// Update is called once per frame
