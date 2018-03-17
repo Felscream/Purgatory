@@ -20,6 +20,8 @@ public class Archer : Champion
     [SerializeField] protected float speedReductionMultiplier = 0.75f;
     [SerializeField] protected float initialStaminaCost = 18.0f;
     [SerializeField] protected float maxStaminaConsumption = 10.0f;
+    [SerializeField] protected ParticleSystem chargeParticleSystem;
+    [SerializeField] protected Material[] chargeMaterials;
 
     [Header("ProjectileSettingArrow")]
     [SerializeField] protected GameObject arrow;
@@ -38,7 +40,18 @@ public class Archer : Champion
     AudioSource audioSource;
 
     private float staminaConsumed;
+    private bool playedOnceChargeOne = false, playedOnceChargeTwo = false;
+    private ParticleSystemRenderer psr;
 
+    protected override void Start()
+    {
+        base.Start();
+        if(chargeParticleSystem != null)
+        {
+            DisableChargeParticleSystem();
+            psr = chargeParticleSystem.GetComponent<ParticleSystemRenderer>();
+        }
+    }
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -59,30 +72,6 @@ public class Archer : Champion
 
     protected override void Update()
     {
-        //Initial key press
-        /*if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
-        {
-            //Get the timestamp
-            keyTimer = Time.time;
-            while(Input.GetButtonUp(SecondaryAttackButton) || (Time.time - keyTimer) >= 0.3f)
-            {
-                // Do nothing
-            }
-            forceArrow = (Time.time - keyTimer);
-            SecondaryAttack();
-        }
-        
-        
-        //Key released
-        //This will not execute if the button is held (isKeyActive is false)
-        if (Input.GetButtonUp(SecondaryAttackButton))
-        {
-            forceArrow = (Time.time - keyTimer);
-            SecondaryAttack();
-        }*/
-
-        
-
         base.Update();
         
         if (Input.GetButton(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard && IsGrounded() && !dead)
@@ -121,10 +110,19 @@ public class Archer : Champion
         if(chargeTimer >= secondLevelTime)
         {
             chargeLevel = Enum_ChargeLevel.high;
+            if(!playedOnceChargeTwo)
+            {
+                ChangeParticleMaterial(2);
+            }
+            
         }
         else if(chargeTimer >= firstLevelTime)
         {
             chargeLevel = Enum_ChargeLevel.medium;
+            if (!playedOnceChargeOne)
+            {
+                ChangeParticleMaterial(1);
+            }
         }
         else
         {
@@ -147,11 +145,37 @@ public class Archer : Champion
 
     private void Release()
     {
+        //DisableChargeParticleSystem();
         animator.SetBool("Hold", false);
         speed = baseSpeed;
         chargeTimer = 0.0f;
+        playedOnceChargeTwo = false;
+        playedOnceChargeOne = false;
     }
 
+    private void DisableChargeParticleSystem()
+    {
+        chargeParticleSystem.Stop();
+    }
+    private void ChangeParticleMaterial(int level)
+    {
+        if(psr != null && chargeParticleSystem != null)
+        {
+            if(chargeMaterials[level - 1] != null)
+            {
+                psr.material = chargeMaterials[level - 1];
+                chargeParticleSystem.Play();
+            }
+            if(level == 1)
+            {
+                playedOnceChargeOne = true;
+            }
+            else
+            {
+                playedOnceChargeTwo = true;
+            }
+        }   
+    }
     public void SpawnArrow()
     {
         if (powerUp is SpecialArrowEffect)

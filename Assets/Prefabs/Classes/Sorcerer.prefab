@@ -465,7 +465,7 @@ MonoBehaviour:
   ultimateMinRadius: 2
   ultimateMaxRadius: 6.5
   ultimateStunLock: 4
-  minToMaxTimeTransition: 0.75
+  minToMaxTimeTransition: 0.5
   ultimateDuration: 2.5
   ultimateDamage: 20
   shakeIntensity: 15
@@ -1227,7 +1227,7 @@ ParticleSystem:
           outSlope: -0.012294005
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.14490107
+          time: 0.19773462
           value: 1
           inSlope: 0
           outSlope: 0
@@ -1557,8 +1557,8 @@ ParticleSystem:
           outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.081071556
-          value: 0.17931269
+          time: 0.08484514
+          value: 0.19716984
           inSlope: 1.0000169
           outSlope: 1.0000169
           tangentMode: 0
@@ -1630,7 +1630,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    tilesX: 12
+    tilesX: 18
     tilesY: 1
     animationType: 0
     rowIndex: 0

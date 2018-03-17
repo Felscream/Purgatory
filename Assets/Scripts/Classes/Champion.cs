@@ -308,7 +308,7 @@ public abstract class Champion : MonoBehaviour {
 
                 if (InputStatus != Enum_InputStatus.onlyAttack )
                 {
-                    if (IsGrounded() && Input.GetAxis(VerticalCtrl) == -1 && Input.GetButtonDown(JumpButton))
+                    if (IsGrounded() && Input.GetAxis(VerticalCtrl) <= -0.8f && Input.GetButtonDown(JumpButton))
                     {
                         GoDown();
                     }

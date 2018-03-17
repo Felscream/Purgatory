@@ -46,11 +46,6 @@ public class Arrow : Projectile
         }
     }
 
-    protected override void UpdatePosition()
-    {
-        base.UpdatePosition();
-    }
-
 
     protected override void HandleImpact(Collision2D collision)
     {
