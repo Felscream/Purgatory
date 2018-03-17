@@ -128,6 +128,7 @@ public abstract class Champion : MonoBehaviour {
     protected Enum_SpecialStatus specialStatus = Enum_SpecialStatus.normal;
     protected float movementX, movementY;
     protected PowerUp powerUp;
+    protected bool ignorePlatforms = false;
     protected Lever trapLever;
     public int clashClick=0;
 
@@ -289,20 +290,16 @@ public abstract class Champion : MonoBehaviour {
 
                 if (InputStatus != Enum_InputStatus.onlyAttack )
                 {
-                    if (Input.GetButtonDown(JumpButton))
+                    if (IsGrounded() && Input.GetAxis(VerticalCtrl) == -1 && Input.GetButtonDown(JumpButton))
+                    {
+                        GoDown();
+                    }
+                    else if (Input.GetButtonDown(JumpButton))
                     {
                         jumping = true;
                     }
 
-                    if (InputStatus != Enum_InputStatus.blocked)
-                    {
-                        movementX = Input.GetAxisRaw(HorizontalCtrl);
-                        if (!IsGrounded() && Input.GetAxis(VerticalCtrl) == -1)
-                        {
-                            Fall();
-                        }
-                    }
-
+                     movementX = Input.GetAxisRaw(HorizontalCtrl); 
                 }
 
             }
@@ -511,13 +508,16 @@ public abstract class Champion : MonoBehaviour {
     }
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
     {
-        rb.gravityScale = 1.0f;
-        stunlockFrameCounter = 0;
-        framesToStunLock = duration;
-        guardStatus = Enum_GuardStatus.noGuard;
-        inputStatus = Enum_InputStatus.blocked;
-        animator.SetBool("Damaged", true);
-        animator.SetBool("Guarding", false);
+        if(duration != 0)
+        {
+            rb.gravityScale = 1.0f;
+            stunlockFrameCounter = 0;
+            framesToStunLock = duration;
+            guardStatus = Enum_GuardStatus.noGuard;
+            inputStatus = Enum_InputStatus.blocked;
+            animator.SetBool("Damaged", true);
+            animator.SetBool("Guarding", false);
+        }
     }
 
     public void CheckStunLock()
@@ -554,7 +554,10 @@ public abstract class Champion : MonoBehaviour {
                 else //the attack is coming from behind or the attack is a guard breaker
                 {
                     animator.SetFloat("AttackerFacing", attackerFacing);
-                    ApplyStunLock(stunLock);
+                    if(stunLock > 0)
+                    {
+                        ApplyStunLock(stunLock);
+                    }
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ResetAttackTokens();
                 }
@@ -569,7 +572,10 @@ public abstract class Champion : MonoBehaviour {
                 if (!guardBreaker) //if the attack isn't a guard break
                 {
                     animator.SetFloat("AttackerFacing", attackerFacing);
-                    ApplyStunLock(stunLock);
+                    if (stunLock > 0)
+                    {
+                        ApplyStunLock(stunLock);
+                    }
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ReduceHealth(dmg, clashPossible, attacker);
                     if (cameraController != null)
@@ -762,6 +768,33 @@ public abstract class Champion : MonoBehaviour {
                     rb.AddForce(new Vector2(0, -jumpHeight * rb.mass), ForceMode2D.Impulse);
                     EnableDiveBox();
                 }
+            }
+        }
+    }
+
+    protected void GoDown()
+    {
+        Debug.Log("Go down");
+        Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+        Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+        float radius = 0.1f;
+        Collider2D hitOne = Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle"));
+        if (hitOne != null && !hitOne.isTrigger)
+        {
+            ignorePlatforms = true;
+            Physics2D.IgnoreCollision(hitOne, physicBox, true);
+        }
+        else
+        {
+            Collider2D hitTwo = Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"));
+            if(hitTwo != null && !hitOne.isTrigger)
+            {
+                ignorePlatforms = true;
+                Physics2D.IgnoreCollision(hitTwo, physicBox, true);
+            }
+            else
+            {
+                ignorePlatforms = false;
             }
         }
     }
@@ -1127,7 +1160,17 @@ public abstract class Champion : MonoBehaviour {
     {
         return falling;
     }
-
+    public bool IgnorePlatforms
+    {
+        get
+        {
+            return ignorePlatforms;
+        }
+        set
+        {
+            ignorePlatforms = value;
+        }
+    }
     public ParticleSystem PowerUpParticleSystem
     {
         get

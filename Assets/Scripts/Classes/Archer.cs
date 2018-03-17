@@ -13,12 +13,13 @@ public enum Enum_ChargeLevel
 public class Archer : Champion
 {
     [Header("ChargeSettings")]
-    
     [SerializeField] protected float firstLevelTime = 0.75f;
     [SerializeField] protected float firstLevelMultiplier = 1.5f;
     [SerializeField] protected float secondLevelTime = 1.5f;
     [SerializeField] protected float secondLevelMultiplier = 2.5f;
     [SerializeField] protected float speedReductionMultiplier = 0.75f;
+    [SerializeField] protected float initialStaminaCost = 18.0f;
+    [SerializeField] protected float maxStaminaConsumption = 10.0f;
 
     [Header("ProjectileSettingArrow")]
     [SerializeField] protected GameObject arrow;
@@ -30,6 +31,7 @@ public class Archer : Champion
     protected float forceArrow = 0.3f; //The force of the arrow
     protected bool isKeyActive = false;
     protected Enum_ChargeLevel chargeLevel = Enum_ChargeLevel.low;
+    private float staminaConsumed;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -84,7 +86,7 @@ public class Archer : Champion
             }
             Charge(); //only charge when grounded
         }
-        else if (Input.GetButtonUp(SecondaryAttackButton))
+        else if (Input.GetButtonUp(SecondaryAttackButton) && !Fatigue)
         {
             Release();
         }
@@ -97,9 +99,11 @@ public class Archer : Champion
 
     private void Charge()
     {
+        float staminaCost = secondaryFireStaminaCost * Time.deltaTime;
         if(chargeTimer == 0)
         {
             animator.SetTrigger("Draw");
+            staminaConsumed = 0.0f;
         }
         chargeTimer += Time.deltaTime;
         if (chargeTimer > 0)
@@ -118,6 +122,19 @@ public class Archer : Champion
         else
         {
             chargeLevel = Enum_ChargeLevel.low;
+        }
+
+        if(staminaConsumed < maxStaminaConsumption)
+        {
+            ReduceStamina(secondaryFireStaminaCost * Time.deltaTime);
+            staminaConsumed += staminaCost;
+            
+        }
+        staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
+        staminablockedTimer = 0.0f;
+        if (Fatigue)
+        {
+            Release();
         }
     }
 
@@ -146,8 +163,9 @@ public class Archer : Champion
             Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffsetArrow.x * facing, transform.position.y + projectileSpawnOffsetArrow.y);
             GameObject arrow1 = Instantiate(arrow, SpawnPoint, transform.rotation);
             Arrow ar = arrow1.GetComponent<Arrow>();
-            ar.Direction = facing;
             ar.Owner = this;
+            ar.Direction = facing;
+            
             switch (chargeLevel)
             {
                 case Enum_ChargeLevel.low:

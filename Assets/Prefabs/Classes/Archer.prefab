@@ -346,7 +346,7 @@ MonoBehaviour:
   staminaRegenerationCooldown: 1.5
   staminaFatigueCooldown: 3
   primaryFireStaminaCost: 10
-  secondaryFireStaminaCost: 25
+  secondaryFireStaminaCost: 10
   maxLimitBreakGauge: 100
   limitBreakPerSecond: 0.4
   limitBreakOnHit: 2.5
@@ -385,12 +385,16 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
+  ultimateParticleSystem: {fileID: 0}
+  powerUpParticleSystem: {fileID: 0}
   clashClick: 0
   firstLevelTime: 0.75
   firstLevelMultiplier: 1.5
   secondLevelTime: 1.5
   secondLevelMultiplier: 2.5
   speedReductionMultiplier: 0.75
+  initialStaminaCost: 15
+  maxStaminaConsumption: 15
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
   projectileSpawnOffsetArrow: {x: 1.21, y: 0}
 --- !u!114 &114782146192993706

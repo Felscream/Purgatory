@@ -46,6 +46,10 @@ public abstract class Projectile : MonoBehaviour {
 
     protected virtual void UpdatePosition()
     {
+        if (anim != null)
+        {
+            anim.SetFloat("Direction", direction);
+        }
         if (maxTravelDistance != 0)
         {
             distanceTraveled += Vector3.Distance(lastPosition, transform.position);
@@ -155,6 +159,7 @@ public abstract class Projectile : MonoBehaviour {
         set
         {
             owner = value;
+            
         }
     }
 

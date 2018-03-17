@@ -77,14 +77,14 @@ public class CameraControl : MonoBehaviour {
         }
 	}
 
-    public void Shake(float intensity, int shakes, float speed)
+    public void Shake(float intensity, int shakes, float speed, bool overridePlayerCount = false)
     {
         enabled = true;
         isShaking = true;
         shakeCount = shakes;
-        int playerCount = manager.PlayerAlive != 0 ? manager.PlayerAlive : 1;
-        if(manager != null)
+        if (!overridePlayerCount && manager != null)
         {
+            int playerCount = manager.PlayerAlive != 0 ? manager.PlayerAlive : 1;
             shakeIntensity = intensity / (intensityReduction * playerCount);
         }
         else
