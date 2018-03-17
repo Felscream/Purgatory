@@ -920,6 +920,7 @@ MonoBehaviour:
   clashTime: 10
   defenderHealthGain: 30
   attackerHealthLoss: 10
+  defenderImmunityTime: 1.5
 --- !u!225 &1610411680 stripped
 CanvasGroup:
   m_PrefabParentObject: {fileID: 225871959294122856, guid: f0c980c1a99dd9141842312f766f1912,
