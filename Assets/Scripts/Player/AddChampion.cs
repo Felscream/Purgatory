@@ -34,12 +34,12 @@ public class AddChampion : MonoBehaviour {
 	void Update ()
     {
         // Ajoute un joueur lorsqu'une manette appuie sur le bouton start, si il n'existe pas déjà
-        if (Input.GetButtonDown(Start_P1) && !player1.active)
+        if (Input.GetButtonDown(Start_P1) && !player1.activeSelf)
         {
             player1.SetActive(true);
             if (!player1.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer1 = Instantiate(prefabArcher, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                Champion championPlayer1 = Instantiate(prefabKnight, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
                 championPlayer1.transform.localPosition = new Vector3(0, 0, 0);
                 // On lui donne le HUD correspondant
                 championPlayer1.playerHUD = HUDPlayer1;
@@ -49,7 +49,7 @@ public class AddChampion : MonoBehaviour {
                 player1.GetComponent<PlayerInput>().GetPlayerControlInput();
             }
         }
-        if (Input.GetButtonDown(Start_P2) && !player2.active)
+        if (Input.GetButtonDown(Start_P2) && !player2.activeSelf)
         {
             player2.SetActive(true);
             if (!player2.GetComponent<PlayerInput>().ObjectsInstantiated())
@@ -62,7 +62,7 @@ public class AddChampion : MonoBehaviour {
                 player2.GetComponent<PlayerInput>().GetPlayerControlInput();
             }
         }
-        if (Input.GetButtonDown(Start_P3) && !player3.active)
+        if (Input.GetButtonDown(Start_P3) && !player3.activeSelf)
         {
             player3.SetActive(true);
             if (!player3.GetComponent<PlayerInput>().ObjectsInstantiated())
@@ -75,7 +75,7 @@ public class AddChampion : MonoBehaviour {
                 player3.GetComponent<PlayerInput>().GetPlayerControlInput();
             }
         }
-        if (Input.GetButtonDown(Start_P4) && !player4.active)
+        if (Input.GetButtonDown(Start_P4) && !player4.activeSelf)
         {
             player4.SetActive(true);
             if (!player4.GetComponent<PlayerInput>().ObjectsInstantiated())

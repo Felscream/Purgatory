@@ -206,7 +206,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1683062477501002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.3103304, y: 14.991039, z: -0.00021260884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4421351675404898}
@@ -303,7 +303,7 @@ MonoBehaviour:
     type: 2}
   prefabSorcerer: {fileID: 114244444951551434, guid: 07d47c73da75d6948b85cc3bbbc00e77,
     type: 2}
-  prefabArcher: {fileID: 114463133747941946, guid: dac13bbfdb2f7e64b8d0558f9b81ef4d,
+  prefabArcher: {fileID: 114463133747941946, guid: 7bf6e9fe73ea5af4f90da8c9303b3884,
     type: 2}
   Start_P1: Start_P1
   Start_P2: Start_P2

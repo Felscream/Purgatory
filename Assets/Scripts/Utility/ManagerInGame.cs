@@ -16,12 +16,12 @@ public class ManagerInGame : MonoBehaviour {
     private int playerAlive = 0;
     public Component[] Players;
     private static ManagerInGame instance = null;
-    public Slider ClashSlider;
+    protected Slider ClashSlider;
     public Canvas ClashCanvas;
-    [SerializeField] private int clashTime = 10;
-    [SerializeField] private int defenderHealthGain = 30;
-    [SerializeField] private int attackerHealthLoss = 10;
-    [SerializeField] private float defenderImmunityTime = 1.5f;
+    [SerializeField] protected int clashTime = 10;
+    [SerializeField] protected int defenderHealthGain = 30;
+    [SerializeField] protected int attackerHealthLoss = 10;
+    [SerializeField] protected float defenderImmunityTime = 1.5f;
 
     public static ManagerInGame GetInstance()
     {
@@ -48,6 +48,7 @@ public class ManagerInGame : MonoBehaviour {
     private void Start()
     {
         CheckPlayerAlive();
+        ClashSlider = ClashCanvas.GetComponentInChildren<Slider>();
     }
     void Update () {
         CheckPlayerAlive();
@@ -93,7 +94,7 @@ public class ManagerInGame : MonoBehaviour {
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
-            value = 50 + (attacker.clashClick * attacker.determination - defender.clashClick * defender.determination);
+            value = 50 + (attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination))/10;
             ClashSlider.value = value;
             yield return null;
         }

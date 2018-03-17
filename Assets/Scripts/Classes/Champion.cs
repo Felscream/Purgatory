@@ -94,18 +94,21 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int guardBreakstunLock = 15;
     [SerializeField] protected Vector2 guardBreakRecoilForce;
 
+    [Header("UltimateSettings")]
+    [SerializeField]
+    protected ParticleSystem ultimateParticleSystem;
+
+    [Header("PowerUpSettings")]
+    [SerializeField]
+    protected ParticleSystem powerUpParticleSystem;
+
     [Header("Attack Settings")]
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
 
     public Attack specialAttack;
     public Attack combo1;
-
-    [Header("UltimateSettings")]
-    [SerializeField] protected ParticleSystem ultimateParticleSystem;
-
-    [Header("PowerUpSettings")]
-    [SerializeField] protected ParticleSystem powerUpParticleSystem;
+    
     protected int framesToStunLock = 0, stunlockFrameCounter = 0;
     protected float health, speed;
     protected float stamina, staminablockedTimer, dodgeTimeStart, limitBreakGauge;
@@ -130,7 +133,9 @@ public abstract class Champion : MonoBehaviour {
     protected PowerUp powerUp;
     protected bool ignorePlatforms = false;
     protected Lever trapLever;
-    public int clashClick=0;
+    protected const int  DEFAULT_EFFECT_DURATION = 3;
+
+    [System.NonSerialized] public int clashClick=0;
 
     protected Slider healthSlider;
     protected Slider staminaSlider;
@@ -225,25 +230,27 @@ public abstract class Champion : MonoBehaviour {
             }
         }
     }
-
     protected virtual void Update()
     {
         if (!dead)
         {
-            if (isClashing)
-            {
-                if(Input.GetButtonDown(JumpButton))
-                {
-                    clashClick++;
-                }
-            }
+            
             RegenerateStaminaPerSecond();
             RegenerateLimitBreakPerSecond();
             ControlCoyote();
             CheckStunLock();
             CheckFatigue();
+            if (isClashing)
+            {
+                if (Input.GetButtonDown(JumpButton))
+                {
+                    clashClick++;
+                }
+                return;
+            }
             CheckDodge();
             CheckParry();
+
             if (InputStatus == Enum_InputStatus.blocked)
             {
                 StopMovement(0);
@@ -316,12 +323,22 @@ public abstract class Champion : MonoBehaviour {
             }
         }
     }
-
     protected virtual void LateUpdate()
     {
         UpdateHUD();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(specialStatus == Enum_SpecialStatus.projected)
+        {
+            SetStunStatus();
+            if (collision.gameObject.GetComponent<Champion>())
+            {
+                collision.gameObject.GetComponent<Champion>().SetStunStatus();
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Lever")
@@ -330,7 +347,6 @@ public abstract class Champion : MonoBehaviour {
             trapLever = lever;
         }
     }
-
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Lever")
@@ -346,7 +362,6 @@ public abstract class Champion : MonoBehaviour {
             Fall();
         }
     }
-
     protected void Fall()
     {
         animator.SetBool("Jump", false);
@@ -354,6 +369,7 @@ public abstract class Champion : MonoBehaviour {
         animator.SetBool("Fall", true);
         falling = true;
     }
+
     protected virtual void RegenerateStaminaPerSecond()
     {
         float staminaRegen = staminaRegenerationPerSecond;
@@ -387,17 +403,14 @@ public abstract class Champion : MonoBehaviour {
                 break;
         }
     }
-
     protected void RegenerateLimitBreakPerSecond()
     {
         limitBreakGauge = Mathf.Min(limitBreakGauge + limitBreakPerSecond * Time.deltaTime, maxLimitBreakGauge);
     }
-
     public virtual void IncreaseLimitBreak(float modifier)
     {
         limitBreakGauge = Mathf.Max(Mathf.Min(limitBreakGauge + modifier, maxLimitBreakGauge),0.0f);
     }
-
     public void ResetLimitBreak()
     {
         limitBreakGauge = 0.0f;
@@ -413,7 +426,6 @@ public abstract class Champion : MonoBehaviour {
         }
 
     }
-
     protected virtual void SecondaryAttack()
     {
         
@@ -423,18 +435,8 @@ public abstract class Champion : MonoBehaviour {
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0.0f;
     }
-
-    protected abstract void CastHitBox(int attackType);
-    
-    protected virtual void CheckUltimate()
-    {
-        if(limitBreakGauge == maxLimitBreakGauge)
-        {
-            Ultimate();
-        }
-    }
-
     protected abstract void Ultimate();
+    protected abstract void CastHitBox(int attackType);
     protected void StartAttackString()
     {
         ReduceStamina(combo1.staminaCost);
@@ -444,23 +446,19 @@ public abstract class Champion : MonoBehaviour {
         attacking = true;
         rb.velocity = Vector2.zero;
     }
-
     protected virtual void MoveOnAttack()
     {
         Vector2 force = new Vector2(facing * combo1.movementForce, 0);
         rb.AddForce(force, ForceMode2D.Impulse);
     }
-
     public void ComboOneMoveOnAttack()
     {
         combo1.MoveOnAttack();
     }
-
     public void ComboOneCastHitBox()
     {
         combo1.CastHitBox();
     }
-
     protected virtual void EndAttackString()
     {
         inputStatus = Enum_InputStatus.allowed;
@@ -468,6 +466,7 @@ public abstract class Champion : MonoBehaviour {
         attacking = false;
         ResetAttackTokens();
     }
+
     public virtual void ReduceStamina(float amount)
     {
         if (amount != 0.0f)
@@ -478,7 +477,6 @@ public abstract class Champion : MonoBehaviour {
             staminablockedTimer = 0.0f;
         }
     }
-   
     public virtual void ReduceHealth(float amount, bool clashPossible = false, Champion attacker = null)
     {
         IncreaseLimitBreak(limitBreakOnDamage); //increase limit break
@@ -490,13 +488,20 @@ public abstract class Champion : MonoBehaviour {
         else
             Health = Health - amount;
     }
-
+    public virtual void ConsumeStamina(float amount) //DOESN'T TRIGGER THE STAMINA BLOCKED TIMER
+    {
+        if (amount != 0.0f)
+        {
+            stamina = Mathf.Max(stamina - amount, 0);
+            CheckFatigue();
+        }
+    }
+    
     public void Clash(Champion attacker)
     {
         Debug.Log("Clash !");
         StartCoroutine(ManagerInGame.GetInstance().ClashRoutine(this, attacker));
     }
-
     public void ClashMode()
     {
         animator.speed = (1 / Time.timeScale);
@@ -509,14 +514,6 @@ public abstract class Champion : MonoBehaviour {
         isClashing = false;
     }
 
-    public virtual void ConsumeStamina(float amount) //DOESN'T TRIGGER THE STAMINA BLOCKED TIMER
-    {
-        if (amount != 0.0f)
-        {
-            stamina = Mathf.Max(stamina - amount, 0);
-            CheckFatigue();
-        }
-    }
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
     {
         if(duration != 0)
@@ -531,25 +528,6 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Guarding", false);
         }
     }
-
-    public void CheckStunLock()
-    {
-        if (framesToStunLock > 0)
-        {
-            stunlockFrameCounter++;
-            if (stunlockFrameCounter >= framesToStunLock)
-            {
-                framesToStunLock = 0;
-                stunlockFrameCounter = 0;
-                rb.velocity = new Vector2(0, rb.velocity.y);
-                attacking = false;
-                animator.SetBool("Damaged", false);
-                AllowInputs();
-                ResetAttackTokens();
-            }
-        }
-    }
-
     public void ApplyDamage(float dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false, Champion attacker=null)
     {
         if (!Immunity)
@@ -609,6 +587,29 @@ public abstract class Champion : MonoBehaviour {
             }
         }
     }
+
+    public void CheckStunLock()
+    {
+        if (framesToStunLock > 0)
+        {
+            stunlockFrameCounter++;
+            if (stunlockFrameCounter >= framesToStunLock)
+            {
+                if (specialStatus == Enum_SpecialStatus.projected)
+                {
+                    SetNormalStatus();
+                }
+                framesToStunLock = 0;
+                stunlockFrameCounter = 0;
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                attacking = false;
+                animator.SetBool("Damaged", false);
+                AllowInputs();
+                ResetAttackTokens();
+            }
+        }
+        
+    }
     protected void CheckFatigue()
     {
         if (stamina == 0)
@@ -621,8 +622,6 @@ public abstract class Champion : MonoBehaviour {
             fatigued = false;
         }
     }
-
-
     protected virtual void CheckParry()
     {
         switch (guardStatus)
@@ -706,6 +705,13 @@ public abstract class Champion : MonoBehaviour {
                 break;
         }
     }
+    protected virtual void CheckUltimate()
+    {
+        if (limitBreakGauge == maxLimitBreakGauge)
+        {
+            Ultimate();
+        }
+    }
 
     public virtual void Move(float moveX, float moveY)
     {
@@ -737,11 +743,13 @@ public abstract class Champion : MonoBehaviour {
     {
         attackToken = maxAttackToken;
     }
-
+    /*
     protected virtual void ApplySpecialEffect(Champion enemy)
     {
+
         Debug.Log("No special effect on this attack");
     }
+    */
     protected void StopMovement(int stopForce)
     {
         movementX = 0;
@@ -786,7 +794,7 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void GoDown()
     {
-        Debug.Log("Go down");
+        //Debug.Log("Go down");
         Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
         Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
         float radius = 0.1f;
@@ -1176,26 +1184,43 @@ public abstract class Champion : MonoBehaviour {
             return guardBreakRecoilForce;
         }
     }
+
     public void SetProjectedStatus()
     {
         specialStatus = Enum_SpecialStatus.projected;
+        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
     }
     public void SetNormalStatus()
     {
         specialStatus = Enum_SpecialStatus.normal;
+        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+
+        //Debug.Log("Normal is the new black");
     }
-    public void SetStunStatus()
+    public void SetStunStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
+        //Debug.Log("Stunned");
+        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
         specialStatus = Enum_SpecialStatus.stun;
+        inputStatus = Enum_InputStatus.blocked;
+        StartCoroutine(EffectCoroutine(duration));
     }
-    public void SetPoisonStatus()
+    public void SetPoisonStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
+        //Debug.Log("POISON");
         specialStatus = Enum_SpecialStatus.poison;
+        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
+        StartCoroutine(PoisonCoroutine());
+        StartCoroutine(EffectCoroutine(duration));
     }
-    public void SetSlowStatus()
+    public void SetSlowStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
+        //Debug.Log("SLOW");
         specialStatus = Enum_SpecialStatus.slow;
+        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
+        StartCoroutine(EffectCoroutine(duration));
     }
+
     public bool IsJumping()
     {
         return (IsGrounded() && !falling);
@@ -1220,6 +1245,36 @@ public abstract class Champion : MonoBehaviour {
         get
         {
             return powerUpParticleSystem;
+        }
+    }
+
+    IEnumerator EffectCoroutine(float duration)
+    {
+        Enum_SpecialStatus startingEffect = specialStatus;
+        yield return new WaitForSeconds(duration);
+        if(specialStatus == startingEffect)
+        {
+            SetNormalStatus();
+        }
+        
+    }
+
+    IEnumerator StunCoroutine(float duration)
+    {
+        Enum_SpecialStatus startingEffect = specialStatus;
+        yield return new WaitForSeconds(duration);
+        if (specialStatus == startingEffect)
+        {
+            SetNormalStatus();
+        }
+    }
+
+    IEnumerator PoisonCoroutine()
+    {
+        while(specialStatus == Enum_SpecialStatus.poison)
+        {
+            ReduceHealth(5);
+            yield return new WaitForSeconds(1);
         }
     }
 }
