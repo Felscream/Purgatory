@@ -39,7 +39,7 @@ public class AddChampion : MonoBehaviour {
             player1.SetActive(true);
             if (!player1.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer1 = Instantiate(prefabSorcerer, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                Champion championPlayer1 = Instantiate(prefabArcher, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
                 championPlayer1.transform.localPosition = new Vector3(0, 0, 0);
                 // On lui donne le HUD correspondant
                 championPlayer1.playerHUD = HUDPlayer1;
