@@ -778,19 +778,33 @@ public abstract class Champion : MonoBehaviour {
         Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
         Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
         float radius = 0.1f;
-        Collider2D hitOne = Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle"));
-        if (hitOne != null && !hitOne.isTrigger)
+        Collider2D[] hitOne = Physics2D.OverlapCircleAll(centerOne, radius, LayerMask.GetMask("Obstacle"));
+        if (hitOne.Length > 0)
         {
-            ignorePlatforms = true;
-            Physics2D.IgnoreCollision(hitOne, physicBox, true);
+            foreach(Collider2D col in hitOne)
+            {
+                if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
+                {
+                    ignorePlatforms = true;
+                    Physics2D.IgnoreCollision(col, physicBox, true);
+                    break;
+                }
+            }
         }
         else
         {
-            Collider2D hitTwo = Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"));
-            if(hitTwo != null && !hitOne.isTrigger)
+            Collider2D[] hitTwo = Physics2D.OverlapCircleAll(centerTwo, radius, LayerMask.GetMask("Obstacle"));
+            if(hitTwo.Length > 0)
             {
-                ignorePlatforms = true;
-                Physics2D.IgnoreCollision(hitTwo, physicBox, true);
+                foreach (Collider2D col in hitOne)
+                {
+                    if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
+                    {
+                        ignorePlatforms = true;
+                        Physics2D.IgnoreCollision(col, physicBox, true);
+                        break;
+                    }
+                }
             }
             else
             {
@@ -805,7 +819,7 @@ public abstract class Champion : MonoBehaviour {
         Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
         float radius = 0.1f;
 
-        if (Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle")))
+        if ((Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"))) && !ignorePlatforms)
         {
             animator.SetBool("Fall", false);
             DisableDiveBox();
