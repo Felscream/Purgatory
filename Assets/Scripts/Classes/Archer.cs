@@ -33,6 +33,12 @@ public class Archer : Champion
     protected float forceArrow = 0.3f; //The force of the arrow
     protected bool isKeyActive = false;
     protected Enum_ChargeLevel chargeLevel = Enum_ChargeLevel.low;
+
+
+    [Header("SoundSettings")]
+    public AudioClip cacAttackSound;
+    AudioSource audioSource;
+
     private float staminaConsumed;
     private bool playedOnceChargeOne = false, playedOnceChargeTwo = false;
     private ParticleSystemRenderer psr;
@@ -284,5 +290,11 @@ public class Archer : Champion
     protected override void Ultimate()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void CacAttackSound()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(cacAttackSound, 1.0F);
     }
 }

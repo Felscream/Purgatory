@@ -16,6 +16,10 @@ public class Arrow : Projectile
     [SerializeField] private Gradient slow;
     [SerializeField] private Gradient stun;
 
+    [Header("SoundSettings")]
+    public AudioClip arrowSound;
+    AudioSource audioSource;
+
     private ParticleSystem.ColorOverLifetimeModule particleColor;
     protected override void Start()
     {
@@ -126,5 +130,10 @@ public class Arrow : Projectile
         {
             arrowStatus = value;
         }
+    }
+    public void ArrowSound()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(arrowSound, 1.0F);
     }
 }

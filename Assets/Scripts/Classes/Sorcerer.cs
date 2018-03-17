@@ -24,7 +24,13 @@ public class Sorcerer : Champion
     [SerializeField] private Vector3 altRotation;
     [SerializeField] private Vector2 altRecoil = new Vector2(-4, 4);
 
+    [Header("SoundSettings")]
+    public AudioClip primaryAttackSound;
+    public AudioClip specialAttackSound;
+    AudioSource audioSource;
+
     private bool ultimate = false;
+
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -268,5 +274,11 @@ public class Sorcerer : Champion
                 //temp.RB.gravityScale = 0.0f;
             }
         }
+    }
+
+    public void PrimaryAttackSound()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(primaryAttackSound, 0.2F);
     }
 }

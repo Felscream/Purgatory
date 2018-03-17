@@ -432,6 +432,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a2724775da6e8f14b8da254233b0eff5, type: 2}
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
   projectileSpawnOffsetArrow: {x: 1.21, y: 0}
+  cacAttackSound: {fileID: 8300000, guid: 48242b70c1571ff41bd194c98de4f4c6, type: 3}
 --- !u!114 &114782146192993706
 MonoBehaviour:
   m_ObjectHideFlags: 1

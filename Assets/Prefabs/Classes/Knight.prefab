@@ -235,7 +235,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.074
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -450,6 +450,8 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
+  primaryAttackSound: {fileID: 8300000, guid: 2f8a0a61fcc911148835ed4130e2dc0b, type: 3}
+  specialAttackSound: {fileID: 8300000, guid: 55be4cb6695f6db4ba961e2eb9a38d45, type: 3}
 --- !u!114 &114615723824182320
 MonoBehaviour:
   m_ObjectHideFlags: 1
