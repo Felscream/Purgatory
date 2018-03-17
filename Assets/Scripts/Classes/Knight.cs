@@ -8,6 +8,11 @@ public class Knight : Champion
     public Attack enhancedCombo1;
     public Attack enhancedCombo2;
 
+    [Header("SoundSettings")]
+    public AudioClip primaryAttackSound;
+    public AudioClip specialAttackSound;
+    AudioSource audioSource;
+
     protected bool secondaryAttackRunning = false;
     
     public void OnDrawGizmosSelected()
@@ -117,4 +122,15 @@ public class Knight : Champion
         throw new System.NotImplementedException();
     }
 
+    public void PrimaryAttackSound()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(primaryAttackSound, 1.0F);
+    }
+
+    public void SpecialAttackSound()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(specialAttackSound, 1.0F);
+    }
 }

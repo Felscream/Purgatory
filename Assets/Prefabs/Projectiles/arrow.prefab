@@ -265,6 +265,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
+  arrowSound: {fileID: 8300000, guid: 3affcab4110436e4a9d50fd274332d11, type: 3}
 --- !u!114 &114984677698657860
 MonoBehaviour:
   m_ObjectHideFlags: 1

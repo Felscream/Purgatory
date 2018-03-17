@@ -385,6 +385,8 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
+  ultimateParticleSystem: {fileID: 0}
+  powerUpParticleSystem: {fileID: 0}
   clashClick: 0
   firstLevelTime: 0.75
   firstLevelMultiplier: 1.5
@@ -393,6 +395,7 @@ MonoBehaviour:
   speedReductionMultiplier: 0.75
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
   projectileSpawnOffsetArrow: {x: 1.21, y: 0}
+  cacAttackSound: {fileID: 8300000, guid: 48242b70c1571ff41bd194c98de4f4c6, type: 3}
 --- !u!114 &114782146192993706
 MonoBehaviour:
   m_ObjectHideFlags: 1

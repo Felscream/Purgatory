@@ -476,6 +476,8 @@ MonoBehaviour:
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
   altRotation: {x: 0, y: 0, z: -45}
   altRecoil: {x: -4, y: 4}
+  primaryAttackSound: {fileID: 8300000, guid: 7b5890d602f1c2347909ce6f6f804631, type: 3}
+  specialAttackSound: {fileID: 0}
 --- !u!114 &114637292809391622
 MonoBehaviour:
   m_ObjectHideFlags: 1
