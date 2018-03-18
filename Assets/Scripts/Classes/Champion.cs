@@ -64,6 +64,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected int parryStaminaCost = 60;
     [SerializeField] protected int parryImmunityStartFrame = 2;
     [SerializeField] protected int parryImmunityEndFrame = 8;
+    [SerializeField] protected float parryStunDuration = 2.0f;
 
     [Header("Guard Settings")]
     [SerializeField] protected float damageReductionMultiplier = 0.2f;
@@ -531,7 +532,7 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Guarding", false);
         }
     }
-    public void ApplyDamage(float dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false, Champion attacker=null)
+    public void ApplyDamage(float dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false, Champion attacker=null, bool isProjectile = false)
     {
         if (!Immunity)
         {
@@ -584,9 +585,13 @@ public abstract class Champion : MonoBehaviour {
         {
             if(guardStatus == Enum_GuardStatus.parrying)
             {
-                Debug.Log("Parried");
-                rb.velocity = Vector2.zero;
-                IncreaseLimitBreak(limitBreakOnParry);
+                if(attacker != null && !isProjectile)
+                {
+                    Debug.Log("Parried");
+                    rb.velocity = Vector2.zero;
+                    IncreaseLimitBreak(limitBreakOnParry);
+                    attacker.SetStunStatus(parryStunDuration);
+                }
             }
         }
     }
@@ -1194,19 +1199,27 @@ public abstract class Champion : MonoBehaviour {
 
     public void SetProjectedStatus(float attackerFacing, Vector2 projectionForce, float duration = DEFAULT_EFFECT_DURATION)
     {
-        specialStatus = Enum_SpecialStatus.projected;
-        inputStatus = Enum_InputStatus.blocked;
-        Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
-        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
-        rb.velocity = Vector2.zero;
-        rb.gravityScale = 0.0f;
-        rb.AddForce(new Vector2(projectionForce.x * attackerFacing, projectionForce.y), ForceMode2D.Impulse);
-        StartCoroutine(EffectCoroutine(duration));
-        StartCoroutine(ProjectionCoroutine());
+        if (!immune)
+        {
+            specialStatus = Enum_SpecialStatus.projected;
+            inputStatus = Enum_InputStatus.blocked;
+            guardStatus = Enum_GuardStatus.noGuard;
+            animator.SetBool("Guarding", false);
+            animator.SetBool("Jump", false);
+            Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0.0f;
+
+            rb.AddForce(new Vector2(projectionForce.x * attackerFacing, projectionForce.y), ForceMode2D.Impulse);
+            StartCoroutine(EffectCoroutine(duration));
+            StartCoroutine(ProjectionCoroutine());
+        }
     }
     public void SetNormalStatus()
     {
         specialStatus = Enum_SpecialStatus.normal;
+        speed = baseSpeed;
         AllowInputs();
         this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
 
@@ -1214,27 +1227,41 @@ public abstract class Champion : MonoBehaviour {
     }
     public void SetStunStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
-        Debug.Log("Stunned");
-        rb.velocity = Vector2.zero;
-        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
-        specialStatus = Enum_SpecialStatus.stun;
-        inputStatus = Enum_InputStatus.blocked;
-        StartCoroutine(EffectCoroutine(duration));
+        if(!immune)
+        {
+            Debug.Log("Stunned");
+            rb.velocity = Vector2.zero;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
+            specialStatus = Enum_SpecialStatus.stun;
+            guardStatus = Enum_GuardStatus.noGuard;
+            animator.SetBool("Guarding", false);
+            animator.SetBool("Jump", false);
+            inputStatus = Enum_InputStatus.blocked;
+            StartCoroutine(EffectCoroutine(duration));
+        }
+        
     }
     public void SetPoisonStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
         //Debug.Log("POISON");
-        specialStatus = Enum_SpecialStatus.poison;
-        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
-        StartCoroutine(PoisonCoroutine());
-        StartCoroutine(EffectCoroutine(duration));
+        if (!immune)
+        {
+            specialStatus = Enum_SpecialStatus.poison;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
+            StartCoroutine(PoisonCoroutine());
+            StartCoroutine(EffectCoroutine(duration));
+        }
     }
-    public void SetSlowStatus(float duration = DEFAULT_EFFECT_DURATION)
+    public void SetSlowStatus(float duration = DEFAULT_EFFECT_DURATION, float slowRatio = 0.75f)
     {
         //Debug.Log("SLOW");
-        specialStatus = Enum_SpecialStatus.slow;
-        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
-        StartCoroutine(EffectCoroutine(duration));
+        if (!immune)
+        {
+            specialStatus = Enum_SpecialStatus.slow;
+            speed = baseSpeed * slowRatio;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
+            StartCoroutine(EffectCoroutine(duration));
+        }
     }
 
     public bool IsJumping()
@@ -1293,11 +1320,11 @@ public abstract class Champion : MonoBehaviour {
                 }
                 else
                 {
-                    if (hitPlayer != null)
+                    if(hitPlayer != null)
                     {
                         Champion other = hitPlayer.GetComponent<Champion>();
                         Debug.Log(other.gameObject.name);
-                        if (other != this && other != null)
+                        if(other != this && other != null)
                         {
                             SetStunStatus();
                             other.SetStunStatus();
@@ -1317,7 +1344,7 @@ public abstract class Champion : MonoBehaviour {
             SetNormalStatus();
         }
     }
-
+    
     IEnumerator PoisonCoroutine()
     {
         while(specialStatus == Enum_SpecialStatus.poison)

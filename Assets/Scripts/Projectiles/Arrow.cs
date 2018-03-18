@@ -70,7 +70,7 @@ public class Arrow : Projectile
                 if (appearance == null)     //if we didn't, we deal damage
                 {
                     hits.Add(foe);
-                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
+                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner, true);
                     ApplyAndShowDebuf(foe);
                     //impact = true;
                     DestroyProjectile();

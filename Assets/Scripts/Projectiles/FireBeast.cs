@@ -104,7 +104,7 @@ public class FireBeast : Projectile {
                 if (appearance == null)     //if we didn't, we deal damage
                 {
                     hits.Add(foe);
-                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
+                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, true, true, owner, true);
                     Debug.Log(direction);
                     foe.SetProjectedStatus(direction, projectionForce, 2);
                 }

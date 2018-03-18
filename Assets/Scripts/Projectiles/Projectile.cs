@@ -84,8 +84,7 @@ public abstract class Projectile : MonoBehaviour {
                 if (appearance == null)     //if we didn't, we deal damage
                 {
                     hits.Add(foe);
-                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
-                    owner.IncreaseLimitBreak(owner.LimitBreakOnHit);
+                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner, true);
                     SetImpact();
                 }
             }
