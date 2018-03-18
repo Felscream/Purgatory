@@ -1233,7 +1233,7 @@ public abstract class Champion : MonoBehaviour {
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0.0f;
-
+            animator.SetBool("Projected", true);
             rb.AddForce(new Vector2(projectionForce.x * attackerFacing, projectionForce.y), ForceMode2D.Impulse);
             StartCoroutine(EffectCoroutine(duration));
             projectedCoroutine = StartCoroutine(ProjectionCoroutine());
@@ -1245,6 +1245,8 @@ public abstract class Champion : MonoBehaviour {
         {
             StopCoroutine(projectedCoroutine);
         }
+        animator.SetBool("Projected", false);
+        animator.SetBool("Stunned", false);
         specialStatus = Enum_SpecialStatus.normal;
         speed = baseSpeed;
         AllowInputs();
@@ -1258,6 +1260,8 @@ public abstract class Champion : MonoBehaviour {
         {
             Debug.Log("Stunned");
             rb.velocity = Vector2.zero;
+            animator.SetBool("Projected", false);
+            animator.SetBool("Stunned", true);
             rb.gravityScale = 1.0f;
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
             specialStatus = Enum_SpecialStatus.stun;
