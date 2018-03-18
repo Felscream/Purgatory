@@ -271,7 +271,8 @@ public class Archer : Champion
         {
             case 1:
                 combo1.CastHitBox();
-                if (powerUp.PowerUpStatus == Enum_PowerUpStatus.activated) { 
+                if (powerUp.PowerUpStatus == Enum_PowerUpStatus.activated)
+                {
                     temp.UseStack();
                 }
                 break;

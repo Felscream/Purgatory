@@ -370,6 +370,7 @@ MonoBehaviour:
   parryStaminaCost: 60
   parryImmunityStartFrame: 2
   parryImmunityEndFrame: 12
+  parryStunDuration: 2
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
   baseStamina: 100
@@ -388,6 +389,8 @@ MonoBehaviour:
   guardBreakDamage: 5
   guardBreakstunLock: 15
   guardBreakRecoilForce: {x: 0, y: 0}
+  ultimateParticleSystem: {fileID: 0}
+  powerUpParticleSystem: {fileID: 0}
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 33024
@@ -406,7 +409,7 @@ MonoBehaviour:
     canClash: 0
   combo1:
     offset: {x: 0.6, y: 0}
-    size: {x: 1.94, y: 1.18}
+    size: {x: 2, y: 1.18}
     stunLock: 5
     recoilForce: {x: 2, y: 0}
     staminaCost: 20
@@ -416,9 +419,6 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
-  ultimateParticleSystem: {fileID: 0}
-  powerUpParticleSystem: {fileID: 0}
-  clashClick: 0
   firstLevelTime: 0.5
   firstLevelMultiplier: 1.25
   secondLevelTime: 1.5

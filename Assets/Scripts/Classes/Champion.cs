@@ -447,7 +447,7 @@ public abstract class Champion : MonoBehaviour {
         attacking = true;
         rb.velocity = Vector2.zero;
     }
-    protected virtual void MoveOnAttack()
+    public virtual void MoveOnAttack(int attackID)
     {
         Vector2 force = new Vector2(facing * combo1.movementForce, 0);
         rb.AddForce(force, ForceMode2D.Impulse);
@@ -462,8 +462,8 @@ public abstract class Champion : MonoBehaviour {
     }
     protected virtual void EndAttackString()
     {
-        if (specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected) { 
-            inputStatus = Enum_InputStatus.allowed;
+        if (specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected) {
+            AllowInputs();
         }
         CheckFatigue();
         attacking = false;
@@ -1261,14 +1261,14 @@ public abstract class Champion : MonoBehaviour {
         }
         
     }
-    public void SetPoisonStatus(float duration = DEFAULT_EFFECT_DURATION)
+    public void SetPoisonStatus(float poisonDamage = 2.0f, float duration = DEFAULT_EFFECT_DURATION)
     {
         //Debug.Log("POISON");
         if (!immune)
         {
             specialStatus = Enum_SpecialStatus.poison;
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
-            StartCoroutine(PoisonCoroutine());
+            StartCoroutine(PoisonCoroutine(poisonDamage));
             StartCoroutine(EffectCoroutine(duration));
         }
     }
@@ -1367,11 +1367,11 @@ public abstract class Champion : MonoBehaviour {
         }
     }
     
-    IEnumerator PoisonCoroutine()
+    IEnumerator PoisonCoroutine(float poisonDamage)
     {
         while(specialStatus == Enum_SpecialStatus.poison)
         {
-            ReduceHealth(5);
+            ReduceHealth(poisonDamage);
             yield return new WaitForSeconds(1);
         }
     }

@@ -15,11 +15,19 @@ public class Arrow : Projectile
     [SerializeField] private Gradient poison;
     [SerializeField] private Gradient slow;
     [SerializeField] private Gradient stun;
-
     [Header("SoundSettings")]
     public AudioClip arrowSound;
     AudioSource audioSource;
-
+    public float PoisonDamage{
+        get
+        {
+            return PoisonDamage;
+        }
+        set
+        {
+            PoisonDamage = value;
+        }
+    }
     private ParticleSystem.ColorOverLifetimeModule particleColor;
     protected override void Start()
     {
@@ -107,7 +115,7 @@ public class Arrow : Projectile
                 stunAnim.transform.Translate(new Vector3(0.0f, 0.0f, -0.1f));
                 stunAnim.transform.localScale += new Vector3(1.25F, 1.3F, 0);
                 Destroy(stunAnim, 5f);
-                foe.SetPoisonStatus();
+                foe.SetPoisonStatus(PoisonDamage);
             }
             else
             {

@@ -10,6 +10,7 @@ public class SpecialArrowEffect : PowerUp
     [SerializeField] private bool isSlowed = false;*/
 
     [SerializeField] private int maxStacks = 3;
+    [SerializeField] private float poisonDamage = 3;
     private Enum_SpecialStatus statusEffect;
     private bool reloading = false;
     private Coroutine reloadStackCoroutine;
@@ -109,6 +110,14 @@ public class SpecialArrowEffect : PowerUp
         get
         {
             return statusEffect;
+        }
+    }
+
+    public float PoisonDamage
+    {
+        get
+        {
+            return poisonDamage;
         }
     }
 

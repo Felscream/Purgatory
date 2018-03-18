@@ -103,7 +103,7 @@ public class Knight : Champion
         }
     }
 
-    protected void MoveOnAttack(int attackID)
+    public override void MoveOnAttack(int attackID)
     {
         switch (attackID)
         {
