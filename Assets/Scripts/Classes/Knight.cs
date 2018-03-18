@@ -125,7 +125,10 @@ public class Knight : Champion
 
     protected override void Ultimate()
     {
-        throw new System.NotImplementedException();
+        if (IsGrounded())
+        {
+            animator.SetTrigger("Ultimate");
+        }
     }
 
     public void PrimaryAttackSound()

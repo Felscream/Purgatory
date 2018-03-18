@@ -397,7 +397,6 @@ public abstract class Champion : MonoBehaviour {
                     if (staminablockedTimer > staminaRegenerationCooldown)
                     {
                         staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
-
                     }
                 }
                 break;
@@ -406,6 +405,7 @@ public abstract class Champion : MonoBehaviour {
     protected void RegenerateLimitBreakPerSecond()
     {
         limitBreakGauge = Mathf.Min(limitBreakGauge + limitBreakPerSecond * Time.deltaTime, maxLimitBreakGauge);
+        Debug.Log(limitBreakGauge);
     }
     public virtual void IncreaseLimitBreak(float modifier)
     {
@@ -951,10 +951,9 @@ public abstract class Champion : MonoBehaviour {
         float a = healthSlider.value;
         healthSlider.value = health;
         staminaSlider.value = stamina;
-        if(limitBreakSlider != null)
-        {
-            limitBreakSlider.value = limitBreakGauge;
-        }
+
+        limitBreakSlider.value = limitBreakGauge;
+        Debug.Log(limitBreakSlider.value);
         float b = healthSlider.value;
         if (a != b) //si recu des degats, barre colorée supplémentaire
         {
