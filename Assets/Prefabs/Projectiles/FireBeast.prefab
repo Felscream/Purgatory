@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4221408643701010}
   - component: {fileID: 198801860703616974}
   - component: {fileID: 199352546578382714}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BeastParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 50419455411921904}
   - component: {fileID: 61410521536101692}
   - component: {fileID: 114057062849318216}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FireBeast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4166413258242086}
   - component: {fileID: 198075005784646614}
   - component: {fileID: 199034060805802780}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: EmbersParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +173,7 @@ MonoBehaviour:
   shakeIntensity: 5
   shakeNumber: 10
   shakeSpeed: 50
+  projectionForce: {x: 30, y: 0}
   beastRenderer: {fileID: 199352546578382714}
   rightMaterial: {fileID: 2100000, guid: e68229135b7d80142b09601388c824e0, type: 2}
   leftMaterial: {fileID: 2100000, guid: 91c32381896cd3b4d92fb6bf55f08b8f, type: 2}

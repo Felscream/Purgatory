@@ -71,7 +71,11 @@ public class Arrow : Projectile
                 {
                     hits.Add(foe);
                     foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner, true);
-                    ApplyAndShowDebuf(foe);
+                    if (CanApplySpecialEffect(foe))
+                    {
+                        ApplyAndShowDebuf(foe);
+                    }
+                    
                     //impact = true;
                     DestroyProjectile();
                 }

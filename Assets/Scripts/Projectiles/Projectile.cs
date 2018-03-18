@@ -124,7 +124,24 @@ public abstract class Projectile : MonoBehaviour {
         sr.enabled = false;
         Destroy(gameObject, timeToDestroy);
     }
-
+    protected bool CanApplySpecialEffect(Champion foe)
+    {
+        if (!foe.Immunity)
+        {
+            if (foe.GuardStatus == Enum_GuardStatus.noGuard )
+            {
+                return true;
+            }
+            else
+            {
+                if (foe.GuardStatus == Enum_GuardStatus.guarding && foe.Facing == direction)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public int Damage
     {
         get

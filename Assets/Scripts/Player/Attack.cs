@@ -85,13 +85,30 @@ public class Attack {
             // Debug.Log("Hit " + foe.transform.parent.name);
             foe.ApplyDamage(damage, user.Facing, stunLock, recoilForce, guardBreaker, canClash, user);
             user.IncreaseLimitBreak(user.LimitBreakOnHit);  //increase limit break
-            if (haveSpecialEffect)
+            if (haveSpecialEffect && CanApplySpecialEffect(foe))
             {
                 ApplySpecialEffect(foe);
             }
         }
     }
-
+    protected bool CanApplySpecialEffect(Champion foe)
+    {
+        if (!foe.Immunity)
+        {
+            if (foe.GuardStatus == Enum_GuardStatus.noGuard)
+            {
+                return true;
+            }
+            else
+            {
+                if (foe.GuardStatus == Enum_GuardStatus.guarding && foe.Facing == user.Facing)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     protected void ApplySpecialEffect(Champion enemy)
     {
         switch(specialEffect)

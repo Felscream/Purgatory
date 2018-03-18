@@ -462,7 +462,9 @@ public abstract class Champion : MonoBehaviour {
     }
     protected virtual void EndAttackString()
     {
-        inputStatus = Enum_InputStatus.allowed;
+        if (specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected) { 
+            inputStatus = Enum_InputStatus.allowed;
+        }
         CheckFatigue();
         attacking = false;
         ResetAttackTokens();
@@ -532,7 +534,7 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Guarding", false);
         }
     }
-    public void ApplyDamage(float dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false, Champion attacker=null, bool isProjectile = false)
+    public void ApplyDamage(float dmg, float attackerFacing, int stunLock, Vector2 recoilForce, bool guardBreaker = false, bool clashPossible = false, Champion attacker = null, bool isProjectile = false, bool isUltimate = false)
     {
         if (!Immunity)
         {
@@ -563,7 +565,7 @@ public abstract class Champion : MonoBehaviour {
             }
             else //attacker is behind the player or the player is not guarding
             {
-                if (!guardBreaker) //if the attack isn't a guard break
+                if (!guardBreaker || isUltimate) //if the attack isn't a guard break or is a guard breaking ultimate
                 {
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     if (stunLock > 0)
@@ -762,7 +764,7 @@ public abstract class Champion : MonoBehaviour {
     {
         movementX = 0;
         movementY = 0;
-        if (stopForce == 1)
+        if (stopForce == 1 && specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
         {
             rb.velocity = Vector2.zero;
         }
@@ -861,10 +863,15 @@ public abstract class Champion : MonoBehaviour {
 
     public void AllowInputs()   //activated in the animation controller
     {
-        immune = false;
-        rb.gravityScale = 1.0f;
-        inputStatus = Enum_InputStatus.allowed;
-        ResetAttackTokens();
+        if(specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
+        {
+            Debug.Log(specialStatus);
+            immune = false;
+            rb.gravityScale = 1.0f;
+            inputStatus = Enum_InputStatus.allowed;
+            ResetAttackTokens();
+        }
+        
     }
 
     public IEnumerator ProcDivineShield(float time)
@@ -873,6 +880,8 @@ public abstract class Champion : MonoBehaviour {
         {
             immune = true;
             inputStatus = Enum_InputStatus.onlyMovement;
+            specialStatus = Enum_SpecialStatus.normal;
+            rb.velocity = Vector2.zero;
             InvincibilityVisualizer();
             rb.gravityScale = 1.0f;
             yield return new WaitForSeconds(time);
@@ -1138,6 +1147,14 @@ public abstract class Champion : MonoBehaviour {
             return immune;
         }
     }
+
+    public Enum_GuardStatus GuardStatus
+    {
+        get
+        {
+            return guardStatus;
+        }
+    }
     public bool Fatigue
     {
         get
@@ -1197,15 +1214,20 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
+    public void SetStunEffects()
+    {
+        inputStatus = Enum_InputStatus.blocked;
+        guardStatus = Enum_GuardStatus.noGuard;
+        animator.SetBool("Guarding", false);
+        animator.SetBool("Jump", false);
+    }
+
     public void SetProjectedStatus(float attackerFacing, Vector2 projectionForce, float duration = DEFAULT_EFFECT_DURATION)
     {
         if (!immune)
         {
             specialStatus = Enum_SpecialStatus.projected;
-            inputStatus = Enum_InputStatus.blocked;
-            guardStatus = Enum_GuardStatus.noGuard;
-            animator.SetBool("Guarding", false);
-            animator.SetBool("Jump", false);
+            SetStunEffects();
             Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
             rb.velocity = Vector2.zero;
@@ -1231,12 +1253,10 @@ public abstract class Champion : MonoBehaviour {
         {
             Debug.Log("Stunned");
             rb.velocity = Vector2.zero;
+            rb.gravityScale = 1.0f;
             this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
             specialStatus = Enum_SpecialStatus.stun;
-            guardStatus = Enum_GuardStatus.noGuard;
-            animator.SetBool("Guarding", false);
-            animator.SetBool("Jump", false);
-            inputStatus = Enum_InputStatus.blocked;
+            SetStunEffects();
             StartCoroutine(EffectCoroutine(duration));
         }
         
@@ -1305,6 +1325,7 @@ public abstract class Champion : MonoBehaviour {
     {
         while(specialStatus == Enum_SpecialStatus.projected)
         {
+            SetStunEffects();
             Vector2 wallDetectorPosition = new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y);
             Collider2D hitObstacle = Physics2D.OverlapCircle(wallDetectorPosition, 0.5f, LayerMask.GetMask("Obstacle"));
             Collider2D hitPlayer = Physics2D.OverlapCircle(wallDetectorPosition, 0.5f, LayerMask.GetMask("Player"));
@@ -1337,6 +1358,7 @@ public abstract class Champion : MonoBehaviour {
     }
     IEnumerator StunCoroutine(float duration)
     {
+        SetStunEffects();
         Enum_SpecialStatus startingEffect = specialStatus;
         yield return new WaitForSeconds(duration);
         if (specialStatus == startingEffect)

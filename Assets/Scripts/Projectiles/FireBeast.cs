@@ -78,12 +78,13 @@ public class FireBeast : Projectile {
 
     protected override void SetImpact()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, timeToDestroy);
     }
 
     private void HandleTrigger(Collider2D collider)
     {
         Champion foe = collider.gameObject.GetComponent<Champion>();
+        Projectile projectile = collider.gameObject.GetComponent<Projectile>();
         if (foe != null) //a player has been hit
         {
             if (foe != owner && !foe.Dead)   //the player struck is not the owner of the projectile and is not dead
@@ -104,11 +105,14 @@ public class FireBeast : Projectile {
                 if (appearance == null)     //if we didn't, we deal damage
                 {
                     hits.Add(foe);
-                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, true, true, owner, true);
-                    Debug.Log(direction);
+                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, true, true, owner, true, true);
                     foe.SetProjectedStatus(direction, projectionForce, 2);
                 }
             }
+        }
+        else if(projectile != null)
+        {
+            projectile.DestroyProjectile();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
