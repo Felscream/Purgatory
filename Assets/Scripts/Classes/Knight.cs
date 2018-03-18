@@ -162,11 +162,14 @@ public class Knight : Champion
         {
             float distance = Vector2.Distance(hit.transform.position, transform.position);
             float timeToLive = distance / 40;
+            
             fb.TimeToLive = timeToLive;
-            Debug.Log(fb.TimeToLive + " "+distance +" "+ fb.GetComponent<Rigidbody2D>().velocity.x);
         }
+        fb.BeastParticleSystem.Stop();
         StartCoroutine(fb.StopCollisionDetection());
+        fb.BeastParticleSystem.Play();
         rb.gravityScale = 1.0f;
+        ResetLimitBreak();
     }
     public void PrimaryAttackSound()
     {

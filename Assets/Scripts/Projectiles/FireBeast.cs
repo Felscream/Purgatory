@@ -43,6 +43,8 @@ public class FireBeast : Projectile {
         }
     }
 
+
+
     public IEnumerator StopCollisionDetection()
     {
         ParticleSystem.MainModule main = beastParticleSystem.main;
@@ -58,7 +60,7 @@ public class FireBeast : Projectile {
         float timer = 0.0f;
         while(timer < timeToLive * 0.75f)
         {
-            Camera.main.GetComponent<CameraControl>().Shake(shakeIntensity, shakeNumber, shakeSpeed);
+            Camera.main.GetComponent<CameraControl>().Shake(shakeIntensity, shakeNumber, shakeSpeed, true);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -79,6 +81,46 @@ public class FireBeast : Projectile {
         Destroy(gameObject);
     }
 
+    private void HandleTrigger(Collider2D collider)
+    {
+        Champion foe = collider.gameObject.GetComponent<Champion>();
+        if (foe != null) //a player has been hit
+        {
+            if (foe != owner && !foe.Dead)   //the player struck is not the owner of the projectile and is not dead
+            {
+                Champion appearance = null;
+                if (hits.Count > 0)         //check if we already hit this player with the same projectile, 
+                {
+                    foreach (Champion col in hits)
+                    {
+                        if (foe == col)
+                        {
+                            appearance = col;
+                            break;
+                        }
+                    }
+                }
+
+                if (appearance == null)     //if we didn't, we deal damage
+                {
+                    hits.Add(foe);
+                    foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
+                }
+            }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        HandleTrigger(collision);
+    }
+
+    public ParticleSystem BeastParticleSystem
+    {
+        get
+        {
+            return beastParticleSystem;
+        }
+    }
     public float Speed
     {
         get
@@ -102,4 +144,6 @@ public class FireBeast : Projectile {
             timeToLive = value;
         }
     }
+
+   
 }
