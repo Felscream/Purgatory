@@ -9,6 +9,7 @@ public class Attack {
     public Vector2 size = new Vector2(1, 1);
     public int stunLock = 5;
     public Vector2 recoilForce;
+    public float projectionDuration = 1.5f;
     public float staminaCost;
     public int damage = 10;
     public float movementForce = 2;
@@ -123,7 +124,7 @@ public class Attack {
                 enemy.SetSlowStatus();
                 break;
             case Enum_SpecialStatus.projected:
-                enemy.SetProjectedStatus(user.Facing, new Vector2(0,0), 0.1f);
+                enemy.SetProjectedStatus(user.Facing, recoilForce, projectionDuration);
                 break;
             default:
                 Debug.Log("No special effect on this attack");

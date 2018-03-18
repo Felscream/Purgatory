@@ -735,6 +735,7 @@ public abstract class Champion : MonoBehaviour {
         if (moveX != 0)
         {
             facing = Mathf.Sign(moveX);
+            rb.velocity = new Vector2(0, rb.velocity.y);
             animator.SetFloat("FaceX", facing);
         }
         else
@@ -1235,11 +1236,15 @@ public abstract class Champion : MonoBehaviour {
 
             rb.AddForce(new Vector2(projectionForce.x * attackerFacing, projectionForce.y), ForceMode2D.Impulse);
             StartCoroutine(EffectCoroutine(duration));
-            StartCoroutine(ProjectionCoroutine());
+            projectedCoroutine = StartCoroutine(ProjectionCoroutine());
         }
     }
     public void SetNormalStatus()
     {
+        if(projectedCoroutine != null)
+        {
+            StopCoroutine(projectedCoroutine);
+        }
         specialStatus = Enum_SpecialStatus.normal;
         speed = baseSpeed;
         AllowInputs();
