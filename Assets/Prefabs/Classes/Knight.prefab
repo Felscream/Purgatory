@@ -383,6 +383,8 @@ MonoBehaviour:
   guardBreakDamage: 5
   guardBreakstunLock: 30
   guardBreakRecoilForce: {x: 0, y: 0}
+  ultimateParticleSystem: {fileID: 0}
+  powerUpParticleSystem: {fileID: 198101564183319448}
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 33024
@@ -411,9 +413,6 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
-  ultimateParticleSystem: {fileID: 0}
-  powerUpParticleSystem: {fileID: 198101564183319448}
-  clashClick: 0
   combo2:
     offset: {x: 1.72, y: 0.1}
     size: {x: 2.55, y: 2.19}

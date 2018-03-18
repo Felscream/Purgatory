@@ -506,12 +506,15 @@ public abstract class Champion : MonoBehaviour {
     {
         animator.speed = (1 / Time.timeScale);
         isClashing = true;
+        GetComponent<SpriteRenderer>().sortingLayerName = "Clash";
+        GetComponent<SpriteRenderer>().sortingOrder = 1;
     }
     public void NormalMode()
     {
         clashClick = 0;
         animator.speed = 1;
         isClashing = false;
+        GetComponent<SpriteRenderer>().sortingLayerName = "Deafult";
     }
 
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged

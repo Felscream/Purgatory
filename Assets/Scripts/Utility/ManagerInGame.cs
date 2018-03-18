@@ -17,7 +17,10 @@ public class ManagerInGame : MonoBehaviour {
     public Component[] Players;
     private static ManagerInGame instance = null;
     protected Slider ClashSlider;
-    public Canvas ClashCanvas;
+    protected GameObject background;
+    protected GameObject canvas;
+    public GameObject ClashHUD;
+    protected GameObject cameraGo = null;
     [SerializeField] protected int clashTime = 10;
     [SerializeField] protected int defenderHealthGain = 30;
     [SerializeField] protected int attackerHealthLoss = 10;
@@ -48,7 +51,17 @@ public class ManagerInGame : MonoBehaviour {
     private void Start()
     {
         CheckPlayerAlive();
-        ClashSlider = ClashCanvas.GetComponentInChildren<Slider>();
+        ClashSlider = ClashHUD.GetComponentInChildren<Slider>();
+        background = ClashHUD.GetComponentInChildren<SpriteRenderer>().gameObject;
+        canvas = ClashHUD.GetComponentInChildren<Canvas>().gameObject;
+
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("MainCamera");
+
+        foreach( GameObject go in gos )
+        {
+            if (go.GetComponent<Camera>())
+                cameraGo = go;
+        }
     }
     void Update () {
         CheckPlayerAlive();
@@ -81,16 +94,43 @@ public class ManagerInGame : MonoBehaviour {
 
     public IEnumerator ClashRoutine(Champion defender, Champion attacker)
     {
-        ClashCanvas.gameObject.SetActive(true);
-        ClashSlider.gameObject.SetActive(true);
-        
-        Time.timeScale = 0.0001f;
-
-        defender.ClashMode();
-        attacker.ClashMode();
+        Vector3 finalPos = new Vector3
+        {
+            x = (attacker.Position.x + defender.Position.x) / 2,
+            y = (attacker.Position.y + defender.Position.y) / 2,
+            z = 0
+        };
+        Vector3 startingPos = cameraGo.transform.position;
+        Vector3 temp;
+        Color color;
+        float alpha = 0;
         float time = 0;
         int value = 50;
 
+        Time.timeScale = 0.0001f;
+        defender.ClashMode();
+        attacker.ClashMode();
+        
+        ClashHUD.SetActive(true);
+        background.SetActive(true);
+        while (alpha < 1)
+        {
+            alpha += Time.unscaledDeltaTime;
+            color = background.GetComponent<SpriteRenderer>().color;
+            color.a = alpha;
+            background.GetComponent<SpriteRenderer>().color = color;
+            cameraGo.GetComponent<CameraControl>().Move(finalPos.x, finalPos.y, 11);
+            /*
+            temp = cameraGo.transform.position;
+            temp = Vector3.MoveTowards(temp, finalPos, Vector3.Distance(temp, finalPos) * Time.unscaledDeltaTime * 2);
+            temp.z = 0;
+            cameraGo.transform.position = temp;
+            Debug.Log(temp + " et " + cameraGo.transform.position);
+            */
+            yield return null;
+        }
+        canvas.gameObject.SetActive(true);
+        
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
@@ -109,8 +149,28 @@ public class ManagerInGame : MonoBehaviour {
             attacker.ReduceHealth(attackerHealthLoss);
         }
 
-        ClashCanvas.gameObject.SetActive(false);
-        ClashSlider.gameObject.SetActive(false);
+
+        alpha = 1;
+        canvas.gameObject.SetActive(false);
+        while (alpha > 0)
+        {
+            alpha -= Time.unscaledDeltaTime;
+            color = background.GetComponent<SpriteRenderer>().color;
+            color.a = alpha;
+            background.GetComponent<SpriteRenderer>().color = color;
+            cameraGo.GetComponent<CameraControl>().Move(startingPos.x, startingPos.y, 11);
+            /*
+            temp = cameraGo.transform.position;
+            temp = Vector3.MoveTowards(temp, startingPos, Vector3.Distance(temp, startingPos) * Time.unscaledDeltaTime * 2);
+            temp.z = 0;
+            cameraGo.transform.position = temp;
+            Debug.Log(temp + " et " + cameraGo.transform.position);
+            */
+            yield return null;
+        }
+        background.SetActive(false);
+        ClashHUD.SetActive(false);
+
 
         Time.timeScale = 1f;
 
