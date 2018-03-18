@@ -106,7 +106,7 @@ public class ManagerInGame : MonoBehaviour {
         float alpha = 0;
         float time = 0;
         int value = 50;
-
+        yield return new WaitForEndOfFrame();
         Time.timeScale = 0.0001f;
         defender.ClashMode();
         attacker.ClashMode();
