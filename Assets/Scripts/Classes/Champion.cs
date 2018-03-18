@@ -42,7 +42,6 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] public int determination = 3;
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
-
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
 
@@ -120,6 +119,7 @@ public abstract class Champion : MonoBehaviour {
     protected Rigidbody2D rb;
     protected Animator animator;
     protected Vector2 savedVelocity;
+    protected Vector2 wallColliderPosition;
     protected Collider2D playerBox;
     protected Collider2D physicBox;
     protected Collider2D diveBox;
@@ -133,6 +133,7 @@ public abstract class Champion : MonoBehaviour {
     protected PowerUp powerUp;
     protected bool ignorePlatforms = false;
     protected Lever trapLever;
+    protected Coroutine projectedCoroutine;
     protected const int  DEFAULT_EFFECT_DURATION = 3;
 
     [System.NonSerialized] public int clashClick=0;
@@ -161,6 +162,7 @@ public abstract class Champion : MonoBehaviour {
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y,0), 0.2f);
+        //Gizmos.DrawWireSphere(new Vector3(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y, 0),0.5f);
     }
     protected void Awake()
     {
@@ -332,11 +334,11 @@ public abstract class Champion : MonoBehaviour {
     {
         if(specialStatus == Enum_SpecialStatus.projected)
         {
-            SetStunStatus();
+            /*SetStunStatus();
             if (collision.gameObject.GetComponent<Champion>())
             {
                 collision.gameObject.GetComponent<Champion>().SetStunStatus();
-            }
+            }*/
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -1016,6 +1018,11 @@ public abstract class Champion : MonoBehaviour {
         {
             return facing;
         }
+        set
+        {
+            facing = value;
+            animator.SetFloat("FaceX", facing);
+        }
     }
     public float Stamina
     {
@@ -1185,21 +1192,30 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public void SetProjectedStatus()
+    public void SetProjectedStatus(float attackerFacing, Vector2 projectionForce, float duration = DEFAULT_EFFECT_DURATION)
     {
         specialStatus = Enum_SpecialStatus.projected;
+        inputStatus = Enum_InputStatus.blocked;
+        Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
         this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 0.0f;
+        rb.AddForce(new Vector2(projectionForce.x * attackerFacing, projectionForce.y), ForceMode2D.Impulse);
+        StartCoroutine(EffectCoroutine(duration));
+        StartCoroutine(ProjectionCoroutine());
     }
     public void SetNormalStatus()
     {
         specialStatus = Enum_SpecialStatus.normal;
+        AllowInputs();
         this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
 
         //Debug.Log("Normal is the new black");
     }
     public void SetStunStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
-        //Debug.Log("Stunned");
+        Debug.Log("Stunned");
+        rb.velocity = Vector2.zero;
         this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
         specialStatus = Enum_SpecialStatus.stun;
         inputStatus = Enum_InputStatus.blocked;
@@ -1258,7 +1274,40 @@ public abstract class Champion : MonoBehaviour {
         }
         
     }
-
+    IEnumerator ProjectionCoroutine()
+    {
+        while(specialStatus == Enum_SpecialStatus.projected)
+        {
+            Vector2 wallDetectorPosition = new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y);
+            Collider2D hitObstacle = Physics2D.OverlapCircle(wallDetectorPosition, 0.5f, LayerMask.GetMask("Obstacle"));
+            Collider2D hitPlayer = Physics2D.OverlapCircle(wallDetectorPosition, 0.5f, LayerMask.GetMask("Player"));
+            if(hitObstacle == null /*&& hitPlayer == null*/)
+            {
+                yield return null;
+            }
+            else
+            {
+                if(hitObstacle != null)
+                {
+                    SetStunStatus();
+                }
+                else
+                {
+                    if (hitPlayer != null)
+                    {
+                        Champion other = hitPlayer.GetComponent<Champion>();
+                        Debug.Log(other.gameObject.name);
+                        if (other != this && other != null)
+                        {
+                            SetStunStatus();
+                            other.SetStunStatus();
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
     IEnumerator StunCoroutine(float duration)
     {
         Enum_SpecialStatus startingEffect = specialStatus;

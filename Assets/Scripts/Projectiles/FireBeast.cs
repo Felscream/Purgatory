@@ -10,7 +10,7 @@ public class FireBeast : Projectile {
     [SerializeField] private float shakeIntensity = 15.0f;
     [SerializeField] private int shakeNumber = 4;
     [SerializeField] private int shakeSpeed = 100;
-
+    [SerializeField] private Vector2 projectionForce;
     private float speed = 0.0f;
     public ParticleSystemRenderer beastRenderer;
     public Material rightMaterial;
@@ -105,6 +105,8 @@ public class FireBeast : Projectile {
                 {
                     hits.Add(foe);
                     foe.ApplyDamage(damage, direction, stunLock, recoilForce, false, true, owner);
+                    Debug.Log(direction);
+                    foe.SetProjectedStatus(direction, projectionForce, 2);
                 }
             }
         }

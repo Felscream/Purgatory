@@ -106,7 +106,7 @@ public class Attack {
                 enemy.SetSlowStatus();
                 break;
             case Enum_SpecialStatus.projected:
-                enemy.SetProjectedStatus();
+                enemy.SetProjectedStatus(user.Facing, new Vector2(0,0), 0.1f);
                 break;
             default:
                 Debug.Log("No special effect on this attack");
