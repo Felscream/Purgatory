@@ -54,14 +54,14 @@ public class ManagerInGame : MonoBehaviour {
         ClashSlider = ClashHUD.GetComponentInChildren<Slider>();
         background = ClashHUD.GetComponentInChildren<SpriteRenderer>().gameObject;
         canvas = ClashHUD.GetComponentInChildren<Canvas>().gameObject;
-
-        GameObject[] gos = GameObject.FindGameObjectsWithTag("MainCamera");
+        cameraGo = Camera.main.gameObject;
+        /*GameObject[] gos = GameObject.FindGameObjectsWithTag("MainCamera");
 
         foreach( GameObject go in gos )
         {
             if (go.GetComponent<Camera>())
                 cameraGo = go;
-        }
+        }*/
     }
     void Update () {
         CheckPlayerAlive();

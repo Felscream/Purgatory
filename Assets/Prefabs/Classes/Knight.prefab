@@ -374,7 +374,7 @@ MonoBehaviour:
   primaryFireStaminaCost: 10
   secondaryFireStaminaCost: 20
   maxLimitBreakGauge: 100
-  limitBreakPerSecond: 0.4
+  limitBreakPerSecond: 100
   limitBreakOnHit: 1
   limitBreakOnDamage: 0.25
   limitBreakOnParry: 15
@@ -449,6 +449,9 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
+  ultimateProjectile: {fileID: 1202958830836326, guid: dcf391f3b021d214e8da0ec900febdea,
+    type: 2}
+  projectileSpawnOffset: {x: 0, y: 0}
   primaryAttackSound: {fileID: 8300000, guid: 2f8a0a61fcc911148835ed4130e2dc0b, type: 3}
   specialAttackSound: {fileID: 8300000, guid: 55be4cb6695f6db4ba961e2eb9a38d45, type: 3}
 --- !u!114 &114615723824182320

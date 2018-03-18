@@ -55,11 +55,11 @@ TagManager:
   - name: Middleground
     uniqueID: 1348760825
     locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Obstacles
     uniqueID: 1526803403
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Clash
     uniqueID: 616613623

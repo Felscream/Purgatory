@@ -405,7 +405,6 @@ public abstract class Champion : MonoBehaviour {
     protected void RegenerateLimitBreakPerSecond()
     {
         limitBreakGauge = Mathf.Min(limitBreakGauge + limitBreakPerSecond * Time.deltaTime, maxLimitBreakGauge);
-        Debug.Log(limitBreakGauge);
     }
     public virtual void IncreaseLimitBreak(float modifier)
     {
@@ -428,7 +427,6 @@ public abstract class Champion : MonoBehaviour {
     }
     protected virtual void SecondaryAttack()
     {
-        
         animator.SetTrigger("SecondaryAttack");
         ReduceStamina(specialAttack.staminaCost);
         inputStatus = Enum_InputStatus.blocked;
@@ -856,6 +854,7 @@ public abstract class Champion : MonoBehaviour {
 
     public void AllowInputs()   //activated in the animation controller
     {
+        immune = false;
         rb.gravityScale = 1.0f;
         inputStatus = Enum_InputStatus.allowed;
         ResetAttackTokens();
@@ -953,7 +952,6 @@ public abstract class Champion : MonoBehaviour {
         staminaSlider.value = stamina;
 
         limitBreakSlider.value = limitBreakGauge;
-        Debug.Log(limitBreakSlider.value);
         float b = healthSlider.value;
         if (a != b) //si recu des degats, barre colorée supplémentaire
         {

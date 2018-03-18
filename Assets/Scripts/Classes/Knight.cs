@@ -8,6 +8,10 @@ public class Knight : Champion
     public Attack enhancedCombo1;
     public Attack enhancedCombo2;
 
+    [Header("UltimateProjectileSettings")]
+    [SerializeField] private GameObject ultimateProjectile;
+    [SerializeField] protected Vector2 projectileSpawnOffset;
+
     [Header("SoundSettings")]
     public AudioClip primaryAttackSound;
     public AudioClip specialAttackSound;
@@ -18,7 +22,7 @@ public class Knight : Champion
     
     public void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.cyan;
+        /*Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(new Vector3(combo1.offset.x, combo1.offset.y, 0) + transform.position, new Vector3(combo1.size.x, combo1.size.y, 1));
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(combo2.offset.x, combo2.offset.y, 0) + transform.position, new Vector3(combo2.size.x, combo2.size.y, 1));
@@ -27,8 +31,9 @@ public class Knight : Champion
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(new Vector3(enhancedCombo2.offset.x, enhancedCombo2.offset.y, 1) + transform.position, new Vector3(enhancedCombo2.size.x, enhancedCombo2.size.y, 1));
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(new Vector3(specialAttack.offset.x, specialAttack.offset.y, 1) + transform.position, new Vector3(specialAttack.size.x, specialAttack.size.y, 1));
-        
+        Gizmos.DrawWireCube(new Vector3(specialAttack.offset.x, specialAttack.offset.y, 1) + transform.position, new Vector3(specialAttack.size.x, specialAttack.size.y, 1));*/
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(projectileSpawnOffset + (Vector2)transform.position, 0.3f);
     }
 
     protected override void Start()
@@ -45,7 +50,7 @@ public class Knight : Champion
     protected override void Update()
     {
         base.Update();
-        if(Input.GetAxisRaw(PowerUpButton) != 0 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated && usePowerUp)
+        if(Input.GetAxisRaw(PowerUpButton) != 0 && Input.GetAxis(GuardButton) < 0.6 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated && usePowerUp)
         {
             if(powerUp is IncreasedRange)
             {
@@ -127,10 +132,42 @@ public class Knight : Champion
     {
         if (IsGrounded())
         {
-            animator.SetTrigger("Ultimate");
+            EndAttackString();
+            inputStatus = Enum_InputStatus.blocked;
+            animator.SetBool("Ultimate", true);
+            rb.velocity = Vector2.zero;
+            immune = true;
         }
     }
 
+    public void SpawnFireBeast()
+    {
+        Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffset.x * facing, transform.position.y + projectileSpawnOffset.y);
+        GameObject bomb = Instantiate(ultimateProjectile, SpawnPoint, transform.rotation);
+        FireBeast fb = bomb.GetComponent<FireBeast>();
+        if(facing >= 0)
+        {
+            fb.beastRenderer.material = fb.rightMaterial;
+        }
+        else
+        {
+            fb.beastRenderer.material = fb.leftMaterial;
+        }
+        fb.Owner = this;
+        fb.Direction = facing;
+        fb.GetComponent<Rigidbody2D>().AddForce(fb.Force * facing, ForceMode2D.Force);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(facing, 0), 100, LayerMask.GetMask("Obstacle"));
+        fb.TimeToLive = 4.0f;
+        if(hit)
+        {
+            float distance = Vector2.Distance(hit.transform.position, transform.position);
+            float timeToLive = distance / 40;
+            fb.TimeToLive = timeToLive;
+            Debug.Log(fb.TimeToLive + " "+distance +" "+ fb.GetComponent<Rigidbody2D>().velocity.x);
+        }
+        StartCoroutine(fb.StopCollisionDetection());
+        rb.gravityScale = 1.0f;
+    }
     public void PrimaryAttackSound()
     {
         audioSource = GetComponent<AudioSource>();
