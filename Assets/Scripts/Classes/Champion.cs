@@ -415,6 +415,7 @@ public abstract class Champion : MonoBehaviour {
     }
     public void ResetLimitBreak()
     {
+        immune = false;
         limitBreakGauge = 0.0f;
     }
 
@@ -517,7 +518,7 @@ public abstract class Champion : MonoBehaviour {
         clashClick = 0;
         animator.speed = 1;
         isClashing = false;
-        GetComponent<SpriteRenderer>().sortingLayerName = "Deafult";
+        GetComponent<SpriteRenderer>().sortingLayerName = "Default";
     }
 
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
@@ -867,7 +868,6 @@ public abstract class Champion : MonoBehaviour {
         if(specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
         {
             Debug.Log(specialStatus);
-            immune = false;
             rb.gravityScale = 1.0f;
             inputStatus = Enum_InputStatus.allowed;
             ResetAttackTokens();
@@ -879,6 +879,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!dead)
         {
+            Debug.Log("Start : "+Time.time);
             immune = true;
             inputStatus = Enum_InputStatus.onlyMovement;
             specialStatus = Enum_SpecialStatus.normal;
@@ -889,6 +890,7 @@ public abstract class Champion : MonoBehaviour {
             rb.gravityScale = 1.0f;
             inputStatus = Enum_InputStatus.allowed;
             immune = false;
+            Debug.Log("End immunity : "+Time.time);
             InvincibilityVisualizer();
         }
     }
@@ -1147,6 +1149,10 @@ public abstract class Champion : MonoBehaviour {
         {
             return immune;
         }
+        set
+        {
+            immune = value;
+        }
     }
 
     public Enum_GuardStatus GuardStatus
@@ -1225,7 +1231,7 @@ public abstract class Champion : MonoBehaviour {
 
     public void SetProjectedStatus(float attackerFacing, Vector2 projectionForce, float duration = DEFAULT_EFFECT_DURATION)
     {
-        if (!immune)
+        if (!immune && specialStatus != Enum_SpecialStatus.projected)
         {
             specialStatus = Enum_SpecialStatus.projected;
             SetStunEffects();
@@ -1256,7 +1262,7 @@ public abstract class Champion : MonoBehaviour {
     }
     public void SetStunStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
-        if(!immune)
+        if(!immune && specialStatus != Enum_SpecialStatus.stun)
         {
             Debug.Log("Stunned");
             rb.velocity = Vector2.zero;
@@ -1324,7 +1330,7 @@ public abstract class Champion : MonoBehaviour {
     {
         Enum_SpecialStatus startingEffect = specialStatus;
         yield return new WaitForSeconds(duration);
-        if(specialStatus == startingEffect)
+        if(specialStatus == startingEffect || specialStatus == Enum_SpecialStatus.normal)
         {
             SetNormalStatus();
         }
@@ -1370,7 +1376,7 @@ public abstract class Champion : MonoBehaviour {
         SetStunEffects();
         Enum_SpecialStatus startingEffect = specialStatus;
         yield return new WaitForSeconds(duration);
-        if (specialStatus == startingEffect)
+        if (specialStatus == startingEffect || specialStatus == Enum_SpecialStatus.normal)
         {
             SetNormalStatus();
         }

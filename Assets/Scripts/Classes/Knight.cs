@@ -7,6 +7,7 @@ public class Knight : Champion
     public Attack combo2;
     public Attack enhancedCombo1;
     public Attack enhancedCombo2;
+    public Attack ultimate;
 
     [Header("UltimateProjectileSettings")]
     [SerializeField] private GameObject ultimateProjectile;
@@ -42,6 +43,7 @@ public class Knight : Champion
         combo2.SetUser(this);
         enhancedCombo1.SetUser(this);
         enhancedCombo2.SetUser(this);
+        ultimate.SetUser(this);
         combo2.Clasheable();
         enhancedCombo1.Clasheable();
         enhancedCombo2.Clasheable();
@@ -97,6 +99,9 @@ public class Knight : Champion
             case 5:
                 specialAttack.CastHitBox();
                 break;
+            case 6:
+                ultimate.CastHitBox();
+                break;
             default:
                 Debug.LogError("Unknown AttackType");
                 break;
@@ -121,6 +126,9 @@ public class Knight : Champion
                 break;
             case 5:
                 specialAttack.MoveOnAttack();
+                break;
+            case 6:
+                ultimate.MoveOnAttack();
                 break;
             default:
                 Debug.LogError("Unknown AttackType");

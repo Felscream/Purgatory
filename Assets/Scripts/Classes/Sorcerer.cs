@@ -263,7 +263,6 @@ public class Sorcerer : Champion
         float damage = ultimateDamage * Time.deltaTime;
         foreach(Collider2D col in hits)
         {
-            
             Champion temp = col.GetComponent<Champion>();
 
             if(temp != null && temp != this && !temp.Dead)
@@ -271,7 +270,6 @@ public class Sorcerer : Champion
                 float direction = Mathf.Sign(col.transform.position.x - transform.position.x);
                 temp.ApplyDamage(damage, direction, ultimateStunLock, new Vector2(0, 0), false, true, this);
                 temp.RB.velocity = Vector2.zero;
-                //temp.RB.gravityScale = 0.0f;
             }
         }
     }

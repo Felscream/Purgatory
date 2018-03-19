@@ -455,6 +455,19 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
+  ultimate:
+    offset: {x: 0, y: 0}
+    size: {x: 0, y: 0}
+    stunLock: 0
+    recoilForce: {x: 0, y: 0}
+    projectionDuration: 0
+    staminaCost: 0
+    damage: 0
+    movementForce: 3
+    guardBreaker: 0
+    haveSpecialEffect: 0
+    specialEffect: 0
+    canClash: 0
   ultimateProjectile: {fileID: 1202958830836326, guid: dcf391f3b021d214e8da0ec900febdea,
     type: 2}
   projectileSpawnOffset: {x: 0, y: 0}
