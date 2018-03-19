@@ -879,7 +879,6 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!dead)
         {
-            Debug.Log("Start : "+Time.time);
             immune = true;
             inputStatus = Enum_InputStatus.onlyMovement;
             specialStatus = Enum_SpecialStatus.normal;
@@ -890,7 +889,6 @@ public abstract class Champion : MonoBehaviour {
             rb.gravityScale = 1.0f;
             inputStatus = Enum_InputStatus.allowed;
             immune = false;
-            Debug.Log("End immunity : "+Time.time);
             InvincibilityVisualizer();
         }
     }

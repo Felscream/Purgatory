@@ -136,6 +136,7 @@ public class CameraControl : MonoBehaviour {
 
     public IEnumerator ZoomIn(Vector2 position, float waitTime)
     {
+
         Vector3 startingPosition = mainAxis.position;
         Vector3 endPosition = new Vector3(position.x, position.y, -1);
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
