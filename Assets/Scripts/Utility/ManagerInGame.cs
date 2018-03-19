@@ -21,6 +21,7 @@ public class ManagerInGame : MonoBehaviour {
     protected GameObject canvas;
     public GameObject ClashHUD;
     protected GameObject cameraGo = null;
+    private CameraControl cameraController;
     [SerializeField] protected int clashTime = 10;
     [SerializeField] protected int defenderHealthGain = 30;
     [SerializeField] protected int attackerHealthLoss = 10;
@@ -62,6 +63,7 @@ public class ManagerInGame : MonoBehaviour {
             if (go.GetComponent<Camera>())
                 cameraGo = go;
         }*/
+        cameraController = cameraGo.GetComponent<CameraControl>();
     }
     void Update () {
         CheckPlayerAlive();
@@ -199,5 +201,13 @@ public class ManagerInGame : MonoBehaviour {
         {
             return playerAlive;
         }
+    }
+
+    public IEnumerator UltimateCameraEffect(Vector2 position, float waitTime)
+    {
+        Time.timeScale = 0.0001f;
+        StartCoroutine(cameraController.ZoomIn(position, waitTime));
+        yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
+        Time.timeScale = 1.0f;
     }
 }

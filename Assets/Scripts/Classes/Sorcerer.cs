@@ -16,6 +16,8 @@ public class Sorcerer : Champion
     [SerializeField] private float shakeIntensity = 15.0f;
     [SerializeField] private int shakeNumber = 4;
     [SerializeField] private int shakeSpeed = 100;
+    
+    
 
     [Header("ProjectileSettings")]
     [SerializeField] protected GameObject manabomb;

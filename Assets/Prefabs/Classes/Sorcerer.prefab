@@ -401,6 +401,7 @@ MonoBehaviour:
   parryStaminaCost: 60
   parryImmunityStartFrame: 2
   parryImmunityEndFrame: 12
+  parryStunDuration: 2
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
   baseStamina: 100
@@ -419,6 +420,8 @@ MonoBehaviour:
   guardBreakDamage: 5
   guardBreakstunLock: 30
   guardBreakRecoilForce: {x: 0, y: 0}
+  ultimateParticleSystem: {fileID: 198163520660224548}
+  powerUpParticleSystem: {fileID: 198504951115901758}
   hitBoxLayer:
     serializedVersion: 2
     m_Bits: 33024
@@ -428,6 +431,7 @@ MonoBehaviour:
     size: {x: 1, y: 1}
     stunLock: 5
     recoilForce: {x: 0, y: 0}
+    projectionDuration: 1.5
     staminaCost: 40
     damage: 10
     movementForce: 2
@@ -440,6 +444,7 @@ MonoBehaviour:
     size: {x: 2.37, y: 1.24}
     stunLock: 10
     recoilForce: {x: 5, y: 0}
+    projectionDuration: 1.5
     staminaCost: 10
     damage: 10
     movementForce: 2
@@ -447,14 +452,12 @@ MonoBehaviour:
     haveSpecialEffect: 0
     specialEffect: 0
     canClash: 0
-  ultimateParticleSystem: {fileID: 198163520660224548}
-  powerUpParticleSystem: {fileID: 198504951115901758}
-  clashClick: 0
   combo2:
     offset: {x: 1.6, y: 0}
     size: {x: 2.86, y: 2.07}
     stunLock: 10
     recoilForce: {x: 5, y: 0}
+    projectionDuration: 1.5
     staminaCost: 10
     damage: 20
     movementForce: 2
@@ -471,6 +474,7 @@ MonoBehaviour:
   shakeIntensity: 15
   shakeNumber: 4
   shakeSpeed: 100
+  zoomWaitDuration: 2
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
   projectileSpawnOffset: {x: 3.2, y: 0.31}
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
@@ -1216,18 +1220,18 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.27118877
+          value: 0
           inSlope: 0.045831893
           outSlope: 0.045831893
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.1259125
-          value: 0.27722886
+          time: 0.11347659
+          value: 0
           inSlope: -0.012294005
           outSlope: -0.012294005
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.19773462
+          time: 0.13801935
           value: 1
           inSlope: 0
           outSlope: 0

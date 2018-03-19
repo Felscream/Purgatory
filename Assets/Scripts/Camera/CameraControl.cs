@@ -8,7 +8,9 @@ public class CameraControl : MonoBehaviour {
     [SerializeField] private Transform mainAxis;
     [SerializeField] private Transform shakeAxis;
     [SerializeField] private float intensityReduction = 10.0f;
-
+    [SerializeField] private float defaultOrthographicSize = 11.25f;
+    [SerializeField] private float zoomOrthographicSize = 16.25f;
+    [SerializeField] private float zoomDuration = 0.75f;
     private float baseX, baseY;
     private int shakeReduction = 10;
     private bool isShaking = false, isMoving = false;
@@ -19,11 +21,13 @@ public class CameraControl : MonoBehaviour {
     private Vector3 nextShakePosition;
     private Vector3 newPosition;
     private ManagerInGame manager;
+    private Camera mainCamera;
 	// Use this for initialization
     void Awake()
     {
         //enabled = false;
-        shakeAxis = Camera.main.GetComponent<Transform>();
+        mainCamera = Camera.main;
+        shakeAxis = mainCamera.GetComponent<Transform>();
         baseX = shakeAxis.localPosition.x;
         baseY = shakeAxis.localPosition.y;
     }
@@ -50,7 +54,7 @@ public class CameraControl : MonoBehaviour {
 
         if (isShaking)
         {
-            shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.unscaledDeltaTime * shakeSpeed);
+            shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.deltaTime * shakeSpeed);
 
             if(Vector2.Distance(shakeAxis.localPosition, nextShakePosition) < shakeIntensity/5f)
             {
@@ -120,5 +124,56 @@ public class CameraControl : MonoBehaviour {
     {
         Vector3 pos = new Vector3(position.x, position.y, mainAxis.position.z);
         mainAxis.position = pos;
+    }
+
+    public Transform MainAxis
+    {
+        get
+        {
+            return mainAxis;
+        }
+    }
+
+    public IEnumerator ZoomIn(Vector2 position, float waitTime)
+    {
+        Vector3 startingPosition = mainAxis.position;
+        Vector3 endPosition = new Vector3(position.x, position.y, -1);
+        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
+        float i = 0.0f;
+        float rate = 1.0f / zoomDuration;
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(zoomDuration + waitTime);
+        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize));
+        i = 0.0f;
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainAxis.position = Vector3.Lerp(endPosition, startingPosition, i);
+            yield return null;
+        }
+    }
+
+    public IEnumerator ZoomOrthographic(float start, float end)
+    {
+        float i = 0.0f;
+        float rate = 1.0f / zoomDuration;
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
+            yield return null;
+        }
+    }
+    public float ZoomDuration
+    {
+        get
+        {
+            return zoomDuration;
+        }
     }
 }

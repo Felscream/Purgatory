@@ -133,7 +133,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -162,6 +162,9 @@ MonoBehaviour:
   mainAxis: {fileID: 4057907418652678}
   shakeAxis: {fileID: 4242830717035286}
   intensityReduction: 15
+  defaultOrthographicSize: 11.25
+  zoomOrthographicSize: 2.825
+  zoomDuration: 0.05
 --- !u!114 &114228829400378116
 MonoBehaviour:
   m_ObjectHideFlags: 1

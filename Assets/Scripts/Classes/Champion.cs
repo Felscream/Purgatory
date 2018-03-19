@@ -95,8 +95,8 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected Vector2 guardBreakRecoilForce;
 
     [Header("UltimateSettings")]
-    [SerializeField]
-    protected ParticleSystem ultimateParticleSystem;
+    [SerializeField] protected ParticleSystem ultimateParticleSystem;
+    [SerializeField] protected float zoomWaitDuration = 2.0f;
 
     [Header("PowerUpSettings")]
     [SerializeField]
@@ -1381,13 +1381,17 @@ public abstract class Champion : MonoBehaviour {
             SetNormalStatus();
         }
     }
-    
+
     IEnumerator PoisonCoroutine(float poisonDamage)
     {
-        while(specialStatus == Enum_SpecialStatus.poison)
+        while (specialStatus == Enum_SpecialStatus.poison)
         {
             ReduceHealth(poisonDamage);
             yield return new WaitForSeconds(1);
         }
+    }
+    public void UltimateCameraEffect()
+    {
+        StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, zoomWaitDuration));
     }
 }
