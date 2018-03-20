@@ -9,7 +9,7 @@ public class CameraControl : MonoBehaviour {
     [SerializeField] private Transform shakeAxis;
     [SerializeField] private float intensityReduction = 10.0f;
     [SerializeField] private float defaultOrthographicSize = 11.25f;
-    [SerializeField] private float zoomOrthographicSize = 16.25f;
+    [SerializeField] private float zoomOrthographicSize = 2.8125f;
     [SerializeField] private float zoomDuration = 0.75f;
     private float baseX, baseY;
     private int shakeReduction = 10;
@@ -130,10 +130,10 @@ public class CameraControl : MonoBehaviour {
         mainAxis.position = pos;
     }
 
+    
     public IEnumerator ZoomIn(Vector2 position, float waitTime)
     {
         isZooming = true;
-
         Vector3 startingPosition = MainAxis.position;
         Vector3 endPosition = new Vector3(position.x, position.y, -1);
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
@@ -149,14 +149,41 @@ public class CameraControl : MonoBehaviour {
 
         isZooming = false;
         StartCoroutine(ZoomOut(startingPosition));
-
-        
     }
+    public IEnumerator ZoomIn(Vector2 position, float waitTime, float desiredOrthographicSize, float desiredZoomDuration) //overload
+    {
+        isZooming = true;
+        Vector3 startingPosition = MainAxis.position;
+        Vector3 endPosition = new Vector3(position.x, position.y, -1);
+        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, desiredOrthographicSize, desiredZoomDuration));
+        float i = 0.0f;
+        float rate = 1.0f / desiredZoomDuration;
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(desiredZoomDuration + waitTime);
 
+        isZooming = false;
+        StartCoroutine(ZoomOut(startingPosition, desiredZoomDuration));
+    }
     public IEnumerator ZoomOrthographic(float start, float end)
     {
         float i = 0.0f;
         float rate = 1.0f / zoomDuration;
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
+            yield return null;
+        }
+    }
+    public IEnumerator ZoomOrthographic(float start, float end, float desiredZoomDuration) //overload
+    {
+        float i = 0.0f;
+        float rate = 1.0f / desiredZoomDuration;
         while (i < 1.0)
         {
             i += Time.unscaledDeltaTime * rate;
@@ -170,6 +197,20 @@ public class CameraControl : MonoBehaviour {
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize));
         float i = 0.0f;
         float rate = 1.0f / zoomDuration;
+        Vector3 startingPosition = MainAxis.position;
+
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainAxis.position = Vector3.Lerp(startingPosition, origin, i);
+            yield return null;
+        }
+    }
+    public IEnumerator ZoomOut(Vector3 endPosition, float desiredZoomDuration) //overload
+    {
+        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize, desiredZoomDuration));
+        float i = 0.0f;
+        float rate = 1.0f / desiredZoomDuration;
         Vector3 startingPosition = MainAxis.position;
 
         while (i < 1.0)
@@ -196,6 +237,22 @@ public class CameraControl : MonoBehaviour {
         get
         {
             return mainAxis;
+        }
+    }
+
+    public float ZoomOrthographicSize
+    {
+        get
+        {
+            return zoomOrthographicSize;
+        }
+    }
+
+    public float DefaultOrthographicSize
+    {
+        get
+        {
+            return defaultOrthographicSize;
         }
     }
 }

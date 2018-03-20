@@ -32,7 +32,9 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] protected GameObject attackerAura;
     [SerializeField] protected GameObject defenderAura;
     [SerializeField] protected GameObject backgroundEffect;
-
+    //camera variables
+    private float defaultOrthographicSize;
+    private float defaultZoomOrthographicSize;
     public static ManagerInGame GetInstance()
     {
         if (instance == null)
@@ -70,11 +72,15 @@ public class ManagerInGame : MonoBehaviour {
                 cameraGo = go;
         }*/
         cameraController = cameraGo.GetComponent<CameraControl>();
+        if(cameraController != null)
+        {
+            defaultOrthographicSize = cameraController.DefaultOrthographicSize;
+            defaultZoomOrthographicSize = cameraController.ZoomOrthographicSize;
+        }
     }
     void Update () {
         CheckPlayerAlive();
         Timer += Time.deltaTime;
-
 		//Apparition des items sur la map à partir des prefabs
 		if (Timer >= 5 && !SpawnHealth) {
 			Instantiate (Health);
@@ -117,14 +123,14 @@ public class ManagerInGame : MonoBehaviour {
 
         yield return new WaitForEndOfFrame();
 
+        float orthographicSize = ComputeOrthographicSize(defender.Position, attacker.Position);
         //Start of clash
         Time.timeScale = 0.0001f;
         defender.ClashMode();
         attacker.ClashMode();
-        
+
         //Animation at the start of a clash
-        cameraController.ZoomDuration = clashZoomDuration;
-        StartCoroutine(cameraController.ZoomIn(finalPos, clashTime));
+        StartCoroutine(cameraController.ZoomIn(finalPos, clashTime, orthographicSize, clashZoomDuration));
         ClashHUD.SetActive(true);
         background.SetActive(true);
         while (alpha < 1)
@@ -253,5 +259,24 @@ public class ManagerInGame : MonoBehaviour {
         StartCoroutine(cameraController.ZoomIn(position, waitTime));
         yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
         Time.timeScale = 1.0f;
+    }
+
+    public float ComputeOrthographicSize(Vector2 pOne, Vector2 pTwo)
+    {
+        float orthographicSize;
+         
+        Vector2 pTwoTemp = new Vector2(pTwo.x, pOne.y);
+        float distance = Vector2.Distance(pOne, pTwoTemp) + 2; //le +2 donne juste de la marge pour faire apparaitre les persos à l'écran ;
+        Debug.Log(distance);
+        float horRes = (distance / 40) * 1920;
+        Debug.Log(horRes);
+        float vertRes = horRes * (9.0f / 16.0f);
+        Debug.Log(vertRes);
+        orthographicSize = vertRes / (32 * 1.5f) * 0.5f;
+        Debug.Log(orthographicSize);
+        orthographicSize = orthographicSize < defaultZoomOrthographicSize ? defaultZoomOrthographicSize : orthographicSize;
+        orthographicSize = orthographicSize > defaultOrthographicSize ? defaultOrthographicSize : orthographicSize;
+        
+        return orthographicSize;
     }
 }

@@ -163,7 +163,7 @@ MonoBehaviour:
   shakeAxis: {fileID: 4242830717035286}
   intensityReduction: 15
   defaultOrthographicSize: 11.25
-  zoomOrthographicSize: 2.825
+  zoomOrthographicSize: 2.8125
   zoomDuration: 0.05
 --- !u!114 &114228829400378116
 MonoBehaviour:
