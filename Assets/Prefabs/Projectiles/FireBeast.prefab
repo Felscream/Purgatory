@@ -702,7 +702,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.62
+      value: 5
       mode: 0
       spread: 0
       speed:
@@ -838,7 +838,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 50
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2587,8 +2587,8 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
-    collisionMode: 0
+    type: 1
+    collisionMode: 1
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
@@ -2602,7 +2602,7 @@ ParticleSystem:
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2643,7 +2643,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2727,7 +2727,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 512
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -3598,7 +3598,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 596485101
+  randomSeed: 307602732
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4584,6 +4584,18 @@ ParticleSystem:
           value: 0
           inSlope: 0
           outSlope: 0
+          tangentMode: 0
+        - serializedVersion: 2
+          time: 0.4999354
+          value: 0.5446843
+          inSlope: 0.041064937
+          outSlope: 0.041064937
+          tangentMode: 0
+        - serializedVersion: 2
+          time: 0.8901598
+          value: 0.6687917
+          inSlope: 1.7902789
+          outSlope: 1.7902789
           tangentMode: 0
         - serializedVersion: 2
           time: 1
