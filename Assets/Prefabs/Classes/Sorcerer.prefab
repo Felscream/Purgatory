@@ -421,6 +421,7 @@ MonoBehaviour:
   guardBreakstunLock: 30
   guardBreakRecoilForce: {x: 0, y: 0}
   ultimateParticleSystem: {fileID: 198163520660224548}
+  zoomWaitDuration: 2
   powerUpParticleSystem: {fileID: 198504951115901758}
   hitBoxLayer:
     serializedVersion: 2
@@ -474,7 +475,6 @@ MonoBehaviour:
   shakeIntensity: 15
   shakeNumber: 4
   shakeSpeed: 100
-  zoomWaitDuration: 2
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
   projectileSpawnOffset: {x: 3.2, y: 0.31}
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
@@ -7294,7 +7294,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
