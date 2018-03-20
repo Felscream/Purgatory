@@ -22,6 +22,8 @@ public class ManagerInGame : MonoBehaviour {
     public GameObject ClashHUD;
     protected GameObject cameraGo = null;
     private CameraControl cameraController;
+    protected float aBaseRate;
+    protected float dBaseRate;
     [SerializeField] protected int clashTime = 10;
     [SerializeField] protected float clashZoomDuration = 0.3f;
     [SerializeField] protected int defenderHealthGain = 30;
@@ -111,14 +113,18 @@ public class ManagerInGame : MonoBehaviour {
         float alpha = 0;
         float time = 0;
         int value = 50;
+        float zd = cameraController.ZoomDuration;
+
         yield return new WaitForEndOfFrame();
+
+        //Start of clash
         Time.timeScale = 0.0001f;
         defender.ClashMode();
         attacker.ClashMode();
-        float zd = cameraController.ZoomDuration;
+        
+        //Animation at the start of a clash
         cameraController.ZoomDuration = clashZoomDuration;
         StartCoroutine(cameraController.ZoomIn(finalPos, clashTime));
-
         ClashHUD.SetActive(true);
         background.SetActive(true);
         while (alpha < 1)
@@ -130,36 +136,24 @@ public class ManagerInGame : MonoBehaviour {
             yield return null;
         }
 
-        GameObject aAura = Instantiate(attackerAura, attacker.transform);
-        GameObject dAura = Instantiate(defenderAura, defender.transform);
+        //Creates Aura and prep what's neeeded
+        GameObject attackAura = Instantiate(attackerAura, attacker.transform);
+        GameObject defendAura = Instantiate(defenderAura, defender.transform);
         GameObject bkg = Instantiate(backgroundEffect, cameraGo.transform);
+        aBaseRate = attackAura.GetComponent<ParticleSystem>().emission.rateOverTime.constant;
+        dBaseRate = defendAura.GetComponent<ParticleSystem>().emission.rateOverTime.constant;
         
-        var attackerVel = aAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
-        var defenderVel = dAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
-
+        //Actual Clash
         canvas.gameObject.SetActive(true);
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
             value = 50 + (attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination))/10;
             ClashSlider.value = value;
-            attackerVel.limitX = Mathf.Max( (value / 10 ) - 5, 0) ;
-            defenderVel.limitX = Mathf.Max( ((100-value) / 10) - 5 , 0);
-            attackerVel.dampen = 0.2f + ((0.2f * (float)(50-value)) / 50);
-            defenderVel.dampen = 0.2f + ((0.2f * (float)(value-50)) / 50);
 
-            if (value>=50)
-            {
-                aAura.GetComponent<Renderer>().sortingOrder = 9;
-                dAura.GetComponent<Renderer>().sortingOrder = 8;
-            }
-            else
-            {
-                aAura.GetComponent<Renderer>().sortingOrder = 8;
-                dAura.GetComponent<Renderer>().sortingOrder = 9;
-            }
+            AuraManager(value, attackAura, defendAura);
 
-            cameraController.Shake(50, 5, 1000);
+            cameraController.Shake(Mathf.Abs(value-50) / 10f, 5, 1000);
             yield return null;
         }
         if (value >= 50)
@@ -172,19 +166,17 @@ public class ManagerInGame : MonoBehaviour {
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
         }
-
-        Destroy(aAura);
-        Destroy(dAura);
+        
+        //Animation at the end of a clash
+        Destroy(attackAura);
+        Destroy(defendAura);
         Destroy(bkg);
-
         if (cameraController.isZooming)
         {
             StopCoroutine("cameraController.ZoomIn");
             StartCoroutine(cameraController.ZoomOut(startingPos));
         }
-
         cameraController.ZoomDuration = zd;
-
         alpha = 1;
         canvas.gameObject.SetActive(false);
         while (alpha > 0)
@@ -197,12 +189,40 @@ public class ManagerInGame : MonoBehaviour {
         }
         background.SetActive(false);
         ClashHUD.SetActive(false);
-        
-        Time.timeScale = 1f;
 
+        Time.timeScale = 1f;
         defender.NormalMode();
         attacker.NormalMode();
         StartCoroutine(defender.ProcDivineShield(defenderImmunityTime));
+    }
+
+    protected void AuraManager(int value,GameObject attackAura, GameObject defendAura)
+    {
+        var attackerVel = attackAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
+        var defenderVel = defendAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
+        var attackerEmissionModule = attackAura.GetComponent<ParticleSystem>().emission;
+        var defenderEmissionModule = defendAura.GetComponent<ParticleSystem>().emission;
+
+        //Change Shape of auras depending of domination
+        attackerVel.limitX = Mathf.Max((value / 10) - 5, 0);
+        defenderVel.limitX = Mathf.Max(((100 - value) / 10) - 5, 0);
+        attackerVel.dampen = 0.2f + ((0.2f * (float)(50 - value)) / 50);
+        defenderVel.dampen = 0.2f + ((0.2f * (float)(value - 50)) / 50);
+        attackerEmissionModule.rateOverTime = aBaseRate + (value - 50);
+        defenderEmissionModule.rateOverTime = dBaseRate - (value - 50);
+        
+        //Dominating Aura is over the other
+        if (value >= 50)
+        {
+            attackAura.GetComponent<Renderer>().sortingOrder = 9;
+            defendAura.GetComponent<Renderer>().sortingOrder = 8;
+        }
+        else
+        {
+            attackAura.GetComponent<Renderer>().sortingOrder = 8;
+            defendAura.GetComponent<Renderer>().sortingOrder = 9;
+        }
+
     }
 
     public void CheckPlayerAlive()
