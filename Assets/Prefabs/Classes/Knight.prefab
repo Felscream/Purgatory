@@ -385,6 +385,7 @@ MonoBehaviour:
   guardBreakstunLock: 30
   guardBreakRecoilForce: {x: 0, y: 0}
   ultimateParticleSystem: {fileID: 0}
+  zoomWaitDuration: 1
   powerUpParticleSystem: {fileID: 198101564183319448}
   hitBoxLayer:
     serializedVersion: 2
@@ -470,7 +471,7 @@ MonoBehaviour:
     canClash: 0
   ultimateProjectile: {fileID: 1202958830836326, guid: dcf391f3b021d214e8da0ec900febdea,
     type: 2}
-  projectileSpawnOffset: {x: 0, y: 0}
+  projectileSpawnOffset: {x: 0, y: 1.35}
   primaryAttackSound: {fileID: 8300000, guid: 2f8a0a61fcc911148835ed4130e2dc0b, type: 3}
   specialAttackSound: {fileID: 8300000, guid: 55be4cb6695f6db4ba961e2eb9a38d45, type: 3}
 --- !u!114 &114615723824182320
@@ -564,7 +565,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1548061157
+  randomSeed: 959147031
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -22,6 +22,7 @@ public class CameraControl : MonoBehaviour {
     private Vector3 newPosition;
     private ManagerInGame manager;
     private Camera mainCamera;
+    private Vector3 origin;
     [System.NonSerialized] public bool isZooming = false;
 
 	// Use this for initialization
@@ -35,6 +36,7 @@ public class CameraControl : MonoBehaviour {
     }
 	void Start () {
         manager = ManagerInGame.GetInstance();
+        origin = mainAxis.position;
     }
 	
 	// Update is called once per frame
@@ -146,7 +148,6 @@ public class CameraControl : MonoBehaviour {
         yield return new WaitForSecondsRealtime(zoomDuration + waitTime);
 
         isZooming = false;
-        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize));
         StartCoroutine(ZoomOut(startingPosition));
 
         
@@ -174,7 +175,7 @@ public class CameraControl : MonoBehaviour {
         while (i < 1.0)
         {
             i += Time.unscaledDeltaTime * rate;
-            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            mainAxis.position = Vector3.Lerp(startingPosition, origin, i);
             yield return null;
         }
     }
