@@ -96,7 +96,7 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("UltimateSettings")]
     [SerializeField] protected ParticleSystem ultimateParticleSystem;
-    [SerializeField] protected float zoomWaitDuration = 2.0f;
+    [SerializeField] protected float zoomWaitDuration = 1.0f;
 
     [Header("PowerUpSettings")]
     [SerializeField]
