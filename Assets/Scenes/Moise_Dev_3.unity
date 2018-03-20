@@ -204,44 +204,39 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer1
+      value: 
+      objectReference: {fileID: 1947956728}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer2
+      value: 
+      objectReference: {fileID: 1947956727}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer3
+      value: 
+      objectReference: {fileID: 1947956726}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer4
+      value: 
+      objectReference: {fileID: 1947956725}
+    - target: {fileID: 114005701713967186, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: ClashHUD
+      value: 
+      objectReference: {fileID: 128625756}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: Start_P2
+      value: Start_P1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &914643832 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1697182191257260, guid: 190b3062e7e314c4b8976575c39d00d1,
-    type: 2}
-  m_PrefabInternal: {fileID: 914643831}
---- !u!4 &914643833 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1,
-    type: 2}
-  m_PrefabInternal: {fileID: 914643831}
---- !u!114 &914643834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 914643832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce958568f870f2f41bf18e8f7f6b8d7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: {fileID: 1416848120963890, guid: fad8ec71f8ea97540b17e895ef224548, type: 2}
-  Stamina: {fileID: 1607867619309306, guid: 35420c958a6dffd49abe962dda4242e3, type: 2}
-  Orb: {fileID: 1485432959634340, guid: e7006dfe1fb9b12489a990792e3318cc, type: 2}
-  Players: []
-  ClashHUD: {fileID: 128625756}
-  clashTime: 10
-  clashZoomDuration: 0.3
-  defenderHealthGain: 30
-  attackerHealthLoss: 10
-  defenderImmunityTime: 1.5
-  attackerAura: {fileID: 1285042175133246, guid: 7f9aca893066a0a47b1a0cc6603846c0,
-    type: 2}
-  defenderAura: {fileID: 1341362726122650, guid: 83820e5f9fce3f841b7b977547ad15a5,
-    type: 2}
 --- !u!1001 &918417030
 Prefab:
   m_ObjectHideFlags: 0
@@ -407,83 +402,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1a78321ee0bfbe4f81a1c402513e02f, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &1871991261
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 914643833}
-    m_Modifications:
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -5.3103304
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 14.991039
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.00021260884
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4158503026409420, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114224060064372936, guid: bf2e399bfe751c64cb52ffb12eab602a,
-        type: 2}
-      propertyPath: HUDPlayer1
-      value: 
-      objectReference: {fileID: 1947956728}
-    - target: {fileID: 114224060064372936, guid: bf2e399bfe751c64cb52ffb12eab602a,
-        type: 2}
-      propertyPath: HUDPlayer2
-      value: 
-      objectReference: {fileID: 1947956727}
-    - target: {fileID: 114224060064372936, guid: bf2e399bfe751c64cb52ffb12eab602a,
-        type: 2}
-      propertyPath: HUDPlayer3
-      value: 
-      objectReference: {fileID: 1947956726}
-    - target: {fileID: 114224060064372936, guid: bf2e399bfe751c64cb52ffb12eab602a,
-        type: 2}
-      propertyPath: HUDPlayer4
-      value: 
-      objectReference: {fileID: 1947956725}
-    - target: {fileID: 114224060064372936, guid: bf2e399bfe751c64cb52ffb12eab602a,
-        type: 2}
-      propertyPath: Start_P4
-      value: Start
-      objectReference: {fileID: 0}
-    - target: {fileID: 114224060064372936, guid: bf2e399bfe751c64cb52ffb12eab602a,
-        type: 2}
-      propertyPath: Start_P3
-      value: Start
-      objectReference: {fileID: 0}
-    - target: {fileID: 114224060064372936, guid: bf2e399bfe751c64cb52ffb12eab602a,
-        type: 2}
-      propertyPath: Start_P2
-      value: Start_P1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: bf2e399bfe751c64cb52ffb12eab602a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1947956724
 Prefab:

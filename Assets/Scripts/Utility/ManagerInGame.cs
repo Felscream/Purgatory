@@ -29,6 +29,7 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] protected float defenderImmunityTime = 1.5f;
     [SerializeField] protected GameObject attackerAura;
     [SerializeField] protected GameObject defenderAura;
+    [SerializeField] protected GameObject backgroundEffect;
 
     public static ManagerInGame GetInstance()
     {
@@ -129,10 +130,11 @@ public class ManagerInGame : MonoBehaviour {
             yield return null;
         }
 
-        canvas.gameObject.SetActive(true);
-
-        GameObject a1 = Instantiate(attackerAura,attacker.transform);
+        GameObject a1 = Instantiate(attackerAura, attacker.transform);
         GameObject a2 = Instantiate(defenderAura, defender.transform);
+        GameObject bkg = Instantiate(backgroundEffect, cameraGo.transform);
+
+        canvas.gameObject.SetActive(true);
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
@@ -155,6 +157,7 @@ public class ManagerInGame : MonoBehaviour {
 
         Destroy(a1);
         Destroy(a2);
+        Destroy(bkg);
 
         if (cameraController.isZooming)
         {
