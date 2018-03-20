@@ -204,36 +204,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer1
-      value: 
-      objectReference: {fileID: 1947956728}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer2
-      value: 
-      objectReference: {fileID: 1947956727}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer3
-      value: 
-      objectReference: {fileID: 1947956726}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer4
-      value: 
-      objectReference: {fileID: 1947956725}
     - target: {fileID: 114005701713967186, guid: 190b3062e7e314c4b8976575c39d00d1,
         type: 2}
       propertyPath: ClashHUD
       value: 
       objectReference: {fileID: 128625756}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: Start_P2
-      value: Start_P1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
   m_IsPrefabParent: 0
@@ -643,23 +618,3 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0c980c1a99dd9141842312f766f1912, type: 2}
   m_IsPrefabParent: 0
---- !u!225 &1947956725 stripped
-CanvasGroup:
-  m_PrefabParentObject: {fileID: 225871959294122856, guid: f0c980c1a99dd9141842312f766f1912,
-    type: 2}
-  m_PrefabInternal: {fileID: 1947956724}
---- !u!225 &1947956726 stripped
-CanvasGroup:
-  m_PrefabParentObject: {fileID: 225095323721859034, guid: f0c980c1a99dd9141842312f766f1912,
-    type: 2}
-  m_PrefabInternal: {fileID: 1947956724}
---- !u!225 &1947956727 stripped
-CanvasGroup:
-  m_PrefabParentObject: {fileID: 225536922588000308, guid: f0c980c1a99dd9141842312f766f1912,
-    type: 2}
-  m_PrefabInternal: {fileID: 1947956724}
---- !u!225 &1947956728 stripped
-CanvasGroup:
-  m_PrefabParentObject: {fileID: 225079871583249910, guid: f0c980c1a99dd9141842312f766f1912,
-    type: 2}
-  m_PrefabInternal: {fileID: 1947956724}

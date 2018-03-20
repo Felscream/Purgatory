@@ -130,9 +130,12 @@ public class ManagerInGame : MonoBehaviour {
             yield return null;
         }
 
-        GameObject a1 = Instantiate(attackerAura, attacker.transform);
-        GameObject a2 = Instantiate(defenderAura, defender.transform);
+        GameObject aAura = Instantiate(attackerAura, attacker.transform);
+        GameObject dAura = Instantiate(defenderAura, defender.transform);
         GameObject bkg = Instantiate(backgroundEffect, cameraGo.transform);
+        
+        var attackerVel = aAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
+        var defenderVel = dAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
 
         canvas.gameObject.SetActive(true);
         while (time < clashTime && value < 100 && value > 0)
@@ -140,6 +143,21 @@ public class ManagerInGame : MonoBehaviour {
             time += Time.unscaledDeltaTime;
             value = 50 + (attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination))/10;
             ClashSlider.value = value;
+            attackerVel.limitX = Mathf.Max( (value / 10 ) - 5, 0) ;
+            defenderVel.limitX = Mathf.Max( ((100-value) / 10) - 5 , 0);
+            attackerVel.dampen = 0.2f + ((0.2f * (float)(50-value)) / 50);
+            defenderVel.dampen = 0.2f + ((0.2f * (float)(value-50)) / 50);
+
+            if (value>=50)
+            {
+                aAura.GetComponent<Renderer>().sortingOrder = 9;
+                dAura.GetComponent<Renderer>().sortingOrder = 8;
+            }
+            else
+            {
+                aAura.GetComponent<Renderer>().sortingOrder = 8;
+                dAura.GetComponent<Renderer>().sortingOrder = 9;
+            }
 
             // cameraController.Shake(50, 5, 1000); ne marche pas
             yield return null;
@@ -155,8 +173,8 @@ public class ManagerInGame : MonoBehaviour {
             attacker.ReduceHealth(attackerHealthLoss);
         }
 
-        Destroy(a1);
-        Destroy(a2);
+        Destroy(aAura);
+        Destroy(dAura);
         Destroy(bkg);
 
         if (cameraController.isZooming)
