@@ -511,7 +511,7 @@ public abstract class Champion : MonoBehaviour {
         animator.speed = (1 / Time.timeScale);
         isClashing = true;
         GetComponent<SpriteRenderer>().sortingLayerName = "Clash";
-        GetComponent<SpriteRenderer>().sortingOrder = 1;
+        GetComponent<SpriteRenderer>().sortingOrder = 10;
     }
     public void NormalMode()
     {

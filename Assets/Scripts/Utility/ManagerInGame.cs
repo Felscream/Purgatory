@@ -27,6 +27,9 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] protected int defenderHealthGain = 30;
     [SerializeField] protected int attackerHealthLoss = 10;
     [SerializeField] protected float defenderImmunityTime = 1.5f;
+    [SerializeField] protected GameObject attackerAura;
+    [SerializeField] protected GameObject defenderAura;
+    [SerializeField] protected GameObject backgroundEffect;
 
     public static ManagerInGame GetInstance()
     {
@@ -112,7 +115,6 @@ public class ManagerInGame : MonoBehaviour {
         Time.timeScale = 0.0001f;
         defender.ClashMode();
         attacker.ClashMode();
-
         float zd = cameraController.ZoomDuration;
         cameraController.ZoomDuration = clashZoomDuration;
         StartCoroutine(cameraController.ZoomIn(finalPos, clashTime));
@@ -128,13 +130,34 @@ public class ManagerInGame : MonoBehaviour {
             yield return null;
         }
 
-        canvas.gameObject.SetActive(true);
+        GameObject aAura = Instantiate(attackerAura, attacker.transform);
+        GameObject dAura = Instantiate(defenderAura, defender.transform);
+        GameObject bkg = Instantiate(backgroundEffect, cameraGo.transform);
         
+        var attackerVel = aAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
+        var defenderVel = dAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
+
+        canvas.gameObject.SetActive(true);
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
             value = 50 + (attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination))/10;
             ClashSlider.value = value;
+            attackerVel.limitX = Mathf.Max( (value / 10 ) - 5, 0) ;
+            defenderVel.limitX = Mathf.Max( ((100-value) / 10) - 5 , 0);
+            attackerVel.dampen = 0.2f + ((0.2f * (float)(50-value)) / 50);
+            defenderVel.dampen = 0.2f + ((0.2f * (float)(value-50)) / 50);
+
+            if (value>=50)
+            {
+                aAura.GetComponent<Renderer>().sortingOrder = 9;
+                dAura.GetComponent<Renderer>().sortingOrder = 8;
+            }
+            else
+            {
+                aAura.GetComponent<Renderer>().sortingOrder = 8;
+                dAura.GetComponent<Renderer>().sortingOrder = 9;
+            }
 
             // cameraController.Shake(50, 5, 1000); ne marche pas
             yield return null;
@@ -149,7 +172,12 @@ public class ManagerInGame : MonoBehaviour {
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
         }
-        if(cameraController.isZooming)
+
+        Destroy(aAura);
+        Destroy(dAura);
+        Destroy(bkg);
+
+        if (cameraController.isZooming)
         {
             StopCoroutine("cameraController.ZoomIn");
             StartCoroutine(cameraController.ZoomOut(startingPos));
