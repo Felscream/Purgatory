@@ -27,6 +27,8 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] protected int defenderHealthGain = 30;
     [SerializeField] protected int attackerHealthLoss = 10;
     [SerializeField] protected float defenderImmunityTime = 1.5f;
+    [SerializeField] protected GameObject attackerAura;
+    [SerializeField] protected GameObject defenderAura;
 
     public static ManagerInGame GetInstance()
     {
@@ -112,7 +114,6 @@ public class ManagerInGame : MonoBehaviour {
         Time.timeScale = 0.0001f;
         defender.ClashMode();
         attacker.ClashMode();
-
         float zd = cameraController.ZoomDuration;
         cameraController.ZoomDuration = clashZoomDuration;
         StartCoroutine(cameraController.ZoomIn(finalPos, clashTime));
@@ -129,7 +130,9 @@ public class ManagerInGame : MonoBehaviour {
         }
 
         canvas.gameObject.SetActive(true);
-        
+
+        GameObject a1 = Instantiate(attackerAura,attacker.transform);
+        GameObject a2 = Instantiate(defenderAura, defender.transform);
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
@@ -149,7 +152,11 @@ public class ManagerInGame : MonoBehaviour {
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
         }
-        if(cameraController.isZooming)
+
+        Destroy(a1);
+        Destroy(a2);
+
+        if (cameraController.isZooming)
         {
             StopCoroutine("cameraController.ZoomIn");
             StartCoroutine(cameraController.ZoomOut(startingPos));
