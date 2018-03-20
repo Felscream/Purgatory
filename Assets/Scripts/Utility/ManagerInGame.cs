@@ -23,6 +23,7 @@ public class ManagerInGame : MonoBehaviour {
     protected GameObject cameraGo = null;
     private CameraControl cameraController;
     [SerializeField] protected int clashTime = 10;
+    [SerializeField] protected float clashZoomDuration = 0.3f;
     [SerializeField] protected int defenderHealthGain = 30;
     [SerializeField] protected int attackerHealthLoss = 10;
     [SerializeField] protected float defenderImmunityTime = 1.5f;
@@ -112,6 +113,8 @@ public class ManagerInGame : MonoBehaviour {
         defender.ClashMode();
         attacker.ClashMode();
 
+        float zd = cameraController.ZoomDuration;
+        cameraController.ZoomDuration = clashZoomDuration;
         StartCoroutine(cameraController.ZoomIn(finalPos, clashTime));
 
         ClashHUD.SetActive(true);
@@ -122,16 +125,9 @@ public class ManagerInGame : MonoBehaviour {
             color = background.GetComponent<SpriteRenderer>().color;
             color.a = alpha;
             background.GetComponent<SpriteRenderer>().color = color;
-            /*cameraGo.GetComponent<CameraControl>().Move(finalPos.x, finalPos.y, 11);
-            /*
-            temp = cameraGo.transform.position;
-            temp = Vector3.MoveTowards(temp, finalPos, Vector3.Distance(temp, finalPos) * Time.unscaledDeltaTime * 2);
-            temp.z = 0;
-            cameraGo.transform.position = temp;
-            Debug.Log(temp + " et " + cameraGo.transform.position);
-            */
             yield return null;
         }
+
         canvas.gameObject.SetActive(true);
         
         while (time < clashTime && value < 100 && value > 0)
@@ -139,6 +135,8 @@ public class ManagerInGame : MonoBehaviour {
             time += Time.unscaledDeltaTime;
             value = 50 + (attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination))/10;
             ClashSlider.value = value;
+
+            // cameraController.Shake(50, 5, 1000); ne marche pas
             yield return null;
         }
         if (value >= 50)
@@ -151,12 +149,13 @@ public class ManagerInGame : MonoBehaviour {
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
         }
-        
         if(cameraController.isZooming)
         {
             StopCoroutine("cameraController.ZoomIn");
             StartCoroutine(cameraController.ZoomOut(startingPos));
         }
+
+        cameraController.ZoomDuration = zd;
 
         alpha = 1;
         canvas.gameObject.SetActive(false);
@@ -166,20 +165,11 @@ public class ManagerInGame : MonoBehaviour {
             color = background.GetComponent<SpriteRenderer>().color;
             color.a = alpha;
             background.GetComponent<SpriteRenderer>().color = color;
-            /*cameraGo.GetComponent<CameraControl>().Move(startingPos.x, startingPos.y, 11);
-            /*
-            temp = cameraGo.transform.position;
-            temp = Vector3.MoveTowards(temp, startingPos, Vector3.Distance(temp, startingPos) * Time.unscaledDeltaTime * 2);
-            temp.z = 0;
-            cameraGo.transform.position = temp;
-            Debug.Log(temp + " et " + cameraGo.transform.position);
-            */
             yield return null;
         }
         background.SetActive(false);
         ClashHUD.SetActive(false);
-
-
+        
         Time.timeScale = 1f;
 
         defender.NormalMode();

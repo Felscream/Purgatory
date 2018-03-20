@@ -139,6 +139,7 @@ public class CameraControl : MonoBehaviour {
     public IEnumerator ZoomIn(Vector2 position, float waitTime)
     {
         isZooming = true;
+
         Vector3 startingPosition = MainAxis.position;
         Vector3 endPosition = new Vector3(position.x, position.y, -1);
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
@@ -152,9 +153,11 @@ public class CameraControl : MonoBehaviour {
         }
         yield return new WaitForSecondsRealtime(zoomDuration + waitTime);
 
+        isZooming = false;
+
         StartCoroutine(ZoomOut(startingPosition));
 
-        isZooming = false;
+        
     }
 
     public IEnumerator ZoomOrthographic(float start, float end)
@@ -189,6 +192,10 @@ public class CameraControl : MonoBehaviour {
         get
         {
             return zoomDuration;
+        }
+        set
+        {
+            zoomDuration = value;
         }
     }
 }

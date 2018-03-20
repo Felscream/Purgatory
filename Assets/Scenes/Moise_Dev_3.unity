@@ -157,6 +157,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114114119197396480, guid: a20e3598aee562a4e9e05ba76db29a16,
+        type: 2}
+      propertyPath: zoomDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a20e3598aee562a4e9e05ba76db29a16, type: 2}
   m_IsPrefabParent: 0
@@ -688,6 +693,26 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224090622376171130, guid: f0c980c1a99dd9141842312f766f1912,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224448408579091830, guid: f0c980c1a99dd9141842312f766f1912,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224448408579091830, guid: f0c980c1a99dd9141842312f766f1912,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224375765842259428, guid: f0c980c1a99dd9141842312f766f1912,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224375765842259428, guid: f0c980c1a99dd9141842312f766f1912,
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
