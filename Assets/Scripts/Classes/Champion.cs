@@ -652,10 +652,12 @@ public abstract class Champion : MonoBehaviour {
                 if (parryFrameCounter >= parryImmunityStartFrame && parryFrameCounter < parryImmunityEndFrame)
                 {
                     immune = true;
+                    Debug.Log("Immunity starts at frame : " + parryFrameCounter);
                 }
                 if (parryFrameCounter >= parryImmunityEndFrame)
                 {
                     immune = false;
+                    Debug.Log("Immunity ends at frame : " + parryFrameCounter);
                     guardStatus = Enum_GuardStatus.noGuard;
                     inputStatus = Enum_InputStatus.allowed;
                 }

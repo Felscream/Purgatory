@@ -338,6 +338,7 @@ MonoBehaviour:
   transparencyOnCooldown: 0.4
   transparencyAvailable: 1
   maxStacks: 3
+  poisonDamage: 3
 --- !u!114 &114463133747941946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -368,8 +369,8 @@ MonoBehaviour:
   maxDodgeToken: 1
   dodgeToken: 1
   parryStaminaCost: 60
-  parryImmunityStartFrame: 2
-  parryImmunityEndFrame: 12
+  parryImmunityStartFrame: 5
+  parryImmunityEndFrame: 11
   parryStunDuration: 2
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
@@ -390,6 +391,7 @@ MonoBehaviour:
   guardBreakstunLock: 15
   guardBreakRecoilForce: {x: 0, y: 0}
   ultimateParticleSystem: {fileID: 0}
+  zoomWaitDuration: 1
   powerUpParticleSystem: {fileID: 0}
   hitBoxLayer:
     serializedVersion: 2
@@ -400,6 +402,7 @@ MonoBehaviour:
     size: {x: 1, y: 1}
     stunLock: 5
     recoilForce: {x: 0, y: 0}
+    projectionDuration: 1.5
     staminaCost: 0
     damage: 10
     movementForce: 2
@@ -412,6 +415,7 @@ MonoBehaviour:
     size: {x: 2, y: 1.18}
     stunLock: 5
     recoilForce: {x: 2, y: 0}
+    projectionDuration: 1.5
     staminaCost: 20
     damage: 10
     movementForce: 20

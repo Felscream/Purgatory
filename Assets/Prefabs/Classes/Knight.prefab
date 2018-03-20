@@ -362,9 +362,9 @@ MonoBehaviour:
   dodgeImmunityEndFrame: 7
   maxDodgeToken: 1
   dodgeToken: 1
-  parryStaminaCost: 30
-  parryImmunityStartFrame: 2
-  parryImmunityEndFrame: 12
+  parryStaminaCost: 60
+  parryImmunityStartFrame: 5
+  parryImmunityEndFrame: 11
   parryStunDuration: 2
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
