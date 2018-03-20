@@ -266,14 +266,10 @@ public class ManagerInGame : MonoBehaviour {
         float orthographicSize;
          
         Vector2 pTwoTemp = new Vector2(pTwo.x, pOne.y);
-        float distance = Vector2.Distance(pOne, pTwoTemp) + 2; //le +2 donne juste de la marge pour faire apparaitre les persos à l'écran ;
-        Debug.Log(distance);
-        float horRes = (distance / 40) * 1920;
-        Debug.Log(horRes);
-        float vertRes = horRes * (9.0f / 16.0f);
-        Debug.Log(vertRes);
-        orthographicSize = vertRes / (32 * 1.5f) * 0.5f;
-        Debug.Log(orthographicSize);
+        float distance = Vector2.Distance(pOne, pTwoTemp) + 2; //le +2 donne juste de la marge pour faire apparaitre les persos à l'écran
+        float horRes = (distance / 40) * 1920;  //utiliser Screen.Width si on veut changer la résolution
+        float vertRes = horRes * (9.0f / 16.0f); //utiliser Screen.Width / Screen.Height si on veut changer la résolution
+        orthographicSize = vertRes / (32 * 1.5f) * 0.5f; //Mettre 32 (Pixel Per Unit) et 1.5f (Pixel Scale) en constante quelque part
         orthographicSize = orthographicSize < defaultZoomOrthographicSize ? defaultZoomOrthographicSize : orthographicSize;
         orthographicSize = orthographicSize > defaultOrthographicSize ? defaultOrthographicSize : orthographicSize;
         
