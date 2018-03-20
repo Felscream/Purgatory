@@ -42,9 +42,7 @@ public class FireBeast : Projectile {
             Debug.Log("Hit obstacle");
         }
     }
-
-
-
+    
     public IEnumerator StopCollisionDetection()
     {
         ParticleSystem.MainModule main = beastParticleSystem.main;

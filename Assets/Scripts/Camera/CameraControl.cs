@@ -22,6 +22,8 @@ public class CameraControl : MonoBehaviour {
     private Vector3 newPosition;
     private ManagerInGame manager;
     private Camera mainCamera;
+    [System.NonSerialized] public bool isZooming = false;
+
 	// Use this for initialization
     void Awake()
     {
@@ -128,7 +130,9 @@ public class CameraControl : MonoBehaviour {
 
     public IEnumerator ZoomIn(Vector2 position, float waitTime)
     {
-        Vector3 startingPosition = mainAxis.position;
+        isZooming = true;
+
+        Vector3 startingPosition = MainAxis.position;
         Vector3 endPosition = new Vector3(position.x, position.y, -1);
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
         float i = 0.0f;
@@ -140,14 +144,12 @@ public class CameraControl : MonoBehaviour {
             yield return null;
         }
         yield return new WaitForSecondsRealtime(zoomDuration + waitTime);
-        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize));
-        i = 0.0f;
-        while (i < 1.0)
-        {
-            i += Time.unscaledDeltaTime * rate;
-            mainAxis.position = Vector3.Lerp(endPosition, startingPosition, i);
-            yield return null;
-        }
+
+        isZooming = false;
+
+        StartCoroutine(ZoomOut(startingPosition));
+
+        
     }
 
     public IEnumerator ZoomOrthographic(float start, float end)
@@ -161,11 +163,31 @@ public class CameraControl : MonoBehaviour {
             yield return null;
         }
     }
+
+    public IEnumerator ZoomOut(Vector3 endPosition)
+    {
+        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize));
+        float i = 0.0f;
+        float rate = 1.0f / zoomDuration;
+        Vector3 startingPosition = MainAxis.position;
+
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            yield return null;
+        }
+    }
+
     public float ZoomDuration
     {
         get
         {
             return zoomDuration;
+        }
+        set
+        {
+            zoomDuration = value;
         }
     }
     public Transform MainAxis
