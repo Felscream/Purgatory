@@ -159,7 +159,7 @@ public class ManagerInGame : MonoBehaviour {
                 dAura.GetComponent<Renderer>().sortingOrder = 9;
             }
 
-            // cameraController.Shake(50, 5, 1000); ne marche pas
+            cameraController.Shake(50, 5, 1000);
             yield return null;
         }
         if (value >= 50)

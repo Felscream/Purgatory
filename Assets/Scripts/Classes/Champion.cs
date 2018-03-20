@@ -867,7 +867,6 @@ public abstract class Champion : MonoBehaviour {
     {
         if(specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
         {
-            Debug.Log(specialStatus);
             rb.gravityScale = 1.0f;
             inputStatus = Enum_InputStatus.allowed;
             ResetAttackTokens();

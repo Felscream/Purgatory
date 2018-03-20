@@ -43,7 +43,7 @@ public class CameraControl : MonoBehaviour {
 	void Update () {
         if (isMoving)
         {
-            mainAxis.position = Vector3.MoveTowards(mainAxis.position, newPosition, Time.deltaTime * currentSpeed);
+            mainAxis.position = Vector3.MoveTowards(mainAxis.position, newPosition, Time.unscaledDeltaTime * currentSpeed);
 
             if(Vector2.Distance(mainAxis.position, newPosition) < snapDistance)
             {
@@ -58,7 +58,7 @@ public class CameraControl : MonoBehaviour {
 
         if (isShaking)
         {
-            shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.deltaTime * shakeSpeed);
+            shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.unscaledDeltaTime * shakeSpeed);
 
             if(Vector2.Distance(shakeAxis.localPosition, nextShakePosition) < shakeIntensity/5f)
             {
