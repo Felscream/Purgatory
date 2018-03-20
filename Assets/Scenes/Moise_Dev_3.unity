@@ -160,7 +160,7 @@ Prefab:
     - target: {fileID: 114114119197396480, guid: a20e3598aee562a4e9e05ba76db29a16,
         type: 2}
       propertyPath: zoomDuration
-      value: 0.5
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a20e3598aee562a4e9e05ba76db29a16, type: 2}
@@ -234,9 +234,14 @@ MonoBehaviour:
   Players: []
   ClashHUD: {fileID: 128625756}
   clashTime: 10
+  clashZoomDuration: 0.3
   defenderHealthGain: 30
   attackerHealthLoss: 10
   defenderImmunityTime: 1.5
+  attackerAura: {fileID: 1285042175133246, guid: 7f9aca893066a0a47b1a0cc6603846c0,
+    type: 2}
+  defenderAura: {fileID: 1341362726122650, guid: 83820e5f9fce3f841b7b977547ad15a5,
+    type: 2}
 --- !u!1001 &918417030
 Prefab:
   m_ObjectHideFlags: 0
