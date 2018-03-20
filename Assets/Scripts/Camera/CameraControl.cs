@@ -146,7 +146,7 @@ public class CameraControl : MonoBehaviour {
         yield return new WaitForSecondsRealtime(zoomDuration + waitTime);
 
         isZooming = false;
-
+        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize));
         StartCoroutine(ZoomOut(startingPosition));
 
         
