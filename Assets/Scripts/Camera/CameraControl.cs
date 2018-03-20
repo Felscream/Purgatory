@@ -126,17 +126,8 @@ public class CameraControl : MonoBehaviour {
         mainAxis.position = pos;
     }
 
-    public Transform MainAxis
-    {
-        get
-        {
-            return mainAxis;
-        }
-    }
-
     public IEnumerator ZoomIn(Vector2 position, float waitTime)
     {
-
         Vector3 startingPosition = mainAxis.position;
         Vector3 endPosition = new Vector3(position.x, position.y, -1);
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
@@ -175,6 +166,13 @@ public class CameraControl : MonoBehaviour {
         get
         {
             return zoomDuration;
+        }
+    }
+    public Transform MainAxis
+    {
+        get
+        {
+            return mainAxis;
         }
     }
 }
