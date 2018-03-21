@@ -106,6 +106,9 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
 
+    [Header("Narrator Quotes")]
+    [SerializeField] protected AudioClip[] ultimateQuotes;
+
     public Attack specialAttack;
     public Attack combo1;
     
@@ -159,6 +162,8 @@ public abstract class Champion : MonoBehaviour {
     protected string ParryButton = "Parry";
     protected string ActionButton = "Action";
 
+
+    protected AudioSource audioSource; // remove when narrator is fully implemented
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -210,6 +215,8 @@ public abstract class Champion : MonoBehaviour {
             ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
             temp.enabled = false;
         }
+
+        audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
     }
     protected void FixedUpdate()
     {
@@ -652,12 +659,10 @@ public abstract class Champion : MonoBehaviour {
                 if (parryFrameCounter >= parryImmunityStartFrame && parryFrameCounter < parryImmunityEndFrame)
                 {
                     immune = true;
-                    Debug.Log("Immunity starts at frame : " + parryFrameCounter);
                 }
                 if (parryFrameCounter >= parryImmunityEndFrame)
                 {
                     immune = false;
-                    Debug.Log("Immunity ends at frame : " + parryFrameCounter);
                     guardStatus = Enum_GuardStatus.noGuard;
                     inputStatus = Enum_InputStatus.allowed;
                 }
@@ -1391,6 +1396,14 @@ public abstract class Champion : MonoBehaviour {
     }
     public void UltimateCameraEffect()
     {
-        StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, zoomWaitDuration));
+        int id = 0;
+        if (audioSource != null && ultimateQuotes.Length > 0)
+        {
+            id = Random.Range(0, ultimateQuotes.Length);
+            audioSource.PlayOneShot(ultimateQuotes[id], 1.0f);
+            StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length));
+        }
+        
+        
     }
 }

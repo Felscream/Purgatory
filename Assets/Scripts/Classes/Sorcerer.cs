@@ -29,7 +29,6 @@ public class Sorcerer : Champion
     [Header("SoundSettings")]
     public AudioClip primaryAttackSound;
     public AudioClip specialAttackSound;
-    AudioSource audioSource;
 
     private bool ultimate = false;
 

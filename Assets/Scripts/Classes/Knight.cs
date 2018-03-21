@@ -16,7 +16,6 @@ public class Knight : Champion
     [Header("SoundSettings")]
     public AudioClip primaryAttackSound;
     public AudioClip specialAttackSound;
-    AudioSource audioSource;
 
     protected bool secondaryAttackRunning = false;
     private bool usePowerUp = false;
