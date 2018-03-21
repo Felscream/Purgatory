@@ -181,12 +181,12 @@ public class Knight : Champion
     public void PrimaryAttackSound()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(primaryAttackSound, 1.0F);
+        audioSource.PlayOneShot(primaryAttackSound, audioVolumeManager.SoundEffectVolume);
     }
 
     public void SpecialAttackSound()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(specialAttackSound, 1.0F);
+        audioSource.PlayOneShot(specialAttackSound, audioVolumeManager.SoundEffectVolume);
     }
 }

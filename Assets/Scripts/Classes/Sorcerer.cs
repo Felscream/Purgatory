@@ -278,6 +278,6 @@ public class Sorcerer : Champion
     public void PrimaryAttackSound()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(primaryAttackSound, 0.2F);
+        audioSource.PlayOneShot(primaryAttackSound, audioVolumeManager.SoundEffectVolume);
     }
 }

@@ -32,6 +32,7 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] protected GameObject attackerAura;
     [SerializeField] protected GameObject defenderAura;
     [SerializeField] protected GameObject backgroundEffect;
+
     //camera variables
     private float defaultOrthographicSize;
     private float defaultZoomOrthographicSize;

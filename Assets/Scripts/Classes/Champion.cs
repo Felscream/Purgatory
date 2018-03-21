@@ -150,6 +150,7 @@ public abstract class Champion : MonoBehaviour {
 
     protected SpriteRenderer sr;
     protected CameraControl cameraController;
+    protected AudioVolumeManager audioVolumeManager;
     // INPUTS valeurs par défaut
     protected string HorizontalCtrl = "Horizontal";
     protected string VerticalCtrl = "Vertical";
@@ -216,6 +217,7 @@ public abstract class Champion : MonoBehaviour {
             temp.enabled = false;
         }
 
+        audioVolumeManager = AudioVolumeManager.GetInstance();
         audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
     }
     protected void FixedUpdate()
@@ -1268,7 +1270,6 @@ public abstract class Champion : MonoBehaviour {
     {
         if(!immune && specialStatus != Enum_SpecialStatus.stun)
         {
-            Debug.Log("Stunned");
             rb.velocity = Vector2.zero;
             animator.SetBool("Projected", false);
             animator.SetBool("Stunned", true);
@@ -1400,7 +1401,7 @@ public abstract class Champion : MonoBehaviour {
         if (audioSource != null && ultimateQuotes.Length > 0)
         {
             id = Random.Range(0, ultimateQuotes.Length);
-            audioSource.PlayOneShot(ultimateQuotes[id], 1.0f);
+            audioSource.PlayOneShot(ultimateQuotes[id], audioVolumeManager.VoiceVolume);
             StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length));
         }
         
