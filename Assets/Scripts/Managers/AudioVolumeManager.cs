@@ -77,7 +77,7 @@ public class AudioVolumeManager : MonoBehaviour {
         }
         set
         {
-            MusicVolume = value;
+            musicVolume = value;
         }
     }
 
