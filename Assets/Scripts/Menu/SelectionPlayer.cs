@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SelectionPlayer : MonoBehaviour {
-    
+
     // Default index of the buttonplayer1/2/3/4
     private int selectionIndexPlayer1 = 0;
     private int selectionIndexPlayer2 = 0;
     private int selectionIndexPlayer3 = 0;
     private int selectionIndexPlayer4 = 0;
-    
+
     public RectTransform KnightPlayer1;
     private Animator KnightPlayer1Anim;
     public RectTransform ArcherPlayer1;
@@ -71,6 +71,10 @@ public class SelectionPlayer : MonoBehaviour {
 
     // ChampionsSelected instance
     ChampionsSelected championsSelected_;
+    bool m_isAxisOneInUse = false;
+    bool m_isAxisTwoInUse = false;
+    bool m_isAxisThreeInUse = false;
+    bool m_isAxisFourInUse = false;
 
     bool m_isAxisInUse = false;
 
@@ -96,7 +100,7 @@ public class SelectionPlayer : MonoBehaviour {
 
         player1Validate = (RectTransform)this.transform.GetChild(8);
         player1Validate.gameObject.SetActive(false);
-        
+
         KnightPlayer1Anim = KnightPlayer1.GetComponent<Animator>();
         ArcherPlayer1Anim = ArcherPlayer1.GetComponent<Animator>();
         SorcererPlayer1Anim = SorcererPlayer1.GetComponent<Animator>();
@@ -225,69 +229,80 @@ public class SelectionPlayer : MonoBehaviour {
                 }
             }
         }
-        else
+
+        if (Input.GetAxis(Horizontal_P1) > 0 && m_isAxisOneInUse == false)
         {
             if (Input.GetAxisRaw(Horizontal_P1) == 0)
             {
                 m_isAxisInUse = false;
             }
         }
-        
+
         Debug.Log(Input.GetAxis(Horizontal_P1)+ " " + m_isAxisInUse );
     }
     public void SelectionCharacterwithController2()
     {
-        if (Input.GetAxis(Horizontal_P2) < 0)
+        if (Input.GetAxis(Horizontal_P2) == 0)
         {
+            m_isAxisTwoInUse = false;
+        }
+
+        if (Input.GetAxis(Horizontal_P2) < 0 && m_isAxisTwoInUse == false)
+        {
+            m_isAxisTwoInUse = true;
             DecreaseIndex(2);
             SelectedIndexPlayer2();
         }
-        else
+
+        if (Input.GetAxis(Horizontal_P2) > 0 && m_isAxisTwoInUse == false)
         {
-            if (Input.GetAxis(Horizontal_P2) > 0)
-            {
-                IncreaseIndex(2);
-                SelectedIndexPlayer2();
-            }
+            IncreaseIndex(2);
+            SelectedIndexPlayer2();
+            m_isAxisTwoInUse = true;
         }
     }
     public void SelectionCharacterwithController3()
     {
-        if (player3IsHere)
+        if (Input.GetAxis(Horizontal_P3) == 0)
         {
-            if (Input.GetAxis(Horizontal_P3) < 0)
-            {
-                DecreaseIndex(3);
-                SelectedIndexPlayer3();
-            }
-            else
-            {
-                if (Input.GetAxis(Horizontal_P3) > 0)
-                {
-                    IncreaseIndex(3);
-                    SelectedIndexPlayer3();
-                }
-            }
+            m_isAxisThreeInUse = false;
+        }
+
+        if (Input.GetAxis(Horizontal_P3) < 0 && m_isAxisThreeInUse == false)
+        {
+            m_isAxisThreeInUse = true;
+            DecreaseIndex(3);
+            SelectedIndexPlayer3();
+        }
+
+        if (Input.GetAxis(Horizontal_P3) > 0 && m_isAxisThreeInUse == false)
+        {
+            IncreaseIndex(3);
+            SelectedIndexPlayer3();
+            m_isAxisThreeInUse = true;
         }
     }
     public void SelectionCharacterwithController4()
     {
-        bool isPressed4 = false;
+        // bool isPressed4 = false; //je ne sais pas à quoi ça sert, je le met en commentaire
 
-        if (Input.GetAxis(Horizontal_P4) < 0 && !isPressed4)
+        if (Input.GetAxis(Horizontal_P4) == 0)
         {
+            m_isAxisThreeInUse = false;
+        }
+
+        if (Input.GetAxis(Horizontal_P4) < 0 && m_isAxisFourInUse == false)
+        {
+            m_isAxisFourInUse = true;
             DecreaseIndex(4);
             SelectedIndexPlayer4();
-            isPressed4 = true;
         }
-        else
+
+        if (Input.GetAxis(Horizontal_P4) > 0 && m_isAxisFourInUse == false)
         {
-            if (Input.GetAxis(Horizontal_P4) > 0 && !isPressed4)
-            {
-                IncreaseIndex(4);
-                SelectedIndexPlayer4();
-                isPressed4 = true;
-            }
+            IncreaseIndex(4);
+            SelectedIndexPlayer4();
+            m_isAxisFourInUse = true;
         }
     }
 
