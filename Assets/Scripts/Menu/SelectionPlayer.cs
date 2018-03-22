@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SelectionPlayer : MonoBehaviour {
@@ -39,13 +40,13 @@ public class SelectionPlayer : MonoBehaviour {
     public RectTransform SorcererPlayer4;
     private Animator SorcererPlayer4Anim;
 
-    public string Jump_P1, Jump_P2, Jump_P3, Jump_P4, Horizontal_P1, Horizontal_P2, Horizontal_P3, Horizontal_P4;
+    public string Jump_P1, Jump_P2, Jump_P3, Jump_P4, Start_P1, Start_P2, Start_P3, Start_P4, Horizontal_P1, Horizontal_P2, Horizontal_P3, Horizontal_P4;
     private RectTransform player1Selection, player2Selection, player3Selection, player4Selection;
     private RectTransform player1Validate, player2Validate, player3Validate, player4Validate;
     private RectTransform player1Join, player2Join, player3Join, player4Join;
 
     private bool player1IsHere = false, player2IsHere = false, player3IsHere = false, player4IsHere = false;
-    private bool player1Choosed = false;
+    private bool player1Choosed = false, player2Choosed = false, player3Choosed = false, player4Choosed = false;
 
     [SerializeField] GameObject player1KnightButton;
     [SerializeField] GameObject player1ArcherButton;
@@ -67,6 +68,9 @@ public class SelectionPlayer : MonoBehaviour {
     [SerializeField] Transform back;
 
     [SerializeField] Transform LaunchGame;
+
+    // ChampionsSelected instance
+    ChampionsSelected championsSelected_;
 
     // Use this for initialization
     void Start () {
@@ -106,45 +110,70 @@ public class SelectionPlayer : MonoBehaviour {
         KnightPlayer4Anim = KnightPlayer4.GetComponent<Animator>();
         ArcherPlayer4Anim = ArcherPlayer4.GetComponent<Animator>();
         SorcererPlayer4Anim = SorcererPlayer4.GetComponent<Animator>();
+
+        championsSelected_ = ChampionsSelected.GetInstance();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetButtonDown(Jump_P1) && !player1IsHere)
+        // Player 1 join the game
+        if (Input.GetButtonDown(Start_P1) && !player1IsHere)
         {
             player1Join.gameObject.SetActive(false);
             player1Selection.gameObject.SetActive(true);
             SelectedIndexPlayer1();
             player1IsHere = true;
-            SelectionCharacterwithController1();
         }
-        if (Input.GetButtonDown(Jump_P2) && !player2IsHere)
+        if (Input.GetButtonDown(Start_P2) && !player2IsHere)
         {
             player2Join.gameObject.SetActive(false);
             player2Selection.gameObject.SetActive(true);
             SelectedIndexPlayer2();
             player2IsHere = true;
-            SelectionCharacterwithController2();
         }
-        if (Input.GetButtonDown(Jump_P3) && !player3IsHere)
+        if (Input.GetButtonDown(Start_P3) && !player3IsHere)
         {
             player3Join.gameObject.SetActive(false);
             player3Selection.gameObject.SetActive(true);
             SelectedIndexPlayer3();
             player3IsHere = true;
-            SelectionCharacterwithController3();
         }
 
-        if (Input.GetButtonDown(Jump_P4) && !player4IsHere)
+        if (Input.GetButtonDown(Start_P4) && !player4IsHere)
         {
-            Debug.Log("je passe ici");
             player4Join.gameObject.SetActive(false);
             player4Selection.gameObject.SetActive(true);
             SelectedIndexPlayer4();
             player4IsHere = true;
-            SelectionCharacterwithController4();
+        }
+
+        // Player 1 validate his choice
+        if(Input.GetButtonDown(Jump_P1) && !player1Choosed)
+        {
+            player1Choosed = true;
+            championsSelected_.Player1_indexSelection = selectionIndexPlayer1;
+        }
+
+        // Player 2 validate his choice
+        if (Input.GetButtonDown(Jump_P2) && !player2Choosed)
+        {
+            player2Choosed = true;
+            championsSelected_.Player2_indexSelection = selectionIndexPlayer2;
+        }
+
+        // Player 3 validate his choice
+        if (Input.GetButtonDown(Jump_P3) && !player3Choosed)
+        {
+            player3Choosed = true;
+            championsSelected_.Player3_indexSelection = selectionIndexPlayer3;
+        }
+
+        // Player 4 validate his choice
+        if (Input.GetButtonDown(Jump_P4) && !player4Choosed)
+        {
+            player1Choosed = true;
+            championsSelected_.Player4_indexSelection = selectionIndexPlayer4;
         }
 
         if (player1IsHere)
@@ -166,10 +195,16 @@ public class SelectionPlayer : MonoBehaviour {
         {
             SelectionCharacterwithController4();
         }
+
+        if (player1Choosed)
+        {
+            LoadMainScene();
+        }
     }
 
     public void SelectionCharacterwithController1()
     {
+        // ne marche pas le bool
         bool m_isAxisInUse = false;
 
         if (Input.GetAxis(Horizontal_P1) < 0)
@@ -197,20 +232,17 @@ public class SelectionPlayer : MonoBehaviour {
     }
     public void SelectionCharacterwithController2()
     {
-        if (player2IsHere)
+        if (Input.GetAxis(Horizontal_P2) < 0)
         {
-            if (Input.GetAxis(Horizontal_P2) < 0)
+            DecreaseIndex(2);
+            SelectedIndexPlayer2();
+        }
+        else
+        {
+            if (Input.GetAxis(Horizontal_P2) > 0)
             {
-                DecreaseIndex(2);
+                IncreaseIndex(2);
                 SelectedIndexPlayer2();
-            }
-            else
-            {
-                if (Input.GetAxis(Horizontal_P2) > 0)
-                {
-                    IncreaseIndex(2);
-                    SelectedIndexPlayer2();
-                }
             }
         }
     }
@@ -444,5 +476,10 @@ public class SelectionPlayer : MonoBehaviour {
                 print("Incorrect");
                 break;
         }
+    }
+
+    public void LoadMainScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
