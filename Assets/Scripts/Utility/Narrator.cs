@@ -16,6 +16,7 @@ public class Narrator : MonoBehaviour {
     [SerializeField] protected AudioClip[] guardComments;
     [SerializeField] protected AudioClip[] parryComments;
     [SerializeField] protected AudioClip[] deathComments;
+    [SerializeField] protected AudioClip[] endComments;
     [SerializeField] protected AudioClip[] randomComments;
     
     protected float lastCommentTime;
@@ -90,12 +91,21 @@ public class Narrator : MonoBehaviour {
     {
         int i = Random.Range(0, comments.Length);
         audioSource.PlayOneShot(comments[i], 1.0F);
+        lastCommentTime = Time.deltaTime;
+    }
+
+    protected IEnumerator PlayNext(AudioClip[] comments)
+    {
+        while (audioSource.isPlaying)
+        {
+            yield return null;
+        }
+        PlayRandom(comments);
     }
     
     public void StartOfTheGame()
     {
         PlayRandom(startComments);
-        lastCommentTime = Time.deltaTime;
     }
 
     public void Attack()
@@ -133,12 +143,10 @@ public class Narrator : MonoBehaviour {
         StartCoroutine(PlayNext(deathComments));
     }
 
-    protected IEnumerator PlayNext(AudioClip[] comments)
+    public void End()
     {
-        while(audioSource.isPlaying)
-        {
-            yield return null;
-        }
-        PlayRandom(comments);
+        audioSource.Stop();
+        PlayRandom(parryComments);
     }
+    
 }
