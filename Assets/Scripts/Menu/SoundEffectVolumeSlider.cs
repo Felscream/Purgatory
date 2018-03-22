@@ -14,6 +14,12 @@ public class SoundEffectVolumeSlider : MonoBehaviour
     {
         volumeManager = AudioVolumeManager.GetInstance();
         soundEffectVolumeSlider = GetComponent<Slider>();
+
+        // Initialize
+        soundEffectVolumeSlider.value = volumeManager.SoundEffectVolume;
+
+        //Adds a listener to the main input field and invokes a method when the value changes.
+        soundEffectVolumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
     }
     
     public void ValueChangeCheck()

@@ -14,6 +14,12 @@ public class VoiceVolumeSlider : MonoBehaviour
     {
         volumeManager = AudioVolumeManager.GetInstance();
         voiceVolumeSlider = GetComponent<Slider>();
+
+        // Initialize
+        voiceVolumeSlider.value = volumeManager.VoiceVolume;
+
+        //Adds a listener to the main input field and invokes a method when the value changes.
+        voiceVolumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
     }
     
     public void ValueChangeCheck()

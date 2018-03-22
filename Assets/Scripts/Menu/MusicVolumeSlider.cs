@@ -13,15 +13,16 @@ public class MusicVolumeSlider : MonoBehaviour {
         volumeManager = AudioVolumeManager.GetInstance();
         musicVolumeSlider = GetComponent<Slider>();
 
+        // Initialize
+        musicVolumeSlider.value = volumeManager.MusicVolume;
+
         //Adds a listener to the main input field and invokes a method when the value changes.
         musicVolumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
     }
     
     public void ValueChangeCheck()
     {
-        Debug.Log("Je passe ici");
         //Displays the value of the slider in the console.
         volumeManager.MusicVolume = musicVolumeSlider.value;
-        
     }
 }
