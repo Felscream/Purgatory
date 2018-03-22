@@ -72,6 +72,8 @@ public class SelectionPlayer : MonoBehaviour {
     // ChampionsSelected instance
     ChampionsSelected championsSelected_;
 
+    bool m_isAxisInUse = false;
+
     // Use this for initialization
     void Start () {
         player1Join = (RectTransform)this.transform.GetChild(0);
@@ -198,37 +200,40 @@ public class SelectionPlayer : MonoBehaviour {
 
         if (player1Choosed)
         {
+            //KnightPlayer1Anim.SetBool("isActive", true);
             LoadMainScene();
         }
     }
 
     public void SelectionCharacterwithController1()
     {
-        // ne marche pas le bool
-        bool m_isAxisInUse = false;
-
-        if (Input.GetAxis(Horizontal_P1) < 0)
+        if (!m_isAxisInUse)
         {
-            if(m_isAxisInUse == false)
+            if (Input.GetAxisRaw(Horizontal_P1) == -1)
             {
+                m_isAxisInUse = true;
                 DecreaseIndex(1);
                 SelectedIndexPlayer1();
-                m_isAxisInUse = true;
+            }
+            else
+            {
+                if (Input.GetAxisRaw(Horizontal_P1) == 1)
+                {
+                    m_isAxisInUse = true;
+                    IncreaseIndex(1);
+                    SelectedIndexPlayer1();
+                }
             }
         }
         else
         {
-            if (Input.GetAxis(Horizontal_P1) > 0)
-            {
-                IncreaseIndex(1);
-                SelectedIndexPlayer1();
-                m_isAxisInUse = true;
-            }
-            else
+            if (Input.GetAxisRaw(Horizontal_P1) == 0)
             {
                 m_isAxisInUse = false;
             }
         }
+        
+        Debug.Log(Input.GetAxis(Horizontal_P1)+ " " + m_isAxisInUse );
     }
     public void SelectionCharacterwithController2()
     {
@@ -295,27 +300,27 @@ public class SelectionPlayer : MonoBehaviour {
                 KnightPlayer1.gameObject.SetActive(true);
                 SorcererPlayer1.gameObject.SetActive(false);
                 ArcherPlayer1.gameObject.SetActive(false);
-                KnightPlayer1Anim.SetBool("isActive", true);
+                /*KnightPlayer1Anim.SetBool("isActive", true);
                 SorcererPlayer1Anim.SetBool("isActive", false);
-                ArcherPlayer1Anim.SetBool("isActive", false);
+                ArcherPlayer1Anim.SetBool("isActive", false);*/
                 break;
             case 1:
                 player1SorcererButton.GetComponent<Button>().Select();
                 KnightPlayer1.gameObject.SetActive(false);
                 SorcererPlayer1.gameObject.SetActive(true);
                 ArcherPlayer1.gameObject.SetActive(false);
-                KnightPlayer1Anim.SetBool("isActive", false);
+                /*KnightPlayer1Anim.SetBool("isActive", false);
                 SorcererPlayer1Anim.SetBool("isActive", true);
-                ArcherPlayer1Anim.SetBool("isActive", false);
+                ArcherPlayer1Anim.SetBool("isActive", false);*/
                 break;
             case 2:
                 player1ArcherButton.GetComponent<Button>().Select();
                 KnightPlayer1.gameObject.SetActive(false);
                 SorcererPlayer1.gameObject.SetActive(false);
                 ArcherPlayer1.gameObject.SetActive(true);
-                KnightPlayer1Anim.SetBool("isActive", false);
+               /* KnightPlayer1Anim.SetBool("isActive", false);
                 SorcererPlayer1Anim.SetBool("isActive", false);
-                ArcherPlayer1Anim.SetBool("isActive", true);
+                ArcherPlayer1Anim.SetBool("isActive", true);*/
                 break;
             default:
                 print("Incorrect intelligence level.");
