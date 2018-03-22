@@ -9,7 +9,12 @@ public class AddChampion : MonoBehaviour {
     public CanvasGroup HUDPlayer1, HUDPlayer2, HUDPlayer3, HUDPlayer4;
     public Champion prefabKnight, prefabSorcerer, prefabArcher;
     public string Start_P1, Start_P2, Start_P3, Start_P4;
-    
+
+    // ChampionsSelected instance
+    ChampionsSelected championsSelected_;
+
+    private int player1_indexSelection = 0, player2_indexSelection = 0, player3_indexSelection = 0, player4_indexSelection = 0;
+
     // Use this for initialization
     void Start ()
     {
@@ -28,18 +33,38 @@ public class AddChampion : MonoBehaviour {
         floatingJ2 = player2.transform.GetChild(0).gameObject;
         floatingJ3 = player3.transform.GetChild(0).gameObject;
         floatingJ4 = player4.transform.GetChild(0).gameObject;
+
+        // Instance for prefab
+        championsSelected_ = ChampionsSelected.GetInstance();
+
+        player1_indexSelection = championsSelected_.Player1_indexSelection;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         // Ajoute un joueur lorsqu'une manette appuie sur le bouton start, si il n'existe pas déjà
-        if (Input.GetButtonDown(Start_P1) && !player1.activeSelf)
+        if (!player1.activeSelf)
         {
             player1.SetActive(true);
             if (!player1.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer1 = Instantiate(prefabKnight, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                Champion championPlayer1;
+                switch (player1_indexSelection)
+                {
+                    case 0:
+                        championPlayer1 = Instantiate(prefabKnight, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 1:
+                        championPlayer1 = Instantiate(prefabSorcerer, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 2:
+                        championPlayer1 = Instantiate(prefabArcher, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    default:
+                        championPlayer1 = Instantiate(prefabKnight, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                }
                 championPlayer1.transform.localPosition = new Vector3(0, 0, 0);
                 // On lui donne le HUD correspondant
                 championPlayer1.playerHUD = HUDPlayer1;
