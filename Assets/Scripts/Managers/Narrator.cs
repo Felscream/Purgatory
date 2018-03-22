@@ -21,6 +21,7 @@ public class Narrator : MonoBehaviour {
     
     protected float lastCommentTime;
     protected AudioSource audioSource;
+    private AudioVolumeManager audioVolumeManager;
     private static Narrator instance;
 
     protected float TimePassed
@@ -53,7 +54,7 @@ public class Narrator : MonoBehaviour {
         {
             if (instance == null)
             {
-                Debug.Log("No instance of " + typeof(ManagerInGame));
+                Debug.Log("No instance of " + typeof(Narrator));
                 return null;
             }
             return instance;
@@ -77,6 +78,7 @@ public class Narrator : MonoBehaviour {
     void Start () {
         audioSource = GetComponent<AudioSource>();
         lastCommentTime = 0;
+        audioVolumeManager = AudioVolumeManager.GetInstance();
     }
 	
 	// Update is called once per frame
@@ -90,6 +92,7 @@ public class Narrator : MonoBehaviour {
     protected void PlayRandom(AudioClip[] comments)
     {
         int i = Random.Range(0, comments.Length);
+<<<<<<< HEAD:Assets/Scripts/Utility/Narrator.cs
         audioSource.PlayOneShot(comments[i], 1.0F);
         lastCommentTime = Time.deltaTime;
     }
@@ -101,6 +104,9 @@ public class Narrator : MonoBehaviour {
             yield return null;
         }
         PlayRandom(comments);
+=======
+        audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
+>>>>>>> 456d767482c982d9e93e7dbe98d4e358648b989e:Assets/Scripts/Managers/Narrator.cs
     }
     
     public void StartOfTheGame()

@@ -37,7 +37,6 @@ public class Archer : Champion
 
     [Header("SoundSettings")]
     public AudioClip cacAttackSound;
-    AudioSource audioSource;
 
     private float staminaConsumed;
     private bool playedOnceChargeOne = false, playedOnceChargeTwo = false;
@@ -296,6 +295,6 @@ public class Archer : Champion
     public void CacAttackSound()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(cacAttackSound, 1.0F);
+        audioSource.PlayOneShot(cacAttackSound, audioVolumeManager.SoundEffectVolume);
     }
 }

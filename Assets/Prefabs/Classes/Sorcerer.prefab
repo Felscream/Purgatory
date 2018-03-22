@@ -427,6 +427,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33024
   maxAttackToken: 2
+  ultimateQuotes:
+  - {fileID: 8300000, guid: 0da456f74806a34479c7fa5a3c8906b6, type: 3}
   specialAttack:
     offset: {x: 0, y: 0}
     size: {x: 1, y: 1}

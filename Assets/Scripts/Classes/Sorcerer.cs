@@ -29,7 +29,6 @@ public class Sorcerer : Champion
     [Header("SoundSettings")]
     public AudioClip primaryAttackSound;
     public AudioClip specialAttackSound;
-    AudioSource audioSource;
 
     private bool ultimate = false;
 
@@ -279,6 +278,6 @@ public class Sorcerer : Champion
     public void PrimaryAttackSound()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(primaryAttackSound, 0.2F);
+        audioSource.PlayOneShot(primaryAttackSound, audioVolumeManager.SoundEffectVolume);
     }
 }
