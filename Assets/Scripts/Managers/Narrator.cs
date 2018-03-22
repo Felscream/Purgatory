@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Narrator : MonoBehaviour {
-    
+
     [Header("Duration between commentary")]
     [SerializeField] protected float minTime = 5;
     [SerializeField] protected float maxTime = 30;
@@ -18,7 +18,7 @@ public class Narrator : MonoBehaviour {
     [SerializeField] protected AudioClip[] deathComments;
     [SerializeField] protected AudioClip[] endComments;
     [SerializeField] protected AudioClip[] randomComments;
-    
+
     protected float lastCommentTime;
     protected AudioSource audioSource;
     private AudioVolumeManager audioVolumeManager;
@@ -59,9 +59,9 @@ public class Narrator : MonoBehaviour {
             }
             return instance;
         }
-        
+
     }
-    
+
     void Awake()
     {
         if (instance == null)
@@ -80,7 +80,7 @@ public class Narrator : MonoBehaviour {
         lastCommentTime = 0;
         audioVolumeManager = AudioVolumeManager.GetInstance();
     }
-	
+
 	// Update is called once per frame
 	void Update () {
         if(TimePassed >= maxTime)
@@ -92,7 +92,6 @@ public class Narrator : MonoBehaviour {
     protected void PlayRandom(AudioClip[] comments)
     {
         int i = Random.Range(0, comments.Length);
-<<<<<<< HEAD:Assets/Scripts/Utility/Narrator.cs
         audioSource.PlayOneShot(comments[i], 1.0F);
         lastCommentTime = Time.deltaTime;
     }
@@ -104,11 +103,9 @@ public class Narrator : MonoBehaviour {
             yield return null;
         }
         PlayRandom(comments);
-=======
-        audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
->>>>>>> 456d767482c982d9e93e7dbe98d4e358648b989e:Assets/Scripts/Managers/Narrator.cs
+        //audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
     }
-    
+
     public void StartOfTheGame()
     {
         PlayRandom(startComments);
@@ -154,5 +151,5 @@ public class Narrator : MonoBehaviour {
         audioSource.Stop();
         PlayRandom(parryComments);
     }
-    
+
 }

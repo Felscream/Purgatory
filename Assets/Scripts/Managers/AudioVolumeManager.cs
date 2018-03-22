@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioVolumeManager : MonoBehaviour {
 
@@ -12,7 +13,7 @@ public class AudioVolumeManager : MonoBehaviour {
     private float soundEffectVolume = 0.75f;
     private float voiceVolume = 0.75f;
     private string fileName = "volumeData.dat";
-    
+
     void Awake()
     {
         if (instance == null)
@@ -39,7 +40,7 @@ public class AudioVolumeManager : MonoBehaviour {
     private void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/" + fileName, FileMode.Open);
+        FileStream file = File.Open(Application.persistentDataPath + "/" + fileName, FileMode.OpenOrCreate);
         VolumeData data = new VolumeData(musicVolume, soundEffectVolume, voiceVolume);
         bf.Serialize(file, data);
         file.Close();
