@@ -92,7 +92,7 @@ public class Narrator : MonoBehaviour {
     protected void PlayRandom(AudioClip[] comments)
     {
         int i = Random.Range(0, comments.Length);
-        audioSource.PlayOneShot(comments[i], 1.0F);
+        audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
         lastCommentTime = Time.deltaTime;
     }
 
@@ -103,7 +103,6 @@ public class Narrator : MonoBehaviour {
             yield return null;
         }
         PlayRandom(comments);
-        //audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
     }
 
     public void StartOfTheGame()
@@ -149,7 +148,7 @@ public class Narrator : MonoBehaviour {
     public void End()
     {
         audioSource.Stop();
-        PlayRandom(parryComments);
+        PlayRandom(endComments);
     }
 
 }
