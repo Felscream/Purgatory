@@ -639,7 +639,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -0.5
+      scalar: -0.2
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1337,7 +1337,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1.46
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1548,7 +1548,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.67
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1627,7 +1627,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    inWorldSpace: 0
+    inWorldSpace: 1
     randomizePerFrame: 0
   ExternalForcesModule:
     enabled: 0
@@ -1849,7 +1849,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3.5
+      scalar: 2.45
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4592,8 +4592,8 @@ ParticleSystem:
           outSlope: 0.041064937
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.8901598
-          value: 0.6687917
+          time: 0.90294665
+          value: 0.6854581
           inSlope: 1.7902789
           outSlope: 1.7902789
           tangentMode: 0
@@ -6958,7 +6958,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -7012,7 +7012,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0

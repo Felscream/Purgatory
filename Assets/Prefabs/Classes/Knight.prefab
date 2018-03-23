@@ -352,9 +352,9 @@ MonoBehaviour:
     m_Bits: 16384
   playerHUD: {fileID: 0}
   jumpHeight: 10
-  fallMultiplier: 7
+  fallMultiplier: 8
   jumpVelocityAtApex: 3
-  coyoteTimeFrames: 3
+  coyoteTimeFrames: 2
   dodgeSpeed: 20
   dodgeStaminaCost: 10
   dodgeFrames: 7
@@ -1127,7 +1127,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1168,7 +1168,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2

@@ -388,9 +388,9 @@ MonoBehaviour:
     m_Bits: 16384
   playerHUD: {fileID: 0}
   jumpHeight: 10
-  fallMultiplier: 7
-  jumpVelocityAtApex: 2
-  coyoteTimeFrames: 3
+  fallMultiplier: 8
+  jumpVelocityAtApex: 3
+  coyoteTimeFrames: 2
   dodgeSpeed: 10
   dodgeStaminaCost: 20
   dodgeFrames: 30
