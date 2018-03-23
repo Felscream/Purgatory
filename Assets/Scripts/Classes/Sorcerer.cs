@@ -255,7 +255,6 @@ public class Sorcerer : Champion
         AllowInputs();
         EndAttackString();
         ResetLimitBreak();
-        
         ultimate = false;
     }
 
