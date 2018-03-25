@@ -12,7 +12,7 @@ public class AddChampion : MonoBehaviour {
 
     // ChampionsSelected instance from player selection
     ChampionsSelected championsSelected_;
-    private int player1_indexSelection = 0, player2_indexSelection = 0, player3_indexSelection = 0, player4_indexSelection = 0;
+    private int player1_indexSelection, player2_indexSelection, player3_indexSelection, player4_indexSelection;
 
     // Use this for initialization
     void Start ()
@@ -35,158 +35,55 @@ public class AddChampion : MonoBehaviour {
 
         // Instance for prefab
         championsSelected_ = ChampionsSelected.GetInstance();
-        if(championsSelected_ != null)
+        if (championsSelected_ != null)
         {
-            switch (championsSelected_.PlayerNumber)
-            {
-                case 0:
-                    player1_indexSelection = championsSelected_.Player1_indexSelection;
-                    break;
-                case 1:
-                    player1_indexSelection = championsSelected_.Player1_indexSelection;
-                    player2_indexSelection = championsSelected_.Player2_indexSelection;
-                    break;
-                case 2:
-                    player1_indexSelection = championsSelected_.Player1_indexSelection;
-                    player2_indexSelection = championsSelected_.Player2_indexSelection;
-                    player3_indexSelection = championsSelected_.Player3_indexSelection;
-                    break;
-                case 3:
-                    player1_indexSelection = championsSelected_.Player1_indexSelection;
-                    player2_indexSelection = championsSelected_.Player2_indexSelection;
-                    player3_indexSelection = championsSelected_.Player3_indexSelection;
-                    player4_indexSelection = championsSelected_.Player4_indexSelection;
-                    break;
-                default:
-                    break;
-            }
+            player1_indexSelection = championsSelected_.playerSelection[0];
+            player2_indexSelection = championsSelected_.playerSelection[1];
+            player3_indexSelection = championsSelected_.playerSelection[2];
+            player4_indexSelection = championsSelected_.playerSelection[3];
+
+            CreateChampion(player1, player1_indexSelection);
+            CreateChampion(player2, player2_indexSelection);
+            CreateChampion(player3, player3_indexSelection);
+            CreateChampion(player4, player4_indexSelection);
         }
-        else
-        {
-            player1_indexSelection = 0;
-            player2_indexSelection = 1;
-            player3_indexSelection = 2;
-            player4_indexSelection = 1;
-        }
-        
+        // Ajoute un joueur de la classe correspondante, si il n'existe pas déjà
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    public void CreateChampion(GameObject player, int index)
     {
-        // Ajoute un joueur lorsqu'une manette appuie sur le bouton start, si il n'existe pas déjà
-        if (!player1.activeSelf)
+        if (index != 0)
         {
-            player1.SetActive(true);
-            if (!player1.GetComponent<PlayerInput>().ObjectsInstantiated())
+            player.SetActive(true);
+        }
+
+        if (!player.GetComponent<PlayerInput>().ObjectsInstantiated())
+        {
+            Champion championPlayer = null;
+            switch (index)
             {
-                Champion championPlayer1;
-                switch (player1_indexSelection)
-                {
-                    case 0:
-                        championPlayer1 = Instantiate(prefabKnight, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 1:
-                        championPlayer1 = Instantiate(prefabSorcerer, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 2:
-                        championPlayer1 = Instantiate(prefabArcher, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    default:
-                        championPlayer1 = Instantiate(prefabKnight, player1.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                }
-                championPlayer1.transform.localPosition = new Vector3(0, 0, 0);
+                case 1: // Knight selected
+                    championPlayer = Instantiate(prefabKnight, player.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                    break;
+                case 2: // sorcerer selected
+                    championPlayer = Instantiate(prefabSorcerer, player.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                    break;
+                case 3: // archer selected
+                    championPlayer = Instantiate(prefabArcher, player.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                    break;
+                default: // if 0, nothing selected
+                    break;
+            }
+            if (championPlayer != null)
+            {
+
+                championPlayer.transform.localPosition = new Vector3(0, 0, 0);
                 // On lui donne le HUD correspondant
-                championPlayer1.playerHUD = HUDPlayer1;
+                championPlayer.playerHUD = HUDPlayer1;
                 // On redonne les input au Champion créé
-                player1.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer1);
-                player1.GetComponent<PlayerInput>().SetChampion(championPlayer1);
-                player1.GetComponent<PlayerInput>().GetPlayerControlInput();
-            }
-        }
-        if (!player2.activeSelf)
-        {
-            player2.SetActive(true);
-            if (!player2.GetComponent<PlayerInput>().ObjectsInstantiated())
-            {
-                Champion championPlayer2;
-                switch (player2_indexSelection)
-                {
-                    case 0:
-                        championPlayer2 = Instantiate(prefabKnight, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 1:
-                        championPlayer2 = Instantiate(prefabSorcerer, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 2:
-                        championPlayer2 = Instantiate(prefabArcher, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    default:
-                        championPlayer2 = Instantiate(prefabKnight, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                }
-                championPlayer2.transform.localPosition = new Vector3(0, 0, 0);
-                championPlayer2.playerHUD = HUDPlayer2;
-                player2.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer2);
-                player2.GetComponent<PlayerInput>().SetChampion(championPlayer2);
-                player2.GetComponent<PlayerInput>().GetPlayerControlInput();
-            }
-        }
-        if (Input.GetButtonDown(Start_P3) && !player3.activeSelf)
-        {
-            player3.SetActive(true);
-            if (!player3.GetComponent<PlayerInput>().ObjectsInstantiated())
-            {
-                Champion championPlayer3;
-                switch (player3_indexSelection)
-                {
-                    case 0:
-                        championPlayer3 = Instantiate(prefabKnight, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 1:
-                        championPlayer3 = Instantiate(prefabSorcerer, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 2:
-                        championPlayer3 = Instantiate(prefabArcher, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    default:
-                        championPlayer3 = Instantiate(prefabKnight, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                }
-                championPlayer3.transform.localPosition = new Vector3(0, 0, 0);
-                championPlayer3.playerHUD = HUDPlayer3;
-                player3.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer3);
-                player3.GetComponent<PlayerInput>().SetChampion(championPlayer3);
-                player3.GetComponent<PlayerInput>().GetPlayerControlInput();
-            }
-        }
-        if (Input.GetButtonDown(Start_P4) && !player4.activeSelf)
-        {
-            player4.SetActive(true);
-            if (!player4.GetComponent<PlayerInput>().ObjectsInstantiated())
-            {
-                Champion championPlayer4;
-                switch (player4_indexSelection)
-                {
-                    case 0:
-                        championPlayer4 = Instantiate(prefabKnight, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 1:
-                        championPlayer4 = Instantiate(prefabSorcerer, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    case 2:
-                        championPlayer4 = Instantiate(prefabArcher, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                    default:
-                        championPlayer4 = Instantiate(prefabKnight, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
-                        break;
-                }
-                championPlayer4.transform.localPosition = new Vector3(0, 0, 0);
-                championPlayer4.playerHUD = HUDPlayer4;
-                player4.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer4);
-                player4.GetComponent<PlayerInput>().SetChampion(championPlayer4);
-                player4.GetComponent<PlayerInput>().GetPlayerControlInput();
+                player.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer);
+                player.GetComponent<PlayerInput>().SetChampion(championPlayer);
+                player.GetComponent<PlayerInput>().GetPlayerControlInput();
             }
         }
     }
