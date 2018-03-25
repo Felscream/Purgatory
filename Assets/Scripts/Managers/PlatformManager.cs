@@ -22,7 +22,8 @@ public class PlatformManager : MonoBehaviour {
         {
             if ((!champ.IsFalling() && !champ.IsGrounded()) || champ.IgnorePlatforms)
             {
-                Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), platform.GetComponent<Collider2D>(), true);
+        Debug.Log(this.name);
+                Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), platform.GetComponent<BoxCollider2D>(), true);
             }
         }
     }
@@ -32,7 +33,7 @@ public class PlatformManager : MonoBehaviour {
         Transform platform = transform;
         if (champ != null)
         {
-            Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), platform.GetComponent<Collider2D>(), false);
+            Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), platform.GetComponent<BoxCollider2D>(), false);
             champ.IgnorePlatforms = false;
         }
     }

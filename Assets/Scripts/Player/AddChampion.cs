@@ -10,9 +10,8 @@ public class AddChampion : MonoBehaviour {
     public Champion prefabKnight, prefabSorcerer, prefabArcher;
     public string Start_P1, Start_P2, Start_P3, Start_P4;
 
-    // ChampionsSelected instance
+    // ChampionsSelected instance from player selection
     ChampionsSelected championsSelected_;
-
     private int player1_indexSelection = 0, player2_indexSelection = 0, player3_indexSelection = 0, player4_indexSelection = 0;
 
     // Use this for initialization
@@ -38,7 +37,36 @@ public class AddChampion : MonoBehaviour {
         championsSelected_ = ChampionsSelected.GetInstance();
         if(championsSelected_ != null)
         {
-            player1_indexSelection = championsSelected_.Player1_indexSelection;
+            switch (championsSelected_.PlayerNumber)
+            {
+                case 0:
+                    player1_indexSelection = championsSelected_.Player1_indexSelection;
+                    break;
+                case 1:
+                    player1_indexSelection = championsSelected_.Player1_indexSelection;
+                    player2_indexSelection = championsSelected_.Player2_indexSelection;
+                    break;
+                case 2:
+                    player1_indexSelection = championsSelected_.Player1_indexSelection;
+                    player2_indexSelection = championsSelected_.Player2_indexSelection;
+                    player3_indexSelection = championsSelected_.Player3_indexSelection;
+                    break;
+                case 3:
+                    player1_indexSelection = championsSelected_.Player1_indexSelection;
+                    player2_indexSelection = championsSelected_.Player2_indexSelection;
+                    player3_indexSelection = championsSelected_.Player3_indexSelection;
+                    player4_indexSelection = championsSelected_.Player4_indexSelection;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            player1_indexSelection = 0;
+            player2_indexSelection = 1;
+            player3_indexSelection = 2;
+            player4_indexSelection = 1;
         }
         
     }
@@ -77,12 +105,27 @@ public class AddChampion : MonoBehaviour {
                 player1.GetComponent<PlayerInput>().GetPlayerControlInput();
             }
         }
-        if (Input.GetButtonDown(Start_P2) && !player2.activeSelf)
+        if (!player2.activeSelf)
         {
             player2.SetActive(true);
             if (!player2.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer2 = Instantiate(prefabArcher, player2.transform, false);
+                Champion championPlayer2;
+                switch (player2_indexSelection)
+                {
+                    case 0:
+                        championPlayer2 = Instantiate(prefabKnight, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 1:
+                        championPlayer2 = Instantiate(prefabSorcerer, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 2:
+                        championPlayer2 = Instantiate(prefabArcher, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    default:
+                        championPlayer2 = Instantiate(prefabKnight, player2.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                }
                 championPlayer2.transform.localPosition = new Vector3(0, 0, 0);
                 championPlayer2.playerHUD = HUDPlayer2;
                 player2.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer2);
@@ -95,7 +138,22 @@ public class AddChampion : MonoBehaviour {
             player3.SetActive(true);
             if (!player3.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer3 = Instantiate(prefabKnight, player3.transform, false);
+                Champion championPlayer3;
+                switch (player3_indexSelection)
+                {
+                    case 0:
+                        championPlayer3 = Instantiate(prefabKnight, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 1:
+                        championPlayer3 = Instantiate(prefabSorcerer, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 2:
+                        championPlayer3 = Instantiate(prefabArcher, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    default:
+                        championPlayer3 = Instantiate(prefabKnight, player3.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                }
                 championPlayer3.transform.localPosition = new Vector3(0, 0, 0);
                 championPlayer3.playerHUD = HUDPlayer3;
                 player3.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer3);
@@ -108,7 +166,22 @@ public class AddChampion : MonoBehaviour {
             player4.SetActive(true);
             if (!player4.GetComponent<PlayerInput>().ObjectsInstantiated())
             {
-                Champion championPlayer4 = Instantiate(prefabSorcerer, player4.transform, false);
+                Champion championPlayer4;
+                switch (player4_indexSelection)
+                {
+                    case 0:
+                        championPlayer4 = Instantiate(prefabKnight, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 1:
+                        championPlayer4 = Instantiate(prefabSorcerer, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    case 2:
+                        championPlayer4 = Instantiate(prefabArcher, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                    default:
+                        championPlayer4 = Instantiate(prefabKnight, player4.transform, false); // A MODIFIER avec le perso choisit par le joueur
+                        break;
+                }
                 championPlayer4.transform.localPosition = new Vector3(0, 0, 0);
                 championPlayer4.playerHUD = HUDPlayer4;
                 player4.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer4);
