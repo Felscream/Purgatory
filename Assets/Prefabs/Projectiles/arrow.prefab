@@ -94,7 +94,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &70464804104778972
 CapsuleCollider2D:
@@ -265,6 +265,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
+  poisonDamage: 2
   arrowSound: {fileID: 8300000, guid: 3affcab4110436e4a9d50fd274332d11, type: 3}
 --- !u!114 &114984677698657860
 MonoBehaviour:
@@ -938,7 +939,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1560,7 +1561,7 @@ ParticleSystem:
     inWorldSpace: 0
   InheritVelocityModule:
     enabled: 1
-    m_Mode: 1
+    m_Mode: 0
     m_Curve:
       serializedVersion: 2
       minMaxState: 0

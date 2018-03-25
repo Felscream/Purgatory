@@ -20,6 +20,7 @@ public class Arrow : Projectile
     public AudioClip arrowSound;
     AudioSource audioSource;
     protected ParticleSystem.ColorOverLifetimeModule particleColor;
+    protected Collider2D arrowCollider;
     protected override void Start()
     {
         base.Start();
@@ -43,6 +44,7 @@ public class Arrow : Projectile
                 particleColor.color = normal;
                 break;
         }
+        arrowCollider = GetComponent<Collider2D>();
     }
 
 
@@ -150,5 +152,13 @@ public class Arrow : Projectile
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(arrowSound, 1.0F);
+    }
+
+    public Collider2D ArrowCollider
+    {
+        get
+        {
+            return arrowCollider;
+        }
     }
 }

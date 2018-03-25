@@ -25,8 +25,8 @@ GameObject:
   - component: {fileID: 70534648561332082}
   - component: {fileID: 114999283451076384}
   - component: {fileID: 114890475617490244}
-  m_Layer: 13
-  m_Name: ultimateArrow
+  m_Layer: 17
+  m_Name: UltimateArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4032315105480968}
   - component: {fileID: 198831311268739418}
   - component: {fileID: 199103444419192780}
-  m_Layer: 13
+  m_Layer: 17
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &70534648561332082
 CapsuleCollider2D:
@@ -120,7 +120,7 @@ Animator:
   m_GameObject: {fileID: 1086499213229864}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 09a88ae1f1fef984f8e5c17e29291270, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8791e76d70fb1a0418ba46ff324c61bd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b64b8966a9b384a801260a187c5826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: {x: 0.1, y: 0}
+  force: {x: 0.02, y: 0}
   maxTravelDistance: 0
   damage: 20
   stunLock: 5
@@ -267,6 +267,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 3
   poisonDamage: 2
   arrowSound: {fileID: 0}
+  maxMagnitude: 0
 --- !u!114 &114999283451076384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -803,7 +804,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.15
+      value: 0.3
       mode: 0
       spread: 0
       speed:
@@ -939,7 +940,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1561,7 +1562,7 @@ ParticleSystem:
     inWorldSpace: 0
   InheritVelocityModule:
     enabled: 1
-    m_Mode: 1
+    m_Mode: 0
     m_Curve:
       serializedVersion: 2
       minMaxState: 0

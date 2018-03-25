@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class UltimateArrow : Arrow {
 
+    [SerializeField] protected float maxMagnitude = 30.0f;
+
     protected override void FixedUpdate()
     {
+        //rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxMagnitude);
         direction = Mathf.Sign(rb.velocity.x);
         Vector2 v = rb.velocity;
         float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         base.FixedUpdate();
     }
+
     protected override void HandleImpact(Collision2D collision)
     {
         Champion foe = collision.gameObject.GetComponent<Champion>();
@@ -51,14 +55,34 @@ public class UltimateArrow : Arrow {
         {
             if(projectile != null)
             {
-                DestroyProjectile();
+                
+                if(projectile.Owner != Owner)
+                {
+                    DestroyProjectile();
+                }
+                else
+                {
+                    Debug.Log("Collision with" + collision.gameObject.name);
+                    Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+                }
             }
             else
             {
-
-                Debug.Log(rb.velocity);
+                Debug.Log("Collision with" + collision.gameObject.name);
             }
             
+        }
+    }
+
+    public float MaxMagnitude
+    {
+        get
+        {
+            return maxMagnitude;
+        }
+        set
+        {
+            maxMagnitude = value;
         }
     }
 }

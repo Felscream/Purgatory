@@ -756,7 +756,7 @@ public abstract class Champion : MonoBehaviour {
         {
 
             animator.SetBool("Moving", true);
-            transform.Translate(movement * Time.deltaTime);
+            transform.Translate(movement * Time.fixedDeltaTime);
         }
 
     }
@@ -1220,7 +1220,6 @@ public abstract class Champion : MonoBehaviour {
             specialStatus = Enum_SpecialStatus.projected;
             SetStunEffects();
             Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0.0f;
             animator.SetBool("Projected", true);
@@ -1240,7 +1239,6 @@ public abstract class Champion : MonoBehaviour {
         specialStatus = Enum_SpecialStatus.normal;
         speed = baseSpeed;
         AllowInputs();
-        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
 
         //Debug.Log("Normal is the new black");
     }
@@ -1252,7 +1250,6 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Projected", false);
             animator.SetBool("Stunned", true);
             rb.gravityScale = 1.0f;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
             specialStatus = Enum_SpecialStatus.stun;
             SetStunEffects();
             StartCoroutine(EffectCoroutine(duration));
@@ -1265,7 +1262,6 @@ public abstract class Champion : MonoBehaviour {
         if (!immune)
         {
             specialStatus = Enum_SpecialStatus.poison;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
             StartCoroutine(PoisonCoroutine(poisonDamage));
             StartCoroutine(EffectCoroutine(duration));
         }
@@ -1277,7 +1273,6 @@ public abstract class Champion : MonoBehaviour {
         {
             specialStatus = Enum_SpecialStatus.slow;
             speed = baseSpeed * slowRatio;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
             StartCoroutine(EffectCoroutine(duration));
         }
     }
@@ -1369,7 +1364,7 @@ public abstract class Champion : MonoBehaviour {
     {
         while (specialStatus == Enum_SpecialStatus.poison)
         {
-            if(poisonDamage >= Health)
+            if(poisonDamage >= Health && !dead)
             {
                 Health = 1;
             }

@@ -28,8 +28,8 @@ public class Archer : Champion
     [SerializeField] protected Vector2 projectileSpawnOffsetArrow;
 
     [Header("UltimateArrow")]
-    [SerializeField]
-    protected GameObject ultimateArrow;
+    [SerializeField] protected GameObject ultimateArrow;
+    [SerializeField] protected Vector3[] arrowAngles = new Vector3[3];
 
     // Tenir bouton enfoncé
     protected float baseChargeMultiplier = 1.0f;
@@ -38,6 +38,7 @@ public class Archer : Champion
     protected bool isKeyActive = false;
     protected Enum_ChargeLevel chargeLevel = Enum_ChargeLevel.low;
 
+    private List<UltimateArrow> arrowList = new List<UltimateArrow>();
 
     [Header("SoundSettings")]
     public AudioClip cacAttackSound;
@@ -269,15 +270,40 @@ public class Archer : Champion
         //inputStatus = Enum_InputStatus.blocked;
         animator.SetBool("Ultimate", true);
         rb.velocity = Vector2.zero;
+        ClearArrowList();
         //immune = true;
         Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffsetArrow.x * facing, transform.position.y + projectileSpawnOffsetArrow.y);
-        GameObject arrowProjectile = Instantiate(ultimateArrow, SpawnPoint, transform.rotation);
-        Arrow ar = arrowProjectile.GetComponent<Arrow>();
-        Physics2D.IgnoreCollision(arrowProjectile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        ar.Owner = this;
-        ar.Direction = facing;
-        Vector2 forceArr = ar.Force * facing;
-        ar.GetComponent<Rigidbody2D>().AddForce(forceArr);
+        for(int i = 0; i < arrowAngles.Length; i++)
+        {
+            GameObject arrowProjectile = Instantiate(ultimateArrow, SpawnPoint, transform.rotation);
+            
+            UltimateArrow ar = arrowProjectile.GetComponent<UltimateArrow>();
+            arrowList.Add(ar);
+            ar.Owner = this;
+            ar.Direction = facing;
+            Physics2D.IgnoreCollision(ar.GetComponent<Collider2D>(), physicBox);
+            float xForce = ar.Force.magnitude * Mathf.Abs(Mathf.Cos(arrowAngles[i].z)) * facing;
+            float yForce = ar.Force.magnitude * Mathf.Abs(Mathf.Sin(arrowAngles[i].z)) * Mathf.Sign(arrowAngles[i].z);
+            Debug.Log(xForce +" "+ yForce);
+            switch (i)
+            {
+                case 0:
+                    ar.ArrowStatus = Enum_SpecialStatus.stun;
+                    break;
+                case 1:
+                    ar.ArrowStatus = Enum_SpecialStatus.poison;
+                    break;
+                case 2:
+                    ar.ArrowStatus = Enum_SpecialStatus.slow;
+                    break;
+                default:
+                    ar.ArrowStatus = Enum_SpecialStatus.normal;
+                    break;
+            }
+            Vector2 forceArr = new Vector2(xForce, yForce);
+            ar.GetComponent<Rigidbody2D>().AddForce(forceArr);
+        }
+        
         ResetLimitBreak();
     }
 
@@ -292,5 +318,17 @@ public class Archer : Champion
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(cacAttackSound, audioVolumeManager.SoundEffectVolume);
+    }
+
+    public void ClearArrowList()
+    {
+        foreach(UltimateArrow ua in arrowList)
+        {
+            if(ua != null && ua.gameObject != null)
+            {
+                Destroy(ua.gameObject);
+            }
+        }
+        arrowList.Clear();
     }
 }
