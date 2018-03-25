@@ -11,15 +11,15 @@ public class Arrow : Projectile
     [SerializeField] protected GameObject stunSprite;
     [SerializeField] protected GameObject poisonSprite;
     [SerializeField] protected GameObject slowSprite;
-    [SerializeField] private Gradient normal;
-    [SerializeField] private Gradient poison;
-    [SerializeField] private Gradient slow;
-    [SerializeField] private Gradient stun;
-    [SerializeField] public float poisonDamage = 2.0f;
+    [SerializeField] protected Gradient normal;
+    [SerializeField] protected Gradient poison;
+    [SerializeField] protected Gradient slow;
+    [SerializeField] protected Gradient stun;
+    [SerializeField] protected float poisonDamage = 2.0f;
     [Header("SoundSettings")]
     public AudioClip arrowSound;
     AudioSource audioSource;
-    private ParticleSystem.ColorOverLifetimeModule particleColor;
+    protected ParticleSystem.ColorOverLifetimeModule particleColor;
     protected override void Start()
     {
         base.Start();
@@ -86,7 +86,7 @@ public class Arrow : Projectile
             //impact = true;
         }
     }
-    void ApplyAndShowDebuf(Champion foe)
+    protected void ApplyAndShowDebuf(Champion foe)
     {
         if (arrowStatus == Enum_SpecialStatus.stun)
         {

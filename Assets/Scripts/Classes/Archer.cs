@@ -27,6 +27,10 @@ public class Archer : Champion
     [SerializeField] protected GameObject arrow;
     [SerializeField] protected Vector2 projectileSpawnOffsetArrow;
 
+    [Header("UltimateArrow")]
+    [SerializeField]
+    protected GameObject ultimateArrow;
+
     // Tenir bouton enfoncé
     protected float baseChargeMultiplier = 1.0f;
     protected float chargeTimer = 0.0f; //Our timer
@@ -191,8 +195,8 @@ public class Archer : Champion
             }
 
             Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffsetArrow.x * facing, transform.position.y + projectileSpawnOffsetArrow.y);
-            GameObject arrow1 = Instantiate(arrow, SpawnPoint, transform.rotation);
-            Arrow ar = arrow1.GetComponent<Arrow>();
+            GameObject arrowProjectile = Instantiate(arrow, SpawnPoint, transform.rotation);
+            Arrow ar = arrowProjectile.GetComponent<Arrow>();
             ar.Owner = this;
             ar.Direction = facing;
             
@@ -219,31 +223,9 @@ public class Archer : Champion
             {
                 ar.ArrowStatus = Enum_SpecialStatus.normal;
             }
-            /*if (temp.getPoisonState)
-            {
-                ar.arrowStatus = Arrow.Enum_ArrowStatus.poison;
-            }
-            else
-            {
-                if (temp.getStunState)
-                {
-                    ar.arrowStatus = Arrow.Enum_ArrowStatus.stun;
-                }
-                else
-                {
-                    if (temp.getSlowState)
-                    {
-                        ar.arrowStatus = Arrow.Enum_ArrowStatus.slow;
-                    }
-                    else
-                    {
-                        ar.arrowStatus = Arrow.Enum_ArrowStatus.normal;
-                    }
-                }
-            }*/
             
-            float forceArr = forceArrow * facing;
-            ar.GetComponent<Rigidbody2D>().AddForce(new Vector2(forceArr * damageMultiplier, 0));
+            Vector2 forceArr = ar.Force * facing;
+            ar.GetComponent<Rigidbody2D>().AddForce(forceArr * damageMultiplier, 0);
             rb.gravityScale = 1.0f;
             AllowInputs();
         }
@@ -281,15 +263,29 @@ public class Archer : Champion
         }
     }
 
+    protected override void Ultimate()
+    {
+        EndAttackString();
+        //inputStatus = Enum_InputStatus.blocked;
+        animator.SetBool("Ultimate", true);
+        rb.velocity = Vector2.zero;
+        //immune = true;
+        Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffsetArrow.x * facing, transform.position.y + projectileSpawnOffsetArrow.y);
+        GameObject arrowProjectile = Instantiate(ultimateArrow, SpawnPoint, transform.rotation);
+        Arrow ar = arrowProjectile.GetComponent<Arrow>();
+        Physics2D.IgnoreCollision(arrowProjectile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        ar.Owner = this;
+        ar.Direction = facing;
+        Vector2 forceArr = ar.Force * facing;
+        ar.GetComponent<Rigidbody2D>().AddForce(forceArr);
+        ResetLimitBreak();
+    }
+
     public override void ApplyStunLock(int duration)
     {
         base.ApplyStunLock(duration);
         chargeTimer = 0.0f;
         animator.SetBool("Hold", false);
-    }
-    protected override void Ultimate()
-    {
-        throw new System.NotImplementedException();
     }
 
     public void CacAttackSound()
