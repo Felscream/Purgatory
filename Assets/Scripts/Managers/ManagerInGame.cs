@@ -101,10 +101,10 @@ public class ManagerInGame : MonoBehaviour {
 
 		
 			
-		/*if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
-			SceneManager.LoadScene (1);
-			//ici ajouter le changement de scène et toute les modifs à prendre en compte
-		}*/
+		if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //ici ajouter le changement de scène et toute les modifs à prendre en compte
+        }
 	}
 
     public IEnumerator ClashRoutine(Champion defender, Champion attacker)

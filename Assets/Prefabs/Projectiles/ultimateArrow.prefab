@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114999283451076384}
   - component: {fileID: 114890475617490244}
   m_Layer: 17
-  m_Name: UltimateArrow
+  m_Name: ultimateArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

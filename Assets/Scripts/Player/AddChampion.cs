@@ -13,6 +13,7 @@ public class AddChampion : MonoBehaviour {
     // ChampionsSelected instance from player selection
     ChampionsSelected championsSelected_;
     private int player1_indexSelection, player2_indexSelection, player3_indexSelection, player4_indexSelection;
+    public CanvasGroup[] HUDPlayer = new CanvasGroup[4];
 
     // Use this for initialization
     void Start ()
@@ -42,19 +43,23 @@ public class AddChampion : MonoBehaviour {
             player3_indexSelection = championsSelected_.playerSelection[2];
             player4_indexSelection = championsSelected_.playerSelection[3];
 
-            CreateChampion(player1, player1_indexSelection);
-            CreateChampion(player2, player2_indexSelection);
-            CreateChampion(player3, player3_indexSelection);
-            CreateChampion(player4, player4_indexSelection);
+            CreateChampion(player1, player1_indexSelection, HUDPlayer1);
+            CreateChampion(player2, player2_indexSelection, HUDPlayer2);
+            CreateChampion(player3, player3_indexSelection, HUDPlayer3);
+            CreateChampion(player4, player4_indexSelection, HUDPlayer4);
         }
-        CreateChampion(player1, 1);
-        CreateChampion(player2, 1);
-        CreateChampion(player3, 1);
-        CreateChampion(player4, 1);
-        // Ajoute un joueur de la classe correspondante, si il n'existe pas déjà
+        else
+        {        
+            // Si on ne passe pas par LobbyManager
+            CreateChampion(player1, 1, HUDPlayer1);
+            CreateChampion(player2, 1, HUDPlayer2);
+            CreateChampion(player3, 1, HUDPlayer3);
+            CreateChampion(player4, 1, HUDPlayer4);
+        }
     }
-
-    public void CreateChampion(GameObject player, int index)
+    
+    // Ajoute un joueur de la classe correspondante, si il n'existe pas déjà
+    public void CreateChampion(GameObject player, int index, CanvasGroup HUDPlayer)
     {
         if (index != 0)
         {
@@ -83,7 +88,7 @@ public class AddChampion : MonoBehaviour {
 
                 championPlayer.transform.localPosition = new Vector3(0, 0, 0);
                 // On lui donne le HUD correspondant
-                championPlayer.playerHUD = HUDPlayer1;
+                championPlayer.playerHUD = HUDPlayer;
                 // On redonne les input au Champion créé
                 player.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer);
                 player.GetComponent<PlayerInput>().SetChampion(championPlayer);
