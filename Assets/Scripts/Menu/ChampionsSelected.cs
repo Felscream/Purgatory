@@ -9,6 +9,7 @@ public class ChampionsSelected : MonoBehaviour {
     private int player2_indexSelection;
     private int player3_indexSelection;
     private int player4_indexSelection;
+    private int playerNumber;
 
     void Awake()
     {
@@ -82,6 +83,19 @@ public class ChampionsSelected : MonoBehaviour {
         set
         {
             player4_indexSelection = value;
+        }
+    }
+
+    public int PlayerNumber
+    {
+        get
+        {
+            return playerNumber;
+        }
+
+        set
+        {
+            playerNumber = value;
         }
     }
 }
