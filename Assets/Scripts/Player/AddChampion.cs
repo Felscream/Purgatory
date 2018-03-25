@@ -47,6 +47,10 @@ public class AddChampion : MonoBehaviour {
             CreateChampion(player3, player3_indexSelection);
             CreateChampion(player4, player4_indexSelection);
         }
+        CreateChampion(player1, 1);
+        CreateChampion(player2, 1);
+        CreateChampion(player3, 1);
+        CreateChampion(player4, 1);
         // Ajoute un joueur de la classe correspondante, si il n'existe pas déjà
     }
 
