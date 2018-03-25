@@ -22,7 +22,10 @@ public class Trap : MonoBehaviour {
     void Start () {
 
         startPosition = transform.localPosition;
-        leverScript = lever.GetComponent<Lever>();
+        if (lever != null)
+        {
+            leverScript = lever.GetComponent<Lever>();
+        }
         startRotation = transform.localRotation;
     }
 	
@@ -63,7 +66,10 @@ public class Trap : MonoBehaviour {
 
     public void Disengage()
     {
-        leverScript.Disengage();
+        if (leverScript != null)
+        {
+            leverScript.Disengage();
+        }
         transform.localPosition = startPosition;
         transform.localRotation = startRotation;
         isEngaged = false;
