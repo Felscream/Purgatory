@@ -104,6 +104,7 @@ public class FireBeast : Projectile {
                 {
                     hits.Add(foe);
                     foe.ApplyDamage(damage, direction, stunLock, recoilForce, true, true, owner, true, true);
+                    foe.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                     foe.SetProjectedStatus(direction, projectionForce, 2);
                 }
             }

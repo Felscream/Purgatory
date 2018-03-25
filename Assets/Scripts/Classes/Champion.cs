@@ -1123,29 +1123,7 @@ public abstract class Champion : MonoBehaviour {
 			health = Mathf.Min(Mathf.Max(value, 0.0f),BaseHealth);
             if (health == 0)
             {
-                inputStatus = Enum_InputStatus.blocked;
-                foreach (AnimatorControllerParameter parameter in animator.parameters)
-                {
-                    if (parameter.type == AnimatorControllerParameterType.Bool)
-                    {
-                        animator.SetBool(parameter.name, false);
-                    }
-                }
-                dead = true;
-                playerBox.enabled = false;
-                StopMovement(1);
-                Debug.Log(transform.parent.name + " died");
-
-                //TO DO : find a way to use the deadLayer variable since this doesn't work
-                /*if(deadLayer == null)
-                {
-                    deadLayer = LayerMask.NameToLayer("Dead");
-
-                }
-                gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
-                */
-                //this works but uses a string
-                gameObject.layer = LayerMask.NameToLayer("Dead");
+                Death();
             }
         }
     }
@@ -1391,7 +1369,14 @@ public abstract class Champion : MonoBehaviour {
     {
         while (specialStatus == Enum_SpecialStatus.poison)
         {
-            ReduceHealth(poisonDamage);
+            if(poisonDamage >= Health)
+            {
+                Health = 1;
+            }
+            else
+            {
+                ReduceHealth(poisonDamage);
+            } 
             yield return new WaitForSeconds(1);
         }
     }
@@ -1404,7 +1389,38 @@ public abstract class Champion : MonoBehaviour {
             audioSource.PlayOneShot(ultimateQuotes[id], audioVolumeManager.VoiceVolume);
             StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length));
         }
-        
-        
+    }
+
+    public void Death()
+    {
+        inputStatus = Enum_InputStatus.blocked;
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Bool)
+            {
+                animator.SetBool(parameter.name, false);
+            }
+        }
+        dead = true;
+        playerBox.enabled = false;
+        StopMovement(1);
+        Debug.Log(transform.parent.name + " died");
+
+        //TO DO : find a way to use the deadLayer variable since this doesn't work
+        /*if(deadLayer == null)
+        {
+            deadLayer = LayerMask.NameToLayer("Dead");
+
+        }
+        gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
+        */
+        //this works but uses a string
+        gameObject.layer = LayerMask.NameToLayer("Dead");
+        DeathBehaviour();
+    }
+
+    public virtual void DeathBehaviour()
+    {
+        animator.SetBool("Dead", true);
     }
 }

@@ -15,19 +15,10 @@ public class Arrow : Projectile
     [SerializeField] private Gradient poison;
     [SerializeField] private Gradient slow;
     [SerializeField] private Gradient stun;
+    [SerializeField] public float poisonDamage = 2.0f;
     [Header("SoundSettings")]
     public AudioClip arrowSound;
     AudioSource audioSource;
-    public float PoisonDamage{
-        get
-        {
-            return PoisonDamage;
-        }
-        set
-        {
-            PoisonDamage = value;
-        }
-    }
     private ParticleSystem.ColorOverLifetimeModule particleColor;
     protected override void Start()
     {
@@ -141,6 +132,18 @@ public class Arrow : Projectile
         set
         {
             arrowStatus = value;
+        }
+    }
+
+    public float PoisonDamage
+    {
+        get
+        {
+            return poisonDamage;
+        }
+        set
+        {
+            poisonDamage = value;
         }
     }
     public void ArrowSound()

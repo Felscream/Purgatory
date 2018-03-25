@@ -189,4 +189,14 @@ public class Knight : Champion
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(specialAttackSound, audioVolumeManager.SoundEffectVolume);
     }
+
+    public override void DeathBehaviour()
+    {
+        animator.SetTrigger("DeadTrigger");
+    }
+
+    public void DeadLoop()
+    {
+        animator.SetBool("Dead", true);
+    }
 }

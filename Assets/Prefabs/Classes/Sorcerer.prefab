@@ -474,7 +474,7 @@ MonoBehaviour:
   minToMaxTimeTransition: 0.5
   ultimateDuration: 2.5
   ultimateDamage: 20
-  shakeIntensity: 15
+  shakeIntensity: 8
   shakeNumber: 4
   shakeSpeed: 100
   manabomb: {fileID: 1125265771351122, guid: b992c4ec99f71b840ae34f17f2ce8c1d, type: 2}
