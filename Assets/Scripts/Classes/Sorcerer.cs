@@ -233,7 +233,6 @@ public class Sorcerer : Champion
         float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
         while (timer <= ultimateDuration)
         {
-            InvincibilityVisualizer();
             radius = Mathf.Min(radius + difference * Time.deltaTime, ultimateMaxRadius);
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius, hitBoxLayer);
             UltimateHits(hits);
@@ -244,7 +243,6 @@ public class Sorcerer : Champion
         ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
         temp.enabled = false;
         immune = false;
-        InvincibilityVisualizer();
         rb.isKinematic = false;
         rb.gravityScale = 1.0f;
         animator.SetBool("Barrier", false);

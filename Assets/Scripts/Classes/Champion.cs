@@ -705,12 +705,10 @@ public abstract class Champion : MonoBehaviour {
                 if (dodgeFrameCounter >= dodgeImmunityStartFrame && dodgeFrameCounter < dodgeImmunityEndFrame)
                 {
                     immune = true;
-                    InvincibilityVisualizer(true);
                 }
                 if (dodgeFrameCounter >= dodgeImmunityEndFrame)
                 {
                     immune = false;
-                    InvincibilityVisualizer(false);
                 }
                 if (dodgeFrameCounter >= dodgeFrames)
                 {
@@ -891,13 +889,11 @@ public abstract class Champion : MonoBehaviour {
             inputStatus = Enum_InputStatus.onlyMovement;
             specialStatus = Enum_SpecialStatus.normal;
             rb.velocity = Vector2.zero;
-            InvincibilityVisualizer();
             rb.gravityScale = 1.0f;
             yield return new WaitForSeconds(time);
             rb.gravityScale = 1.0f;
             inputStatus = Enum_InputStatus.allowed;
             immune = false;
-            InvincibilityVisualizer();
         }
     }
 
@@ -1005,7 +1001,7 @@ public abstract class Champion : MonoBehaviour {
         ChangeColorHealthSlider();
 
         //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
-        UltiAvailable(true);
+        //UltiAvailable(true);
     }
 
     public void ChangeColorHealthSlider()

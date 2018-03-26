@@ -22,7 +22,6 @@ public class PlatformManager : MonoBehaviour {
         {
             if ((!champ.IsFalling() && !champ.IsGrounded()) || champ.IgnorePlatforms)
             {
-        Debug.Log(this.name);
                 Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), platform.GetComponent<BoxCollider2D>(), true);
             }
         }
