@@ -199,8 +199,8 @@ public abstract class Champion : MonoBehaviour {
         playerHUD.alpha = 1;
         healthSlider = playerHUD.transform.Find("HealthSlider").GetComponent<Slider>();
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
-        limitBreakSlider = playerHUD.transform.Find("LimitBreakSlider").GetComponent<Slider>();
-        ultiImageSlider = playerHUD.transform.Find("UltiImage").Find("RadialSliderImage").GetComponent<Image>();
+        limitBreakSlider = playerHUD.transform.Find("UltiSlider").GetComponent<Slider>();
+        //ultiImageSlider = playerHUD.transform.Find("UltiSlider").Find("RadialSliderImage").GetComponent<Image>();
         UpdateHUD();
         ResetAttackTokens();
 
@@ -1001,7 +1001,7 @@ public abstract class Champion : MonoBehaviour {
         }
 
         timerDamageHUD -= 1;
-        ultiImageSlider.fillAmount = 0.75f;
+        //ultiImageSlider.fillAmount = 0.75f;
         ChangeColorHealthSlider();
 
         //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
