@@ -29,7 +29,5 @@ public class MovingPlatform : MonoBehaviour {
             forward = false;
         if (transform.localPosition.x <= xMin)
             forward = true;
-
-        Debug.Log(transform.position.x);
 	}
 }
