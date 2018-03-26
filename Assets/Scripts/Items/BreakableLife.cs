@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BreakableLife : MonoBehaviour {
 
     public int maxLife = 4;
-    private int life = 4;
+    public int life = 4;
     public float colorChangeTime = .2f;
     public float timeBeforeLowering = 5f;
     public Transform ascendant;

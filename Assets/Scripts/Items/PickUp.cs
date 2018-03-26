@@ -19,13 +19,12 @@ public class PickUp : MonoBehaviour {
 			//16: layer collectables
 		{
 			if (other.gameObject.tag.Equals("Health")){
-				InvokeRepeating ("HealthRecover", 3, 5);
+				InvokeRepeating ("HealthRecover", 1, 2);
 				//player.Health += 20 /*addHealth*/;
 				Debug.Log("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
-				//InvokeRepeating ("StaminaRecover", 3, 5);
-				player.Stamina += 20 /*StaminaAmount*/;
+				InvokeRepeating ("StaminaRecover", 1, 2);
 				Debug.Log("Stamina: " + player.Stamina);
 			}
 			other.gameObject.SetActive (false);
@@ -47,14 +46,17 @@ public class PickUp : MonoBehaviour {
         }
 	}
 
-	/*void StaminaRecover (){
-		player.Stamina += 1;
-		Debug.Log ("Stamina: " + player.Stamina);
-		countStamina += 1;
-		if (StaminaAmount == countStamina) {
-			Debug.Log ("End Recovery");
-			CancelInvoke ("StaminaRecover");
-			countStamina = 0;
+	void StaminaRecover (){
+		if (!player.Dead) {
+			player.staminaRegenerationPerSecond = 25f;
+			Debug.Log ("Stamina: " + player.staminaRegenerationPerSecond);
+			countStamina += 1;
+			if (StaminaAmount == countStamina) {
+				Debug.Log ("End Recovery");
+				CancelInvoke ("StaminaRecover");
+				countStamina = 0;
+				player.staminaRegenerationPerSecond = 15f;
+			}
 		}
-	}*/
+	}
 }

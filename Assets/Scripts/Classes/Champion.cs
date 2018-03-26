@@ -72,7 +72,7 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Stamina Settings")]
     [SerializeField] public float baseStamina = 100f;
-    [SerializeField] protected float staminaRegenerationPerSecond = 15f;
+    [SerializeField] public float staminaRegenerationPerSecond = 15f;
     [SerializeField] protected float staminaRegenerationCooldown = 1.5f;
     [SerializeField] protected float staminaFatigueCooldown = 3.0f;
     [SerializeField] protected float primaryFireStaminaCost = 20f;
@@ -80,7 +80,7 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Limit Break Settings")]
     [SerializeField] protected float maxLimitBreakGauge = 100;
-    [SerializeField] protected float limitBreakPerSecond = 0.40f;
+    [SerializeField] public float limitBreakPerSecond = 0.40f;
     [SerializeField] protected float limitBreakOnHit = 2.5f;
     [SerializeField] protected float limitBreakOnDamage = 1.0f;
     [SerializeField] protected float limitBreakOnParry = 15.0f;
@@ -145,9 +145,7 @@ public abstract class Champion : MonoBehaviour {
     protected Slider healthSlider;
     protected Slider staminaSlider;
     protected Slider limitBreakSlider;
-    protected float timerDamageHUDBase = 30;
-    protected float timerDamageHUD;
-    protected float diffDamage;
+    protected int timerDamageHUD = 40;
     protected Image ultiImageSlider;
 
     protected SpriteRenderer sr;
@@ -758,7 +756,7 @@ public abstract class Champion : MonoBehaviour {
         {
 
             animator.SetBool("Moving", true);
-            transform.Translate(movement * Time.fixedDeltaTime);
+            transform.Translate(movement * Time.deltaTime);
         }
 
     }
@@ -982,34 +980,24 @@ public abstract class Champion : MonoBehaviour {
         float b = healthSlider.value;
         if (a != b) //si recu des degats, barre colorée supplémentaire
         {
-            diffDamage = a - b;
-            timerDamageHUD = timerDamageHUDBase;
+            timerDamageHUD = 40;
             playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(diffDamage * 1.4f, 10);
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
             if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
             {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(diffDamage * 1.4f, 0);
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
             }
             else
             {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-diffDamage * 1.4f, 0);
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
             }
-        }
-        else if (a == b && timerDamageHUD > 0)
-        {
-            if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
-            {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(diffDamage * 1.4f * timerDamageHUD/timerDamageHUDBase, 0);
-            }
-            else
-            {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-diffDamage * 1.4f * timerDamageHUD / timerDamageHUDBase, 0);
-            }
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(diffDamage * 1.4f * timerDamageHUD / timerDamageHUDBase, 10);
         }
         else
         {
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+            if (timerDamageHUD < 0) // au bout de x ticks, on fait disparaitre la barre
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+            }
         }
 
         timerDamageHUD -= 1;
@@ -1065,9 +1053,6 @@ public abstract class Champion : MonoBehaviour {
         {
             return stamina;
         }
-		set{ 
-			stamina = value;
-		}
     }
     public float BaseStamina
     {
@@ -1232,6 +1217,7 @@ public abstract class Champion : MonoBehaviour {
             specialStatus = Enum_SpecialStatus.projected;
             SetStunEffects();
             Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0.0f;
             animator.SetBool("Projected", true);
@@ -1251,6 +1237,7 @@ public abstract class Champion : MonoBehaviour {
         specialStatus = Enum_SpecialStatus.normal;
         speed = baseSpeed;
         AllowInputs();
+        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
 
         //Debug.Log("Normal is the new black");
     }
@@ -1262,6 +1249,7 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Projected", false);
             animator.SetBool("Stunned", true);
             rb.gravityScale = 1.0f;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
             specialStatus = Enum_SpecialStatus.stun;
             SetStunEffects();
             StartCoroutine(EffectCoroutine(duration));
@@ -1274,6 +1262,7 @@ public abstract class Champion : MonoBehaviour {
         if (!immune)
         {
             specialStatus = Enum_SpecialStatus.poison;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
             StartCoroutine(PoisonCoroutine(poisonDamage));
             StartCoroutine(EffectCoroutine(duration));
         }
@@ -1285,6 +1274,7 @@ public abstract class Champion : MonoBehaviour {
         {
             specialStatus = Enum_SpecialStatus.slow;
             speed = baseSpeed * slowRatio;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
             StartCoroutine(EffectCoroutine(duration));
         }
     }
@@ -1376,7 +1366,7 @@ public abstract class Champion : MonoBehaviour {
     {
         while (specialStatus == Enum_SpecialStatus.poison)
         {
-            if(poisonDamage >= Health && !dead)
+            if(poisonDamage >= Health)
             {
                 Health = 1;
             }
