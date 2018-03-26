@@ -4,78 +4,66 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SelectionPlayer : MonoBehaviour {
-
-    // Default index of the buttonplayer1/2/3/4
-    private int selectionIndexPlayer1 = 0;
-    private int selectionIndexPlayer2 = 0;
-    private int selectionIndexPlayer3 = 0;
-    private int selectionIndexPlayer4 = 0;
-    private int playerNumber = 0;
-
+public class SelectionPlayer : MonoBehaviour
+{
+    // Animator for selected animation
+    private Animator KnightPlayerAnim;
+    private Animator ArcherPlayerAnim;
+    private Animator SorcererPlayerAnim;
+    
+    // All sprite animated (need to be generalize)
     public RectTransform KnightPlayer1;
-    private Animator KnightPlayer1Anim;
     public RectTransform ArcherPlayer1;
-    private Animator ArcherPlayer1Anim;
     public RectTransform SorcererPlayer1;
-    private Animator SorcererPlayer1Anim;
-
     public RectTransform KnightPlayer2;
-    private Animator KnightPlayer2Anim;
     public RectTransform ArcherPlayer2;
-    private Animator ArcherPlayer2Anim;
     public RectTransform SorcererPlayer2;
-    private Animator SorcererPlayer2Anim;
-
     public RectTransform KnightPlayer3;
-    private Animator KnightPlayer3Anim;
     public RectTransform ArcherPlayer3;
-    private Animator ArcherPlayer3Anim;
     public RectTransform SorcererPlayer3;
-    private Animator SorcererPlayer3Anim;
-
     public RectTransform KnightPlayer4;
-    private Animator KnightPlayer4Anim;
     public RectTransform ArcherPlayer4;
-    private Animator ArcherPlayer4Anim;
     public RectTransform SorcererPlayer4;
-    private Animator SorcererPlayer4Anim;
 
-    public string Jump_P1, Jump_P2, Jump_P3, Jump_P4, Start_P1, Start_P2, Start_P3, Start_P4, Horizontal_P1, Horizontal_P2, Horizontal_P3, Horizontal_P4;
-    private RectTransform player1Selection, player2Selection, player3Selection, player4Selection;
-    private RectTransform player1Validate, player2Validate, player3Validate, player4Validate;
-    private RectTransform player1Join, player2Join, player3Join, player4Join;
-
-    private bool player1IsHere = false, player2IsHere = false, player3IsHere = false, player4IsHere = false;
-    private bool player1Choosed = false, player2Choosed = false, player3Choosed = false, player4Choosed = false;
-
+    // all buttons
     [SerializeField] GameObject player1KnightButton;
     [SerializeField] GameObject player1ArcherButton;
     [SerializeField] GameObject player1SorcererButton;
-
     [SerializeField] GameObject player2KnightButton;
     [SerializeField] GameObject player2ArcherButton;
     [SerializeField] GameObject player2SorcererButton;
-
     [SerializeField] GameObject player3KnightButton;
     [SerializeField] GameObject player3ArcherButton;
     [SerializeField] GameObject player3SorcererButton;
-
     [SerializeField] GameObject player4KnightButton;
     [SerializeField] GameObject player4ArcherButton;
     [SerializeField] GameObject player4SorcererButton;
 
-    [SerializeField] Transform quitter;
-    [SerializeField] Transform back;
+    // Sprite to show when player do something
+    private RectTransform player1Join, player2Join, player3Join, player4Join;
+    private RectTransform player1Selection, player2Selection, player3Selection, player4Selection;
+    private RectTransform player1Validate, player2Validate, player3Validate, player4Validate;
+    
+    // Commande pour contrôler le menu
+    public string Jump_P1, Jump_P2, Jump_P3, Jump_P4, Start_P1, Start_P2, Start_P3, Start_P4, Horizontal_P1, Horizontal_P2, Horizontal_P3, Horizontal_P4, Dodge_P1, Dodge_P2, Dodge_P3, Dodge_P4;
 
-    [SerializeField] Transform LaunchGame;
+    // Default index of the buttonplayer1/2/3/4
+    private int selectionIndexPlayer1 = 0, selectionIndexPlayer2 = 0, selectionIndexPlayer3 = 0, selectionIndexPlayer4 = 0;
+    private int playerNumber = 0;
 
+    // Player choice
+    private bool player1IsHere = false, player2IsHere = false, player3IsHere = false, player4IsHere = false;
+    private bool player1Choosed = false, player2Choosed = false, player3Choosed = false, player4Choosed = false;
+    
     // ChampionsSelected instance
     ChampionsSelected championsSelected_;
+
+    // Joystick is running ?
     bool m_isAxisOneInUse = false, m_isAxisTwoInUse = false, m_isAxisThreeInUse = false, m_isAxisFourInUse = false;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         player1Join = (RectTransform)this.transform.GetChild(0);
         player1Join.gameObject.SetActive(true);
         player2Join = (RectTransform)this.transform.GetChild(1);
@@ -97,21 +85,9 @@ public class SelectionPlayer : MonoBehaviour {
         player1Validate = (RectTransform)this.transform.GetChild(8);
         player1Validate.gameObject.SetActive(false);
 
-        KnightPlayer1Anim = KnightPlayer1.GetComponent<Animator>();
-        ArcherPlayer1Anim = ArcherPlayer1.GetComponent<Animator>();
-        SorcererPlayer1Anim = SorcererPlayer1.GetComponent<Animator>();
-
-        KnightPlayer2Anim = KnightPlayer2.GetComponent<Animator>();
-        ArcherPlayer2Anim = ArcherPlayer2.GetComponent<Animator>();
-        SorcererPlayer2Anim = SorcererPlayer2.GetComponent<Animator>();
-
-        KnightPlayer3Anim = KnightPlayer3.GetComponent<Animator>();
-        ArcherPlayer3Anim = ArcherPlayer3.GetComponent<Animator>();
-        SorcererPlayer3Anim = SorcererPlayer3.GetComponent<Animator>();
-
-        KnightPlayer4Anim = KnightPlayer4.GetComponent<Animator>();
-        ArcherPlayer4Anim = ArcherPlayer4.GetComponent<Animator>();
-        SorcererPlayer4Anim = SorcererPlayer4.GetComponent<Animator>();
+        KnightPlayerAnim = KnightPlayer1.GetComponent<Animator>();
+        ArcherPlayerAnim = ArcherPlayer1.GetComponent<Animator>();
+        SorcererPlayerAnim = SorcererPlayer1.GetComponent<Animator>();
 
         championsSelected_ = ChampionsSelected.GetInstance();
     }
@@ -119,64 +95,9 @@ public class SelectionPlayer : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        // Player 1 join the game
-        if (Input.GetButtonDown(Start_P1) && !player1IsHere)
-        {
-            player1Join.gameObject.SetActive(false);
-            player1Selection.gameObject.SetActive(true);
-            SelectedIndexPlayer1();
-            player1IsHere = true;
-        }
-        if (Input.GetButtonDown(Start_P2) && !player2IsHere)
-        {
-            player2Join.gameObject.SetActive(false);
-            player2Selection.gameObject.SetActive(true);
-            SelectedIndexPlayer2();
-            player2IsHere = true;
-        }
-        if (Input.GetButtonDown(Start_P3) && !player3IsHere)
-        {
-            player3Join.gameObject.SetActive(false);
-            player3Selection.gameObject.SetActive(true);
-            SelectedIndexPlayer3();
-            player3IsHere = true;
-        }
+        AddPlayers();
 
-        if (Input.GetButtonDown(Start_P4) && !player4IsHere)
-        {
-            player4Join.gameObject.SetActive(false);
-            player4Selection.gameObject.SetActive(true);
-            SelectedIndexPlayer4();
-            player4IsHere = true;
-        }
-
-        // Player 1 validate his choice
-        if(Input.GetButtonDown(Jump_P1) && !player1Choosed)
-        {
-            player1Choosed = true;
-            championsSelected_.Player1_indexSelection = selectionIndexPlayer1;
-        }
-
-        // Player 2 validate his choice
-        if (Input.GetButtonDown(Jump_P2) && !player2Choosed)
-        {
-            player2Choosed = true;
-            championsSelected_.Player2_indexSelection = selectionIndexPlayer2;
-        }
-
-        // Player 3 validate his choice
-        if (Input.GetButtonDown(Jump_P3) && !player3Choosed)
-        {
-            player3Choosed = true;
-            championsSelected_.Player3_indexSelection = selectionIndexPlayer3;
-        }
-
-        // Player 4 validate his choice
-        if (Input.GetButtonDown(Jump_P4) && !player4Choosed)
-        {
-            player1Choosed = true;
-            championsSelected_.Player4_indexSelection = selectionIndexPlayer4;
-        }
+        SelectionAndDeselection();
 
         if (player1IsHere)
         {
@@ -198,10 +119,129 @@ public class SelectionPlayer : MonoBehaviour {
             SelectionCharacterwithController4();
         }
 
-        if (player1Choosed)
+        LoadLevel();
+    }
+
+    public void LoadLevel()
+    {
+        if (Input.GetButtonDown(Start_P1) && (player1Choosed || (player1Choosed && player2Choosed) || (player1Choosed && player3Choosed) || (player1Choosed && player4Choosed) || (player1Choosed && player2Choosed && player3Choosed) || (player1Choosed && player3Choosed && player4Choosed) || (player1Choosed && player2Choosed && player4Choosed) || (player1Choosed && player2Choosed && player3Choosed && player4Choosed)))
         {
-            //KnightPlayer1Anim.SetBool("isActive", true);
-            LoadMainScene();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+
+    public void AddPlayers()
+    {
+        // Player 1 join the game
+        if (Input.GetButtonDown(Start_P1) && !player1IsHere)
+        {
+            player1Join.gameObject.SetActive(false);
+            player1Selection.gameObject.SetActive(true);
+            SelectedIndexPlayer1();
+            player1IsHere = true;
+        }
+        // Player 1 join the game
+        if (Input.GetButtonDown(Start_P2) && !player2IsHere)
+        {
+            player2Join.gameObject.SetActive(false);
+            player2Selection.gameObject.SetActive(true);
+            SelectedIndexPlayer2();
+            player2IsHere = true;
+        }
+        // Player 1 join the game
+        if (Input.GetButtonDown(Start_P3) && !player3IsHere)
+        {
+            player3Join.gameObject.SetActive(false);
+            player3Selection.gameObject.SetActive(true);
+            SelectedIndexPlayer3();
+            player3IsHere = true;
+        }
+        // Player 1 join the game
+        if (Input.GetButtonDown(Start_P4) && !player4IsHere)
+        {
+            player4Join.gameObject.SetActive(false);
+            player4Selection.gameObject.SetActive(true);
+            SelectedIndexPlayer4();
+            player4IsHere = true;
+        }
+    }
+
+    public void SelectionAndDeselection()
+    {
+        // Player 1 validate his choice
+        if (Input.GetButtonDown(Jump_P1) && !player1Choosed)
+        {
+            player1Choosed = true;
+            championsSelected_.playerSelection.Insert(0, selectionIndexPlayer1);
+            championsSelected_.PlayerNumber++;
+            player1Selection.gameObject.SetActive(false);
+            player1Validate.gameObject.SetActive(true);
+        }
+        // Player 1 want to change his champion
+        if (Input.GetButtonDown(Dodge_P1) && player1Choosed)
+        {
+            player1Choosed = false;
+            championsSelected_.playerSelection.Insert(0, 0);
+            championsSelected_.PlayerNumber--;
+            player1Selection.gameObject.SetActive(true);
+            player1Validate.gameObject.SetActive(false);
+        }
+
+        // Player 2 validate his choice
+        if (Input.GetButtonDown(Jump_P2) && !player2Choosed)
+        {
+            player2Choosed = true;
+            championsSelected_.playerSelection.Insert(1, selectionIndexPlayer2);
+            championsSelected_.PlayerNumber++;
+            player2Selection.gameObject.SetActive(false);
+            player2Validate.gameObject.SetActive(true);
+        }
+        // Player 2 want to change his champion
+        if (Input.GetButtonDown(Dodge_P2) && player2Choosed)
+        {
+            player2Choosed = false;
+            championsSelected_.playerSelection.Insert(1, 0);
+            championsSelected_.PlayerNumber--;
+            player2Selection.gameObject.SetActive(true);
+            player2Validate.gameObject.SetActive(false);
+        }
+
+        // Player 3 validate his choice
+        if (Input.GetButtonDown(Jump_P3) && !player3Choosed)
+        {
+            player3Choosed = true;
+            championsSelected_.playerSelection.Insert(2, selectionIndexPlayer3);
+            championsSelected_.PlayerNumber++;
+            player3Selection.gameObject.SetActive(false);
+            player3Validate.gameObject.SetActive(true);
+        }
+        // Player 3 want to change his champion
+        if (Input.GetButtonDown(Dodge_P3) && player3Choosed)
+        {
+            player3Choosed = false;
+            championsSelected_.playerSelection.Insert(2, 0);
+            championsSelected_.PlayerNumber--;
+            player3Selection.gameObject.SetActive(true);
+            player3Validate.gameObject.SetActive(false);
+        }
+
+        // Player 4 validate his choice
+        if (Input.GetButtonDown(Jump_P4) && !player4Choosed)
+        {
+            player4Choosed = true;
+            championsSelected_.playerSelection.Insert(3, selectionIndexPlayer4);
+            championsSelected_.PlayerNumber++;
+            player4Selection.gameObject.SetActive(false);
+            player4Validate.gameObject.SetActive(true);
+        }
+        // Player 4 want to change his champion
+        if (Input.GetButtonDown(Dodge_P4) && player4Choosed)
+        {
+            player4Choosed = false;
+            championsSelected_.playerSelection.Insert(3, 0);
+            championsSelected_.PlayerNumber--;
+            player4Selection.gameObject.SetActive(true);
+            player4Validate.gameObject.SetActive(false);
         }
     }
 
@@ -253,12 +293,9 @@ public class SelectionPlayer : MonoBehaviour {
             }
         }
 
-        if (Input.GetAxis(Horizontal_P2) > 0 && m_isAxisTwoInUse == false)
+        if (Input.GetAxisRaw(Horizontal_P2) == 0 && m_isAxisTwoInUse == true)
         {
-            if (Input.GetAxisRaw(Horizontal_P2) == 0)
-            {
-                m_isAxisTwoInUse = false;
-            }
+            m_isAxisTwoInUse = false;
         }
     }
 
@@ -283,12 +320,9 @@ public class SelectionPlayer : MonoBehaviour {
             }
         }
 
-        if (Input.GetAxis(Horizontal_P3) > 0 && m_isAxisThreeInUse == false)
+        if (Input.GetAxisRaw(Horizontal_P3) == 0 && m_isAxisThreeInUse == true)
         {
-            if (Input.GetAxisRaw(Horizontal_P3) == 0)
-            {
-                m_isAxisThreeInUse = false;
-            }
+            m_isAxisThreeInUse = false;
         }
     }
 
@@ -313,12 +347,9 @@ public class SelectionPlayer : MonoBehaviour {
             }
         }
 
-        if (Input.GetAxis(Horizontal_P4) > 0 && m_isAxisFourInUse == false)
+        if (Input.GetAxisRaw(Horizontal_P4) == 0 && m_isAxisFourInUse == true)
         {
-            if (Input.GetAxisRaw(Horizontal_P4) == 0)
-            {
-                m_isAxisFourInUse = false;
-            }
+            m_isAxisFourInUse = false;
         }
     }
 
@@ -326,19 +357,19 @@ public class SelectionPlayer : MonoBehaviour {
     {
         switch (selectionIndexPlayer1)
         {
-            case 0:
+            case 1:
                 player1KnightButton.GetComponent<Button>().Select();
                 KnightPlayer1.gameObject.SetActive(true);
                 SorcererPlayer1.gameObject.SetActive(false);
                 ArcherPlayer1.gameObject.SetActive(false);
                 break;
-            case 1:
+            case 2:
                 player1SorcererButton.GetComponent<Button>().Select();
                 KnightPlayer1.gameObject.SetActive(false);
                 SorcererPlayer1.gameObject.SetActive(true);
                 ArcherPlayer1.gameObject.SetActive(false);
                 break;
-            case 2:
+            case 3:
                 player1ArcherButton.GetComponent<Button>().Select();
                 KnightPlayer1.gameObject.SetActive(false);
                 SorcererPlayer1.gameObject.SetActive(false);
@@ -439,7 +470,7 @@ public class SelectionPlayer : MonoBehaviour {
         switch (player)
         {
             case 1:
-                if(selectionIndexPlayer1 > 0) selectionIndexPlayer1--;
+                if (selectionIndexPlayer1 > 0) selectionIndexPlayer1--;
                 break;
             case 2:
                 if (selectionIndexPlayer2 > 0) selectionIndexPlayer2--;
@@ -461,25 +492,20 @@ public class SelectionPlayer : MonoBehaviour {
         switch (player)
         {
             case 1:
-                if (selectionIndexPlayer1 < 2) selectionIndexPlayer1++;
+                if (selectionIndexPlayer1 < 3) selectionIndexPlayer1++;
                 break;
             case 2:
-                if (selectionIndexPlayer2 < 2) selectionIndexPlayer2++;
+                if (selectionIndexPlayer2 < 3) selectionIndexPlayer2++;
                 break;
             case 3:
-                if (selectionIndexPlayer3 < 2) selectionIndexPlayer3++;
+                if (selectionIndexPlayer3 < 3) selectionIndexPlayer3++;
                 break;
             case 4:
-                if (selectionIndexPlayer4 < 2) selectionIndexPlayer4++;
+                if (selectionIndexPlayer4 < 3) selectionIndexPlayer4++;
                 break;
             default:
                 print("Incorrect");
                 break;
         }
-    }
-
-    public void LoadMainScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

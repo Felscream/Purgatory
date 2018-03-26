@@ -9,10 +9,11 @@ public class ManagerInGame : MonoBehaviour {
     public GameObject Health;
     public GameObject Stamina;
     public GameObject Orb;
-    private float Timer = 0.0f;
+    public float Timer = 0.0f;
     private bool SpawnHealth;
     private bool SpawnStamina;
     private bool SpawnOrb;
+	private bool SpawnItem;
     private int playerAlive = 0;
     public Component[] Players;
     private static ManagerInGame instance = null;
@@ -83,28 +84,49 @@ public class ManagerInGame : MonoBehaviour {
         CheckPlayerAlive();
         Timer += Time.deltaTime;
 		//Apparition des items sur la map à partir des prefabs
-		if (Timer >= 5 && !SpawnHealth) {
-			Instantiate (Health);
-			SpawnHealth = true;
+		if (Timer >= 5 && !SpawnItem) {
+			InvokeRepeating ("SpawningItems",1,60);
+			SpawnItem = true;
 		}
 
 		if (Timer >= 5 && !SpawnOrb) {
 			Instantiate (Orb);
 			//Instantiate (Plateform);
 			SpawnOrb = true;
-		}
-
-		if (Timer >= 5 && !SpawnStamina) {
-			Instantiate (Stamina);
-			SpawnStamina = true;
-		}
-
-		
-			
+		}	
 		/*if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
 			SceneManager.LoadScene (1);
 			//ici ajouter le changement de scène et toute les modifs à prendre en compte
 		}*/
+	}
+
+	void SpawningItems(){
+	
+		Instantiate (Health, getValidSpawnPosition (), Quaternion.identity);
+		Instantiate (Stamina, getValidSpawnPosition (), Quaternion.identity);
+	}
+
+	Vector2 getValidSpawnPosition(){
+		Vector2 newPosition = Vector2.zero;
+		switch (Random.Range(1,5)) {
+				case 1:
+					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(6.0f, 9.5f));
+					break;
+
+				case 2:
+					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(-1.9f, 3.1f));
+					break;
+
+				case 3:
+					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(-2.6f, -1.5f));
+					break;
+
+				case 4:
+					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(-7.0f, -5.2f));
+					break;
+		}
+        // return the valid position
+        return newPosition;
 	}
 
     public IEnumerator ClashRoutine(Champion defender, Champion attacker)

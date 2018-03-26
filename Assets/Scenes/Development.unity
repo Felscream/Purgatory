@@ -113,6 +113,73 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &30054198
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.3103304
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -14.991039
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.00021260884
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer1
+      value: 
+      objectReference: {fileID: 2020537987}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer2
+      value: 
+      objectReference: {fileID: 523545313}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer3
+      value: 
+      objectReference: {fileID: 1272801046}
+    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: HUDPlayer4
+      value: 
+      objectReference: {fileID: 1610411680}
+    - target: {fileID: 114005701713967186, guid: 190b3062e7e314c4b8976575c39d00d1,
+        type: 2}
+      propertyPath: ClashHUD
+      value: 
+      objectReference: {fileID: 570843174}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
+  m_IsPrefabParent: 0
 --- !u!225 &523545313 stripped
 CanvasGroup:
   m_PrefabParentObject: {fileID: 225536922588000308, guid: f0c980c1a99dd9141842312f766f1912,
@@ -166,73 +233,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1485488028362954, guid: b1a78321ee0bfbe4f81a1c402513e02f,
     type: 2}
   m_PrefabInternal: {fileID: 893638671}
---- !u!1001 &841352957
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 5.3103304
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -14.991039
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.00021260884
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4143585854246892, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114005701713967186, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: ClashHUD
-      value: 
-      objectReference: {fileID: 570843174}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer1
-      value: 
-      objectReference: {fileID: 2020537987}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer2
-      value: 
-      objectReference: {fileID: 523545313}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer3
-      value: 
-      objectReference: {fileID: 1272801046}
-    - target: {fileID: 114436511718942374, guid: 190b3062e7e314c4b8976575c39d00d1,
-        type: 2}
-      propertyPath: HUDPlayer4
-      value: 
-      objectReference: {fileID: 1610411680}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 190b3062e7e314c4b8976575c39d00d1, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &893638671
 Prefab:
   m_ObjectHideFlags: 0

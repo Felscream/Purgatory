@@ -15,10 +15,6 @@ public class VictoryMenuManager: MonoBehaviour {
     void Start () {
         // Instance for prefab
         championsSelected_ = ChampionsSelected.GetInstance();
-        player1_indexSelection = championsSelected_.Player1_indexSelection;
-        player2_indexSelection = championsSelected_.Player1_indexSelection;
-        player3_indexSelection = championsSelected_.Player1_indexSelection;
-        player4_indexSelection = championsSelected_.Player1_indexSelection;
     }
 	
 	// Update is called once per frame

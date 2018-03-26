@@ -5,14 +5,22 @@ using UnityEngine;
 public class ChampionsSelected : MonoBehaviour {
 
     private static ChampionsSelected instance;
-    private int player1_indexSelection;
-    private int player2_indexSelection;
-    private int player3_indexSelection;
-    private int player4_indexSelection;
+    //private int player1_indexSelection = 0, player2_indexSelection = 0, player3_indexSelection = 0, player4_indexSelection = 0;
     private int playerNumber;
+
+    public List<int> playerSelection = new List<int>();
 
     void Awake()
     {
+        // Player 1 index = 0;
+        playerSelection.Add(0);
+        // Player 2 index = 0;
+        playerSelection.Add(0);
+        // Player 3 index = 0;
+        playerSelection.Add(0);
+        // Player 4 index = 0;
+        playerSelection.Add(0);
+
         if (instance == null)
         {
             instance = this;
@@ -24,6 +32,11 @@ public class ChampionsSelected : MonoBehaviour {
         }
     }
 
+    public void ReOrganize()
+    {
+
+    }
+
     public static ChampionsSelected GetInstance()
     {
         if (instance == null)
@@ -32,58 +45,6 @@ public class ChampionsSelected : MonoBehaviour {
             return null;
         }
         return instance;
-    }
-
-    public int Player1_indexSelection
-    {
-        get
-        {
-            return player1_indexSelection;
-        }
-
-        set
-        {
-            player1_indexSelection = value;
-        }
-    }
-
-    public int Player2_indexSelection
-    {
-        get
-        {
-            return player2_indexSelection;
-        }
-
-        set
-        {
-            player2_indexSelection = value;
-        }
-    }
-
-    public int Player3_indexSelection
-    {
-        get
-        {
-            return player3_indexSelection;
-        }
-
-        set
-        {
-            player3_indexSelection = value;
-        }
-    }
-
-    public int Player4_indexSelection
-    {
-        get
-        {
-            return player4_indexSelection;
-        }
-
-        set
-        {
-            player4_indexSelection = value;
-        }
     }
 
     public int PlayerNumber

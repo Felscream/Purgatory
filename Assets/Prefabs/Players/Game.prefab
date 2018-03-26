@@ -320,6 +320,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4975508014807698}
+  - component: {fileID: 114994675457065896}
   m_Layer: 13
   m_Name: Traps
   m_TagString: Untagged
@@ -2415,6 +2416,20 @@ MonoBehaviour:
   lever: {fileID: 1102500187874390}
   recoilForce: {x: -10, y: 4}
   damage: 15
+--- !u!114 &114994675457065896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419830854003678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c9543c7d11a904590c89bd221dd01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingSpikePrefab: {fileID: 1409153079653582, guid: 207d2f970a7cfdd49b89d95e73142ead,
+    type: 2}
+  fallingSpeed: 5
 --- !u!212 &212046573263851172
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -72,7 +72,7 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Stamina Settings")]
     [SerializeField] public float baseStamina = 100f;
-    [SerializeField] protected float staminaRegenerationPerSecond = 15f;
+    [SerializeField] public float staminaRegenerationPerSecond = 15f;
     [SerializeField] protected float staminaRegenerationCooldown = 1.5f;
     [SerializeField] protected float staminaFatigueCooldown = 3.0f;
     [SerializeField] protected float primaryFireStaminaCost = 20f;
@@ -80,7 +80,7 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Limit Break Settings")]
     [SerializeField] protected float maxLimitBreakGauge = 100;
-    [SerializeField] protected float limitBreakPerSecond = 0.40f;
+    [SerializeField] public float limitBreakPerSecond = 0.40f;
     [SerializeField] protected float limitBreakOnHit = 2.5f;
     [SerializeField] protected float limitBreakOnDamage = 1.0f;
     [SerializeField] protected float limitBreakOnParry = 15.0f;
@@ -756,7 +756,7 @@ public abstract class Champion : MonoBehaviour {
         {
 
             animator.SetBool("Moving", true);
-            transform.Translate(movement * Time.fixedDeltaTime);
+            transform.Translate(movement * Time.deltaTime);
         }
 
     }
@@ -1053,9 +1053,6 @@ public abstract class Champion : MonoBehaviour {
         {
             return stamina;
         }
-		set{ 
-			stamina = value;
-		}
     }
     public float BaseStamina
     {
@@ -1220,6 +1217,7 @@ public abstract class Champion : MonoBehaviour {
             specialStatus = Enum_SpecialStatus.projected;
             SetStunEffects();
             Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0.0f;
             animator.SetBool("Projected", true);
@@ -1239,6 +1237,7 @@ public abstract class Champion : MonoBehaviour {
         specialStatus = Enum_SpecialStatus.normal;
         speed = baseSpeed;
         AllowInputs();
+        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
 
         //Debug.Log("Normal is the new black");
     }
@@ -1250,6 +1249,7 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Projected", false);
             animator.SetBool("Stunned", true);
             rb.gravityScale = 1.0f;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
             specialStatus = Enum_SpecialStatus.stun;
             SetStunEffects();
             StartCoroutine(EffectCoroutine(duration));
@@ -1262,6 +1262,7 @@ public abstract class Champion : MonoBehaviour {
         if (!immune)
         {
             specialStatus = Enum_SpecialStatus.poison;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
             StartCoroutine(PoisonCoroutine(poisonDamage));
             StartCoroutine(EffectCoroutine(duration));
         }
@@ -1273,6 +1274,7 @@ public abstract class Champion : MonoBehaviour {
         {
             specialStatus = Enum_SpecialStatus.slow;
             speed = baseSpeed * slowRatio;
+            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
             StartCoroutine(EffectCoroutine(duration));
         }
     }
@@ -1364,7 +1366,7 @@ public abstract class Champion : MonoBehaviour {
     {
         while (specialStatus == Enum_SpecialStatus.poison)
         {
-            if(poisonDamage >= Health && !dead)
+            if(poisonDamage >= Health)
             {
                 Health = 1;
             }

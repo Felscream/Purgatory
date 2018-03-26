@@ -62,12 +62,10 @@ public class Attack {
                     breakableLife.TakeDamage(1);
                 }
                 if (enemy.gameObject.tag.Equals("BreakingOrb"))
-                {
-                    Debug.Log("Test1");
+                {       
                     BreakingOrb breakingOrb = enemy.gameObject.GetComponent<BreakingOrb>();
-                    Debug.Log("Test2");
                     breakingOrb.TakeDamage(1);
-                    Debug.Log("Test3");
+                    Debug.Log("dmg");
                 }
                 else
                 {
