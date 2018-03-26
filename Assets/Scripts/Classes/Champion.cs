@@ -145,7 +145,9 @@ public abstract class Champion : MonoBehaviour {
     protected Slider healthSlider;
     protected Slider staminaSlider;
     protected Slider limitBreakSlider;
-    protected int timerDamageHUD = 40;
+    protected float timerDamageHUDBase = 30;
+    protected float timerDamageHUD;
+    protected float diffDamage;
     protected Image ultiImageSlider;
 
     protected SpriteRenderer sr;
@@ -980,24 +982,34 @@ public abstract class Champion : MonoBehaviour {
         float b = healthSlider.value;
         if (a != b) //si recu des degats, barre colorée supplémentaire
         {
-            timerDamageHUD = 40;
+            diffDamage = a - b;
+            timerDamageHUD = timerDamageHUDBase;
             playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(diffDamage * 1.4f, 10);
             if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
             {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(diffDamage * 1.4f, 0);
             }
             else
             {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-diffDamage * 1.4f, 0);
             }
+        }
+        else if (a == b && timerDamageHUD > 0)
+        {
+            if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(diffDamage * 1.4f * timerDamageHUD/timerDamageHUDBase, 0);
+            }
+            else
+            {
+                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-diffDamage * 1.4f * timerDamageHUD / timerDamageHUDBase, 0);
+            }
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(diffDamage * 1.4f * timerDamageHUD / timerDamageHUDBase, 10);
         }
         else
         {
-            if (timerDamageHUD < 0) // au bout de x ticks, on fait disparaitre la barre
-            {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
-            }
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
         }
 
         timerDamageHUD -= 1;
