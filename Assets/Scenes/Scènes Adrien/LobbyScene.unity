@@ -1814,6 +1814,18 @@ MonoBehaviour:
   KnightPlayer4: {fileID: 36565707}
   ArcherPlayer4: {fileID: 1581339533}
   SorcererPlayer4: {fileID: 1909667594}
+  player1KnightButton: {fileID: 1682420523}
+  player1ArcherButton: {fileID: 1976713044}
+  player1SorcererButton: {fileID: 81294398}
+  player2KnightButton: {fileID: 1108069324}
+  player2ArcherButton: {fileID: 1071104631}
+  player2SorcererButton: {fileID: 1528534492}
+  player3KnightButton: {fileID: 1998900816}
+  player3ArcherButton: {fileID: 1164346614}
+  player3SorcererButton: {fileID: 727699938}
+  player4KnightButton: {fileID: 1848316081}
+  player4ArcherButton: {fileID: 1386340585}
+  player4SorcererButton: {fileID: 103289858}
   Jump_P1: Jump_P1
   Jump_P2: Jump_P2
   Jump_P3: Jump_P3
@@ -1830,21 +1842,6 @@ MonoBehaviour:
   Dodge_P2: Dodge_P2
   Dodge_P3: Dodge_P3
   Dodge_P4: Dodge_P4
-  player1KnightButton: {fileID: 1682420523}
-  player1ArcherButton: {fileID: 1976713044}
-  player1SorcererButton: {fileID: 81294398}
-  player2KnightButton: {fileID: 1108069324}
-  player2ArcherButton: {fileID: 1071104631}
-  player2SorcererButton: {fileID: 1528534492}
-  player3KnightButton: {fileID: 1998900816}
-  player3ArcherButton: {fileID: 1164346614}
-  player3SorcererButton: {fileID: 727699938}
-  player4KnightButton: {fileID: 1848316081}
-  player4ArcherButton: {fileID: 1386340585}
-  player4SorcererButton: {fileID: 103289858}
-  quitter: {fileID: 0}
-  back: {fileID: 0}
-  LaunchGame: {fileID: 0}
 --- !u!114 &987748238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2732,6 +2729,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671060846677618, guid: 0d589003c7880ec418c3fe9dc2dbda6c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d589003c7880ec418c3fe9dc2dbda6c, type: 2}

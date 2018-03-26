@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Required when Using UI elements.
 
-public class VictoryMenuManager: MonoBehaviour {
+public class VictoryMenu: MonoBehaviour {
     // ChampionsSelected instance
     ChampionsSelected championsSelected_;
     private int player1_indexSelection = 0, player2_indexSelection = 0, player3_indexSelection = 0, player4_indexSelection = 0;
