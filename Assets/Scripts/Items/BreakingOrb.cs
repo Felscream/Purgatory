@@ -35,8 +35,4 @@ public class BreakingOrb : MonoBehaviour {
 			//ajout buff ultimate
 		}
 	}
-
-	public void OnCollisionEnter2D(Collision2D coll){
-		Debug.Log ("Triggered");
-	}
 }

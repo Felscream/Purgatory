@@ -110,19 +110,19 @@ public class ManagerInGame : MonoBehaviour {
 		Vector2 newPosition = Vector2.zero;
 		switch (Random.Range(1,5)) {
 				case 1:
-					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(6.0f, 9.5f));
+					newPosition = new Vector2(Random.Range(-19f, 19f), Random.Range(5.5f, 10f));
 					break;
 
 				case 2:
-					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(-1.9f, 3.1f));
+					newPosition = new Vector2(Random.Range(-19f, 19f), Random.Range(1.4f, 3f));
 					break;
 
 				case 3:
-					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(-2.6f, -1.5f));
+					newPosition = new Vector2(Random.Range(-19f, 19f), Random.Range(-2.9f, -1.5f));
 					break;
 
 				case 4:
-					newPosition = new Vector2(Random.Range(-18f, 18f), Random.Range(-7.0f, -5.2f));
+					newPosition = new Vector2(Random.Range(-19f, 19f), Random.Range(-7.3f, -5.2f));
 					break;
 		}
         // return the valid position

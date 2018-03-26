@@ -31,6 +31,12 @@ public class PickUp : MonoBehaviour {
 		}
 	}
 
+	void test(Collider2D coll){
+		if (coll.gameObject.tag.Equals("BreakingOrb")){
+			Debug.Log ("oui");
+		}
+	}
+
 	void HealthRecover (){
         if (!player.Dead)
         {
