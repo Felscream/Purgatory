@@ -440,9 +440,9 @@ MonoBehaviour:
   ultimateArrow: {fileID: 1086499213229864, guid: e89d30dae4a8d2446949335453c9b4c4,
     type: 2}
   arrowAngles:
-  - {x: 0, y: 0, z: 90}
-  - {x: 0, y: 0, z: 90}
-  - {x: 0, y: 0, z: 90}
+  - {x: 0, y: 0, z: -5}
+  - {x: 0, y: 0, z: -20}
+  - {x: 0, y: 0, z: -40}
   cacAttackSound: {fileID: 8300000, guid: 48242b70c1571ff41bd194c98de4f4c6, type: 3}
 --- !u!114 &114782146192993706
 MonoBehaviour:
