@@ -170,6 +170,7 @@ public abstract class Champion : MonoBehaviour {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y,0), 0.2f);
         //Gizmos.DrawWireSphere(new Vector3(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y, 0),0.5f);
+        Gizmos.DrawWireCube(new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y), new Vector3(1.0f, 1.0f, 1.0f));
     }
     protected void Awake()
     {
@@ -222,6 +223,10 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void FixedUpdate()
     {
+        if (rb.velocity.y > 0)
+        {
+            Debug.Log(rb.velocity.y);
+        }
         if(specialStatus != Enum_SpecialStatus.projected || dead)
         {
             DynamicFall();
@@ -796,7 +801,7 @@ public abstract class Champion : MonoBehaviour {
             if (coyoteFrameCounter <= coyoteTimeFrames)
             {
                 rb.velocity = Vector2.zero;
-                rb.AddForce(new Vector2(0, jumpHeight * rb.mass), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
                 animator.SetBool("Fall", false);
                 animator.SetBool("Jump", true);
                 coyoteFrameCounter = coyoteTimeFrames + 1;
@@ -805,7 +810,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 if (!IsGrounded())
                 {
-                    rb.AddForce(new Vector2(0, -jumpHeight * rb.mass), ForceMode2D.Impulse);
+                    rb.AddForce(new Vector2(0, -jumpHeight), ForceMode2D.Impulse);
                     EnableDiveBox();
                 }
             }
@@ -1318,31 +1323,72 @@ public abstract class Champion : MonoBehaviour {
         {
             SetStunEffects();
             Vector2 wallDetectorPosition = new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y);
-            Collider2D hitObstacle = Physics2D.OverlapCircle(wallDetectorPosition, 0.5f, LayerMask.GetMask("Obstacle"));
-            Collider2D hitPlayer = Physics2D.OverlapCircle(wallDetectorPosition, 0.5f, LayerMask.GetMask("Player"));
-            if(hitObstacle == null /*&& hitPlayer == null*/)
+            Vector2 size = new Vector2(0.8f, 0.4f);
+            Vector2 pointA;
+            Vector2 pointB;
+            if(facing < 0)
+            {
+                pointA = new Vector2(physicBox.bounds.max.x, physicBox.bounds.min.y + physicBox.bounds.extents.y/4);
+                pointB = new Vector2(physicBox.bounds.max.x + physicBox.bounds.extents.x, physicBox.bounds.max.y);
+            }
+            else
+            {
+                pointA = new Vector2(physicBox.bounds.min.x, physicBox.bounds.min.y + physicBox.bounds.extents.y / 4);
+                pointB = new Vector2(physicBox.bounds.min.x - physicBox.bounds.extents.x, physicBox.bounds.max.y);
+            }
+            Collider2D hitObstacle = Physics2D.OverlapArea(pointA, pointB,LayerMask.GetMask("Obstacle"));
+            Collider2D[] hitPlayer = Physics2D.OverlapAreaAll(pointA, pointB, LayerMask.GetMask("Player"));
+            Debug.Log(hitPlayer);
+            
+            if(hitObstacle == null && hitPlayer.Length < 2 )
             {
                 yield return null;
             }
-            else
+            else 
             {
                 if(hitObstacle != null)
                 {
                     SetStunStatus();
                 }
+                else if (hitPlayer.Length > 1)
+                {
+                    foreach (Collider2D col in hitPlayer)
+                    {
+                        Champion temp = col.GetComponent<Champion>();
+                        if (temp != this)
+                        {
+                            SetStunStatus();
+                            temp.SetStunStatus();
+                        }
+                    }
+                }
                 else
                 {
+                    yield return null;
+                }
+                
+                //SetStunStatus();
+                /*if(hitObstacle != null)
+                {
+                    
+                }
+                else
+                {
+                    
                     if(hitPlayer != null)
                     {
+                        SetStunStatus();
+                        /*Debug.Log(hitPlayer);
                         Champion other = hitPlayer.GetComponent<Champion>();
                         Debug.Log(other.gameObject.name);
                         if(other != this && other != null)
                         {
                             SetStunStatus();
+                            Debug.Log(other.gameObject.name);
                             other.SetStunStatus();
                         }
                     }
-                }
+                }*/
                 
             }
         }

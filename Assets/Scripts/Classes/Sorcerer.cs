@@ -203,8 +203,7 @@ public class Sorcerer : Champion
     }
     protected override void Ultimate()
     {
-        ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
-        temp.enabled = true;
+        
         inputStatus = Enum_InputStatus.blocked;
         animator.SetBool("Ultimate", true);
         rb.velocity = Vector2.zero;
@@ -227,7 +226,8 @@ public class Sorcerer : Champion
     private IEnumerator CastBarrierCoroutine()
     {
         ultimate = true;
-        
+        ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
+        temp.enabled = true;
         float timer = 0.0f;
         float radius = ultimateMinRadius;
         float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
@@ -240,7 +240,7 @@ public class Sorcerer : Champion
             timer += Time.deltaTime;
             yield return null;
         }
-        ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
+        temp = ultimateParticleSystem.emission;
         temp.enabled = false;
         immune = false;
         rb.isKinematic = false;

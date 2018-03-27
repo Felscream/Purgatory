@@ -12,6 +12,7 @@ public class FireBeast : Projectile {
     [SerializeField] private int shakeSpeed = 100;
     [SerializeField] private Vector2 projectionForce;
     private float speed = 0.0f;
+    private CameraControl cameraController;
     public ParticleSystemRenderer beastRenderer;
     public Material rightMaterial;
     public Material leftMaterial;
@@ -20,6 +21,7 @@ public class FireBeast : Projectile {
     protected override void Start()
     {
         base.Start();
+        
     }
 
     protected override void FixedUpdate()
@@ -55,10 +57,11 @@ public class FireBeast : Projectile {
 
     private IEnumerator CameraShakes()
     {
+        cameraController = Camera.main.GetComponent<CameraControl>();
         float timer = 0.0f;
         while(timer < timeToLive * 0.75f)
         {
-            Camera.main.GetComponent<CameraControl>().Shake(shakeIntensity, shakeNumber, shakeSpeed, true);
+            cameraController.Shake(shakeIntensity, shakeNumber, shakeSpeed, true);
             timer += Time.deltaTime;
             yield return null;
         }

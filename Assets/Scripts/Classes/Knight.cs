@@ -137,7 +137,7 @@ public class Knight : Champion
 
     protected override void Ultimate()
     {
-        if (IsGrounded())
+        if (IsGrounded() && rb.velocity.y == 0.0f)
         {
             EndAttackString();
             inputStatus = Enum_InputStatus.blocked;
@@ -163,15 +163,11 @@ public class Knight : Champion
         fb.Owner = this;
         fb.Direction = facing;
         fb.GetComponent<Rigidbody2D>().AddForce(fb.Force * facing, ForceMode2D.Force);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(facing, 0), 100, LayerMask.GetMask("Obstacle"));
-        fb.TimeToLive = 4.0f;
-        if(hit)
-        {
-            float distance = Vector2.Distance(hit.transform.position, transform.position);
-            float timeToLive = distance / 40;
+
+        float distanceToWall = facing >= 0 ? 20 - transform.position.x : Mathf.Abs(-20 - transform.position.x);
+        float timeToLive = distanceToWall / 40;
             
-            fb.TimeToLive = timeToLive;
-        }
+        fb.TimeToLive = timeToLive;
         fb.BeastParticleSystem.Stop();
         StartCoroutine(fb.StopCollisionDetection());
         fb.BeastParticleSystem.Play();
