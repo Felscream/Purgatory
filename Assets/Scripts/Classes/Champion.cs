@@ -718,7 +718,10 @@ public abstract class Champion : MonoBehaviour {
                 if (dodgeFrameCounter >= dodgeFrames)
                 {
                     dodgeFrameCounter = dodgeFrames;
-                    rb.velocity = new Vector2(0, 0);
+                    if(specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
+                    {
+                        rb.velocity = Vector2.zero;
+                    }
                     animator.SetBool("Dodge", false);
                     playerBox.enabled = true;
                     dodgeStatus = Enum_DodgeStatus.ready;
@@ -1328,17 +1331,16 @@ public abstract class Champion : MonoBehaviour {
             Vector2 pointB;
             if(facing < 0)
             {
-                pointA = new Vector2(physicBox.bounds.max.x, physicBox.bounds.min.y + physicBox.bounds.extents.y/4);
+                pointA = new Vector2(physicBox.bounds.max.x, physicBox.bounds.min.y + physicBox.bounds.extents.y/6);
                 pointB = new Vector2(physicBox.bounds.max.x + physicBox.bounds.extents.x, physicBox.bounds.max.y);
             }
             else
             {
-                pointA = new Vector2(physicBox.bounds.min.x, physicBox.bounds.min.y + physicBox.bounds.extents.y / 4);
+                pointA = new Vector2(physicBox.bounds.min.x, physicBox.bounds.min.y + physicBox.bounds.extents.y / 6);
                 pointB = new Vector2(physicBox.bounds.min.x - physicBox.bounds.extents.x, physicBox.bounds.max.y);
             }
             Collider2D hitObstacle = Physics2D.OverlapArea(pointA, pointB,LayerMask.GetMask("Obstacle"));
             Collider2D[] hitPlayer = Physics2D.OverlapAreaAll(pointA, pointB, LayerMask.GetMask("Player"));
-            Debug.Log(hitPlayer);
             
             if(hitObstacle == null && hitPlayer.Length < 2 )
             {
@@ -1366,30 +1368,6 @@ public abstract class Champion : MonoBehaviour {
                 {
                     yield return null;
                 }
-                
-                //SetStunStatus();
-                /*if(hitObstacle != null)
-                {
-                    
-                }
-                else
-                {
-                    
-                    if(hitPlayer != null)
-                    {
-                        SetStunStatus();
-                        /*Debug.Log(hitPlayer);
-                        Champion other = hitPlayer.GetComponent<Champion>();
-                        Debug.Log(other.gameObject.name);
-                        if(other != this && other != null)
-                        {
-                            SetStunStatus();
-                            Debug.Log(other.gameObject.name);
-                            other.SetStunStatus();
-                        }
-                    }
-                }*/
-                
             }
         }
     }
