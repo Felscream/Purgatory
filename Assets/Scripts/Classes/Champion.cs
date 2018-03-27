@@ -699,7 +699,7 @@ public abstract class Champion : MonoBehaviour {
                     dodgeToken = maxDodgeToken;
                 }
                 if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed &&
-                    guardStatus == Enum_GuardStatus.noGuard && !fatigued && dodgeToken > 0)
+                    guardStatus == Enum_GuardStatus.noGuard && !fatigued && dodgeToken > 0 && specialStatus != Enum_SpecialStatus.projected)
                 {
                     dodgeFrameCounter = 0;
                     playerBox.enabled = false;
@@ -732,10 +732,11 @@ public abstract class Champion : MonoBehaviour {
                     {
                         rb.velocity = Vector2.zero;
                         inputStatus = Enum_InputStatus.allowed;
+                        dodgeStatus = Enum_DodgeStatus.ready;
                     }
                     animator.SetBool("Dodge", false);
                     playerBox.enabled = true;
-                    dodgeStatus = Enum_DodgeStatus.ready;
+                    
                 }
                 break;
         }
@@ -1222,6 +1223,9 @@ public abstract class Champion : MonoBehaviour {
     {
         inputStatus = Enum_InputStatus.blocked;
         guardStatus = Enum_GuardStatus.noGuard;
+        dodgeStatus = Enum_DodgeStatus.ready;
+        animator.SetBool("Dodge", false);
+        playerBox.enabled = true;
         animator.SetBool("Guarding", false);
         animator.SetBool("Jump", false);
     }
@@ -1233,7 +1237,6 @@ public abstract class Champion : MonoBehaviour {
             specialStatus = Enum_SpecialStatus.projected;
             SetStunEffects();
             Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f);
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0.0f;
             animator.SetBool("Projected", true);
@@ -1244,7 +1247,7 @@ public abstract class Champion : MonoBehaviour {
     }
     public void SetNormalStatus()
     {
-        if(projectedCoroutine != null)
+        if(projectedCoroutine != null && specialStatus == Enum_SpecialStatus.projected)
         {
             StopCoroutine(projectedCoroutine);
         }
@@ -1253,7 +1256,6 @@ public abstract class Champion : MonoBehaviour {
         specialStatus = Enum_SpecialStatus.normal;
         speed = baseSpeed;
         AllowInputs();
-        this.gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
 
         //Debug.Log("Normal is the new black");
     }
@@ -1265,7 +1267,6 @@ public abstract class Champion : MonoBehaviour {
             animator.SetBool("Projected", false);
             animator.SetBool("Stunned", true);
             rb.gravityScale = 1.0f;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
             specialStatus = Enum_SpecialStatus.stun;
             SetStunEffects();
             StartCoroutine(EffectCoroutine(duration));
@@ -1278,7 +1279,6 @@ public abstract class Champion : MonoBehaviour {
         if (!immune)
         {
             specialStatus = Enum_SpecialStatus.poison;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0f);
             StartCoroutine(PoisonCoroutine(poisonDamage));
             StartCoroutine(EffectCoroutine(duration));
         }
@@ -1290,7 +1290,6 @@ public abstract class Champion : MonoBehaviour {
         {
             specialStatus = Enum_SpecialStatus.slow;
             speed = baseSpeed * slowRatio;
-            this.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
             StartCoroutine(EffectCoroutine(duration));
         }
     }
