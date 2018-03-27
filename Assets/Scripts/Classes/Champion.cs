@@ -400,13 +400,20 @@ public abstract class Champion : MonoBehaviour {
                 if (Fatigue) {
                     if(inputStatus != Enum_InputStatus.onlyAttack && inputStatus != Enum_InputStatus.blocked)
                     {
-                        inputStatus = Enum_InputStatus.onlyMovement;
+                        if (specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
+                        {
+                            inputStatus = Enum_InputStatus.onlyMovement;
+                        }
                         guardStatus = Enum_GuardStatus.noGuard;
                         animator.SetBool("Guarding", false);
                         if (staminablockedTimer > staminaFatigueCooldown && !attacking)
                         {
                             staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
-                            inputStatus = Enum_InputStatus.allowed;
+                            if(specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
+                            {
+                                inputStatus = Enum_InputStatus.allowed;
+                            }
+                            
                         }
                     }
                 }
@@ -671,7 +678,10 @@ public abstract class Champion : MonoBehaviour {
                 {
                     immune = false;
                     guardStatus = Enum_GuardStatus.noGuard;
-                    inputStatus = Enum_InputStatus.allowed;
+                    if (specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
+                    {
+                        inputStatus = Enum_InputStatus.allowed;
+                    }
                 }
                 break;
             default:
@@ -863,16 +873,19 @@ public abstract class Champion : MonoBehaviour {
     public virtual bool IsGrounded()
     {
         //returns true if collides with an obstacle underneath object
-        Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
-        Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
-        float radius = 0.1f;
-
-        if ((Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"))) && !ignorePlatforms)
+        if (!ignorePlatforms)
         {
-            animator.SetBool("Fall", false);
-            DisableDiveBox();
-            falling = false;
-            return true;
+            Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+            Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+            float radius = 0.1f;
+
+            if ((Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"))) && !ignorePlatforms)
+            {
+                animator.SetBool("Fall", false);
+                DisableDiveBox();
+                falling = false;
+                return true;
+            }
         }
         return false;
     }

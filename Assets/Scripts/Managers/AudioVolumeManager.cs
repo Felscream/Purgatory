@@ -14,12 +14,29 @@ public class AudioVolumeManager : MonoBehaviour {
     private float voiceVolume = 0.75f;
     private string fileName = "volumeData.dat";
 
+    [SerializeField] private Sound[] themes;
+    [SerializeField] private Sound[] soundEffects;
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); //we want to keep it the whole time the game is running
+            DontDestroyOnLoad(gameObject);
+            foreach(Sound m in themes)
+            {
+                m.source = gameObject.AddComponent<AudioSource>();
+                m.source.clip = m.clip;
+                m.source.pitch = m.pitch;
+                m.source.volume = musicVolume;
+                m.source.loop = m.loop;
+            }
+            foreach (Sound s in soundEffects)
+            {
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clip;
+                s.source.pitch = s.pitch;
+                s.source.volume = soundEffectVolume;
+            }
         }
         else
         {
@@ -37,6 +54,31 @@ public class AudioVolumeManager : MonoBehaviour {
         return instance;
     }
 
+    public void PlayTheme(string name)
+    {
+        Sound t = Array.Find(themes, theme => theme.name == name);
+        if(t == null)
+        {
+            Debug.Log("Theme " + name + " not found");
+            return;
+        }
+        foreach(Sound s in themes)
+        {
+            s.source.Stop();
+        }
+        t.source.Play();
+    }
+
+    public void PlaySoundEffect(string name)
+    {
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found");
+            return;
+        }
+        s.source.Play();
+    }
     private void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -60,6 +102,15 @@ public class AudioVolumeManager : MonoBehaviour {
         }
     }
 
+    public float GetAudioClipLength(string name)
+    {
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if(s == null)
+        {
+            return 0.0f;
+        }
+        return s.clip.length;
+    }
     private void OnEnable()
     {
         Load();
@@ -79,6 +130,10 @@ public class AudioVolumeManager : MonoBehaviour {
         set
         {
             musicVolume = value;
+            foreach (Sound m in themes)
+            {
+                m.source.volume = musicVolume;
+            }
         }
     }
 
@@ -91,6 +146,10 @@ public class AudioVolumeManager : MonoBehaviour {
         set
         {
             soundEffectVolume = value;
+            foreach (Sound s in soundEffects)
+            {
+                s.source.volume = soundEffectVolume;
+            }
         }
     }
 

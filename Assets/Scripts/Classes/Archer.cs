@@ -20,6 +20,7 @@ public class Archer : Champion
     [SerializeField] protected float speedReductionMultiplier = 0.75f;
     [SerializeField] protected float initialStaminaCost = 18.0f;
     [SerializeField] protected float maxStaminaConsumption = 10.0f;
+    [SerializeField] protected float maxChargeTime = 5.0f;
     [SerializeField] protected ParticleSystem chargeParticleSystem;
     [SerializeField] protected Material[] chargeMaterials;
 
@@ -118,7 +119,6 @@ public class Archer : Champion
             {
                 ChangeParticleMaterial(2);
             }
-            
         }
         else if(chargeTimer >= firstLevelTime)
         {
@@ -141,7 +141,7 @@ public class Archer : Champion
         }
         staminaRegenerationStatus = Enum_StaminaRegeneration.blocked;
         staminablockedTimer = 0.0f;
-        if (Fatigue)
+        if (Fatigue || chargeTimer >= maxChargeTime)
         {
             Release();
         }
