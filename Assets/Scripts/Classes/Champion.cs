@@ -721,12 +721,11 @@ public abstract class Champion : MonoBehaviour {
                     if(specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
                     {
                         rb.velocity = Vector2.zero;
+                        inputStatus = Enum_InputStatus.allowed;
                     }
                     animator.SetBool("Dodge", false);
                     playerBox.enabled = true;
                     dodgeStatus = Enum_DodgeStatus.ready;
-                    inputStatus = Enum_InputStatus.allowed;
-
                 }
                 break;
         }

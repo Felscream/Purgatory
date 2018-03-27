@@ -166,10 +166,14 @@ public class Sorcerer : Champion
     public void WarpIn()
     {
         immune = false;
-        rb.velocity = new Vector2(0, 0);
+        if(specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
+        {
+            rb.velocity = new Vector2(0, 0);
+            inputStatus = Enum_InputStatus.allowed;
+        }  
         animator.SetBool("Dodge", false);
         dodgeStatus = Enum_DodgeStatus.ready;
-        inputStatus = Enum_InputStatus.allowed;
+        
     }
 
     public void SpawnManaBomb()
