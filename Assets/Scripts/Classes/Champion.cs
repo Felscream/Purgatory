@@ -42,8 +42,10 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] public int determination = 3;
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
+
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
+    [SerializeField] protected GameObject damageDisplayPrefab;
 
     [Header("Jump Settings")]
     [SerializeField] protected float jumpHeight = 10;
@@ -109,6 +111,7 @@ public abstract class Champion : MonoBehaviour {
     [Header("Narrator Quotes")]
     [SerializeField] protected AudioClip[] ultimateQuotes;
 
+
     public Attack specialAttack;
     public Attack combo1;
     
@@ -139,6 +142,7 @@ public abstract class Champion : MonoBehaviour {
     protected Lever trapLever;
     protected Coroutine projectedCoroutine;
     protected const int  DEFAULT_EFFECT_DURATION = 3;
+    protected PopupDamage damageDisplay;
 
     [System.NonSerialized] public int clashClick=0;
 
@@ -214,8 +218,9 @@ public abstract class Champion : MonoBehaviour {
         }
         if (ultimateParticleSystem != null)
         {
-            ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
-            temp.enabled = false;
+            /* ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
+             temp.enabled = false;*/
+            ultimateParticleSystem.Stop();
         }
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
@@ -505,6 +510,12 @@ public abstract class Champion : MonoBehaviour {
     public virtual void ReduceHealth(float amount, bool clashPossible = false, Champion attacker = null)
     {
         IncreaseLimitBreak(limitBreakOnDamage); //increase limit break
+        if(damageDisplay == null)
+        {
+            InstantiateDamageDisplay();
+        }
+        damageDisplay.SetText(amount);
+        damageDisplay.Direction = -facing;
         if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
             Health = 1;
@@ -540,6 +551,7 @@ public abstract class Champion : MonoBehaviour {
         animator.speed = 1;
         isClashing = false;
         GetComponent<SpriteRenderer>().sortingLayerName = "Default";
+        GetComponent<SpriteRenderer>().sortingOrder = 0;
     }
 
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
@@ -1450,5 +1462,13 @@ public abstract class Champion : MonoBehaviour {
     public virtual void DeathBehaviour()
     {
         animator.SetBool("Dead", true);
+    }
+
+    protected void InstantiateDamageDisplay()
+    {
+        GameObject temp = Instantiate(damageDisplayPrefab);
+        temp.transform.SetParent(playerHUD.transform);
+        damageDisplay = temp.GetComponent<PopupDamage>();
+        damageDisplay.Target = this;
     }
 }

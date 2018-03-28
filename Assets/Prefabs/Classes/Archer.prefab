@@ -357,6 +357,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   playerHUD: {fileID: 0}
+  damageDisplayPrefab: {fileID: 1022562811663342, guid: 7477b39496a41cf4788d295d78fbb78c,
+    type: 2}
   jumpHeight: 10
   fallMultiplier: 8
   jumpVelocityAtApex: 3
@@ -431,6 +433,7 @@ MonoBehaviour:
   speedReductionMultiplier: 0.75
   initialStaminaCost: 15
   maxStaminaConsumption: 10
+  maxChargeTime: 5
   chargeParticleSystem: {fileID: 198231618833295154}
   chargeMaterials:
   - {fileID: 2100000, guid: 08a38dbb4f50e47408ababf1d6644b59, type: 2}

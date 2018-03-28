@@ -230,8 +230,9 @@ public class Sorcerer : Champion
     private IEnumerator CastBarrierCoroutine()
     {
         ultimate = true;
-        ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
-        temp.enabled = true;
+        /*ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
+        temp.enabled = true;*/
+        ultimateParticleSystem.Play();
         float timer = 0.0f;
         float radius = ultimateMinRadius;
         float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
@@ -244,8 +245,9 @@ public class Sorcerer : Champion
             timer += Time.deltaTime;
             yield return null;
         }
-        temp = ultimateParticleSystem.emission;
-        temp.enabled = false;
+        /* temp = ultimateParticleSystem.emission;
+         temp.enabled = false;*/
+        ultimateParticleSystem.Stop();
         immune = false;
         rb.isKinematic = false;
         rb.gravityScale = 1.0f;
