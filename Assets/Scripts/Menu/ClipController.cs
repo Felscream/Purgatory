@@ -22,8 +22,10 @@ public class ClipController : MonoBehaviour {
     public RectTransform OptionsMenu;
     public RectTransform ControlMenu;
 
+    private AudioVolumeManager audioVolumeManager;
     private void Awake()
     {
+        
         MainMenu.gameObject.SetActive(false);
         OptionsMenu.gameObject.SetActive(false);
         ControlMenu.gameObject.SetActive(false);
@@ -41,6 +43,8 @@ public class ClipController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        audioVolumeManager = AudioVolumeManager.GetInstance();
+        audioVolumeManager.PlayTheme("MainMenuTheme");
         //MainMenu.gameObject.SetActive(false);
         PlayMainMenuFirstTime();
     }

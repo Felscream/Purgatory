@@ -69,7 +69,7 @@ MonoBehaviour:
     source: {fileID: 0}
   soundEffects:
   - name: MeleeArcher
-    clip: {fileID: 8300000, guid: 48242b70c1571ff41bd194c98de4f4c6, type: 3}
+    clip: {fileID: 8300000, guid: 3c43bc4e160717f48b9c4436d0c0ffce, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}

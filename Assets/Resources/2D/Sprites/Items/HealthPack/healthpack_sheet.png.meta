@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 25b065da070245d4dbd1767f328c624c
-timeCreated: 1519266137
+timeCreated: 1522259415
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -115,7 +115,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,7 +129,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -138,12 +138,12 @@ TextureImporter:
       name: healthpack_sheet_2
       rect:
         serializedVersion: 2
-        x: 373
+        x: 256
         y: 0
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4f58020bd5d575e4298dfb2d4415ffd5
-timeCreated: 1519265462
+timeCreated: 1522259597
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -115,21 +115,7 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Adrenaline_96x96_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -138,12 +124,12 @@ TextureImporter:
       name: Adrenaline_96x96_sheet_1
       rect:
         serializedVersion: 2
-        x: 92
+        x: 96
         y: 0
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,12 +138,12 @@ TextureImporter:
       name: Adrenaline_96x96_sheet_2
       rect:
         serializedVersion: 2
-        x: 191
+        x: 192
         y: 0
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,7 +157,7 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -180,7 +166,7 @@ TextureImporter:
       name: Adrenaline_96x96_sheet_4
       rect:
         serializedVersion: 2
-        x: 380
+        x: 384
         y: 0
         width: 96
         height: 96
@@ -194,7 +180,21 @@ TextureImporter:
       name: Adrenaline_96x96_sheet_5
       rect:
         serializedVersion: 2
-        x: 475
+        x: 480
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Adrenaline_96x96_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 576
         y: 0
         width: 96
         height: 96

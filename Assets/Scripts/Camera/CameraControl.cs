@@ -23,6 +23,7 @@ public class CameraControl : MonoBehaviour {
     private ManagerInGame manager;
     private Camera mainCamera;
     private Vector3 origin;
+    private AudioVolumeManager audioVolumeManager;
     [System.NonSerialized] public bool isZooming = false;
 
 	// Use this for initialization
@@ -36,6 +37,8 @@ public class CameraControl : MonoBehaviour {
     }
 	void Start () {
         manager = ManagerInGame.GetInstance();
+        audioVolumeManager = AudioVolumeManager.GetInstance();
+        audioVolumeManager.PlayTheme("InGameTheme");
         origin = mainAxis.position;
     }
 	

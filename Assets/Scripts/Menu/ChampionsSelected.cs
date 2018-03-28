@@ -11,7 +11,7 @@ public class ChampionsSelected : MonoBehaviour {
 
     public string Start_P1;
     private bool lobbySelected = false;
-
+    private AudioVolumeManager audioVolumeManager;
     public List<int> playerSelection = new List<int>();
 
     void Awake()
@@ -36,6 +36,11 @@ public class ChampionsSelected : MonoBehaviour {
         }
     }
 
+    private void Start()
+    {
+        audioVolumeManager = AudioVolumeManager.GetInstance();
+        audioVolumeManager.PlayTheme("LobbyTheme");
+    }
     public void LoadLevel()
     {
         if (Input.GetButtonDown(Start_P1) && !lobbySelected)
