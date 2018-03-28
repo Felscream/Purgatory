@@ -33,7 +33,7 @@ public class TrapManager : MonoBehaviour {
         timer = 0;
         aleatPosition = Random.Range(-xMax, xMax);
         aleatTime = Random.Range(spawnTimeMin, spawnTimeMax);
-        Debug.Log("generate" + aleatTime + " " + aleatPosition);
+       // Debug.Log("generate" + aleatTime + " " + aleatPosition);
     }
 
     public void Fall()

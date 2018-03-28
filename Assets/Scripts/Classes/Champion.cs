@@ -218,8 +218,6 @@ public abstract class Champion : MonoBehaviour {
         }
         if (ultimateParticleSystem != null)
         {
-            /* ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
-             temp.enabled = false;*/
             ultimateParticleSystem.Stop();
         }
 
@@ -228,10 +226,6 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void FixedUpdate()
     {
-        if (rb.velocity.y > 0)
-        {
-            Debug.Log(rb.velocity.y);
-        }
         if(specialStatus != Enum_SpecialStatus.projected || dead)
         {
             DynamicFall();
@@ -273,7 +267,7 @@ public abstract class Champion : MonoBehaviour {
             CheckDodge();
             CheckParry();
 
-            if (InputStatus == Enum_InputStatus.blocked)
+            if (InputStatus == Enum_InputStatus.blocked && specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
             {
                 StopMovement(0);
             }
@@ -349,18 +343,6 @@ public abstract class Champion : MonoBehaviour {
     {
         UpdateHUD();
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(specialStatus == Enum_SpecialStatus.projected)
-        {
-            /*SetStunStatus();
-            if (collision.gameObject.GetComponent<Champion>())
-            {
-                collision.gameObject.GetComponent<Champion>().SetStunStatus();
-            }*/
-        }
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Lever")
@@ -377,6 +359,16 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
+    public void PlaySoundEffect(string clipName)
+    {
+        audioVolumeManager.PlaySoundEffect(clipName);
+    }
+
+    public void PlaySoundEffectRandomPitch(string clipName)
+    {
+        float pitch = Random.Range(0.8f, 1.8f);
+        audioVolumeManager.PlaySoundEffect(clipName, pitch);
+    }
     protected void DynamicFall()
     {
         if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
@@ -515,7 +507,6 @@ public abstract class Champion : MonoBehaviour {
             InstantiateDamageDisplay();
         }
         damageDisplay.SetText(amount);
-        damageDisplay.Direction = -facing;
         if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
             Health = 1;
@@ -540,6 +531,8 @@ public abstract class Champion : MonoBehaviour {
     }
     public void ClashMode()
     {
+        animator.ResetTrigger("PrimaryAttack");
+        animator.ResetTrigger("SecondaryAttack");
         animator.speed = (1 / Time.timeScale);
         isClashing = true;
         GetComponent<SpriteRenderer>().sortingLayerName = "Clash";
@@ -1147,7 +1140,7 @@ public abstract class Champion : MonoBehaviour {
         }
 		set{ 
 			health = Mathf.Min(Mathf.Max(value, 0.0f),BaseHealth);
-            if (health == 0)
+            if (health <= 0.0f)
             {
                 Death();
             }
@@ -1236,6 +1229,8 @@ public abstract class Champion : MonoBehaviour {
         inputStatus = Enum_InputStatus.blocked;
         guardStatus = Enum_GuardStatus.noGuard;
         dodgeStatus = Enum_DodgeStatus.ready;
+        animator.ResetTrigger("PrimaryAttack");
+        animator.ResetTrigger("SecondaryAttack");
         animator.SetBool("Dodge", false);
         playerBox.enabled = true;
         animator.SetBool("Guarding", false);
@@ -1251,6 +1246,8 @@ public abstract class Champion : MonoBehaviour {
             Facing = attackerFacing != 0 ? -attackerFacing : -1.0f;
             rb.velocity = Vector2.zero;
             rb.gravityScale = 0.0f;
+            animator.ResetTrigger("PrimaryAttack");
+            animator.ResetTrigger("SecondaryAttack");
             animator.SetBool("Projected", true);
             rb.AddForce(new Vector2(projectionForce.x * attackerFacing, projectionForce.y), ForceMode2D.Impulse);
             StartCoroutine(EffectCoroutine(duration));
@@ -1471,4 +1468,6 @@ public abstract class Champion : MonoBehaviour {
         damageDisplay = temp.GetComponent<PopupDamage>();
         damageDisplay.Target = this;
     }
+
+    
 }

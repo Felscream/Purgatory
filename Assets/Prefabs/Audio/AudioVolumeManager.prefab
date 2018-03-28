@@ -62,9 +62,9 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: InGameTheme
+    clip: {fileID: 8300000, guid: a3ea3a3c36a835040ad577f32ffbbc13, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   soundEffects:
@@ -78,19 +78,19 @@ MonoBehaviour:
     pitch: 0
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: MeleeKnight
+    clip: {fileID: 8300000, guid: 2f8a0a61fcc911148835ed4130e2dc0b, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: EnhancedMeleeKnight
+    clip: {fileID: 8300000, guid: 55be4cb6695f6db4ba961e2eb9a38d45, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: MeleeSorcerer
+    clip: {fileID: 8300000, guid: 7b5890d602f1c2347909ce6f6f804631, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: 

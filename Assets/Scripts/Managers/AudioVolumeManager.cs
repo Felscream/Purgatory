@@ -22,21 +22,6 @@ public class AudioVolumeManager : MonoBehaviour {
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            foreach(Sound m in themes)
-            {
-                m.source = gameObject.AddComponent<AudioSource>();
-                m.source.clip = m.clip;
-                m.source.pitch = m.pitch;
-                m.source.volume = musicVolume;
-                m.source.loop = m.loop;
-            }
-            foreach (Sound s in soundEffects)
-            {
-                s.source = gameObject.AddComponent<AudioSource>();
-                s.source.clip = s.clip;
-                s.source.pitch = s.pitch;
-                s.source.volume = soundEffectVolume;
-            }
         }
         else
         {
@@ -77,6 +62,18 @@ public class AudioVolumeManager : MonoBehaviour {
             Debug.Log("Sound " + name + " not found");
             return;
         }
+        s.source.pitch = s.pitch;
+        s.source.Play();
+    }
+    public void PlaySoundEffect(string name, float pitch)
+    {
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found");
+            return;
+        }
+        s.source.pitch = pitch;
         s.source.Play();
     }
     private void Save()
@@ -114,6 +111,23 @@ public class AudioVolumeManager : MonoBehaviour {
     private void OnEnable()
     {
         Load();
+        foreach (Sound m in themes)
+        {
+            m.source = gameObject.AddComponent<AudioSource>();
+            m.source.clip = m.clip;
+            m.source.pitch = m.pitch;
+            m.source.volume = musicVolume;
+            m.source.loop = m.loop;
+            m.source.spatialBlend = 0.0f;
+        }
+        foreach (Sound s in soundEffects)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.pitch = s.pitch;
+            s.source.volume = soundEffectVolume;
+            s.source.spatialBlend = 0.0f;
+        }
     }
 
     private void OnDisable()

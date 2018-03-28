@@ -5,23 +5,25 @@ using UnityEngine.UI;
 
 public class PopupDamage : MonoBehaviour {
 
-    [SerializeField] private float displayTime = 0.1f;
+    private float displayTime = 0.5f;
     [SerializeField] private Vector2 offset = new Vector2(1.0f, 0.4f);
     private Animator anim;
     private Text damageText;
     private float timer = 0.0f;
-    private float direction;
     private Champion target;
     private float totalDamage = 0;
     private Vector2 finalOffset;
-    private bool setOffsetOnce = false;
     private Coroutine disableDisplayCoroutine;
     private void Start()
     {
         anim = transform.GetComponentInChildren<Animator>();
+        displayTime += anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         damageText = anim.GetComponent<Text>();
-        finalOffset = offset;
-        
+        finalOffset = new Vector2(Random.Range(-offset.x, offset.x), Random.Range(-offset.y, offset.y));
+        if(Random.Range(0, 1) < 0.5f)
+        {
+            anim.SetBool("popRight", true);
+        }
     }
 
     private void FixedUpdate()
@@ -42,58 +44,37 @@ public class PopupDamage : MonoBehaviour {
     }
     public void SetText(float damage)
     {
-        totalDamage += damage;
-        Debug.Log(totalDamage);
-        timer = 0.0f;
-        
-        if(anim == null)
+        if(damage > 0.01f)
         {
-            anim = GetComponentInChildren<Animator>();
-        }
-        anim.Play("popUp", -1, 0.0f);
-        if(damageText == null)
-        {
-            damageText = GetComponentInChildren<Text>();
-        }
-        if(totalDamage > 20f)
-        {
-            damageText.color = Color.yellow;
-            damageText.fontSize = 12;
-        }
-        if(totalDamage > 40f)
-        {
-            damageText.color = Color.red;
-            damageText.fontSize = 16;
-        }
-        damageText.text = Mathf.Round(totalDamage).ToString();
-        if(disableDisplayCoroutine != null)
-        {
-            CancelInvoke("DestroyObject");
-            StopCoroutine(disableDisplayCoroutine);
-        }
-        disableDisplayCoroutine = StartCoroutine(DisableDisplay());
-    }
+            totalDamage += damage;
+            timer = 0.0f;
 
-    public float Direction
-    {
-        set
-        {
-            direction = value;
-            if(direction >= 0)
+            if (anim == null)
             {
-                anim.SetBool("popRight", true);
+                anim = GetComponentInChildren<Animator>();
             }
-            else
+            anim.Play("popUp", -1, 0.0f);
+            if (damageText == null)
             {
-                anim.SetBool("popRight", false);
+                damageText = GetComponentInChildren<Text>();
             }
-
-            if (!setOffsetOnce)
+            if (totalDamage > 20f)
             {
-                finalOffset = new Vector2(offset.x * direction, offset.y);
-                setOffsetOnce = true;
+                damageText.color = Color.yellow;
+                damageText.fontSize = 12;
             }
-            
+            if (totalDamage > 40f)
+            {
+                damageText.color = Color.red;
+                damageText.fontSize = 16;
+            }
+            damageText.text = Mathf.Round(totalDamage).ToString();
+            if (disableDisplayCoroutine != null)
+            {
+                CancelInvoke("DestroyObject");
+                StopCoroutine(disableDisplayCoroutine);
+            }
+            disableDisplayCoroutine = StartCoroutine(DisableDisplay());
         }
     }
 
@@ -112,7 +93,9 @@ public class PopupDamage : MonoBehaviour {
             yield return null;
         }
         anim.SetTrigger("endLoop");
-        Invoke("DestroyObject", 0.75f);
+        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+
+        Invoke("DestroyObject", displayTime*1.2f);
     }
 
     public void DestroyObject()

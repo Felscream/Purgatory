@@ -123,8 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbeaa2dfe73bf141a8dce8e256f4f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayTime: 0.6
-  offset: {x: 0.2, y: 0.4}
+  offset: {x: 0.6, y: 0.4}
 --- !u!222 &222209166110701846
 CanvasRenderer:
   m_ObjectHideFlags: 1
