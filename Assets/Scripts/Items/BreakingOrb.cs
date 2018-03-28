@@ -6,10 +6,14 @@ public class BreakingOrb : MonoBehaviour {
 
 	public int life;
 	private Animator anim;
+	private Rigidbody2D rgb;
+	private Collider2D coll;
 	// Use this for initialization
 	void Start () {
 		life= Random.Range(10,15);
 		anim = GetComponent<Animator>();
+		rgb = GetComponent<Rigidbody2D>();
+		coll = GetComponent<Collider2D>();
 
 	}
 	
@@ -30,8 +34,11 @@ public class BreakingOrb : MonoBehaviour {
 		Debug.Log("Take damage");
 		life -= dmg;
 		if (life <= 0) {
-			this.gameObject.SetActive (false);
-			Debug.Log("Item désactivé");
+			//this.gameObject.SetActive (false);
+			//Destroy(this.gameObject.GetComponent<Rigidbody>());
+			//this.gameObject.collider2D.isTrigger = true;
+			coll.isTrigger = true;
+			this.gameObject.layer = 16;
 			//ajout buff ultimate
 		}
 	}

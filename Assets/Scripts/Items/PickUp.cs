@@ -7,36 +7,35 @@ public class PickUp : MonoBehaviour {
 	private Champion player;
 	public int HealthAmount = 20;
 	public int StaminaAmount = 10;
+	public int LimitBreakAmount = 10;
 	private int countHealth = 0;
 	private int countStamina = 0;
+	private int countLimitBreak =0;
 
 	void Awake(){
 		player = GetComponentInChildren<Champion> ();
 	}
 	void OnTriggerEnter2D (Collider2D other) 
 	{
-		if (other.gameObject.layer.Equals(16))
-			//16: layer collectables
-		{
-			if (other.gameObject.tag.Equals("Health")){
+		if (other.gameObject.layer.Equals (16))
+			{			//16: layer collectables
+			if (other.gameObject.tag.Equals ("Health")) {
 				InvokeRepeating ("HealthRecover", 1, 2);
 				//player.Health += 20 /*addHealth*/;
-				Debug.Log("Health: " + player.Health);
+				Debug.Log ("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
 				InvokeRepeating ("StaminaRecover", 1, 1);
-				Debug.Log("Stamina: " + player.Stamina);
+				Debug.Log ("Stamina: " + player.Stamina);
+			}
+			if (other.gameObject.tag.Equals ("BreakingOrb")) {
+				InvokeRepeating("LimitBreakUp",1,1);
+				Debug.Log ("Orb working");
 			}
 			other.gameObject.SetActive (false);
 		}
 	}
-
-	void test(Collider2D coll){
-		if (coll.gameObject.tag.Equals("BreakingOrb")){
-			Debug.Log ("oui");
-		}
-	}
-
+		
 	void HealthRecover (){
         if (!player.Dead)
         {
@@ -55,13 +54,26 @@ public class PickUp : MonoBehaviour {
 	void StaminaRecover (){
 		if (!player.Dead) {
 			player.staminaRegenerationPerSecond = 25f;
-			Debug.Log ("Stamina: " + player.staminaRegenerationPerSecond);
+			//Debug.Log ("Stamina: " + player.staminaRegenerationPerSecond);
 			countStamina += 1;
 			if (StaminaAmount == countStamina) {
 				Debug.Log ("End Recovery");
 				CancelInvoke ("StaminaRecover");
 				countStamina = 0;
 				player.staminaRegenerationPerSecond = 15f;
+			}
+		}
+	}
+
+	void LimitBreakUp(){
+		if (!player.Dead) {
+			player.limitBreakPerSecond = 0.6f;
+			countLimitBreak += 1;
+			if (LimitBreakAmount == countLimitBreak) {
+				Debug.Log ("End Recovery");
+				CancelInvoke ("LimitBreakUp");
+				countLimitBreak = 0;
+				player.limitBreakPerSecond = 0.4f;
 			}
 		}
 	}
