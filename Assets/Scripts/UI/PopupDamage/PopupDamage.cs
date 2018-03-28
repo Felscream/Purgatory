@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
 
 public class PopupDamage : MonoBehaviour {
 
     private float displayTime = 0.5f;
     [SerializeField] private Vector2 offset = new Vector2(1.0f, 0.4f);
+    [SerializeField] private int minFontSize = 8;
+    [SerializeField] private int maxFontSize = 18;
+    [SerializeField] private float firstTierValue = 20.0f;
+    [SerializeField] private float lastTierValue = 40.0f;
+    [SerializeField] private Color firstTier;
+    [SerializeField] private Color lastTier;
     private Animator anim;
     private Text damageText;
     private float timer = 0.0f;
@@ -14,10 +21,13 @@ public class PopupDamage : MonoBehaviour {
     private float totalDamage = 0;
     private Vector2 finalOffset;
     private Coroutine disableDisplayCoroutine;
+    private float firstTierBlue;
+    private float firstTierGreen;
     private void Start()
     {
         anim = transform.GetComponentInChildren<Animator>();
         displayTime += anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        firstTierBlue = firstTier.b;
         damageText = anim.GetComponent<Text>();
         finalOffset = new Vector2(Random.Range(-offset.x, offset.x), Random.Range(-offset.y, offset.y));
         if(Random.Range(0, 1) < 0.5f)
@@ -44,10 +54,14 @@ public class PopupDamage : MonoBehaviour {
     }
     public void SetText(float damage)
     {
+        
         if(damage > 0.01f)
         {
             totalDamage += damage;
             timer = 0.0f;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Mathf.Round(totalDamage).ToString());
 
             if (anim == null)
             {
@@ -58,17 +72,28 @@ public class PopupDamage : MonoBehaviour {
             {
                 damageText = GetComponentInChildren<Text>();
             }
-            if (totalDamage > 20f)
+            float inter = totalDamage / 60;
+            if (totalDamage > lastTierValue)
             {
-                damageText.color = Color.yellow;
-                damageText.fontSize = 12;
+                damageText.color = lastTier;
+                if(inter > 1.5)
+                {
+                    sb.Append(" !!!");
+                }
+                else
+                {
+                    sb.Append(" !!");
+                }
+                
             }
-            if (totalDamage > 40f)
+            else if (totalDamage > firstTierValue)
             {
-                damageText.color = Color.red;
-                damageText.fontSize = 16;
+                damageText.color = firstTier;
+                sb.Append(" !");
             }
-            damageText.text = Mathf.Round(totalDamage).ToString();
+            damageText.fontSize = (int)Mathf.Round(inter * maxFontSize) > minFontSize ? (int)Mathf.Round(inter * maxFontSize) : minFontSize;
+            
+            damageText.text = sb.ToString();
             if (disableDisplayCoroutine != null)
             {
                 CancelInvoke("DestroyObject");

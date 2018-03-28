@@ -124,6 +124,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0.6, y: 0.4}
+  minFontSize: 8
+  maxFontSize: 16
+  firstTierValue: 20
+  lastTierValue: 40
+  firstTier: {r: 0.9862069, g: 1, b: 0, a: 0}
+  lastTier: {r: 1, g: 0.16911763, b: 0.16911763, a: 0}
 --- !u!222 &222209166110701846
 CanvasRenderer:
   m_ObjectHideFlags: 1

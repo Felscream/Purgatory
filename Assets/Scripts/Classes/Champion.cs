@@ -241,7 +241,6 @@ public abstract class Champion : MonoBehaviour {
             
             if(!IsGrounded())
             {
-                Debug.Log(IsGrounded());
                 Fall();
             }
         }
@@ -380,8 +379,13 @@ public abstract class Champion : MonoBehaviour {
     {
         animator.SetBool("Jump", false);
         rb.velocity += Vector2.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        animator.SetBool("Fall", true);
-        falling = true;
+        if (!dead)
+        {
+            animator.SetBool("Fall", true);
+            falling = true;
+        }
+            
+        
     }
 
     protected virtual void RegenerateStaminaPerSecond()
