@@ -364,7 +364,7 @@ MonoBehaviour:
   dodgeImmunityEndFrame: 7
   maxDodgeToken: 1
   dodgeToken: 1
-  parryStaminaCost: 60
+  parryStaminaCost: 35
   parryImmunityStartFrame: 5
   parryImmunityEndFrame: 11
   parryStunDuration: 2
@@ -377,10 +377,10 @@ MonoBehaviour:
   primaryFireStaminaCost: 10
   secondaryFireStaminaCost: 20
   maxLimitBreakGauge: 100
-  limitBreakPerSecond: 100
-  limitBreakOnHit: 1
-  limitBreakOnDamage: 0.25
-  limitBreakOnParry: 15
+  limitBreakPerSecond: 5
+  limitBreakOnHit: 10
+  limitBreakOnDamage: 5
+  limitBreakOnParry: 25
   fatiguedSpeedReduction: 0.8333333
   slowSpeedReduction: 0.8333333
   guardBreakDamage: 5
@@ -401,7 +401,7 @@ MonoBehaviour:
     stunLock: 0
     recoilForce: {x: 30, y: 0}
     projectionDuration: 0.25
-    staminaCost: 20
+    staminaCost: 12
     damage: 5
     movementForce: 20
     guardBreaker: 0
@@ -414,7 +414,7 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 10
+    staminaCost: 5
     damage: 10
     movementForce: 2
     guardBreaker: 0
@@ -427,8 +427,8 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 0
-    damage: 20
+    staminaCost: 5
+    damage: 12
     movementForce: 2
     guardBreaker: 0
     haveSpecialEffect: 0
@@ -440,8 +440,8 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 0
-    damage: 10
+    staminaCost: 5
+    damage: 12
     movementForce: 2
     guardBreaker: 0
     haveSpecialEffect: 0
@@ -453,8 +453,8 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 0
-    damage: 10
+    staminaCost: 5
+    damage: 20
     movementForce: 2
     guardBreaker: 0
     haveSpecialEffect: 0

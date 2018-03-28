@@ -296,16 +296,16 @@ MonoBehaviour:
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
   baseStamina: 100
-  staminaRegenerationPerSecond: 15
+  staminaRegenerationPerSecond: 30
   staminaRegenerationCooldown: 1.5
   staminaFatigueCooldown: 3
   primaryFireStaminaCost: 10
   secondaryFireStaminaCost: 10
   maxLimitBreakGauge: 100
-  limitBreakPerSecond: 100
-  limitBreakOnHit: 2.5
-  limitBreakOnDamage: 1
-  limitBreakOnParry: 15
+  limitBreakPerSecond: 5
+  limitBreakOnHit: 10
+  limitBreakOnDamage: 5
+  limitBreakOnParry: 25
   fatiguedSpeedReduction: 0.8333333
   slowSpeedReduction: 0.8333333
   guardBreakDamage: 5

@@ -6,7 +6,7 @@ public class PickUp : MonoBehaviour {
 
 	private Champion player;
 	public int HealthAmount = 20;
-	public int StaminaAmount = 20;
+	public int StaminaAmount = 10;
 	private int countHealth = 0;
 	private int countStamina = 0;
 
@@ -24,7 +24,7 @@ public class PickUp : MonoBehaviour {
 				Debug.Log("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
-				InvokeRepeating ("StaminaRecover", 1, 2);
+				InvokeRepeating ("StaminaRecover", 1, 1);
 				Debug.Log("Stamina: " + player.Stamina);
 			}
 			other.gameObject.SetActive (false);
