@@ -413,10 +413,10 @@ MonoBehaviour:
   primaryFireStaminaCost: 20
   secondaryFireStaminaCost: 40
   maxLimitBreakGauge: 100
-  limitBreakPerSecond: 100
-  limitBreakOnHit: 2.5
-  limitBreakOnDamage: 1
-  limitBreakOnParry: 15
+  limitBreakPerSecond: 5
+  limitBreakOnHit: 10
+  limitBreakOnDamage: 5
+  limitBreakOnParry: 25
   fatiguedSpeedReduction: 0.833333
   slowSpeedReduction: 0.8333333
   guardBreakDamage: 5
@@ -456,7 +456,7 @@ MonoBehaviour:
     guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
-    canClash: 0
+    canClash: 1
   combo2:
     offset: {x: 1.6, y: 0}
     size: {x: 2.86, y: 2.07}
@@ -469,7 +469,7 @@ MonoBehaviour:
     guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
-    canClash: 0
+    canClash: 1
   ultimateMinRadius: 2
   ultimateMaxRadius: 6.5
   ultimateStunLock: 4

@@ -1349,10 +1349,16 @@ public abstract class Champion : MonoBehaviour {
         {
             SetStunEffects();
             Vector2 wallDetectorPosition = new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y);
+<<<<<<< HEAD
+            Collider2D hitObstacle = Physics2D.OverlapCircle(wallDetectorPosition, 0.7f, LayerMask.GetMask("Obstacle"));
+            Collider2D hitPlayer = Physics2D.OverlapCircle(wallDetectorPosition, 0.7f, LayerMask.GetMask("Player"));
+            if(hitObstacle == null /*&& hitPlayer == null*/)
+=======
             Vector2 size = new Vector2(0.8f, 0.4f);
             Vector2 pointA;
             Vector2 pointB;
             if(facing < 0)
+>>>>>>> 718bd85c4c3f4c7a0fc1ff128ab06a4e3ad58de3
             {
                 pointA = new Vector2(physicBox.bounds.max.x, physicBox.bounds.min.y + physicBox.bounds.extents.y/6);
                 pointB = new Vector2(physicBox.bounds.max.x + physicBox.bounds.extents.x, physicBox.bounds.max.y);
