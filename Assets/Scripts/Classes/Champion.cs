@@ -6,34 +6,34 @@ using UnityEngine.UI;
 
 public enum Enum_InputStatus
 {
-    blocked,
-    allowed,
-    onlyAttack,
-    onlyMovement
+	blocked,
+	allowed,
+	onlyAttack,
+	onlyMovement
 }
 public enum Enum_GuardStatus
 {
-    noGuard,
-    guarding,
-    parrying
+	noGuard,
+	guarding,
+	parrying
 }
 public enum Enum_DodgeStatus
 {
-    ready,
-    dodging
+	ready,
+	dodging
 }
 public enum Enum_StaminaRegeneration
 {
-    regenerating,
-    blocked
+	regenerating,
+	blocked
 }
 public enum Enum_SpecialStatus
 {
-    normal,
-    stun,
-    poison,
-    slow,
-    projected
+	normal,
+	stun,
+	poison,
+	slow,
+	projected
 }
 
 public abstract class Champion : MonoBehaviour {
@@ -788,356 +788,355 @@ public abstract class Champion : MonoBehaviour {
     /*
     protected virtual void ApplySpecialEffect(Champion enemy)
     {
-
         Debug.Log("No special effect on this attack");
     }
     */
-    protected void StopMovement(int stopForce)
-    {
-        movementX = 0;
-        movementY = 0;
-        if (stopForce == 1 && specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
-        {
-            rb.velocity = Vector2.zero;
-        }
-    }
-    protected void ControlCoyote()
-    {
-        if (!IsGrounded())
-        {
-            ++coyoteFrameCounter;
-        }
-        else
-        {
-            coyoteFrameCounter = 0;
-        }
-    }
-    public virtual void Jump()
-    {
-        if(rb != null)
-        {
-            if (coyoteFrameCounter <= coyoteTimeFrames)
-            {
-                rb.velocity = Vector2.zero;
-                rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
-                animator.SetBool("Fall", false);
-                animator.SetBool("Jump", true);
-                coyoteFrameCounter = coyoteTimeFrames + 1;
-            }
-            else
-            {
-                if (!IsGrounded())
-                {
-                    rb.AddForce(new Vector2(0, -jumpHeight), ForceMode2D.Impulse);
-                    EnableDiveBox();
-                }
-            }
-        }
-    }
-    protected void GoDown()
-    {
-        //Debug.Log("Go down");
-        Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
-        Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
-        float radius = 0.1f;
-        Collider2D[] hitOne = Physics2D.OverlapCircleAll(centerOne, radius, LayerMask.GetMask("Obstacle"));
-        if (hitOne.Length > 0)
-        {
-            foreach(Collider2D col in hitOne)
-            {
-                if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
-                {
-                    ignorePlatforms = true;
-                    Physics2D.IgnoreCollision(col, physicBox, true);
-                    Fall();
-                    break;
-                }
-            }
-        }
-        else
-        {
-            Collider2D[] hitTwo = Physics2D.OverlapCircleAll(centerTwo, radius, LayerMask.GetMask("Obstacle"));
-            if(hitTwo.Length > 0)
-            {
-                foreach (Collider2D col in hitOne)
-                {
-                    if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
-                    {
-                        ignorePlatforms = true;
-                        Physics2D.IgnoreCollision(col, physicBox, true);
-                        Fall();
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                ignorePlatforms = false;
-            }
-        }
-    }
-    public virtual bool IsGrounded()
-    {
-        //returns true if collides with an obstacle underneath object
-        if (!ignorePlatforms)
-        {
-            Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
-            Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
-            float radius = 0.1f;
+	protected void StopMovement(int stopForce)
+	{
+		movementX = 0;
+		movementY = 0;
+		if (stopForce == 1 && specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
+		{
+			rb.velocity = Vector2.zero;
+		}
+	}
+	protected void ControlCoyote()
+	{
+		if (!IsGrounded())
+		{
+			++coyoteFrameCounter;
+		}
+		else
+		{
+			coyoteFrameCounter = 0;
+		}
+	}
+	public virtual void Jump()
+	{
+		if(rb != null)
+		{
+			if (coyoteFrameCounter <= coyoteTimeFrames)
+			{
+				rb.velocity = Vector2.zero;
+				rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+				animator.SetBool("Fall", false);
+				animator.SetBool("Jump", true);
+				coyoteFrameCounter = coyoteTimeFrames + 1;
+			}
+			else
+			{
+				if (!IsGrounded())
+				{
+					rb.AddForce(new Vector2(0, -jumpHeight), ForceMode2D.Impulse);
+					EnableDiveBox();
+				}
+			}
+		}
+	}
+	protected void GoDown()
+	{
+		//Debug.Log("Go down");
+		Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+		Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+		float radius = 0.1f;
+		Collider2D[] hitOne = Physics2D.OverlapCircleAll(centerOne, radius, LayerMask.GetMask("Obstacle"));
+		if (hitOne.Length > 0)
+		{
+			foreach(Collider2D col in hitOne)
+			{
+				if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
+				{
+					ignorePlatforms = true;
+					Physics2D.IgnoreCollision(col, physicBox, true);
+					Fall();
+					break;
+				}
+			}
+		}
+		else
+		{
+			Collider2D[] hitTwo = Physics2D.OverlapCircleAll(centerTwo, radius, LayerMask.GetMask("Obstacle"));
+			if(hitTwo.Length > 0)
+			{
+				foreach (Collider2D col in hitOne)
+				{
+					if (!col.isTrigger && col.GetComponent<PlatformManager>() != null)
+					{
+						ignorePlatforms = true;
+						Physics2D.IgnoreCollision(col, physicBox, true);
+						Fall();
+						break;
+					}
+				}
+			}
+			else
+			{
+				ignorePlatforms = false;
+			}
+		}
+	}
+	public virtual bool IsGrounded()
+	{
+		//returns true if collides with an obstacle underneath object
+		if (!ignorePlatforms)
+		{
+			Vector2 centerOne = new Vector2(physicBox.bounds.center.x - (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+			Vector2 centerTwo = new Vector2(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y);
+			float radius = 0.1f;
 
-            if ((Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"))) && !ignorePlatforms)
-            {
-                animator.SetBool("Fall", false);
-                DisableDiveBox();
-                falling = false;
-                return true;
-            }
-        }
-        return false;
-    }
+			if ((Physics2D.OverlapCircle(centerOne, radius, LayerMask.GetMask("Obstacle")) || Physics2D.OverlapCircle(centerTwo, radius, LayerMask.GetMask("Obstacle"))) && !ignorePlatforms)
+			{
+				animator.SetBool("Fall", false);
+				DisableDiveBox();
+				falling = false;
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public void AllowInputs()   //activated in the animation controller
-    {
-        if(specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
-        {
-            rb.gravityScale = 1.0f;
-            inputStatus = Enum_InputStatus.allowed;
-            ResetAttackTokens();
-        }
-        
-    }
+	public void AllowInputs()   //activated in the animation controller
+	{
+		if(specialStatus != Enum_SpecialStatus.stun && specialStatus != Enum_SpecialStatus.projected)
+		{
+			rb.gravityScale = 1.0f;
+			inputStatus = Enum_InputStatus.allowed;
+			ResetAttackTokens();
+		}
 
-    public IEnumerator ProcDivineShield(float time)
-    {
-        if (!dead)
-        {
-            immune = true;
-            inputStatus = Enum_InputStatus.onlyMovement;
-            specialStatus = Enum_SpecialStatus.normal;
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = 1.0f;
-            yield return new WaitForSeconds(time);
-            rb.gravityScale = 1.0f;
-            inputStatus = Enum_InputStatus.allowed;
-            immune = false;
-        }
-    }
+	}
 
-    protected void DisableDiveBox()
-    {
-       if(diveBox != null)
-       {
-            diveBox.GetComponent<Hitbox>().enabled = false;
-            diveBox.enabled = false;
-       }
-    }
-    protected void EnableDiveBox()
-    {
-        if (diveBox != null)
-        {
-            diveBox.GetComponent<Hitbox>().enabled = true;
-            diveBox.enabled = true;
-        }
-    }
+	public IEnumerator ProcDivineShield(float time)
+	{
+		if (!dead)
+		{
+			immune = true;
+			inputStatus = Enum_InputStatus.onlyMovement;
+			specialStatus = Enum_SpecialStatus.normal;
+			rb.velocity = Vector2.zero;
+			rb.gravityScale = 1.0f;
+			yield return new WaitForSeconds(time);
+			rb.gravityScale = 1.0f;
+			inputStatus = Enum_InputStatus.allowed;
+			immune = false;
+		}
+	}
 
-    protected void InvincibilityVisualizer(bool enable = false)
-    {
-        if (immune)
-        {
-            sr.color = Color.yellow;
-        }
-        else
-        {
-            sr.color = Color.white;
-        }
-    }
-    public void SetHorizontalCtrl(string HCtrl)
-    {
-        HorizontalCtrl = HCtrl;
-    }
-    public void SetVerticalCtrl(string VCtrl)
-    {
-        VerticalCtrl = VCtrl;
-    }
-    public void SetJumpButton(string JButton)
-    {
-        JumpButton = JButton;
-    }
-    public void SetDodgeButton(string DButton)
-    {
-        DodgeButton = DButton;
-    }
-    public void SetPrimaryAttackButton(string PAButton)
-    {
-        PrimaryAttackButton = PAButton;
-    }
-    public void SetSecondaryAttackButton(string SAButton)
-    {
-        SecondaryAttackButton = SAButton;
-    }
-    public void SetPowerUpButton(string PUButton)
-    {
-        PowerUpButton = PUButton;
-    }
-    public void SetGuardButton(string GButton)
-    {
-        GuardButton = GButton;
-    }
-    public void SetParryButton(string PButton)
-    {
-        ParryButton = PButton;
-    }
-    public void SetActionButton(string AButton)
-    {
-        ActionButton = AButton;
-    }
+	protected void DisableDiveBox()
+	{
+		if(diveBox != null)
+		{
+			diveBox.GetComponent<Hitbox>().enabled = false;
+			diveBox.enabled = false;
+		}
+	}
+	protected void EnableDiveBox()
+	{
+		if (diveBox != null)
+		{
+			diveBox.GetComponent<Hitbox>().enabled = true;
+			diveBox.enabled = true;
+		}
+	}
 
-    public void UpdateHUD()
-    {
-        float a = healthSlider.value;
-        healthSlider.value = health;
-        staminaSlider.value = stamina;
+	protected void InvincibilityVisualizer(bool enable = false)
+	{
+		if (immune)
+		{
+			sr.color = Color.yellow;
+		}
+		else
+		{
+			sr.color = Color.white;
+		}
+	}
+	public void SetHorizontalCtrl(string HCtrl)
+	{
+		HorizontalCtrl = HCtrl;
+	}
+	public void SetVerticalCtrl(string VCtrl)
+	{
+		VerticalCtrl = VCtrl;
+	}
+	public void SetJumpButton(string JButton)
+	{
+		JumpButton = JButton;
+	}
+	public void SetDodgeButton(string DButton)
+	{
+		DodgeButton = DButton;
+	}
+	public void SetPrimaryAttackButton(string PAButton)
+	{
+		PrimaryAttackButton = PAButton;
+	}
+	public void SetSecondaryAttackButton(string SAButton)
+	{
+		SecondaryAttackButton = SAButton;
+	}
+	public void SetPowerUpButton(string PUButton)
+	{
+		PowerUpButton = PUButton;
+	}
+	public void SetGuardButton(string GButton)
+	{
+		GuardButton = GButton;
+	}
+	public void SetParryButton(string PButton)
+	{
+		ParryButton = PButton;
+	}
+	public void SetActionButton(string AButton)
+	{
+		ActionButton = AButton;
+	}
 
-        limitBreakSlider.value = limitBreakGauge;
-        float b = healthSlider.value;
-        if (a != b) //si recu des degats, barre colorée supplémentaire
-        {
-            timerDamageHUD = 40;
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
-            if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
-            {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
-            }
-            else
-            {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
-            }
-        }
-        else
-        {
-            if (timerDamageHUD < 0) // au bout de x ticks, on fait disparaitre la barre
-            {
-                playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
-            }
-        }
+	public void UpdateHUD()
+	{
+		float a = healthSlider.value;
+		healthSlider.value = health;
+		staminaSlider.value = stamina;
 
-        timerDamageHUD -= 1;
-        //ultiImageSlider.fillAmount = 0.75f;
-        ChangeColorHealthSlider();
+		limitBreakSlider.value = limitBreakGauge;
+		float b = healthSlider.value;
+		if (a != b) //si recu des degats, barre colorée supplémentaire
+		{
+			timerDamageHUD = 40;
+			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
+			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
+			if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
+			{
+				playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
+			}
+			else
+			{
+				playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
+			}
+		}
+		else
+		{
+			if (timerDamageHUD < 0) // au bout de x ticks, on fait disparaitre la barre
+			{
+				playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2(0, 0);
+			}
+		}
 
-        //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
-        //UltiAvailable(true);
-    }
+		timerDamageHUD -= 1;
+		//ultiImageSlider.fillAmount = 0.75f;
+		ChangeColorHealthSlider();
 
-    public void ChangeColorHealthSlider()
-    {
-        if (determination == 2)
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 155, 0);
-        else if (determination == 1)
-            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
-    }
-    /*public void PowerUpAvailable(bool b)
+		//PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
+		//UltiAvailable(true);
+	}
+
+	public void ChangeColorHealthSlider()
+	{
+		if (determination == 2)
+			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 155, 0);
+		else if (determination == 1)
+			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
+	}
+	/*public void PowerUpAvailable(bool b)
     {
         float a = 0.4f;
         if (b)
             a = 1f;
         playerHUD.transform.Find("PowerUpImage").Find("AbilityImage1").GetComponent<Image>().color = new Color(255, 255, 255, a);
     }*/
-    public void UltiAvailable(bool b)
-    {
-        float a = 0.4f;
-        if (b)
-            a = 1f;
-        playerHUD.transform.Find("UltiImage").Find("AbilityImage2").GetComponent<Image>().color = new Color(255, 255, 255, a);
-    }
+	public void UltiAvailable(bool b)
+	{
+		float a = 0.4f;
+		if (b)
+			a = 1f;
+		playerHUD.transform.Find("UltiImage").Find("AbilityImage2").GetComponent<Image>().color = new Color(255, 255, 255, a);
+	}
 
-    public void SetTrapLever(Lever lever)
-    {
-        trapLever = lever;
-    }
+	public void SetTrapLever(Lever lever)
+	{
+		trapLever = lever;
+	}
 
-    public float Facing
-    {
-        get
-        {
-            return facing;
-        }
-        set
-        {
-            facing = value;
-            animator.SetFloat("FaceX", facing);
-        }
-    }
-    public float Stamina
-    {
-        get
-        {
-            return stamina;
-        }
-    }
-    public float BaseStamina
-    {
-        get
-        {
-            return baseStamina;
-        }
-    }
-    public float LimitBreakGauge
-    {
-        get
-        {
-            return limitBreakGauge;
-        }
-    }
-    public float LimitBreakOnDamage
-    {
-        get
-        {
-            return limitBreakOnDamage;
-        }
-    }
-    public float LimitBreakOnHit
-    {
-        get
-        {
-            return limitBreakOnHit;
-        }
-    }
-    public float DodgeStaminaCost
-    {
-        get
-        {
-            return dodgeStaminaCost;
-        }
-    }
-    public Enum_InputStatus InputStatus
-    {
-        get
-        {
-            return inputStatus;
-        }
-    }
-    public Enum_DodgeStatus Dodging
-    {
-        get
-        {
-            return dodgeStatus;
-        }
-    }
-    public float BaseHealth
-    {
-        get
-        {
-            return baseHealth;
-        }
-    }
-    public float Health
-    {
-        get
-        {
-            return health;
-        }
+	public float Facing
+	{
+		get
+		{
+			return facing;
+		}
+		set
+		{
+			facing = value;
+			animator.SetFloat("FaceX", facing);
+		}
+	}
+	public float Stamina
+	{
+		get
+		{
+			return stamina;
+		}
+	}
+	public float BaseStamina
+	{
+		get
+		{
+			return baseStamina;
+		}
+	}
+	public float LimitBreakGauge
+	{
+		get
+		{
+			return limitBreakGauge;
+		}
+	}
+	public float LimitBreakOnDamage
+	{
+		get
+		{
+			return limitBreakOnDamage;
+		}
+	}
+	public float LimitBreakOnHit
+	{
+		get
+		{
+			return limitBreakOnHit;
+		}
+	}
+	public float DodgeStaminaCost
+	{
+		get
+		{
+			return dodgeStaminaCost;
+		}
+	}
+	public Enum_InputStatus InputStatus
+	{
+		get
+		{
+			return inputStatus;
+		}
+	}
+	public Enum_DodgeStatus Dodging
+	{
+		get
+		{
+			return dodgeStatus;
+		}
+	}
+	public float BaseHealth
+	{
+		get
+		{
+			return baseHealth;
+		}
+	}
+	public float Health
+	{
+		get
+		{
+			return health;
+		}
 		set{ 
 			health = Mathf.Min(Mathf.Max(value, 0.0f),BaseHealth);
             if (health <= 0.0f)
@@ -1448,7 +1447,6 @@ public abstract class Champion : MonoBehaviour {
         /*if(deadLayer == null)
         {
             deadLayer = LayerMask.NameToLayer("Dead");
-
         }
         gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(deadLayer));
         */
@@ -1469,6 +1467,4 @@ public abstract class Champion : MonoBehaviour {
         damageDisplay = temp.GetComponent<PopupDamage>();
         damageDisplay.Target = this;
     }
-
-    
 }

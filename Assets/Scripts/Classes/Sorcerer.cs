@@ -26,6 +26,10 @@ public class Sorcerer : Champion
     [SerializeField] private Vector3 altRotation;
     [SerializeField] private Vector2 altRecoil = new Vector2(-4, 4);
 
+    [Header("SoundSettings")]
+    public AudioClip primaryAttackSound;
+    public AudioClip specialAttackSound;
+
     private bool ultimate = false;
 
     public void OnDrawGizmosSelected()
@@ -162,14 +166,11 @@ public class Sorcerer : Champion
     public void WarpIn()
     {
         immune = false;
-        if(specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
-        {
-            rb.velocity = new Vector2(0, 0);
-            inputStatus = Enum_InputStatus.allowed;
-        }  
+        
+        rb.velocity = new Vector2(0, 0);
         animator.SetBool("Dodge", false);
         dodgeStatus = Enum_DodgeStatus.ready;
-        
+        inputStatus = Enum_InputStatus.allowed;
     }
 
     public void SpawnManaBomb()
@@ -226,8 +227,6 @@ public class Sorcerer : Champion
     private IEnumerator CastBarrierCoroutine()
     {
         ultimate = true;
-        /*ParticleSystem.EmissionModule temp = ultimateParticleSystem.emission;
-        temp.enabled = true;*/
         ultimateParticleSystem.Play();
         float timer = 0.0f;
         float radius = ultimateMinRadius;
@@ -241,8 +240,6 @@ public class Sorcerer : Champion
             timer += Time.deltaTime;
             yield return null;
         }
-        /* temp = ultimateParticleSystem.emission;
-         temp.enabled = false;*/
         ultimateParticleSystem.Stop();
         immune = false;
         rb.isKinematic = false;
@@ -273,5 +270,10 @@ public class Sorcerer : Champion
             }
         }
     }
-    
+
+    public void PrimaryAttackSound()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(primaryAttackSound, audioVolumeManager.SoundEffectVolume);
+    }
 }

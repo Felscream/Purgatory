@@ -413,7 +413,7 @@ MonoBehaviour:
   primaryFireStaminaCost: 20
   secondaryFireStaminaCost: 40
   maxLimitBreakGauge: 100
-  limitBreakPerSecond: 5
+  limitBreakPerSecond: 100
   limitBreakOnHit: 10
   limitBreakOnDamage: 5
   limitBreakOnParry: 25
@@ -484,6 +484,8 @@ MonoBehaviour:
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
   altRotation: {x: 0, y: 0, z: -45}
   altRecoil: {x: -4, y: 4}
+  primaryAttackSound: {fileID: 0}
+  specialAttackSound: {fileID: 0}
 --- !u!114 &114637292809391622
 MonoBehaviour:
   m_ObjectHideFlags: 1
