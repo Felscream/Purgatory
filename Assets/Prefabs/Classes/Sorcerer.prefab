@@ -431,6 +431,32 @@ MonoBehaviour:
   maxAttackToken: 2
   ultimateQuotes:
   - {fileID: 8300000, guid: 0da456f74806a34479c7fa5a3c8906b6, type: 3}
+  soundEffects:
+  - name: MeleeSorcerer
+    clip: {fileID: 8300000, guid: 7b5890d602f1c2347909ce6f6f804631, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
   specialAttack:
     offset: {x: 0, y: 0}
     size: {x: 1, y: 1}
@@ -511,6 +537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthAmount: 20
   StaminaAmount: 20
+  LimitBreakAmount: 10
 --- !u!198 &198163520660224548
 ParticleSystem:
   m_ObjectHideFlags: 1

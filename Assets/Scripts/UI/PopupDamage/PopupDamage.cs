@@ -21,13 +21,10 @@ public class PopupDamage : MonoBehaviour {
     private float totalDamage = 0;
     private Vector2 finalOffset;
     private Coroutine disableDisplayCoroutine;
-    private float firstTierBlue;
-    private float firstTierGreen;
     private void Start()
     {
         anim = transform.GetComponentInChildren<Animator>();
         displayTime += anim.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-        firstTierBlue = firstTier.b;
         damageText = anim.GetComponent<Text>();
         finalOffset = new Vector2(Random.Range(-offset.x, offset.x), Random.Range(-offset.y, offset.y));
         if(Random.Range(0, 1) < 0.5f)
@@ -67,7 +64,7 @@ public class PopupDamage : MonoBehaviour {
             {
                 anim = GetComponentInChildren<Animator>();
             }
-            anim.Play("popUp", -1, 0.0f);
+            
             if (damageText == null)
             {
                 damageText = GetComponentInChildren<Text>();
@@ -94,6 +91,7 @@ public class PopupDamage : MonoBehaviour {
             damageText.fontSize = (int)Mathf.Round(inter * maxFontSize) > minFontSize ? (int)Mathf.Round(inter * maxFontSize) : minFontSize;
             
             damageText.text = sb.ToString();
+            anim.Play("popUp", -1, 0.0f);
             if (disableDisplayCoroutine != null)
             {
                 CancelInvoke("DestroyObject");

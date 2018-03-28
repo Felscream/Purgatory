@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
@@ -111,6 +112,9 @@ public abstract class Champion : MonoBehaviour {
     [Header("Narrator Quotes")]
     [SerializeField] protected AudioClip[] ultimateQuotes;
 
+    [Header("Sound Settings")]
+    [SerializeField] protected Sound[] soundEffects;
+
 
     public Attack specialAttack;
     public Attack combo1;
@@ -176,6 +180,11 @@ public abstract class Champion : MonoBehaviour {
         //Gizmos.DrawWireSphere(new Vector3(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y, 0),0.5f);
         Gizmos.DrawWireCube(new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y), new Vector3(1.0f, 1.0f, 1.0f));
     }
+
+    protected void OnEnable()
+    {
+        
+    }
     protected void Awake()
     {
         facing = (transform.parent.gameObject.name == "Player1" || transform.parent.gameObject.name == "Player3") ? 1.0f : -1.0f;
@@ -223,6 +232,14 @@ public abstract class Champion : MonoBehaviour {
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
+        foreach (Sound s in soundEffects)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.pitch = s.pitch;
+            s.source.volume = audioVolumeManager.SoundEffectVolume;
+            s.source.spatialBlend = 0.0f;
+        }
     }
     protected void FixedUpdate()
     {
@@ -358,15 +375,31 @@ public abstract class Champion : MonoBehaviour {
         }
     }
 
-    public void PlaySoundEffect(string clipName)
+    public void PlaySoundEffect(string name)
     {
-        audioVolumeManager.PlaySoundEffect(clipName);
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found");
+            return;
+        }
+        s.source.pitch = s.pitch;
+        s.source.volume = audioVolumeManager.SoundEffectVolume;
+        s.source.Play();
     }
 
-    public void PlaySoundEffectRandomPitch(string clipName)
+    public void PlaySoundEffectRandomPitch(string name)
     {
-        float pitch = Random.Range(0.9f, 1.8f);
-        audioVolumeManager.PlaySoundEffect(clipName, pitch);
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found");
+            return;
+        }
+        float pitch = UnityEngine.Random.Range(0.9f, 1.8f);
+        s.source.pitch = pitch;
+        s.source.volume = audioVolumeManager.SoundEffectVolume;
+        s.source.Play();
     }
     protected void DynamicFall()
     {
@@ -1426,7 +1459,7 @@ public abstract class Champion : MonoBehaviour {
         int id = 0;
         if (audioSource != null && ultimateQuotes.Length > 0)
         {
-            id = Random.Range(0, ultimateQuotes.Length);
+            id = UnityEngine.Random.Range(0, ultimateQuotes.Length);
             audioSource.PlayOneShot(ultimateQuotes[id], audioVolumeManager.VoiceVolume);
             StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length));
         }

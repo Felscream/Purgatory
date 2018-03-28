@@ -319,6 +319,32 @@ MonoBehaviour:
     m_Bits: 33024
   maxAttackToken: 1
   ultimateQuotes: []
+  soundEffects:
+  - name: DrawArrowArcher
+    clip: {fileID: 8300000, guid: 3affcab4110436e4a9d50fd274332d11, type: 3}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: MeleeArcher
+    clip: {fileID: 8300000, guid: 3c43bc4e160717f48b9c4436d0c0ffce, type: 3}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
   specialAttack:
     offset: {x: 0, y: 0}
     size: {x: 1, y: 1}
@@ -390,6 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthAmount: 20
   StaminaAmount: 20
+  LimitBreakAmount: 10
 --- !u!198 &198231618833295154
 ParticleSystem:
   m_ObjectHideFlags: 1

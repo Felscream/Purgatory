@@ -15,7 +15,6 @@ public class AudioVolumeManager : MonoBehaviour {
     private string fileName = "volumeData.dat";
 
     [SerializeField] private Sound[] themes;
-    [SerializeField] private Sound[] soundEffects;
     void Awake()
     {
         if (instance == null)
@@ -53,29 +52,7 @@ public class AudioVolumeManager : MonoBehaviour {
         }
         t.source.Play();
     }
-
-    public void PlaySoundEffect(string name)
-    {
-        Sound s = Array.Find(soundEffects, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.Log("Sound " + name + " not found");
-            return;
-        }
-        s.source.pitch = s.pitch;
-        s.source.Play();
-    }
-    public void PlaySoundEffect(string name, float pitch)
-    {
-        Sound s = Array.Find(soundEffects, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.Log("Sound " + name + " not found");
-            return;
-        }
-        s.source.pitch = pitch;
-        s.source.Play();
-    }
+    
     private void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -98,16 +75,7 @@ public class AudioVolumeManager : MonoBehaviour {
             voiceVolume = data.voice;
         }
     }
-
-    public float GetAudioClipLength(string name)
-    {
-        Sound s = Array.Find(soundEffects, sound => sound.name == name);
-        if(s == null)
-        {
-            return 0.0f;
-        }
-        return s.clip.length;
-    }
+    
     private void OnEnable()
     {
         Load();
@@ -119,14 +87,6 @@ public class AudioVolumeManager : MonoBehaviour {
             m.source.volume = musicVolume;
             m.source.loop = m.loop;
             m.source.spatialBlend = 0.0f;
-        }
-        foreach (Sound s in soundEffects)
-        {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            s.source.pitch = s.pitch;
-            s.source.volume = soundEffectVolume;
-            s.source.spatialBlend = 0.0f;
         }
     }
 
@@ -160,10 +120,6 @@ public class AudioVolumeManager : MonoBehaviour {
         set
         {
             soundEffectVolume = value;
-            foreach (Sound s in soundEffects)
-            {
-                s.source.volume = soundEffectVolume;
-            }
         }
     }
 
