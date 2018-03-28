@@ -26,20 +26,14 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: -0.24003607
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.375
+        time: 0.25
         value: -0.101441205
-        inSlope: 1.9007298
-        outSlope: 1.9007298
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.41666666
-        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -56,12 +50,6 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: 0.046198368
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.41666666
-        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -98,13 +86,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 1.3543853
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.375
+        time: 0.25
         value: 1.0771955
         inSlope: 0
         outSlope: 0
@@ -120,13 +108,13 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 62f59f51b5fc52c429425a1c3742522e, type: 3}
-    - time: 0.125
+    - time: 0.083333336
       value: {fileID: 21300002, guid: 62f59f51b5fc52c429425a1c3742522e, type: 3}
-    - time: 0.25
+    - time: 0.16666667
       value: {fileID: 21300004, guid: 62f59f51b5fc52c429425a1c3742522e, type: 3}
-    - time: 0.375
+    - time: 0.25
       value: {fileID: 21300006, guid: 62f59f51b5fc52c429425a1c3742522e, type: 3}
-    - time: 0.45833334
+    - time: 0.29166666
       value: {fileID: 21300006, guid: 62f59f51b5fc52c429425a1c3742522e, type: 3}
     attribute: m_Sprite
     path: 
@@ -148,13 +136,6 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 0
-      attribute: 1872933342
-      script: {fileID: 0}
-      typeID: 61
-      customType: 0
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 0
       attribute: 4197328169
       script: {fileID: 0}
       typeID: 61
@@ -167,6 +148,13 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 0
+      attribute: 1872933342
+      script: {fileID: 0}
+      typeID: 61
+      customType: 0
+      isPPtrCurve: 0
     - serializedVersion: 2
       path: 0
       attribute: 2368279999
@@ -185,7 +173,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 0.3333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -211,20 +199,14 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: -0.24003607
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.375
+        time: 0.25
         value: -0.101441205
-        inSlope: 1.9007298
-        outSlope: 1.9007298
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.41666666
-        value: 0.5
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -241,12 +223,6 @@ AnimationClip:
       - serializedVersion: 2
         time: 0
         value: 0.046198368
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-      - serializedVersion: 2
-        time: 0.41666666
-        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -283,13 +259,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 1.3543853
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.375
+        time: 0.25
         value: 1.0771955
         inSlope: 0
         outSlope: 0
@@ -313,14 +289,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.083333336
+  - time: 0.041666668
     functionName: MoveOnAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 5
     messageOptions: 0
-  - time: 0.125
+  - time: 0.083333336
+    functionName: CastHitBox
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 5
+    messageOptions: 0
+  - time: 0.16666667
     functionName: CastHitBox
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -328,20 +311,13 @@ AnimationClip:
     intParameter: 5
     messageOptions: 0
   - time: 0.25
-    functionName: CastHitBox
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 5
-    messageOptions: 0
-  - time: 0.375
     functionName: StopMovement
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 0.45833334
+  - time: 0.29166666
     functionName: EndAttackString
     data: 
     objectReferenceParameter: {fileID: 0}

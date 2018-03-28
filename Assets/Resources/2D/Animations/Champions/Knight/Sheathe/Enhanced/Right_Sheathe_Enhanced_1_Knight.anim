@@ -26,7 +26,7 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.03380263
         inSlope: 0
         outSlope: 0
@@ -48,19 +48,19 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.013892174
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.25
+        time: 0.16666667
         value: -0.02778387
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.33333334
+        time: 0.20833333
         value: -0.02778387
         inSlope: 0
         outSlope: 0
@@ -82,19 +82,19 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 1.9722157
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.25
+        time: 0.16666667
         value: 2.0555677
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.33333334
+        time: 0.20833333
         value: 2.0555677
         inSlope: 0
         outSlope: 0
@@ -116,7 +116,7 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 1.0011959
         inSlope: 0
         outSlope: 0
@@ -132,11 +132,11 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300022, guid: fee0c3323e0993442896edd7924db3f5, type: 3}
-    - time: 0.125
+    - time: 0.083333336
       value: {fileID: 21300024, guid: fee0c3323e0993442896edd7924db3f5, type: 3}
-    - time: 0.25
+    - time: 0.16666667
       value: {fileID: 21300026, guid: fee0c3323e0993442896edd7924db3f5, type: 3}
-    - time: 0.33333334
+    - time: 0.20833333
       value: {fileID: 21300026, guid: fee0c3323e0993442896edd7924db3f5, type: 3}
     attribute: m_Sprite
     path: 
@@ -194,7 +194,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.375
+    m_StopTime: 0.25
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -220,7 +220,7 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.03380263
         inSlope: 0
         outSlope: 0
@@ -242,19 +242,19 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.013892174
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.25
+        time: 0.16666667
         value: -0.02778387
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.33333334
+        time: 0.20833333
         value: -0.02778387
         inSlope: 0
         outSlope: 0
@@ -276,19 +276,19 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 1.9722157
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.25
+        time: 0.16666667
         value: 2.0555677
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.33333334
+        time: 0.20833333
         value: 2.0555677
         inSlope: 0
         outSlope: 0
@@ -310,7 +310,7 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 1.0011959
         inSlope: 0
         outSlope: 0
@@ -334,7 +334,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.20833333
     functionName: EndAttackString
     data: 
     objectReferenceParameter: {fileID: 0}

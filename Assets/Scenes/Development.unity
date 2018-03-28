@@ -615,6 +615,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114249644227481108, guid: 5ce790b60ffc20840b869e8449248e55,
+        type: 2}
+      propertyPath: soundEffects.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c43bc4e160717f48b9c4436d0c0ffce, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ce790b60ffc20840b869e8449248e55, type: 2}
   m_IsPrefabParent: 0

@@ -13,10 +13,6 @@ public class Knight : Champion
     [SerializeField] private GameObject ultimateProjectile;
     [SerializeField] protected Vector2 projectileSpawnOffset;
 
-    [Header("SoundSettings")]
-    public AudioClip primaryAttackSound;
-    public AudioClip specialAttackSound;
-
     protected bool secondaryAttackRunning = false;
     private bool usePowerUp = false;
     
@@ -173,17 +169,6 @@ public class Knight : Champion
         fb.BeastParticleSystem.Play();
         rb.gravityScale = 1.0f;
         ResetLimitBreak();
-    }
-    public void PrimaryAttackSound()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(primaryAttackSound, audioVolumeManager.SoundEffectVolume);
-    }
-
-    public void SpecialAttackSound()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(specialAttackSound, audioVolumeManager.SoundEffectVolume);
     }
 
     public override void DeathBehaviour()

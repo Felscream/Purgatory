@@ -448,7 +448,7 @@ MonoBehaviour:
     offset: {x: 1.47, y: 0.06}
     size: {x: 2.37, y: 1.24}
     stunLock: 10
-    recoilForce: {x: 5, y: 0}
+    recoilForce: {x: 2, y: 0}
     projectionDuration: 1.5
     staminaCost: 10
     damage: 10
@@ -461,7 +461,7 @@ MonoBehaviour:
     offset: {x: 1.6, y: 0}
     size: {x: 2.86, y: 2.07}
     stunLock: 10
-    recoilForce: {x: 5, y: 0}
+    recoilForce: {x: 7, y: 0}
     projectionDuration: 1.5
     staminaCost: 10
     damage: 20
@@ -484,8 +484,6 @@ MonoBehaviour:
   altProjectileSpawnOffset: {x: 1.65, y: -0.73}
   altRotation: {x: 0, y: 0, z: -45}
   altRecoil: {x: -4, y: 4}
-  primaryAttackSound: {fileID: 8300000, guid: 7b5890d602f1c2347909ce6f6f804631, type: 3}
-  specialAttackSound: {fileID: 8300000, guid: 7b5890d602f1c2347909ce6f6f804631, type: 3}
 --- !u!114 &114637292809391622
 MonoBehaviour:
   m_ObjectHideFlags: 1

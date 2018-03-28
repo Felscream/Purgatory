@@ -366,7 +366,7 @@ public abstract class Champion : MonoBehaviour {
 
     public void PlaySoundEffectRandomPitch(string clipName)
     {
-        float pitch = Random.Range(0.8f, 1.8f);
+        float pitch = Random.Range(0.9f, 1.8f);
         audioVolumeManager.PlaySoundEffect(clipName, pitch);
     }
     protected void DynamicFall()
@@ -1259,6 +1259,7 @@ public abstract class Champion : MonoBehaviour {
         if(projectedCoroutine != null && specialStatus == Enum_SpecialStatus.projected)
         {
             StopCoroutine(projectedCoroutine);
+            rb.velocity = Vector2.zero;
         }
         animator.SetBool("Projected", false);
         animator.SetBool("Stunned", false);

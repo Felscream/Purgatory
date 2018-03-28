@@ -26,31 +26,31 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.022584736
-        inSlope: 0.13714826
-        outSlope: 0.13714826
+        inSlope: 0.20572239
+        outSlope: 0.20572239
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.5
+        time: 0.33333334
         value: 0.053754747
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.625
+        time: 0.41666666
         value: -0.28288126
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.75
+        time: 0.5
         value: -0.027287334
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.8333333
+        time: 0.5416667
         value: -0.027287334
         inSlope: 0
         outSlope: 0
@@ -72,31 +72,31 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.9787601
-        inSlope: 0.27429652
-        outSlope: 0.27429652
+        inSlope: 0.41144478
+        outSlope: 0.41144478
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.5
+        time: 0.33333334
         value: 1.0411001
-        inSlope: 0.49872017
-        outSlope: 0.49872017
+        inSlope: 0.7480803
+        outSlope: 0.7480803
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.625
+        time: 0.41666666
         value: 2.1881561
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.75
+        time: 0.5
         value: 1.6769683
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.8333333
+        time: 0.5416667
         value: 1.6769683
         inSlope: 0
         outSlope: 0
@@ -112,19 +112,19 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300036, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
-    - time: 0.125
+    - time: 0.083333336
       value: {fileID: 21300038, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
-    - time: 0.25
+    - time: 0.16666667
       value: {fileID: 21300040, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
-    - time: 0.375
+    - time: 0.25
       value: {fileID: 21300042, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
-    - time: 0.5
+    - time: 0.33333334
       value: {fileID: 21300044, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
-    - time: 0.625
+    - time: 0.41666666
       value: {fileID: 21300046, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
-    - time: 0.75
+    - time: 0.5
       value: {fileID: 21300048, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
-    - time: 0.8333333
+    - time: 0.5416667
       value: {fileID: 21300048, guid: 31db48a54b88e044db05fe9149712b73, type: 3}
     attribute: m_Sprite
     path: 
@@ -172,7 +172,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.875
+    m_StopTime: 0.5833334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -198,31 +198,31 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.022584736
-        inSlope: 0.13714826
-        outSlope: 0.13714826
+        inSlope: 0.20572239
+        outSlope: 0.20572239
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.5
+        time: 0.33333334
         value: 0.053754747
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.625
+        time: 0.41666666
         value: -0.28288126
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.75
+        time: 0.5
         value: -0.027287334
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.8333333
+        time: 0.5416667
         value: -0.027287334
         inSlope: 0
         outSlope: 0
@@ -244,31 +244,31 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.125
+        time: 0.083333336
         value: 0.9787601
-        inSlope: 0.27429652
-        outSlope: 0.27429652
+        inSlope: 0.41144478
+        outSlope: 0.41144478
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.5
+        time: 0.33333334
         value: 1.0411001
-        inSlope: 0.49872017
-        outSlope: 0.49872017
+        inSlope: 0.7480803
+        outSlope: 0.7480803
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.625
+        time: 0.41666666
         value: 2.1881561
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.75
+        time: 0.5
         value: 1.6769683
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
-        time: 0.8333333
+        time: 0.5416667
         value: 1.6769683
         inSlope: 0
         outSlope: 0
@@ -292,28 +292,28 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0
-    functionName: PrimaryAttackSound
-    data: 
+  - time: 0.16666667
+    functionName: PlaySoundEffectRandomPitch
+    data: MeleeSorcerer
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.33333334
     functionName: MoveOnAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.625
+  - time: 0.41666666
     functionName: CastHitBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8333333
+  - time: 0.5
     functionName: StopMovement
     data: 
     objectReferenceParameter: {fileID: 0}

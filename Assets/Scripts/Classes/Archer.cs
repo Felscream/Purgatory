@@ -41,9 +41,6 @@ public class Archer : Champion
 
     private List<UltimateArrow> arrowList = new List<UltimateArrow>();
 
-    [Header("SoundSettings")]
-    public AudioClip cacAttackSound;
-
     private float staminaConsumed;
     private bool playedOnceChargeOne = false, playedOnceChargeTwo = false;
     private ParticleSystemRenderer psr;
@@ -105,6 +102,7 @@ public class Archer : Champion
         {
             animator.SetTrigger("Draw");
             staminaConsumed = 0.0f;
+            PlaySoundEffectRandomPitch("DrawArrowArcher");
         }
         chargeTimer += Time.deltaTime;
         if (chargeTimer > 0)
@@ -117,6 +115,7 @@ public class Archer : Champion
             chargeLevel = Enum_ChargeLevel.high;
             if(!playedOnceChargeTwo)
             {
+                PlaySoundEffectRandomPitch("DrawArrowArcher");
                 ChangeParticleMaterial(2);
             }
         }
@@ -125,6 +124,7 @@ public class Archer : Champion
             chargeLevel = Enum_ChargeLevel.medium;
             if (!playedOnceChargeOne)
             {
+                PlaySoundEffectRandomPitch("DrawArrowArcher");
                 ChangeParticleMaterial(1);
             }
         }
@@ -312,12 +312,6 @@ public class Archer : Champion
         base.ApplyStunLock(duration);
         chargeTimer = 0.0f;
         animator.SetBool("Hold", false);
-    }
-
-    public void CacAttackSound()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(cacAttackSound, audioVolumeManager.SoundEffectVolume);
     }
 
     public void ClearArrowList()

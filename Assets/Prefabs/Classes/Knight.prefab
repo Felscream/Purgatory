@@ -400,10 +400,10 @@ MonoBehaviour:
     size: {x: 0.7, y: 2.4}
     stunLock: 0
     recoilForce: {x: 30, y: 0}
-    projectionDuration: 0.5
+    projectionDuration: 0.25
     staminaCost: 20
     damage: 5
-    movementForce: 6
+    movementForce: 20
     guardBreaker: 0
     haveSpecialEffect: 1
     specialEffect: 4
@@ -476,8 +476,6 @@ MonoBehaviour:
   ultimateProjectile: {fileID: 1202958830836326, guid: dcf391f3b021d214e8da0ec900febdea,
     type: 2}
   projectileSpawnOffset: {x: 0, y: 1.35}
-  primaryAttackSound: {fileID: 8300000, guid: 2f8a0a61fcc911148835ed4130e2dc0b, type: 3}
-  specialAttackSound: {fileID: 8300000, guid: 55be4cb6695f6db4ba961e2eb9a38d45, type: 3}
 --- !u!114 &114615723824182320
 MonoBehaviour:
   m_ObjectHideFlags: 1
