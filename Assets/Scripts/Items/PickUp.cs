@@ -7,8 +7,7 @@ public class PickUp : MonoBehaviour {
 	private Champion player;
 	public int HealthAmount = 20;
 	public int StaminaAmount = 10;
-	public int LimitBreakAmount = 10;
-	private int countHealth = 0;
+	public int LimitBreakAmount = 70;
 	private int countStamina = 0;
 	private int countLimitBreak =0;
 
@@ -20,8 +19,7 @@ public class PickUp : MonoBehaviour {
 		if (other.gameObject.layer.Equals (16))
 			{			//16: layer collectables
 			if (other.gameObject.tag.Equals ("Health")) {
-				InvokeRepeating ("HealthRecover", 1, 2);
-				//player.Health += 20 /*addHealth*/;
+				player.Health += HealthAmount;
 				Debug.Log ("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
@@ -29,26 +27,14 @@ public class PickUp : MonoBehaviour {
 				Debug.Log ("Stamina: " + player.Stamina);
 			}
 			if (other.gameObject.tag.Equals ("BreakingOrb")) {
-				InvokeRepeating("LimitBreakUp",1,1);
-				Debug.Log ("Orb working");
+				//InvokeRepeating("LimitBreakUp",1,1);
+				player.LimitBreakGauge=LimitBreakAmount;
+				Debug.Log ("ulti:" + player.LimitBreakGauge);
+				player.Health = player.BaseHealth;
+				Debug.Log ("ulti:" + player.LimitBreakGauge);
 			}
 			other.gameObject.SetActive (false);
 		}
-	}
-		
-	void HealthRecover (){
-        if (!player.Dead)
-        {
-            player.Health += 1;
-            Debug.Log("Health: " + player.Health);
-            countHealth += 1;
-            if (HealthAmount == countHealth)
-            {
-                Debug.Log("End Recovery");
-                CancelInvoke("HealthRecover");
-                countHealth = 0;
-            }
-        }
 	}
 
 	void StaminaRecover (){
@@ -64,10 +50,11 @@ public class PickUp : MonoBehaviour {
 			}
 		}
 	}
-
+	 /*
 	void LimitBreakUp(){
 		if (!player.Dead) {
-			player.limitBreakPerSecond = 0.6f;
+			player.IncreaseLimitBreak (UltiAmount);
+			player.Health = player.BaseHealth;
 			countLimitBreak += 1;
 			if (LimitBreakAmount == countLimitBreak) {
 				Debug.Log ("End Recovery");
@@ -76,5 +63,5 @@ public class PickUp : MonoBehaviour {
 				player.limitBreakPerSecond = 0.4f;
 			}
 		}
-	}
+	}*/
 }

@@ -31,7 +31,6 @@ public class BreakingOrb : MonoBehaviour {
 
 	public void TakeDamage(int dmg)
 	{
-		Debug.Log("Take damage");
 		life -= dmg;
 		if (life <= 0) {
 			//this.gameObject.SetActive (false);

@@ -65,7 +65,6 @@ public class Attack {
                 {       
                     BreakingOrb breakingOrb = enemy.gameObject.GetComponent<BreakingOrb>();
                     breakingOrb.TakeDamage(1);
-                    Debug.Log("dmg");
                 }
                 else
                 {
