@@ -12,23 +12,15 @@ public class ChampionsSelected : MonoBehaviour {
     public string Start_P1;
     private bool lobbySelected = false;
     private AudioVolumeManager audioVolumeManager;
-    public List<int> playerSelection = new List<int>();
+    public int[] playerSelection;
 
     void Awake()
     {
-        // Player 1 index = 0;
-        playerSelection.Add(0);
-        // Player 2 index = 0;
-        playerSelection.Add(0);
-        // Player 3 index = 0;
-        playerSelection.Add(0);
-        // Player 4 index = 0;
-        playerSelection.Add(0);
-
+        playerSelection = new int[4];
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); //we want to keep it the whole time the game is running
+            DontDestroyOnLoad(gameObject); // we want to keep it the whole time the game is running
         }
         else
         {
@@ -38,17 +30,17 @@ public class ChampionsSelected : MonoBehaviour {
 
     private void Start()
     {
+        Debug.Log(lobbySelected);
+        // Player 1 index = 0;
+        playerSelection[0] = 0;
+        // Player 2 index = 0;
+        playerSelection[1] = 0;
+        // Player 3 index = 0;
+        playerSelection[2] = 0;
+        // Player 4 index = 0;
+        playerSelection[3] = 0;
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioVolumeManager.PlayTheme("LobbyTheme");
-    }
-    public void LoadLevel()
-    {
-        if (Input.GetButtonDown(Start_P1) && !lobbySelected)
-        {
-            Debug.Log("Je passe ici");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            lobbySelected = true;
-        }
     }
 
     public static ChampionsSelected GetInstance()

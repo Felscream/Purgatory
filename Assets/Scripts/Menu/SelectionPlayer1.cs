@@ -26,16 +26,21 @@ public class SelectionPlayer1 : MonoBehaviour
     public RectTransform playerSelection;
     public RectTransform playerValidate;
 
+    // Numero du joueur
+    public int playerNumber;
+
     // Commande pour contrôler le menu
     public string Jump, StartJoystick, Horizontal, Dodge;
 
     // Default index of the buttonplayer1/2/3/4
-    private int selectionIndexPlayer = 0;
-    private int playerNumber = 0;
+    private int selectionIndexPlayer = 1;
 
     // Player choice
     private bool playerIsHere = false;
     private bool playerChoosed = false;
+
+    // StartText must be displayed only if there are 2 or more players
+    private Transform startText;
     
     // ChampionsSelected instance
     ChampionsSelected championsSelected_;
@@ -55,6 +60,8 @@ public class SelectionPlayer1 : MonoBehaviour
         SorcererPlayerAnim = SorcererPlayer.GetComponent<Animator>();
 
         championsSelected_ = ChampionsSelected.GetInstance();
+
+        startText = transform.parent.Find("StartText");
     }
 
     // Update is called once per frame
@@ -74,12 +81,23 @@ public class SelectionPlayer1 : MonoBehaviour
     public void AddPlayers()
     {
         // Player 1 join the game
-        if (Input.GetButtonDown(StartJoystick) && !playerIsHere)
+        if (Input.GetButtonDown(StartJoystick))
         {
-            playerJoin.gameObject.SetActive(false);
-            playerSelection.gameObject.SetActive(true);
-            SelectedIndexPlayer();
-            playerIsHere = true;
+            if (!playerIsHere)
+            {
+                playerJoin.gameObject.SetActive(false);
+                playerSelection.gameObject.SetActive(true);
+                SelectedIndexPlayer();
+                playerIsHere = true;
+            }
+            else
+            {
+                if(championsSelected_.PlayerNumber >= 2)
+                {
+                    SceneManager.LoadScene(2);
+                }
+            }
+
         }
     }
 
@@ -89,19 +107,37 @@ public class SelectionPlayer1 : MonoBehaviour
         if (Input.GetButtonDown(Jump) && !playerChoosed)
         {
             playerChoosed = true;
-            championsSelected_.playerSelection.Insert(0, selectionIndexPlayer);
+            championsSelected_.playerSelection[playerNumber-1] = selectionIndexPlayer;
             championsSelected_.PlayerNumber++;
             playerSelection.gameObject.SetActive(false);
             playerValidate.gameObject.SetActive(true);
+            if (championsSelected_.PlayerNumber >= 2)
+            {
+                startText.gameObject.SetActive(true);
+            }
         }
         // Player 1 want to change his champion
-        if (Input.GetButtonDown(Dodge) && playerChoosed)
+        if (Input.GetButtonDown(Dodge))
         {
-            playerChoosed = false;
-            championsSelected_.playerSelection.Insert(0, 0);
-            championsSelected_.PlayerNumber--;
-            playerSelection.gameObject.SetActive(true);
-            playerValidate.gameObject.SetActive(false);
+            if (playerChoosed)
+            {
+                playerChoosed = false;
+                championsSelected_.playerSelection[playerNumber - 1] = 0;
+                championsSelected_.PlayerNumber--;
+                playerSelection.gameObject.SetActive(true);
+                playerValidate.gameObject.SetActive(false);
+                if (championsSelected_.PlayerNumber < 2)
+                {
+                    startText.gameObject.SetActive(false);
+                }
+            }
+            else // Player doesn't want to be part of the game anymore
+            {
+                playerJoin.gameObject.SetActive(true);
+                playerSelection.gameObject.SetActive(false);
+                playerIsHere = false;
+                selectionIndexPlayer = 1;
+            }
         }
         
     }
@@ -170,7 +206,7 @@ public class SelectionPlayer1 : MonoBehaviour
 
     public void DecreaseIndex()
     {
-        if (selectionIndexPlayer > 0) selectionIndexPlayer--;
+        if (selectionIndexPlayer > 1) selectionIndexPlayer--;
     }
 
     public void IncreaseIndex()
