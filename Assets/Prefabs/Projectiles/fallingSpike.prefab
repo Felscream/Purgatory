@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114304111255600298}
   - component: {fileID: 199486903535348394}
   - component: {fileID: 198055485254336642}
-  m_Layer: 9
+  m_Layer: 21
   m_Name: fallingSpike
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4007424999156416}
   - component: {fileID: 212292749074305960}
-  m_Layer: 9
+  m_Layer: 21
   m_Name: plateforme 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
