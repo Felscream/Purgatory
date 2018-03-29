@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 114446127889982338}
   - component: {fileID: 114005701713967186}
   - component: {fileID: 114645808946278308}
-  - component: {fileID: 82210078688843810}
+  - component: {fileID: 82863126686560604}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1562,7 +1562,7 @@ Transform:
   m_Father: {fileID: 4640998820181540}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82210078688843810
+--- !u!82 &82863126686560604
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
