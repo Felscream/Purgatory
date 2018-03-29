@@ -17,9 +17,9 @@ public class Lever : MonoBehaviour {
 
         firstPositionLever = GetComponent<SpriteRenderer>().sprite;
     }
-	
 
-    public void Engage()
+
+    virtual public void Engage()
     {
         if (canEngage)
         {
@@ -30,7 +30,7 @@ public class Lever : MonoBehaviour {
         }
     }
 
-    public void Disengage()
+    virtual public void Disengage()
     {
         canEngage = true;
         gameObject.GetComponent<SpriteRenderer>().sprite = firstPositionLever;
