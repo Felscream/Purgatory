@@ -33,12 +33,10 @@ public class BreakingOrb : MonoBehaviour {
 	{
 		life -= dmg;
 		if (life <= 0) {
-			//this.gameObject.SetActive (false);
-			//Destroy(this.gameObject.GetComponent<Rigidbody>());
-			//this.gameObject.collider2D.isTrigger = true;
+			Destroy(rgb);
 			coll.isTrigger = true;
 			this.gameObject.layer = 16;
-			//ajout buff ultimate
+			Debug.Log ("layer :" + this.gameObject.layer);
 		}
 	}
 }
