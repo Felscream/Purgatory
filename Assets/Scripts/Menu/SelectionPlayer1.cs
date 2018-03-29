@@ -174,7 +174,7 @@ public class SelectionPlayer1 : MonoBehaviour
         switch (selectionIndexPlayer)
         {
             case 1:
-                playerKnightButton.GetComponent<Image>().color = new Color(0.5f, 0, 0);
+                playerKnightButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 playerSorcererButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 playerArcherButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 // Changer sprite au lieu de mettre highligth
@@ -184,7 +184,7 @@ public class SelectionPlayer1 : MonoBehaviour
                 break;
             case 2:
                 playerKnightButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                playerSorcererButton.GetComponent<Image>().color = new Color(0.5f, 0, 0);
+                playerSorcererButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 playerArcherButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 KnightPlayer.gameObject.SetActive(false);
                 SorcererPlayer.gameObject.SetActive(true);
@@ -193,7 +193,7 @@ public class SelectionPlayer1 : MonoBehaviour
             case 3:
                 playerKnightButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 playerSorcererButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                playerArcherButton.GetComponent<Image>().color = new Color(0.5f, 0, 0);
+                playerArcherButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 KnightPlayer.gameObject.SetActive(false);
                 SorcererPlayer.gameObject.SetActive(false);
                 ArcherPlayer.gameObject.SetActive(true);

@@ -39,7 +39,7 @@ public enum Enum_SpecialStatus
 
 public abstract class Champion : MonoBehaviour {
 
-    [SerializeField] protected float baseHealth = 100;
+    [SerializeField] protected float baseHealth = 200;
     [SerializeField] public int determination = 3;
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
