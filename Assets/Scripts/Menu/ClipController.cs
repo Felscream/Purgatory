@@ -90,6 +90,7 @@ public class ClipController : MonoBehaviour {
 
     public void ChangeClipMainMenuToOptionsMenu()
     {
+        audioVolumeManager.PlaySoundEffect("Select");
         MainMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);
@@ -104,6 +105,7 @@ public class ClipController : MonoBehaviour {
 
     public void ChangeClipOptionsMenuToControlMenu()
     {
+        audioVolumeManager.PlaySoundEffect("Select");
         OptionsMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);
@@ -118,6 +120,7 @@ public class ClipController : MonoBehaviour {
 
     public void ChangeClipBackToMenu()
     {
+        audioVolumeManager.PlaySoundEffect("Cancel");
         OptionsMenu.gameObject.SetActive(false);
         
         LaunchMainMenu.gameObject.SetActive(false);
@@ -132,6 +135,7 @@ public class ClipController : MonoBehaviour {
 
     public void ChangeClipControlBackToOptionMenu()
     {
+        audioVolumeManager.PlaySoundEffect("Cancel");
         ControlMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);

@@ -15,6 +15,7 @@ public class AudioVolumeManager : MonoBehaviour {
     private string fileName = "volumeData.dat";
 
     [SerializeField] private Sound[] themes;
+    [SerializeField] private Sound[] soundEffects;
     void Awake()
     {
         if (instance == null)
@@ -49,6 +50,17 @@ public class AudioVolumeManager : MonoBehaviour {
         foreach(Sound s in themes)
         {
             s.source.Stop();
+        }
+        t.source.Play();
+    }
+
+    public void PlaySoundEffect(string name)
+    {
+        Sound t = Array.Find(soundEffects, sound => sound.name == name);
+        if (t == null)
+        {
+            Debug.Log("Sound effect " + name + " not found");
+            return;
         }
         t.source.Play();
     }
@@ -88,6 +100,14 @@ public class AudioVolumeManager : MonoBehaviour {
             m.source.loop = m.loop;
             m.source.spatialBlend = 0.0f;
         }
+        foreach (Sound s in soundEffects)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.pitch = s.pitch;
+            s.source.volume = soundEffectVolume;
+            s.source.spatialBlend = 0.0f;
+        }
     }
 
     private void OnDisable()
@@ -120,6 +140,10 @@ public class AudioVolumeManager : MonoBehaviour {
         set
         {
             soundEffectVolume = value;
+            foreach (Sound m in soundEffects)
+            {
+                m.source.volume = soundEffectVolume;
+            }
         }
     }
 

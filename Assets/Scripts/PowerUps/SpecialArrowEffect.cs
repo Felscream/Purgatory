@@ -34,6 +34,7 @@ public class SpecialArrowEffect : PowerUp
                 powerUpImageSlider.fillAmount = 0.0f;
             }
             anim.SetBool("PoweredUp", true);
+            holder.PlaySoundEffect("PowerUp");
         }
     }
 

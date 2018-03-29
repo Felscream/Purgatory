@@ -401,6 +401,17 @@ public abstract class Champion : MonoBehaviour {
         s.source.volume = audioVolumeManager.SoundEffectVolume;
         s.source.Play();
     }
+
+    protected void StopSoundEffect(string name)
+    {
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found");
+            return;
+        }
+        s.source.Stop();
+    }
     protected void DynamicFall()
     {
         if (rb != null && rb.velocity.y < jumpVelocityAtApex && !IsGrounded() && dodgeStatus == Enum_DodgeStatus.ready && attacking == false && rb.gravityScale == 1.0f)
