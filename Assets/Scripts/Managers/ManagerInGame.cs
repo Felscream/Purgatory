@@ -179,7 +179,7 @@ public class ManagerInGame : MonoBehaviour {
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
-            value = 50 + (attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination))/10;
+            value = 50 + ((attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination)) * (int)(time+1) / 10);
             ClashSlider.value = value;
 
             AuraManager(value, attackAura, defendAura);
