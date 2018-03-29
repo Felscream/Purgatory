@@ -557,6 +557,7 @@ public abstract class Champion : MonoBehaviour {
         damageDisplay.SetText(amount);
         if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
+            Narrator.Instance.Clash();
             Health = 1;
             Clash(attacker);
         }
@@ -617,6 +618,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 if (!guardBreaker && attackerFacing != facing) // attacker is in front of the player and player is guarding, the attacker isn't guard breaking
                 {
+                    Narrator.Instance.Guard();
                     ReduceStamina(dmg * blockStaminaCostMultiplier);
                     dmg = dmg * damageReductionMultiplier;
                     animator.SetTrigger("Blocked");
@@ -624,6 +626,7 @@ public abstract class Champion : MonoBehaviour {
                 }
                 else //the attack is coming from behind or the attack is a guard breaker
                 {
+                    Narrator.Instance.Attack();
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     if(stunLock > 0)
                     {
@@ -642,6 +645,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 if (!guardBreaker || isUltimate) //if the attack isn't a guard break or is a guard breaking ultimate
                 {
+                    Narrator.Instance.Attack();
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     if (stunLock > 0)
                     {
@@ -664,6 +668,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 if(attacker != null && !isProjectile)
                 {
+                    Narrator.Instance.Parry();
                     Debug.Log("Parried");
                     rb.velocity = Vector2.zero;
                     IncreaseLimitBreak(limitBreakOnParry);
@@ -798,35 +803,39 @@ public abstract class Champion : MonoBehaviour {
     {
         if (limitBreakGauge == maxLimitBreakGauge)
         {
+            Narrator.Instance.Ultimate();
             Ultimate();
         }
     }
 
     public virtual void Move(float moveX, float moveY)
     {
-        float currentSpeed = Fatigue ? speed * fatiguedSpeedReduction : speed;
-        if(specialStatus == Enum_SpecialStatus.slow)
-            currentSpeed *= slowSpeedReduction;
-        //LIMIT DIAGONAL SPEED
-        Vector2 movement = new Vector2(moveX, moveY).normalized * currentSpeed;
+        if(specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun){
+            float currentSpeed = Fatigue ? speed * fatiguedSpeedReduction : speed;
+            if(specialStatus == Enum_SpecialStatus.slow)
+                currentSpeed *= slowSpeedReduction;
+            //LIMIT DIAGONAL SPEED
+            Vector2 movement = new Vector2(moveX, moveY).normalized * currentSpeed;
 
-        //not impeding X movements when aerial
-        if (moveX != 0)
-        {
-            facing = Mathf.Sign(moveX);
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            animator.SetFloat("FaceX", facing);
-        }
-        else
-        {
-            animator.SetBool("Moving", false);
-        }
-        if (guardStatus == Enum_GuardStatus.noGuard && moveX != 0)
-        {
+            //not impeding X movements when aerial
+            if (moveX != 0)
+            {
+                facing = Mathf.Sign(moveX);
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                animator.SetFloat("FaceX", facing);
+            }
+            else
+            {
+                animator.SetBool("Moving", false);
+            }
+            if (guardStatus == Enum_GuardStatus.noGuard && moveX != 0)
+            {
 
-            animator.SetBool("Moving", true);
-            transform.Translate(movement * Time.deltaTime);
+                animator.SetBool("Moving", true);
+                transform.Translate(movement * Time.deltaTime);
+            }
         }
+        
 
     }
     public void ResetAttackTokens()
@@ -1189,6 +1198,7 @@ public abstract class Champion : MonoBehaviour {
 			health = Mathf.Min(Mathf.Max(value, 0.0f),BaseHealth);
             if (health <= 0.0f)
             {
+                Narrator.Instance.Death();
                 Death();
             }
         }
