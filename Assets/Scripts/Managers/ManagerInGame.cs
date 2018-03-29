@@ -79,6 +79,7 @@ public class ManagerInGame : MonoBehaviour {
             defaultOrthographicSize = cameraController.DefaultOrthographicSize;
             defaultZoomOrthographicSize = cameraController.ZoomOrthographicSize;
         }
+        Narrator.Instance.StartOfTheGame();
     }
     void Update () {
         CheckPlayerAlive();
@@ -93,14 +94,15 @@ public class ManagerInGame : MonoBehaviour {
 			Instantiate (Orb);
 			//Instantiate (Plateform);
 			SpawnOrb = true;
-		}	
-		/*if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
+		}
+        /*if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
 			SceneManager.LoadScene (1);
+            Narrator.Instance.End();
 			//ici ajouter le changement de scène et toute les modifs à prendre en compte
 		}*/
-	}
+    }
 
-	void SpawningItems(){
+    void SpawningItems(){
 	
 		Instantiate (Health, getValidSpawnPosition (), Quaternion.identity);
 		Instantiate (Stamina, getValidSpawnPosition (), Quaternion.identity);

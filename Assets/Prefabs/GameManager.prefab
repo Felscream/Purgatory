@@ -1011,6 +1011,7 @@ GameObject:
   - component: {fileID: 4143585854246892}
   - component: {fileID: 114446127889982338}
   - component: {fileID: 114005701713967186}
+  - component: {fileID: 114645808946278308}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3022,6 +3023,37 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114645808946278308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1697182191257260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf064c3eddc01e4d8e1ad8a3dc85c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minTime: 5
+  maxTime: 30
+  startComments:
+  - {fileID: 8300000, guid: d07335c95a683674ea78ae6c24563143, type: 3}
+  attackComments:
+  - {fileID: 8300000, guid: 8e95c12274dd079488a26021ffc5dfe3, type: 3}
+  clashComments:
+  - {fileID: 8300000, guid: 6ec09eecd5c0d644c8909f29b1a4b57a, type: 3}
+  ultimateComments:
+  - {fileID: 8300000, guid: 0275e230a95ae8f44ac7972b2d375005, type: 3}
+  guardComments:
+  - {fileID: 8300000, guid: 11d5fdd5e7e809441b6e164562da8a14, type: 3}
+  parryComments:
+  - {fileID: 8300000, guid: f086af895f0f34f4989296f4c5e9e918, type: 3}
+  deathComments:
+  - {fileID: 8300000, guid: d07335c95a683674ea78ae6c24563143, type: 3}
+  endComments:
+  - {fileID: 8300000, guid: 55be4cb6695f6db4ba961e2eb9a38d45, type: 3}
+  randomComments:
+  - {fileID: 8300000, guid: 0da456f74806a34479c7fa5a3c8906b6, type: 3}
 --- !u!114 &114667844061982234
 MonoBehaviour:
   m_ObjectHideFlags: 1
