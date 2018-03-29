@@ -1145,6 +1145,9 @@ public abstract class Champion : MonoBehaviour {
 		{
 			return limitBreakGauge;
 		}
+		set{ 
+			limitBreakGauge = Mathf.Min(Mathf.Max(value, 0.0f),maxLimitBreakGauge);
+		}
 	}
 	public float LimitBreakOnDamage
 	{

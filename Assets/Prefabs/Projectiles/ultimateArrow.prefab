@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: {x: 0.1, y: 0}
   maxTravelDistance: 0
-  damage: 20
+  damage: 14
   stunLock: 5
   recoilForce: {x: 3, y: 0}
   timeToDestroy: 1
