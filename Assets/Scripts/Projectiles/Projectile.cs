@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,13 @@ public abstract class Projectile : MonoBehaviour {
     [SerializeField] protected int stunLock;
     [SerializeField] protected Vector2 recoilForce;
     [SerializeField] protected float timeToDestroy = 1.0f;
-    
+    [Header("Sound Settings")]
+    [SerializeField]
+    protected Sound[] soundEffects;
+
 
     protected float direction = 1.0f, distanceTraveled;
+    protected AudioVolumeManager audioVolumeManager;
     protected Animator anim;
     protected Champion owner;
     protected List<Champion> hits = new List<Champion>();
@@ -22,8 +27,21 @@ public abstract class Projectile : MonoBehaviour {
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
     protected ParticleSystem ps;
-	// Use this for initialization
-	protected virtual void Start () {
+    // Use this for initialization
+
+    protected virtual void Awake()
+    {
+        audioVolumeManager = AudioVolumeManager.GetInstance();
+        foreach (Sound s in soundEffects)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.pitch = s.pitch;
+            s.source.volume = audioVolumeManager.SoundEffectVolume;
+            s.source.spatialBlend = 0.0f;
+        }
+    }
+    protected virtual void Start () {
         distanceTraveled = 0.0f;
         anim = GetComponent<Animator>();
         if (anim != null)
@@ -60,7 +78,32 @@ public abstract class Projectile : MonoBehaviour {
             }
         }
     }
+    public void PlaySoundEffect(string name)
+    {
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found");
+            return;
+        }
+        s.source.pitch = s.pitch;
+        s.source.volume = audioVolumeManager.SoundEffectVolume;
+        s.source.Play();
+    }
 
+    public void PlaySoundEffectRandomPitch(string name)
+    {
+        Sound s = Array.Find(soundEffects, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound " + name + " not found");
+            return;
+        }
+        float pitch = UnityEngine.Random.Range(0.9f, 1.8f);
+        s.source.pitch = pitch;
+        s.source.volume = audioVolumeManager.SoundEffectVolume;
+        s.source.Play();
+    }
     protected virtual void HandleImpact(Collision2D collision)
     {
         Champion foe = collision.gameObject.GetComponent<Champion>();
@@ -122,6 +165,7 @@ public abstract class Projectile : MonoBehaviour {
         rb.velocity = Vector2.zero;
         sr.sortingOrder = -3;
         sr.enabled = false;
+        PlaySoundEffect("Impact");
         Destroy(gameObject, timeToDestroy);
     }
     protected bool CanApplySpecialEffect(Champion foe)

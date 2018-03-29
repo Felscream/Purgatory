@@ -144,6 +144,12 @@ MonoBehaviour:
   stunLock: 5
   recoilForce: {x: 10, y: 0}
   timeToDestroy: 2
+  soundEffects:
+  - name: Impact
+    clip: {fileID: 8300000, guid: fda22450556cf1d44a9dbe3501537a82, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   altForce: {x: 0.1, y: -0.1}
   travelEffect: {fileID: 1262771216504436, guid: c12f26cb6849ca844bbf234da7e407e0,
     type: 2}

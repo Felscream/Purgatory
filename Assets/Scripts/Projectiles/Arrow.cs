@@ -16,8 +16,6 @@ public class Arrow : Projectile
     [SerializeField] protected Gradient slow;
     [SerializeField] protected Gradient stun;
     [SerializeField] protected float poisonDamage = 2.0f;
-    [Header("SoundSettings")]
-    public AudioClip arrowSound;
     AudioSource audioSource;
     protected ParticleSystem.ColorOverLifetimeModule particleColor;
     protected Collider2D arrowCollider;
@@ -147,11 +145,6 @@ public class Arrow : Projectile
         {
             poisonDamage = value;
         }
-    }
-    public void ArrowSound()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.PlayOneShot(arrowSound, 1.0F);
     }
 
     public Collider2D ArrowCollider

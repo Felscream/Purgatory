@@ -123,6 +123,7 @@ public class Sorcerer : Champion
                     animator.SetBool("Jump", false);
                     animator.SetBool("Fall", false);
                     animator.SetTrigger("WarpOut");
+                    PlaySoundEffect("Evade");
                     immune = true;
                 }
                 break;
@@ -229,6 +230,7 @@ public class Sorcerer : Champion
         ultimate = true;
         ultimateParticleSystem.Play();
         float timer = 0.0f;
+        PlaySoundEffect("Ultimate");
         float radius = ultimateMinRadius;
         float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
         while (timer <= ultimateDuration)

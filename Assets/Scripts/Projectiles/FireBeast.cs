@@ -17,7 +17,11 @@ public class FireBeast : Projectile {
     public Material rightMaterial;
     public Material leftMaterial;
 
-    
+    protected override void Awake()
+    {
+        base.Awake();
+        PlaySoundEffect("Spawn");
+    }
     protected override void Start()
     {
         base.Start();

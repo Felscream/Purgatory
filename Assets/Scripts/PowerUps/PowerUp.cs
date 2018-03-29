@@ -78,6 +78,7 @@ public abstract class PowerUp : MonoBehaviour {
             powerUpStatus = Enum_PowerUpStatus.activated;
             activationTimer = 0.0f;
             anim.SetBool("PoweredUp", true);
+            holder.PlaySoundEffect("PowerUp");
             if(holder.PowerUpParticleSystem != null)
             {
                 EnableParticleSystem();

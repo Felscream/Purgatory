@@ -406,9 +406,14 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: PowerUp
+    clip: {fileID: 8300000, guid: 11d5fdd5e7e809441b6e164562da8a14, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: c4327329b41b13f42b9f2eb6c3e97566, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: 

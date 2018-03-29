@@ -166,6 +166,12 @@ MonoBehaviour:
   stunLock: 0
   recoilForce: {x: 0, y: 0}
   timeToDestroy: 1.1
+  soundEffects:
+  - name: Spawn
+    clip: {fileID: 8300000, guid: 35ae24b814524b64dade2eb450ef2480, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   startingSize: 1
   endSize: 3
   timeToLive: 1.3

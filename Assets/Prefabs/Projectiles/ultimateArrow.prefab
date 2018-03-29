@@ -145,6 +145,12 @@ MonoBehaviour:
   stunLock: 5
   recoilForce: {x: 3, y: 0}
   timeToDestroy: 1
+  soundEffects:
+  - name: Impact
+    clip: {fileID: 8300000, guid: 9df4510e6187cd947907c75253f3f314, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   stunSprite: {fileID: 1385759158095934, guid: 6d39ce9c4ff41e34dbe840e5f6e170ce, type: 2}
   poisonSprite: {fileID: 1205473987782494, guid: 4a36daeb237ea5444bd39f13d09979c0,
     type: 2}
@@ -266,7 +272,6 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
   poisonDamage: 2
-  arrowSound: {fileID: 0}
   maxMagnitude: 20
 --- !u!114 &114999283451076384
 MonoBehaviour:

@@ -151,6 +151,7 @@ public class Archer : Champion
     {
         //DisableChargeParticleSystem();
         animator.SetBool("Hold", false);
+        PlaySoundEffectRandomPitch("ReleaseArrow");
         speed = baseSpeed;
         chargeTimer = 0.0f;
         playedOnceChargeTwo = false;

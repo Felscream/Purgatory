@@ -437,19 +437,24 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: Death
+    clip: {fileID: 8300000, guid: cf9a44f04b8bc80419b09ac801fd09a9, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: SpecialAttack
+    clip: {fileID: 8300000, guid: 46623322c082f2d48a9656cd71150c76, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    pitch: 0
+  - name: Ultimate
+    clip: {fileID: 8300000, guid: 90682229050f4ef44a53a80d291e1b70, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Evade
+    clip: {fileID: 8300000, guid: 6ec09eecd5c0d644c8909f29b1a4b57a, type: 3}
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: 
