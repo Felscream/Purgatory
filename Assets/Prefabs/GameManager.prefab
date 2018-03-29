@@ -1012,6 +1012,7 @@ GameObject:
   - component: {fileID: 114446127889982338}
   - component: {fileID: 114005701713967186}
   - component: {fileID: 114645808946278308}
+  - component: {fileID: 82210078688843810}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1561,6 +1562,86 @@ Transform:
   m_Father: {fileID: 4640998820181540}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82210078688843810
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1697182191257260}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114005701713967186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2570,10 +2651,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821a01b8ea8d53e4ba3e72c316cfd557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HUDPlayer1: {fileID: 225937129944746780}
-  HUDPlayer2: {fileID: 225781334948817150}
-  HUDPlayer3: {fileID: 225858193613016954}
-  HUDPlayer4: {fileID: 225415496480462960}
+  HUDPlayer1: {fileID: 0}
+  HUDPlayer2: {fileID: 0}
+  HUDPlayer3: {fileID: 0}
+  HUDPlayer4: {fileID: 0}
   prefabKnight: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
     type: 2}
   prefabSorcerer: {fileID: 114244444951551434, guid: 07d47c73da75d6948b85cc3bbbc00e77,

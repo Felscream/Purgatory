@@ -340,9 +340,17 @@ public abstract class Champion : MonoBehaviour {
 
                 if (InputStatus != Enum_InputStatus.onlyAttack )
                 {
-                    if (IsGrounded() && Input.GetAxis(VerticalCtrl) <= -0.8f && Input.GetButtonDown(JumpButton))
+                    if (Input.GetAxis(VerticalCtrl) <= -0.8f && Input.GetButtonDown(JumpButton))
                     {
-                        GoDown();
+                        if (IsGrounded())
+                        {
+                            GoDown();
+                        }
+                        else
+                        {
+                            GuardBreak();
+                        }
+                        
                     }
                     else if (Input.GetButtonDown(JumpButton))
                     {
@@ -882,7 +890,7 @@ public abstract class Champion : MonoBehaviour {
 	}
 	public virtual void Jump()
 	{
-		if(rb != null)
+		if(rb != null && specialStatus != Enum_SpecialStatus.stun)
 		{
 			if (coyoteFrameCounter <= coyoteTimeFrames)
 			{
@@ -892,16 +900,17 @@ public abstract class Champion : MonoBehaviour {
 				animator.SetBool("Jump", true);
 				coyoteFrameCounter = coyoteTimeFrames + 1;
 			}
-			else
-			{
-				if (!IsGrounded())
-				{
-					rb.AddForce(new Vector2(0, -jumpHeight), ForceMode2D.Impulse);
-					EnableDiveBox();
-				}
-			}
 		}
 	}
+
+    protected virtual void GuardBreak()
+    {
+        if (!IsGrounded())
+        {
+            rb.AddForce(new Vector2(0, -jumpHeight), ForceMode2D.Impulse);
+            EnableDiveBox();
+        }
+    }
 	protected void GoDown()
 	{
 		//Debug.Log("Go down");
