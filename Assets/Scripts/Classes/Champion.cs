@@ -804,29 +804,32 @@ public abstract class Champion : MonoBehaviour {
 
     public virtual void Move(float moveX, float moveY)
     {
-        float currentSpeed = Fatigue ? speed * fatiguedSpeedReduction : speed;
-        if(specialStatus == Enum_SpecialStatus.slow)
-            currentSpeed *= slowSpeedReduction;
-        //LIMIT DIAGONAL SPEED
-        Vector2 movement = new Vector2(moveX, moveY).normalized * currentSpeed;
+        if(specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun){
+            float currentSpeed = Fatigue ? speed * fatiguedSpeedReduction : speed;
+            if(specialStatus == Enum_SpecialStatus.slow)
+                currentSpeed *= slowSpeedReduction;
+            //LIMIT DIAGONAL SPEED
+            Vector2 movement = new Vector2(moveX, moveY).normalized * currentSpeed;
 
-        //not impeding X movements when aerial
-        if (moveX != 0)
-        {
-            facing = Mathf.Sign(moveX);
-            rb.velocity = new Vector2(0, rb.velocity.y);
-            animator.SetFloat("FaceX", facing);
-        }
-        else
-        {
-            animator.SetBool("Moving", false);
-        }
-        if (guardStatus == Enum_GuardStatus.noGuard && moveX != 0)
-        {
+            //not impeding X movements when aerial
+            if (moveX != 0)
+            {
+                facing = Mathf.Sign(moveX);
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                animator.SetFloat("FaceX", facing);
+            }
+            else
+            {
+                animator.SetBool("Moving", false);
+            }
+            if (guardStatus == Enum_GuardStatus.noGuard && moveX != 0)
+            {
 
-            animator.SetBool("Moving", true);
-            transform.Translate(movement * Time.deltaTime);
+                animator.SetBool("Moving", true);
+                transform.Translate(movement * Time.deltaTime);
+            }
         }
+        
 
     }
     public void ResetAttackTokens()
