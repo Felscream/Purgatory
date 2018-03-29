@@ -557,6 +557,7 @@ public abstract class Champion : MonoBehaviour {
         damageDisplay.SetText(amount);
         if (amount >= health && clashPossible && attacker != null && determination > 1)
         {
+            Narrator.Instance.Clash();
             Health = 1;
             Clash(attacker);
         }
@@ -617,6 +618,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 if (!guardBreaker && attackerFacing != facing) // attacker is in front of the player and player is guarding, the attacker isn't guard breaking
                 {
+                    Narrator.Instance.Guard();
                     ReduceStamina(dmg * blockStaminaCostMultiplier);
                     dmg = dmg * damageReductionMultiplier;
                     animator.SetTrigger("Blocked");
@@ -624,6 +626,7 @@ public abstract class Champion : MonoBehaviour {
                 }
                 else //the attack is coming from behind or the attack is a guard breaker
                 {
+                    Narrator.Instance.Attack();
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     if(stunLock > 0)
                     {
@@ -642,6 +645,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 if (!guardBreaker || isUltimate) //if the attack isn't a guard break or is a guard breaking ultimate
                 {
+                    Narrator.Instance.Attack();
                     animator.SetFloat("AttackerFacing", attackerFacing);
                     if (stunLock > 0)
                     {
@@ -664,6 +668,7 @@ public abstract class Champion : MonoBehaviour {
             {
                 if(attacker != null && !isProjectile)
                 {
+                    Narrator.Instance.Parry();
                     Debug.Log("Parried");
                     rb.velocity = Vector2.zero;
                     IncreaseLimitBreak(limitBreakOnParry);
@@ -798,6 +803,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if (limitBreakGauge == maxLimitBreakGauge)
         {
+            Narrator.Instance.Ultimate();
             Ultimate();
         }
     }
@@ -1189,6 +1195,7 @@ public abstract class Champion : MonoBehaviour {
 			health = Mathf.Min(Mathf.Max(value, 0.0f),BaseHealth);
             if (health <= 0.0f)
             {
+                Narrator.Instance.Death();
                 Death();
             }
         }

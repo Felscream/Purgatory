@@ -8,7 +8,7 @@ public class Narrator : MonoBehaviour {
     [SerializeField] protected float minTime = 5;
     [SerializeField] protected float maxTime = 30;
 
-    [Header("Attack Settings")]
+    [Header("Comments")]
     [SerializeField] protected AudioClip[] startComments;
     [SerializeField] protected AudioClip[] attackComments;
     [SerializeField] protected AudioClip[] clashComments;
@@ -91,9 +91,12 @@ public class Narrator : MonoBehaviour {
 
     protected void PlayRandom(AudioClip[] comments)
     {
-        int i = Random.Range(0, comments.Length);
-        audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
-        lastCommentTime = Time.deltaTime;
+        if(comments.Length>0)
+        {
+            int i = Random.Range(0, comments.Length);
+            audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
+            lastCommentTime = Time.deltaTime;
+        }
     }
 
     protected IEnumerator PlayNext(AudioClip[] comments)
