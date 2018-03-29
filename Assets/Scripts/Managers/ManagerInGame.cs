@@ -143,7 +143,7 @@ public class ManagerInGame : MonoBehaviour {
         Color color;
         float alpha = 0;
         float time = 0;
-        int value = 50;
+        float value = 50;
         float zd = cameraController.ZoomDuration;
 
         yield return new WaitForEndOfFrame();
@@ -179,12 +179,12 @@ public class ManagerInGame : MonoBehaviour {
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
-            value = 50 + ((attacker.clashClick * (10+attacker.determination) - defender.clashClick * (10+defender.determination)) * (int)(time+1) / 10);
+            value = 50 + ((attacker.clashClick * 10 - defender.clashClick * (7+defender.determination)) * (time/2+1) / 10);
             ClashSlider.value = value;
 
             AuraManager(value, attackAura, defendAura);
 
-            cameraController.Shake(Mathf.Abs(value-50) / 10f, 5, 1000);
+            cameraController.Shake(/*Mathf.Abs(value-50) / 2f + */ time*4, 5, 1000);
             yield return null;
         }
         if (value >= 50)
@@ -227,7 +227,7 @@ public class ManagerInGame : MonoBehaviour {
         StartCoroutine(defender.ProcDivineShield(defenderImmunityTime));
     }
 
-    protected void AuraManager(int value,GameObject attackAura, GameObject defendAura)
+    protected void AuraManager(float value,GameObject attackAura, GameObject defendAura)
     {
         var attackerVel = attackAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
         var defenderVel = defendAura.GetComponent<ParticleSystem>().limitVelocityOverLifetime;
@@ -237,10 +237,10 @@ public class ManagerInGame : MonoBehaviour {
         //Change Shape of auras depending of domination
         attackerVel.limitX = Mathf.Max((value / 10) - 5, 0);
         defenderVel.limitX = Mathf.Max(((100 - value) / 10) - 5, 0);
-        attackerVel.dampen = 0.2f + ((0.2f * (float)(50 - value)) / 50);
-        defenderVel.dampen = 0.2f + ((0.2f * (float)(value - 50)) / 50);
-        attackerEmissionModule.rateOverTime = aBaseRate + (value - 50);
-        defenderEmissionModule.rateOverTime = dBaseRate - (value - 50);
+        attackerVel.dampen = 0.2f + ((0.3f * (50 - value)) / 50);
+        defenderVel.dampen = 0.2f + ((0.3f * (value - 50)) / 50);
+        attackerEmissionModule.rateOverTime = aBaseRate + (value - 50)*1.5f;
+        defenderEmissionModule.rateOverTime = dBaseRate - (value - 50)*1.5f;
         
         //Dominating Aura is over the other
         if (value >= 50)
