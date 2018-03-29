@@ -58,7 +58,34 @@ public class PopupDamage : MonoBehaviour {
             timer = 0.0f;
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(Mathf.Round(totalDamage).ToString());
+            float inter = totalDamage / target.BaseHealth;
+            if (!(target.Health <= 0.0f))
+            {
+                sb.Append(Mathf.Round(totalDamage).ToString());
+                Debug.Log(target.Health);
+                if (totalDamage > lastTierValue)
+                {
+                    
+                    if (inter > 0.60f)
+                    {
+                        damageText.color = lastTier;
+                        sb.Append(" !!!");
+                    }
+                    else
+                    {
+                        sb.Append(" !!");
+                    }
+                }
+                else if (totalDamage > firstTierValue)
+                {
+                    damageText.color = firstTier;
+                    sb.Append(" !");
+                }
+            }
+            else
+            {
+                sb.Append("EXECUTED");
+            }
 
             if (anim == null)
             {
@@ -69,25 +96,8 @@ public class PopupDamage : MonoBehaviour {
             {
                 damageText = GetComponentInChildren<Text>();
             }
-            float inter = totalDamage / 60;
-            if (totalDamage > lastTierValue)
-            {
-                damageText.color = lastTier;
-                if(inter > 1.5)
-                {
-                    sb.Append(" !!!");
-                }
-                else
-                {
-                    sb.Append(" !!");
-                }
-                
-            }
-            else if (totalDamage > firstTierValue)
-            {
-                damageText.color = firstTier;
-                sb.Append(" !");
-            }
+            
+            
             damageText.fontSize = (int)Mathf.Round(inter * maxFontSize) > minFontSize ? (int)Mathf.Round(inter * maxFontSize) : minFontSize;
             
             damageText.text = sb.ToString();
@@ -97,7 +107,15 @@ public class PopupDamage : MonoBehaviour {
                 CancelInvoke("DestroyObject");
                 StopCoroutine(disableDisplayCoroutine);
             }
-            disableDisplayCoroutine = StartCoroutine(DisableDisplay());
+            if (gameObject.activeSelf)
+            {
+                disableDisplayCoroutine = StartCoroutine(DisableDisplay());
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
         }
     }
 
@@ -118,7 +136,7 @@ public class PopupDamage : MonoBehaviour {
         anim.SetTrigger("endLoop");
         AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
 
-        Invoke("DestroyObject", displayTime*1.2f);
+        Invoke("DestroyObject", displayTime * 1.2f);
     }
 
     public void DestroyObject()

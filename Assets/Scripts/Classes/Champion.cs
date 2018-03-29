@@ -1545,7 +1545,7 @@ public abstract class Champion : MonoBehaviour {
     protected void InstantiateDamageDisplay()
     {
         GameObject temp = Instantiate(damageDisplayPrefab);
-        temp.transform.SetParent(playerHUD.transform);
+        temp.transform.SetParent(playerHUD.transform.parent);
         damageDisplay = temp.GetComponent<PopupDamage>();
         damageDisplay.Target = this;
     }
