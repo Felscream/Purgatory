@@ -156,6 +156,10 @@ public class ManagerInGame : MonoBehaviour {
 
         //Animation at the start of a clash
         StartCoroutine(cameraController.ZoomIn(finalPos, clashTime, orthographicSize, clashZoomDuration));
+        GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(false);
+        GetComponentInChildren<AddChampion>().HUDPlayer2.gameObject.SetActive(false);
+        GetComponentInChildren<AddChampion>().HUDPlayer3.gameObject.SetActive(false);
+        GetComponentInChildren<AddChampion>().HUDPlayer4.gameObject.SetActive(false);
         ClashHUD.SetActive(true);
         background.SetActive(true);
         while (alpha < 1)
@@ -218,6 +222,10 @@ public class ManagerInGame : MonoBehaviour {
             background.GetComponent<SpriteRenderer>().color = color;
             yield return null;
         }
+        GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(true);
+        GetComponentInChildren<AddChampion>().HUDPlayer2.gameObject.SetActive(true);
+        GetComponentInChildren<AddChampion>().HUDPlayer3.gameObject.SetActive(true);
+        GetComponentInChildren<AddChampion>().HUDPlayer4.gameObject.SetActive(true);
         background.SetActive(false);
         ClashHUD.SetActive(false);
 

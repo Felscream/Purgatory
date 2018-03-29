@@ -584,16 +584,28 @@ public abstract class Champion : MonoBehaviour {
         animator.ResetTrigger("SecondaryAttack");
         animator.speed = (1 / Time.timeScale);
         isClashing = true;
-        GetComponent<SpriteRenderer>().sortingLayerName = "Clash";
-        GetComponent<SpriteRenderer>().sortingOrder = 10;
+        GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
+        SpriteRenderer[] sprites = parent.GetComponentsInChildren<SpriteRenderer>();
+
+        foreach(SpriteRenderer sprite in sprites)
+        {
+            sprite.sortingLayerName = "Clash";
+            sprite.sortingOrder = 10;
+        }
     }
     public void NormalMode()
     {
         clashClick = 0;
         animator.speed = 1;
         isClashing = false;
-        GetComponent<SpriteRenderer>().sortingLayerName = "Default";
-        GetComponent<SpriteRenderer>().sortingOrder = 0;
+
+        GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
+        SpriteRenderer[] sprites = parent.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.sortingLayerName = "Default";
+            sprite.sortingOrder = 0;
+        }
     }
 
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
