@@ -15,6 +15,7 @@ TagManager:
   - Lever
   - ground
   - BreakingOrb
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -36,7 +37,7 @@ TagManager:
   - UltimateArrows
   - FireBeast
   - ouroboros
-  - 
+  - Roof
   - 
   - 
   - 

@@ -83,7 +83,7 @@ public class Trap : MonoBehaviour {
 
         Debug.Log(damage + "  à " + collision.gameObject.name);
 
-        if (champion != null)
+        if (champion != null && !champion.Dead)
         {
             Debug.Log(damage + " infligés à " + collision.gameObject.name);
             champion.ApplyDamage(damage, facing, 20, recoilForce);

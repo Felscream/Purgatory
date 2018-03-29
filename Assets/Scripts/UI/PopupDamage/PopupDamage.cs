@@ -59,10 +59,13 @@ public class PopupDamage : MonoBehaviour {
 
             StringBuilder sb = new StringBuilder();
             float inter = totalDamage / target.BaseHealth;
+            if (damageText == null)
+            {
+                damageText = GetComponentInChildren<Text>();
+            }
             if (!(target.Health <= 0.0f))
             {
                 sb.Append(Mathf.Round(totalDamage).ToString());
-                Debug.Log(target.Health);
                 if (totalDamage > lastTierValue)
                 {
                     
@@ -92,10 +95,7 @@ public class PopupDamage : MonoBehaviour {
                 anim = GetComponentInChildren<Animator>();
             }
             
-            if (damageText == null)
-            {
-                damageText = GetComponentInChildren<Text>();
-            }
+            
             
             
             damageText.fontSize = (int)Mathf.Round(inter * maxFontSize) > minFontSize ? (int)Mathf.Round(inter * maxFontSize) : minFontSize;

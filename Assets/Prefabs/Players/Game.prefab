@@ -892,8 +892,7 @@ GameObject:
   - component: {fileID: 4827866403385480}
   - component: {fileID: 212272861436009492}
   - component: {fileID: 61404232375190472}
-  - component: {fileID: 114440310328954372}
-  m_Layer: 9
+  m_Layer: 20
   m_Name: roof
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2831,17 +2830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa17194adbf1ec4c82cd908bfe1e2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114440310328954372
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1883722072641838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8db518c723d98834cbb6ba046036dd01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114453136384741844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2997,12 +2985,12 @@ MonoBehaviour:
     type: 3}
   canEngage: 1
   trapList:
-  - {fileID: 114104390948092474}
-  - {fileID: 114689290028106728}
-  - {fileID: 114382366963530058}
-  - {fileID: 114218785044350160}
-  - {fileID: 114815557278216070}
-  - {fileID: 114701501141173574}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114972877539547568
 MonoBehaviour:
   m_ObjectHideFlags: 1

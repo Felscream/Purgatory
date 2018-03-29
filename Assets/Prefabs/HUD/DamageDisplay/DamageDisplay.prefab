@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0.6, y: 0.4}
-  minFontSize: 8
-  maxFontSize: 16
+  minFontSize: 12
+  maxFontSize: 22
   firstTierValue: 20
   lastTierValue: 40
   firstTier: {r: 0.9862069, g: 1, b: 0, a: 0}
