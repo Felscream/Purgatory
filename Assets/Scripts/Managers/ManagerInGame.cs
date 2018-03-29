@@ -23,6 +23,7 @@ public class ManagerInGame : MonoBehaviour {
     public GameObject ClashHUD;
     protected GameObject cameraGo = null;
     private CameraControl cameraController;
+    private AudioVolumeManager audioManager;
     protected float aBaseRate;
     protected float dBaseRate;
     [SerializeField] protected int clashTime = 10;
@@ -80,6 +81,7 @@ public class ManagerInGame : MonoBehaviour {
             defaultOrthographicSize = cameraController.DefaultOrthographicSize;
             defaultZoomOrthographicSize = cameraController.ZoomOrthographicSize;
         }
+        audioManager = AudioVolumeManager.GetInstance();
         Narrator.Instance.StartOfTheGame();
     }
     void Update () {
@@ -153,6 +155,7 @@ public class ManagerInGame : MonoBehaviour {
         //Start of clash
         PauseAgentsAudio();
         Time.timeScale = 0.0001f;
+        audioManager.PlaySoundEffect("ExecutionStart");
         defender.ClashMode();
         attacker.ClashMode();
 
@@ -196,6 +199,7 @@ public class ManagerInGame : MonoBehaviour {
         if (value >= 50)
         {
             defender.ReduceHealth(defender.Health);
+            audioManager.PlaySoundEffect("DefenseLoss");
         }
         else
         {

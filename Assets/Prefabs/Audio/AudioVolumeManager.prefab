@@ -65,7 +65,7 @@ MonoBehaviour:
   - name: InGameTheme
     clip: {fileID: 8300000, guid: a3ea3a3c36a835040ad577f32ffbbc13, type: 3}
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   soundEffects:
   - name: Select
@@ -75,6 +75,16 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Cancel
     clip: {fileID: 8300000, guid: 0275e230a95ae8f44ac7972b2d375005, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ExecutionStart
+    clip: {fileID: 8300000, guid: dc52fee1c69395546bd255d354e0961d, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DefenseLoss
+    clip: {fileID: 8300000, guid: d702aef14bf76424cb9be3d38d994319, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
