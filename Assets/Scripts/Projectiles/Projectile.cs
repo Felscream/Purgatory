@@ -27,19 +27,23 @@ public abstract class Projectile : MonoBehaviour {
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
     protected ParticleSystem ps;
+    protected ManagerInGame gameManager;
     // Use this for initialization
 
     protected virtual void Awake()
     {
+        gameManager = ManagerInGame.GetInstance();
         audioVolumeManager = AudioVolumeManager.GetInstance();
         foreach (Sound s in soundEffects)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
+            gameManager.AddAudioSource(s.source);
             s.source.pitch = s.pitch;
             s.source.volume = audioVolumeManager.SoundEffectVolume;
             s.source.spatialBlend = 0.0f;
         }
+        
     }
     protected virtual void Start () {
         distanceTraveled = 0.0f;
@@ -228,6 +232,14 @@ public abstract class Projectile : MonoBehaviour {
         get
         {
             return force;
+        }
+    }
+
+    protected void OnDestroy()
+    {
+        foreach(Sound s in soundEffects)
+        {
+            gameManager.RemoveAudioSource(s.source);
         }
     }
 }

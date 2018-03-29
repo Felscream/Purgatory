@@ -33,6 +33,7 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] protected GameObject attackerAura;
     [SerializeField] protected GameObject defenderAura;
     [SerializeField] protected GameObject backgroundEffect;
+    private List<AudioSource> agentsAudioSources = new List<AudioSource>();
 
     //camera variables
     private float defaultOrthographicSize;
@@ -150,6 +151,7 @@ public class ManagerInGame : MonoBehaviour {
 
         float orthographicSize = ComputeOrthographicSize(defender.Position, attacker.Position);
         //Start of clash
+        PauseAgentsAudio();
         Time.timeScale = 0.0001f;
         defender.ClashMode();
         attacker.ClashMode();
@@ -230,6 +232,7 @@ public class ManagerInGame : MonoBehaviour {
         ClashHUD.SetActive(false);
 
         Time.timeScale = 1f;
+        UnpauseAgentsAudio();
         defender.NormalMode();
         attacker.NormalMode();
         StartCoroutine(defender.ProcDivineShield(defenderImmunityTime));
@@ -264,6 +267,31 @@ public class ManagerInGame : MonoBehaviour {
 
     }
 
+    public void AddAudioSource(AudioSource a)
+    {
+        agentsAudioSources.Add(a);
+    }
+
+    public void RemoveAudioSource(AudioSource a)
+    {
+        agentsAudioSources.Remove(a);
+    }
+
+    public void PauseAgentsAudio()
+    {
+        foreach(AudioSource a in agentsAudioSources)
+        {
+            a.Pause();
+        }
+    }
+
+    public void UnpauseAgentsAudio()
+    {
+        foreach(AudioSource a in agentsAudioSources)
+        {
+            a.UnPause();
+        }
+    }
     public void CheckPlayerAlive()
     {
         int temp = 0;
@@ -288,10 +316,12 @@ public class ManagerInGame : MonoBehaviour {
 
     public IEnumerator UltimateCameraEffect(Vector2 position, float waitTime)
     {
+        PauseAgentsAudio();
         Time.timeScale = 0.0001f;
         StartCoroutine(cameraController.ZoomIn(position, waitTime));
         yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
         Time.timeScale = 1.0f;
+        UnpauseAgentsAudio();
     }
 
     public float ComputeOrthographicSize(Vector2 pOne, Vector2 pTwo)

@@ -178,7 +178,7 @@ public abstract class Champion : MonoBehaviour {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x + (physicBox.bounds.extents.x / 2) * facing, physicBox.bounds.min.y,0), 0.2f);
         //Gizmos.DrawWireSphere(new Vector3(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y, 0),0.5f);
-        Gizmos.DrawWireCube(new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y), new Vector3(1.0f, 1.0f, 1.0f));
+       // Gizmos.DrawWireCube(new Vector2(physicBox.bounds.center.x + physicBox.bounds.extents.x * -facing, physicBox.bounds.center.y), new Vector3(1.0f, 1.0f, 1.0f));
     }
 
     protected void OnEnable()
@@ -232,9 +232,11 @@ public abstract class Champion : MonoBehaviour {
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
+        ManagerInGame gameManager = ManagerInGame.GetInstance();
         foreach (Sound s in soundEffects)
         {
             s.source = gameObject.AddComponent<AudioSource>();
+            gameManager.AddAudioSource(s.source);
             s.source.clip = s.clip;
             s.source.pitch = s.pitch;
             s.source.volume = audioVolumeManager.SoundEffectVolume;
