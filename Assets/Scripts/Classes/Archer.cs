@@ -124,7 +124,6 @@ public class Archer : Champion
             chargeLevel = Enum_ChargeLevel.medium;
             if (!playedOnceChargeOne)
             {
-                PlaySoundEffectRandomPitch("DrawArrowArcher");
                 ChangeParticleMaterial(1);
             }
         }

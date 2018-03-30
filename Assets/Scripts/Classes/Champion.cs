@@ -506,9 +506,9 @@ public abstract class Champion : MonoBehaviour {
     }
     protected virtual void SecondaryAttack()
     {
+        inputStatus = Enum_InputStatus.blocked;
         animator.SetTrigger("SecondaryAttack");
         ReduceStamina(specialAttack.staminaCost);
-        inputStatus = Enum_InputStatus.blocked;
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0.0f;
     }

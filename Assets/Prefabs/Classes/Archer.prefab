@@ -423,7 +423,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PowerUp
     clip: {fileID: 8300000, guid: bd7d7637f9f5f1946b20e18984e4ae49, type: 3}
-    pitch: 0
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   specialAttack:

@@ -31,7 +31,7 @@ public class Manabomb : Projectile {
     {
         base.SetImpact();
         GameObject newps = Instantiate(explosionEffect, this.transform);
-        PlaySoundEffect("Impact");
+        PlaySoundEffectRandomPitch("Impact");
         newps.transform.localPosition = newps.transform.localPosition * direction;
         Destroy(gameObject, timeToDestroy);
     }

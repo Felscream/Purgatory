@@ -169,7 +169,7 @@ public abstract class Projectile : MonoBehaviour {
         rb.velocity = Vector2.zero;
         sr.sortingOrder = -3;
         sr.enabled = false;
-        PlaySoundEffect("Impact");
+        PlaySoundEffectRandomPitch("Impact");
         Destroy(gameObject, timeToDestroy);
     }
     protected bool CanApplySpecialEffect(Champion foe)

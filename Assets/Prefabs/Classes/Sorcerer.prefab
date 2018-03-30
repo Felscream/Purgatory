@@ -443,7 +443,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: SpecialAttack
-    clip: {fileID: 8300000, guid: 46623322c082f2d48a9656cd71150c76, type: 3}
+    clip: {fileID: 8300000, guid: cc43a2a34d1bbfc48a20bdb46c64bc95, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -459,6 +459,11 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PowerUp
     clip: {fileID: 8300000, guid: 7fba4529b44f81d4aaf3571f7c1d5637, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: AltSpecialAttack
+    clip: {fileID: 8300000, guid: 46623322c082f2d48a9656cd71150c76, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
