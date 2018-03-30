@@ -15,7 +15,8 @@ public class Arrow : Projectile
     [SerializeField] protected Gradient poison;
     [SerializeField] protected Gradient slow;
     [SerializeField] protected Gradient stun;
-    [SerializeField] protected float poisonDamage = 2.0f;
+    [SerializeField] protected float poisonDamage = 3.0f;
+    [SerializeField] protected float poisonDuration = 4.0f;
     AudioSource audioSource;
     protected ParticleSystem.ColorOverLifetimeModule particleColor;
     protected Collider2D arrowCollider;
@@ -106,7 +107,7 @@ public class Arrow : Projectile
                 stunAnim.transform.Translate(new Vector3(0.0f, 0.0f, -0.1f));
                 stunAnim.transform.localScale += new Vector3(1.25F, 1.3F, 0);
                 Destroy(stunAnim, 5f);
-                foe.SetPoisonStatus(PoisonDamage);
+                foe.SetPoisonStatus(PoisonDamage, poisonDuration);
             }
             else
             {

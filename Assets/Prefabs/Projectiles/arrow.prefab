@@ -94,7 +94,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &70464804104778972
 CapsuleCollider2D:
@@ -147,7 +147,7 @@ MonoBehaviour:
   timeToDestroy: 1
   soundEffects:
   - name: Impact
-    clip: {fileID: 8300000, guid: 9df4510e6187cd947907c75253f3f314, type: 3}
+    clip: {fileID: 8300000, guid: 704657ed4b24b774e992dc3861f5d37a, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -272,6 +272,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
   poisonDamage: 2
+  poisonDuration: 4
 --- !u!114 &114984677698657860
 MonoBehaviour:
   m_ObjectHideFlags: 1

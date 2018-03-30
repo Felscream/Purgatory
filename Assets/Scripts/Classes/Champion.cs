@@ -70,8 +70,8 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float parryStunDuration = 2.0f;
 
     [Header("Guard Settings")]
-    [SerializeField] protected float damageReductionMultiplier = 0.2f;
-    [SerializeField] protected float blockStaminaCostMultiplier = 2.0f;
+    [SerializeField] protected float damageReductionMultiplier = 0.1f;
+    [SerializeField] protected float blockStaminaCostMultiplier = 1.4f;
 
     [Header("Stamina Settings")]
     [SerializeField] public float baseStamina = 100f;
@@ -249,7 +249,7 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void FixedUpdate()
     {
-        if (Health >= 25.0f)
+        if (Health >= baseHealth * 0.20f)
         {
             lowHealthOnce = false;
         }
@@ -377,7 +377,7 @@ public abstract class Champion : MonoBehaviour {
     {
         UpdateHUD();
         
-        if(Health < 25.0f && !lowHealthOnce)
+        if(Health < baseHealth * 0.20f && !lowHealthOnce)
         {
             PlaySoundEffect("LowHealth");
             lowHealthOnce = true;
@@ -586,6 +586,11 @@ public abstract class Champion : MonoBehaviour {
     public virtual void ReduceHealth(float amount, bool clashPossible = false, Champion attacker = null)
     {
         IncreaseLimitBreak(limitBreakOnDamage); //increase limit break
+        if(attacker != null && amount > 8.0f)
+        {
+            attacker.IncreaseLimitBreak(attacker.limitBreakOnHit);
+        }
+        
         if(damageDisplay == null)
         {
             InstantiateDamageDisplay();
@@ -721,6 +726,7 @@ public abstract class Champion : MonoBehaviour {
                     rb.velocity = Vector2.zero;
                     IncreaseLimitBreak(limitBreakOnParry);
                     attacker.SetStunStatus(parryStunDuration);
+                    PlaySoundEffect("Parry");
                 }
             }
         }

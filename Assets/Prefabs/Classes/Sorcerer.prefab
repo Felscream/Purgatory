@@ -400,9 +400,9 @@ MonoBehaviour:
   dodgeImmunityEndFrame: 15
   maxDodgeToken: 1
   dodgeToken: 1
-  parryStaminaCost: 60
-  parryImmunityStartFrame: 5
-  parryImmunityEndFrame: 11
+  parryStaminaCost: 40
+  parryImmunityStartFrame: 3
+  parryImmunityEndFrame: 9
   parryStunDuration: 2
   damageReductionMultiplier: 0.2
   blockStaminaCostMultiplier: 2
@@ -473,12 +473,17 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: LowHealth
-    clip: {fileID: 8300000, guid: 704657ed4b24b774e992dc3861f5d37a, type: 3}
+    clip: {fileID: 8300000, guid: e9ba793467a37304d9296c5a2759bc3f, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: UltReady
     clip: {fileID: 8300000, guid: 2ee46f15895972549a21fa43a38dbe8c, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Parry
+    clip: {fileID: 8300000, guid: 9df4510e6187cd947907c75253f3f314, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -515,7 +520,7 @@ MonoBehaviour:
     recoilForce: {x: 7, y: 0}
     projectionDuration: 1.5
     staminaCost: 10
-    damage: 20
+    damage: 13
     movementForce: 6
     guardBreaker: 0
     haveSpecialEffect: 0
