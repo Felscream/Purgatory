@@ -81,7 +81,7 @@ public abstract class PowerUp : MonoBehaviour {
             holder.PlaySoundEffect("PowerUp");
             if(holder.PowerUpParticleSystem != null)
             {
-                EnableParticleSystem();
+                holder.PowerUpParticleSystem.Play();
             }
             
         }
@@ -99,7 +99,7 @@ public abstract class PowerUp : MonoBehaviour {
                 powerUpStatus = Enum_PowerUpStatus.onCooldown;
                 if(holder.PowerUpParticleSystem != null)
                 {
-                    DisableParticleSystem();
+                    holder.PowerUpParticleSystem.Stop();
                 }
                 
                 cooldownTimer = 0.0f;

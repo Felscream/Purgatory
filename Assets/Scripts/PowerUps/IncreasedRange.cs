@@ -14,7 +14,7 @@ public class IncreasedRange : PowerUp
         if (holder.Fatigue)
         {
             powerUpStatus = Enum_PowerUpStatus.onCooldown;
-            DisableParticleSystem();
+            holder.PowerUpParticleSystem.Stop();
         }
         base.LateUpdate();
         if(powerUpStatus == Enum_PowerUpStatus.activated)
@@ -26,7 +26,7 @@ public class IncreasedRange : PowerUp
         else
         {
             disableTimer = 0.0f;
-            DisableParticleSystem();
+            holder.PowerUpParticleSystem.Stop();
         }
         
     }

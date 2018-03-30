@@ -206,6 +206,7 @@ public class ManagerInGame : MonoBehaviour {
             defender.determination--;
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
+            audioManager.PlaySoundEffect("DefenseWin");
         }
         
         //Animation at the end of a clash

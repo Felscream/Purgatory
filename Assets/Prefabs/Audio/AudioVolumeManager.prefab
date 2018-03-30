@@ -88,3 +88,8 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: DefenseWin
+    clip: {fileID: 8300000, guid: c225ce7ed0e4f084fa689d34703af83c, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

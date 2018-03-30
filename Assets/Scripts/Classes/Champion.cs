@@ -222,8 +222,7 @@ public abstract class Champion : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         if(powerUpParticleSystem != null)
         {
-            ParticleSystem.EmissionModule temp = powerUpParticleSystem.emission;
-            temp.enabled = false;
+            powerUpParticleSystem.Stop();
         }
         if (ultimateParticleSystem != null)
         {
@@ -1435,11 +1434,13 @@ public abstract class Champion : MonoBehaviour {
             Vector2 pointB;
             if(facing < 0)
             {
+                Debug.Log(physicBox.bounds.max.x + " " + physicBox.bounds.min.x);
                 pointA = new Vector2(physicBox.bounds.max.x, physicBox.bounds.min.y + physicBox.bounds.extents.y/6);
                 pointB = new Vector2(physicBox.bounds.max.x + physicBox.bounds.extents.x, physicBox.bounds.max.y);
             }
             else
             {
+                Debug.Log(physicBox.bounds.max.x + " " + physicBox.bounds.min.x);
                 pointA = new Vector2(physicBox.bounds.min.x, physicBox.bounds.min.y + physicBox.bounds.extents.y / 6);
                 pointB = new Vector2(physicBox.bounds.min.x - physicBox.bounds.extents.x, physicBox.bounds.max.y);
             }
@@ -1542,6 +1543,10 @@ public abstract class Champion : MonoBehaviour {
     public virtual void DeathBehaviour()
     {
         animator.SetBool("Dead", true);
+        if(powerUpParticleSystem != null)
+        {
+            powerUpParticleSystem.Play();
+        }
     }
 
     protected void InstantiateDamageDisplay()
