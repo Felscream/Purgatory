@@ -52,7 +52,7 @@ public class AddChampion : MonoBehaviour {
 		{        
 			// Si on ne passe pas par LobbyManager
 			CreateChampion(player1, 2, HUDPlayer1);
-			CreateChampion(player2, 3, HUDPlayer2);
+			CreateChampion(player2, 2, HUDPlayer2);
 			CreateChampion(player3, 2, HUDPlayer3);
 			CreateChampion(player4, 1, HUDPlayer4);
 		}

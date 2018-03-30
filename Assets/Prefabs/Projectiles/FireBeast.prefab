@@ -167,7 +167,7 @@ MonoBehaviour:
   recoilForce: {x: 0, y: 0}
   timeToDestroy: 1.1
   soundEffects:
-  - name: Spawn
+  - name: Ultimate
     clip: {fileID: 8300000, guid: 35ae24b814524b64dade2eb450ef2480, type: 3}
     pitch: 1
     loop: 0

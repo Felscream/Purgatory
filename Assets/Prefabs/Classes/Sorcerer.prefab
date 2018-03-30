@@ -448,7 +448,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Ultimate
-    clip: {fileID: 8300000, guid: 90682229050f4ef44a53a80d291e1b70, type: 3}
+    clip: {fileID: 8300000, guid: ff46729cad8ab9f46aa8fe504d8174cc, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -464,6 +464,21 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: AltSpecialAttack
     clip: {fileID: 8300000, guid: 46623322c082f2d48a9656cd71150c76, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LowStamina
+    clip: {fileID: 8300000, guid: e5d2d982fd675aa4994355dca83cb56d, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LowHealth
+    clip: {fileID: 8300000, guid: 704657ed4b24b774e992dc3861f5d37a, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UltReady
+    clip: {fileID: 8300000, guid: 2ee46f15895972549a21fa43a38dbe8c, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -501,7 +516,7 @@ MonoBehaviour:
     projectionDuration: 1.5
     staminaCost: 10
     damage: 20
-    movementForce: 2
+    movementForce: 6
     guardBreaker: 0
     haveSpecialEffect: 0
     specialEffect: 0
@@ -555,11 +570,11 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1620431759425630}
   serializedVersion: 5
-  lengthInSec: 0.2
+  lengthInSec: 1.5
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
-  prewarm: 1
+  looping: 0
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 0
@@ -1168,7 +1183,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 10000
       minScalar: 10
       maxCurve:
         serializedVersion: 2

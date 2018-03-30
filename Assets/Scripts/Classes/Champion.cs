@@ -171,7 +171,9 @@ public abstract class Champion : MonoBehaviour {
     protected string ParryButton = "Parry";
     protected string ActionButton = "Action";
 
-
+    protected bool lowHealthOnce = false;
+    protected bool lowStaminaOnce = false;
+    protected bool ultOnce = false;
     protected AudioSource audioSource; // remove when narrator is fully implemented
     private void OnDrawGizmos()
     {
@@ -235,7 +237,10 @@ public abstract class Champion : MonoBehaviour {
         foreach (Sound s in soundEffects)
         {
             s.source = gameObject.AddComponent<AudioSource>();
-            gameManager.AddAudioSource(s.source);
+            if(s.name == "Ultimate")
+            {
+                gameManager.AddAudioSource(s.source);
+            }
             s.source.clip = s.clip;
             s.source.pitch = s.pitch;
             s.source.volume = audioVolumeManager.SoundEffectVolume;
@@ -244,7 +249,11 @@ public abstract class Champion : MonoBehaviour {
     }
     protected void FixedUpdate()
     {
-        if(specialStatus != Enum_SpecialStatus.projected || dead)
+        if (Health >= 25.0f)
+        {
+            lowHealthOnce = false;
+        }
+        if (specialStatus != Enum_SpecialStatus.projected || dead)
         {
             DynamicFall();
         }
@@ -367,6 +376,23 @@ public abstract class Champion : MonoBehaviour {
     protected virtual void LateUpdate()
     {
         UpdateHUD();
+        
+        if(Health < 25.0f && !lowHealthOnce)
+        {
+            PlaySoundEffect("LowHealth");
+            lowHealthOnce = true;
+        }
+        if(Fatigue && !lowStaminaOnce)
+        {
+            PlaySoundEffect("LowStamina");
+            lowStaminaOnce = true;
+            
+        }
+        if(limitBreakGauge == maxLimitBreakGauge && !ultOnce)
+        {
+            PlaySoundEffect("UltReady");
+            ultOnce = true;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -492,6 +518,7 @@ public abstract class Champion : MonoBehaviour {
     {
         immune = false;
         limitBreakGauge = 0.0f;
+        ultOnce = false;
     }
 
     protected virtual void PrimaryAttack()
@@ -731,6 +758,7 @@ public abstract class Champion : MonoBehaviour {
         else //if(stamina >= baseStamina*0.25f) // Au moins 25% de la stamina
         {
             fatigued = false;
+            lowStaminaOnce = false;
         }
     }
     protected virtual void CheckParry()

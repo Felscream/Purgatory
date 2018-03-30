@@ -426,6 +426,21 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: LowStamina
+    clip: {fileID: 8300000, guid: e5d2d982fd675aa4994355dca83cb56d, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LowHealth
+    clip: {fileID: 8300000, guid: 704657ed4b24b774e992dc3861f5d37a, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UltReady
+    clip: {fileID: 8300000, guid: 2ee46f15895972549a21fa43a38dbe8c, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   specialAttack:
     offset: {x: 0, y: 0}
     size: {x: 1, y: 1}

@@ -38,7 +38,10 @@ public abstract class Projectile : MonoBehaviour {
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-            gameManager.AddAudioSource(s.source);
+            if(s.name == "Ultimate")
+            {
+                gameManager.AddAudioSource(s.source);
+            }
             s.source.pitch = s.pitch;
             s.source.volume = audioVolumeManager.SoundEffectVolume;
             s.source.spatialBlend = 0.0f;

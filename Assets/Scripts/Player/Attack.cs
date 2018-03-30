@@ -56,20 +56,24 @@ public class Attack {
         {
             foreach (Collider2D enemy in enemies)
             {
-                if (enemy.gameObject.tag.Equals("Breakable"))
+                BreakableLife bl = enemy.GetComponent<BreakableLife>();
+                if (bl != null)
                 {
-                    BreakableLife breakableLife = enemy.gameObject.GetComponent<BreakableLife>();
-                    breakableLife.TakeDamage(1);
-                }
-                if (enemy.gameObject.tag.Equals("BreakingOrb"))
-                {       
-                    BreakingOrb breakingOrb = enemy.gameObject.GetComponent<BreakingOrb>();
-                    breakingOrb.TakeDamage(1);
+                    bl.TakeDamage(1);
                 }
                 else
                 {
-                    DealDamageToEnemy(enemy);
+                    BreakingOrb orb = enemy.GetComponent<BreakingOrb>();
+                    if (orb != null)
+                    {
+                        orb.TakeDamage(1);
+                    }
+                    else
+                    {
+                        DealDamageToEnemy(enemy);
+                    }
                 }
+                
             }
         }  
     }
