@@ -10,7 +10,7 @@ public class BreakingOrb : MonoBehaviour {
 	private Collider2D coll;
 	// Use this for initialization
 	void Start () {
-		life= Random.Range(2,2);
+		life= Random.Range(7,11);
 		anim = GetComponent<Animator>();
 		rgb = GetComponent<Rigidbody2D>();
 		coll = GetComponent<Collider2D>();

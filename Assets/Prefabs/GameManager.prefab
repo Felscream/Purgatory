@@ -1518,9 +1518,9 @@ MonoBehaviour:
   backgroundEffect: {fileID: 1963234621760186, guid: 18a240f5fb1839b41ae31df7f45ec9c8,
     type: 2}
   ouroborosFirstShakeTimer: 1.6
-  firstShakes: 8
-  ouroborosSecondShakeTimer: 5.9
-  secondShakes: 8
+  firstShakes: 30
+  ouroborosSecondShakeTimer: 4.9
+  secondShakes: 25
 --- !u!114 &114036607667915806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2340,10 +2340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821a01b8ea8d53e4ba3e72c316cfd557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HUDPlayer1: {fileID: 225937129944746780}
-  HUDPlayer2: {fileID: 225781334948817150}
-  HUDPlayer3: {fileID: 225858193613016954}
-  HUDPlayer4: {fileID: 225415496480462960}
+  HUDPlayer1: {fileID: 0}
+  HUDPlayer2: {fileID: 0}
+  HUDPlayer3: {fileID: 0}
+  HUDPlayer4: {fileID: 0}
   prefabKnight: {fileID: 114470239705895466, guid: e31ae7b694638b345a0c56e2cf54ac0f,
     type: 2}
   prefabSorcerer: {fileID: 114244444951551434, guid: 07d47c73da75d6948b85cc3bbbc00e77,
