@@ -93,3 +93,23 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: BoulderTrap
+    clip: {fileID: 8300000, guid: 54807945fdcd7dd4fb572f7c19a421f7, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HealthPickUp
+    clip: {fileID: 8300000, guid: 8da2b127304d8934faf26b60270ecd6b, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: StaminaPickUp
+    clip: {fileID: 8300000, guid: 49e68b29bcc3d4b49b6e8b2088537725, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Ouroboros
+    clip: {fileID: 8300000, guid: d85245041ce23e340b50ad5f65b9997e, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

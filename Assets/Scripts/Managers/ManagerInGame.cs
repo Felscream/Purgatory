@@ -34,6 +34,11 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] protected GameObject attackerAura;
     [SerializeField] protected GameObject defenderAura;
     [SerializeField] protected GameObject backgroundEffect;
+    [SerializeField] private float ouroborosFirstShakeTimer;
+    [SerializeField] private int firstShakes;
+    [SerializeField] private float ouroborosSecondShakeTimer;
+    [SerializeField] private int secondShakes;
+
     private List<AudioSource> agentsAudioSources = new List<AudioSource>();
 
     //camera variables
@@ -342,5 +347,24 @@ public class ManagerInGame : MonoBehaviour {
         orthographicSize = orthographicSize > defaultOrthographicSize ? defaultOrthographicSize : orthographicSize;
         
         return orthographicSize;
+    }
+
+    public IEnumerator Ouroboros()
+    {
+        AddAudioSource(audioManager.ouroborosAudioSource);
+        float timer = 0.0f;
+        audioManager.PlaySoundEffect("Ouroboros");
+        while (timer < ouroborosFirstShakeTimer)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        cameraController.Shake(10, firstShakes, 100, true);
+        while (timer < ouroborosSecondShakeTimer)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        cameraController.Shake(10, secondShakes, 100, true);
     }
 }

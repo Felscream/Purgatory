@@ -13,6 +13,7 @@ public class AudioVolumeManager : MonoBehaviour {
     private float soundEffectVolume = 0.75f;
     private float voiceVolume = 0.75f;
     private string fileName = "volumeData.dat";
+    [NonSerialized] public AudioSource ouroborosAudioSource;
 
     [SerializeField] private Sound[] themes;
     [SerializeField] private Sound[] soundEffects;
@@ -103,6 +104,10 @@ public class AudioVolumeManager : MonoBehaviour {
         foreach (Sound s in soundEffects)
         {
             s.source = gameObject.AddComponent<AudioSource>();
+            if(s.name == "Ouroboros")
+            {
+                ouroborosAudioSource = s.source;
+            }
             s.source.clip = s.clip;
             s.source.pitch = s.pitch;
             s.source.volume = soundEffectVolume;

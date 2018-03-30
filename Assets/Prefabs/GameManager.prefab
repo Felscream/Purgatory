@@ -1517,6 +1517,10 @@ MonoBehaviour:
     type: 2}
   backgroundEffect: {fileID: 1963234621760186, guid: 18a240f5fb1839b41ae31df7f45ec9c8,
     type: 2}
+  ouroborosFirstShakeTimer: 1.6
+  firstShakes: 8
+  ouroborosSecondShakeTimer: 5.9
+  secondShakes: 8
 --- !u!114 &114036607667915806
 MonoBehaviour:
   m_ObjectHideFlags: 1
