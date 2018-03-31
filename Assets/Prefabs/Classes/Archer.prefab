@@ -397,7 +397,7 @@ MonoBehaviour:
   powerUpParticleSystem: {fileID: 0}
   hitBoxLayer:
     serializedVersion: 2
-    m_Bits: 33024
+    m_Bits: 557312
   maxAttackToken: 1
   ultimateQuotes: []
   soundEffects:
