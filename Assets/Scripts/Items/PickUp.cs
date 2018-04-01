@@ -29,19 +29,19 @@ public class PickUp : MonoBehaviour {
 			if (other.gameObject.tag.Equals ("Health")) {
 				player.Health += HealthAmount;
                 audioManager.PlaySoundEffect("HealthPickUp");
-				Debug.Log ("Health: " + player.Health);
+				//Debug.Log ("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
 				InvokeRepeating ("StaminaRecover", 1, 1);
                 audioManager.PlaySoundEffect("StaminaPickUp");
-                Debug.Log ("Stamina: " + player.Stamina);
+                //Debug.Log ("Stamina: " + player.Stamina);
 			}
 			if (other.gameObject.tag.Equals ("BreakingOrb")) {
 				//InvokeRepeating("LimitBreakUp",1,1);
 				player.IncreaseLimitBreak(LimitBreakAmount);
 				player.Health += player.BaseHealth * 0.65f;
                 StartCoroutine(gameManager.Ouroboros());
-				Debug.Log ("Ajout des buffs ouroboros");
+				//Debug.Log ("Ajout des buffs ouroboros");
 			}
 			other.gameObject.SetActive (false);
 		}

@@ -36,7 +36,6 @@ public class BreakingOrb : MonoBehaviour {
 			Destroy(rgb);
 			coll.isTrigger = true;
 			this.gameObject.layer = 16;
-			Debug.Log ("layer :" + this.gameObject.layer);
 		}
 	}
 }

@@ -29,6 +29,7 @@ public class Archer : Champion
     [SerializeField] protected Vector2 projectileSpawnOffsetArrow;
 
     [Header("UltimateArrow")]
+    [SerializeField] private Vector2 ultimateJumpForce = new Vector2(2, 5);
     [SerializeField] protected GameObject ultimateArrow;
     [SerializeField] protected Vector3[] arrowAngles = new Vector3[3];
 
@@ -267,10 +268,26 @@ public class Archer : Champion
 
     protected override void Ultimate()
     {
-        EndAttackString();
-        //inputStatus = Enum_InputStatus.blocked;
-        animator.SetBool("Ultimate", true);
+        inputStatus = Enum_InputStatus.blocked;
+        if (IsGrounded())
+        {
+            Vector2 temp = new Vector2(ultimateJumpForce.x * -facing, ultimateJumpForce.y);
+            rb.AddForce(temp, ForceMode2D.Force);
+        }
+        animator.SetBool("Fall", false);
+        animator.SetTrigger("Ultimate");
         rb.velocity = Vector2.zero;
+        //rb.isKinematic = true;
+        rb.gravityScale = 0.0f;
+        immune = true;
+    }
+
+    protected void SpawnUltimateArrows()
+    {
+        
+        //inputStatus = Enum_InputStatus.blocked;
+        rb.velocity = Vector2.zero;
+        rb.gravityScale = 1.0f;
         ClearArrowList();
         //immune = true;
         Vector2 SpawnPoint = new Vector2(transform.position.x + projectileSpawnOffsetArrow.x * facing, transform.position.y + projectileSpawnOffsetArrow.y);
@@ -285,7 +302,6 @@ public class Archer : Champion
             Physics2D.IgnoreCollision(ar.GetComponent<Collider2D>(), physicBox);
             float xForce = ar.Force.magnitude * Mathf.Abs(Mathf.Cos(arrowAngles[i].z)) * facing;
             float yForce = ar.Force.magnitude * Mathf.Abs(Mathf.Sin(arrowAngles[i].z)) * Mathf.Sign(arrowAngles[i].z);
-            Debug.Log(xForce +" "+ yForce);
             switch (i)
             {
                 case 0:
@@ -303,8 +319,10 @@ public class Archer : Champion
             }
             Vector2 forceArr = new Vector2(xForce, yForce);
             ar.GetComponent<Rigidbody2D>().AddForce(forceArr);
+            PlaySoundEffect("ArrowRelease");
         }
-        
+        immune = false;
+        EndAttackString();
         ResetLimitBreak();
     }
 

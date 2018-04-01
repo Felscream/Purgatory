@@ -128,7 +128,7 @@ public abstract class Champion : MonoBehaviour {
     protected int attackToken = 1;
     protected float distToGround, facing;
     protected Rigidbody2D rb;
-    protected Animator animator;
+    [NonSerialized] public Animator animator;
     protected Vector2 savedVelocity;
     protected Vector2 wallColliderPosition;
     protected Collider2D playerBox;
@@ -237,7 +237,7 @@ public abstract class Champion : MonoBehaviour {
         foreach (Sound s in soundEffects)
         {
             s.source = gameObject.AddComponent<AudioSource>();
-            if(s.name == "Ultimate")
+            if(s.name == "Ultimate" || s.name == "Death")
             {
                 gameManager.AddAudioSource(s.source);
             }
@@ -540,6 +540,12 @@ public abstract class Champion : MonoBehaviour {
         rb.gravityScale = 0.0f;
     }
     protected abstract void Ultimate();
+
+    public void EndUltLoop()
+    {
+        animator.SetTrigger("UltLaunch");
+    }
+
     protected abstract void CastHitBox(int attackType);
     protected void StartAttackString()
     {
@@ -1543,7 +1549,7 @@ public abstract class Champion : MonoBehaviour {
         {
             id = UnityEngine.Random.Range(0, ultimateQuotes.Length);
             audioSource.PlayOneShot(ultimateQuotes[id], audioVolumeManager.VoiceVolume);
-            StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length));
+            StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length, this));
         }
     }
 

@@ -205,14 +205,13 @@ public class Sorcerer : Champion
     }
     protected override void Ultimate()
     {
-        
         inputStatus = Enum_InputStatus.blocked;
-        animator.SetBool("Ultimate", true);
+        animator.SetBool("Fall", false);
+        animator.SetTrigger("Ultimate");
         rb.velocity = Vector2.zero;
         //rb.isKinematic = true;
         rb.gravityScale = 0.0f;
         immune = true;
-        
     }
 
     public void CastBarrier()
@@ -220,14 +219,19 @@ public class Sorcerer : Champion
         if (!ultimate)
         {
             animator.SetBool("Barrier", true);
-            animator.SetBool("Ultimate", false);
+            //animator.SetBool("Ultimate", false);
             StartCoroutine(CastBarrierCoroutine());
+            ultimate = true;
         }
-        
     }
+    
+    public void DisableUltimateBool()
+    {
+        animator.SetBool("Ultimate", false);
+    }
+
     private IEnumerator CastBarrierCoroutine()
     {
-        ultimate = true;
         ultimateParticleSystem.Play();
         float timer = 0.0f;
         PlaySoundEffect("Ultimate");

@@ -383,7 +383,7 @@ MonoBehaviour:
   primaryFireStaminaCost: 10
   secondaryFireStaminaCost: 10
   maxLimitBreakGauge: 100
-  limitBreakPerSecond: 3
+  limitBreakPerSecond: 100
   limitBreakOnHit: 10
   limitBreakOnDamage: 5
   limitBreakOnParry: 25
@@ -399,7 +399,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33024
   maxAttackToken: 1
-  ultimateQuotes: []
+  ultimateQuotes:
+  - {fileID: 8300000, guid: ef0dae97c2fde204ba64e67af681e346, type: 3}
   soundEffects:
   - name: DrawArrowArcher
     clip: {fileID: 8300000, guid: 3affcab4110436e4a9d50fd274332d11, type: 3}
@@ -486,6 +487,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: a2724775da6e8f14b8da254233b0eff5, type: 2}
   arrow: {fileID: 1571805999357984, guid: 7235c12db6e37f3459e031006ad4f9a9, type: 2}
   projectileSpawnOffsetArrow: {x: 1.21, y: 0}
+  ultimateJumpForce: {x: 300, y: 400}
   ultimateArrow: {fileID: 1086499213229864, guid: e89d30dae4a8d2446949335453c9b4c4,
     type: 2}
   arrowAngles:

@@ -62,15 +62,13 @@ public class UltimateArrow : Arrow {
                 }
                 else
                 {
-                    Debug.Log("Collision with" + collision.gameObject.name);
                     Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
                 }
             }
             else
             {
-                Debug.Log("Collision with" + collision.gameObject.name);
+                //PlaySoundEffectRandomPitch("WallImpact");
             }
-            
         }
     }
 

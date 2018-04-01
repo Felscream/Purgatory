@@ -324,28 +324,41 @@ public class ManagerInGame : MonoBehaviour {
         }
     }
 
-    public IEnumerator UltimateCameraEffect(Vector2 position, float waitTime)
+    public IEnumerator UltimateCameraEffect(Vector2 position, float waitTime, Champion champion)
     {
         PauseAgentsAudio();
         Time.timeScale = 0.0001f;
+        champion.animator.speed = 1 / Time.timeScale;
         StartCoroutine(cameraController.ZoomIn(position, waitTime));
         yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
         Time.timeScale = 1.0f;
+        champion.EndUltLoop();
+        champion.animator.speed = Time.timeScale;
         UnpauseAgentsAudio();
     }
 
     public float ComputeOrthographicSize(Vector2 pOne, Vector2 pTwo)
     {
-        float orthographicSize;
-         
-        Vector2 pTwoTemp = new Vector2(pTwo.x, pOne.y);
-        float distance = Vector2.Distance(pOne, pTwoTemp) + 2; //le +2 donne juste de la marge pour faire apparaitre les persos à l'écran
-        float horRes = (distance / 40) * 1920;  //utiliser Screen.Width si on veut changer la résolution
-        float vertRes = horRes * (9.0f / 16.0f); //utiliser Screen.Width / Screen.Height si on veut changer la résolution
-        orthographicSize = vertRes / (32 * 1.5f) * 0.5f; //Mettre 32 (Pixel Per Unit) et 1.5f (Pixel Scale) en constante quelque part
+        float orthographicSize = defaultOrthographicSize;
+        Vector2 pTwoTemp;
+        if (Mathf.Abs(pOne.x - pTwo.x) > Mathf.Abs(pOne.y - pTwo.y))
+        {
+            pTwoTemp = new Vector2(pTwo.x, pOne.y);
+            float distance = Vector2.Distance(pOne, pTwoTemp) + 2; //le +2 donne juste de la marge pour faire apparaitre les persos à l'écran
+            float horRes = (distance / 40) * 1920;  //utiliser Screen.Width si on veut changer la résolution
+            float vertRes = horRes * (9.0f / 16.0f); //utiliser Screen.Width / Screen.Height si on veut changer la résolution
+            orthographicSize = vertRes / (32 * 1.5f) * 0.5f; //Mettre 32 (Pixel Per Unit) et 1.5f (Pixel Scale) en constante quelque part
+            
+        }
+        else
+        {
+            pTwoTemp = new Vector2(pOne.x, pTwo.y);
+            float distance = Vector2.Distance(pOne, pTwoTemp) + 8.0f;
+            float vertRes = (distance / 25) * 1080;
+            orthographicSize = vertRes / (32 * 1.5f) * 0.5f;
+        }
         orthographicSize = orthographicSize < defaultZoomOrthographicSize ? defaultZoomOrthographicSize : orthographicSize;
         orthographicSize = orthographicSize > defaultOrthographicSize ? defaultOrthographicSize : orthographicSize;
-        
         return orthographicSize;
     }
 

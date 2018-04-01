@@ -137,11 +137,12 @@ public class Knight : Champion
         {
             EndAttackString();
             inputStatus = Enum_InputStatus.blocked;
-            animator.SetBool("Ultimate", true);
+            animator.SetTrigger("Ultimate");
             rb.velocity = Vector2.zero;
             immune = true;
         }
     }
+
 
     public void SpawnFireBeast()
     {
