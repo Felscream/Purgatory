@@ -82,7 +82,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float secondaryFireStaminaCost = 40f;
 
     [Header("Limit Break Settings")]
-    [SerializeField] protected float maxLimitBreakGauge = 100;
+    [SerializeField] public float maxLimitBreakGauge = 100;
     [SerializeField] public float limitBreakPerSecond = 0.40f;
     [SerializeField] protected float limitBreakOnHit = 2.5f;
     [SerializeField] protected float limitBreakOnDamage = 1.0f;

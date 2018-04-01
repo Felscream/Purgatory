@@ -38,7 +38,8 @@ public class PickUp : MonoBehaviour {
 			}
 			if (other.gameObject.tag.Equals ("BreakingOrb")) {
 				//InvokeRepeating("LimitBreakUp",1,1);
-				player.IncreaseLimitBreak(LimitBreakAmount);
+				player.IncreaseLimitBreak(player.maxLimitBreakGauge*0.4f);
+				Debug.Log (player.LimitBreakGauge);
 				player.Health += player.BaseHealth * 0.65f;
                 StartCoroutine(gameManager.Ouroboros());
 				//Debug.Log ("Ajout des buffs ouroboros");
