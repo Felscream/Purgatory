@@ -653,6 +653,7 @@ public abstract class Champion : MonoBehaviour {
 
         GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
         SpriteRenderer[] sprites = parent.GetComponentsInChildren<SpriteRenderer>();
+        SetNormalStatus();
         foreach (SpriteRenderer sprite in sprites)
         {
             sprite.sortingLayerName = "Default";
@@ -1486,13 +1487,11 @@ public abstract class Champion : MonoBehaviour {
             Vector2 pointB;
             if(facing < 0)
             {
-                Debug.Log(physicBox.bounds.max.x + " " + physicBox.bounds.min.x);
                 pointA = new Vector2(physicBox.bounds.max.x, physicBox.bounds.min.y + physicBox.bounds.extents.y/6);
                 pointB = new Vector2(physicBox.bounds.max.x + physicBox.bounds.extents.x, physicBox.bounds.max.y);
             }
             else
             {
-                Debug.Log(physicBox.bounds.max.x + " " + physicBox.bounds.min.x);
                 pointA = new Vector2(physicBox.bounds.min.x, physicBox.bounds.min.y + physicBox.bounds.extents.y / 6);
                 pointB = new Vector2(physicBox.bounds.min.x - physicBox.bounds.extents.x, physicBox.bounds.max.y);
             }

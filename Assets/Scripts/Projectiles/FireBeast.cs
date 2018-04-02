@@ -20,7 +20,7 @@ public class FireBeast : Projectile {
     protected override void Awake()
     {
         base.Awake();
-        PlaySoundEffect("Spawn");
+        PlaySoundEffect("Ultimate");
     }
     protected override void Start()
     {
