@@ -641,14 +641,14 @@ public abstract class Champion : MonoBehaviour {
         animator.ResetTrigger("SecondaryAttack");
         animator.speed = (1 / Time.timeScale);
         isClashing = true;
-        GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
-        SpriteRenderer[] sprites = parent.GetComponentsInChildren<SpriteRenderer>();
+        //GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
        // controller.AddRumble(0.1f, new Vector2(0.4f, 0.4f), 0.1f);
-        foreach(SpriteRenderer sprite in sprites)
-        {
+        /*foreach(SpriteRenderer sprite in sprites)
+        {*/
             sprite.sortingLayerName = "Clash";
             sprite.sortingOrder = 10;
-        }
+        //}
     }
     public void NormalMode()
     {

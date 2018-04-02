@@ -174,7 +174,7 @@ public class ManagerInGame : MonoBehaviour {
         GetComponentInChildren<AddChampion>().HUDPlayer4.gameObject.SetActive(false);
         ClashHUD.SetActive(true);
         background.SetActive(true);
-        while (alpha < 1)
+        while (alpha < 0.6f)
         {
             alpha += Time.unscaledDeltaTime*2;
             color = background.GetComponent<SpriteRenderer>().color;
@@ -231,7 +231,7 @@ public class ManagerInGame : MonoBehaviour {
             StartCoroutine(cameraController.ZoomOut(startingPos));
         }
         cameraController.ZoomDuration = zd;
-        alpha = 1;
+        alpha = 0.6f;
         canvas.gameObject.SetActive(false);
         while (alpha > 0)
         {
