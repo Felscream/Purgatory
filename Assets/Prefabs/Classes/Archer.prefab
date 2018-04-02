@@ -413,7 +413,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Death
-    clip: {fileID: 8300000, guid: cd6e013fb677fa94ca3f79dc5d89f095, type: 3}
+    clip: {fileID: 8300000, guid: ef0d197f88682c04a900c7626774fec6, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -444,6 +444,16 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Parry
     clip: {fileID: 8300000, guid: 9df4510e6187cd947907c75253f3f314, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Death1
+    clip: {fileID: 8300000, guid: 1a3523a75602a2d4bb449ed77dc7d678, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Death2
+    clip: {fileID: 8300000, guid: eb61b5aac50e9da40ab8cd463c2dcf90, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}

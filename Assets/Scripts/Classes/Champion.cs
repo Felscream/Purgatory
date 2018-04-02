@@ -1563,6 +1563,10 @@ public abstract class Champion : MonoBehaviour {
                 animator.SetBool(parameter.name, false);
             }
         }
+        if (!IsGrounded())
+        {
+            Fall();
+        }
         dead = true;
         playerBox.enabled = false;
         StopMovement(1);
