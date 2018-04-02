@@ -383,7 +383,7 @@ MonoBehaviour:
   primaryFireStaminaCost: 10
   secondaryFireStaminaCost: 10
   maxLimitBreakGauge: 100
-  limitBreakPerSecond: 100
+  limitBreakPerSecond: 3
   limitBreakOnHit: 10
   limitBreakOnDamage: 5
   limitBreakOnParry: 25

@@ -176,7 +176,7 @@ public abstract class Champion : MonoBehaviour {
     protected bool ultOnce = false;
     protected AudioSource audioSource; // remove when narrator is fully implemented
     [NonSerialized] public Transform originalParent;
-    X360_controller controller;
+    protected X360_controller controller;
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -279,101 +279,104 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!dead)
         {
+            if(controller != null)
+            {
+                RegenerateStaminaPerSecond();
+                RegenerateLimitBreakPerSecond();
+                ControlCoyote();
+                CheckStunLock();
+                CheckFatigue();
+                if (isClashing)
+                {
+                    if (controller.GetButtonDown("A"))
+                    {
+                        clashClick++;
+                    }
+                    return;
+                }
+                CheckDodge();
+                CheckParry();
+
+                if (InputStatus == Enum_InputStatus.blocked && specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
+                {
+                    StopMovement(0);
+                }
+                else
+                {
+                    if (controller.GetTrigger_L() >= 0.6f && controller.GetTrigger_R() >= 0.6f)
+                    {
+                        CheckUltimate();
+                    }
+                    else if (controller.GetTrigger_R() >= 0.6f && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
+                    {
+                        if (powerUp != null)
+                        {
+                            powerUp.ActivatePowerUp();
+                        }
+                    }
+
+                    if (controller.GetButtonDown("Y") && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
+                    {
+                        SecondaryAttack();
+                    }
+
+                    // Action button
+                    if (controller.GetButtonDown("RB") && trapLever != null && InputStatus != Enum_InputStatus.onlyMovement)
+                    {
+                        Debug.Log("ActionButton");
+                        if (trapLever.canEngage)
+                        {
+                            trapLever.Engage();
+                        }
+                    }
+
+                    if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
+                    {
+                        if (guardStatus == Enum_GuardStatus.noGuard && !Fatigue)
+                        {
+                            if (controller.GetButtonDown("X"))
+                            {
+                                PrimaryAttack();
+                            }
+                        }
+
+                        if (controller.GetTrigger_L() != 0 && guardStatus != Enum_GuardStatus.parrying && !Fatigue)
+                        {
+                            guardStatus = Enum_GuardStatus.guarding;
+                            animator.SetBool("Guarding", true);
+                        }
+                        if (controller.GetTrigger_L() == 0)
+                        {
+                            guardStatus = Enum_GuardStatus.noGuard;
+                            animator.SetBool("Guarding", false);
+                        }
+                    }
+
+                    if (InputStatus != Enum_InputStatus.onlyAttack)
+                    {
+                        if (controller.GetStick_L().Y <= -0.8f && controller.GetButtonDown("A"))
+                        {
+                            if (IsGrounded())
+                            {
+                                GoDown();
+                            }
+                            else
+                            {
+                                GuardBreak();
+                            }
+
+                        }
+                        else if (controller.GetButtonDown("A"))
+                        {
+                            jumping = true;
+                        }
+
+                        movementX = Mathf.Ceil(controller.GetStick_L().X);
+                    }
+
+                }
+            }
             
-            RegenerateStaminaPerSecond();
-            RegenerateLimitBreakPerSecond();
-            ControlCoyote();
-            CheckStunLock();
-            CheckFatigue();
-            if (isClashing)
-            {
-                if (Input.GetButtonDown(JumpButton))
-                {
-                    clashClick++;
-                }
-                return;
-            }
-            CheckDodge();
-            CheckParry();
-
-            if (InputStatus == Enum_InputStatus.blocked && specialStatus != Enum_SpecialStatus.projected && specialStatus != Enum_SpecialStatus.stun)
-            {
-                StopMovement(0);
-            }
-            else
-            {
-                if(Input.GetAxis(PowerUpButton) >= 0.6f && Input.GetAxis(GuardButton) >= 0.6f)
-                {
-                    CheckUltimate();
-                }
-                else if (Input.GetAxis(PowerUpButton) >= 0.6f && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.available)
-                {
-                    if(powerUp != null)
-                    {
-                        powerUp.ActivatePowerUp();
-                    }
-                }
-                
-                if (Input.GetButtonDown(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard)
-                {
-                    SecondaryAttack();
-                }
-
-                // Action button
-                if (Input.GetButtonDown(ActionButton) && trapLever != null && InputStatus != Enum_InputStatus.onlyMovement)
-                {
-                    Debug.Log("ActionButton");
-                    if ( trapLever.canEngage)
-                    {
-                        trapLever.Engage();
-                    }
-                }
-
-                if (IsGrounded() && InputStatus != Enum_InputStatus.onlyMovement)
-                {
-                    if (guardStatus == Enum_GuardStatus.noGuard && !Fatigue)
-                    {
-                        if (Input.GetButtonDown(PrimaryAttackButton))
-                        {
-                            PrimaryAttack();
-                        }
-                    }
-
-                    if (Input.GetAxisRaw(GuardButton) != 0 && guardStatus != Enum_GuardStatus.parrying && !Fatigue)
-                    {
-                        guardStatus = Enum_GuardStatus.guarding;
-                        animator.SetBool("Guarding", true);
-                    }
-                    if (Input.GetAxis(GuardButton) != 1)
-                    {
-                        guardStatus = Enum_GuardStatus.noGuard;
-                        animator.SetBool("Guarding", false);
-                    }
-                }
-
-                if (InputStatus != Enum_InputStatus.onlyAttack )
-                {
-                    if (Input.GetAxis(VerticalCtrl) <= -0.8f && Input.GetButtonDown(JumpButton))
-                    {
-                        if (IsGrounded())
-                        {
-                            GoDown();
-                        }
-                        else
-                        {
-                            GuardBreak();
-                        }
-                        
-                    }
-                    else if (Input.GetButtonDown(JumpButton))
-                    {
-                        jumping = true;
-                    }
-
-                     movementX = Input.GetAxisRaw(HorizontalCtrl); 
-                }
-
-            }
         }
         if(controller != null)
         {
@@ -790,7 +793,7 @@ public abstract class Champion : MonoBehaviour {
         switch (guardStatus)
         {
             case Enum_GuardStatus.noGuard:
-                if (Input.GetButtonDown(ParryButton) && inputStatus == Enum_InputStatus.allowed && !fatigued && IsGrounded())
+                if (controller.GetButtonDown("LB") && inputStatus == Enum_InputStatus.allowed && !fatigued && IsGrounded())
                 {
                     parryFrameCounter = 0;
                     guardStatus = Enum_GuardStatus.parrying;
@@ -829,7 +832,7 @@ public abstract class Champion : MonoBehaviour {
                 {
                     dodgeToken = maxDodgeToken;
                 }
-                if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed &&
+                if (controller.GetButtonDown("B") && inputStatus == Enum_InputStatus.allowed &&
                     guardStatus == Enum_GuardStatus.noGuard && !fatigued && dodgeToken > 0 && specialStatus != Enum_SpecialStatus.projected)
                 {
                     dodgeFrameCounter = 0;

@@ -110,7 +110,7 @@ public class Sorcerer : Champion
                 {
                     dodgeToken = maxDodgeToken;
                 }
-                if (Input.GetButtonDown(DodgeButton) && inputStatus == Enum_InputStatus.allowed &&
+                if (controller.GetButtonDown("B") && inputStatus == Enum_InputStatus.allowed &&
                     guardStatus == Enum_GuardStatus.noGuard && !fatigued && dodgeToken > 0)
                 {
                     dodgeFrameCounter = 0;

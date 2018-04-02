@@ -77,15 +77,15 @@ public class Archer : Champion
     {
         base.Update();
         
-        if (Input.GetButton(SecondaryAttackButton) && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard && IsGrounded() && !dead)
+        if (controller.GetButton("Y") && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard && IsGrounded() && !dead)
         {
-            if (Input.GetButtonDown(SecondaryAttackButton))
+            if (controller.GetButtonDown("Y"))
             {
                 ReduceStamina(secondaryFireStaminaCost); //remove stamina once
             }
             Charge(); //only charge when grounded
         }
-        else if (Input.GetButtonUp(SecondaryAttackButton) && !Fatigue)
+        else if (controller.GetButtonUp("Y") && !Fatigue)
         {
             Release();
         }

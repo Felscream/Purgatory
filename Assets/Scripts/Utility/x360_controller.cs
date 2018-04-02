@@ -168,6 +168,11 @@ public class X360_controller
         return (inputMap[button].prev_state == ButtonState.Released &&
                 inputMap[button].state == ButtonState.Pressed) ? true : false;
     }
+    public bool GetButtonUp(string button)
+    {
+        return (inputMap[button].prev_state == ButtonState.Pressed &&
+                inputMap[button].state == ButtonState.Released) ? true : false;
+    }
     void HandleRumble()
     {
         // Ignore if there are no events

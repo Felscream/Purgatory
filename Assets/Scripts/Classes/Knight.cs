@@ -47,7 +47,7 @@ public class Knight : Champion
     protected override void Update()
     {
         base.Update();
-        if(Input.GetAxisRaw(PowerUpButton) != 0 && Input.GetAxis(GuardButton) < 0.6 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated && usePowerUp)
+        if(controller.GetTrigger_R() != 0 && controller.GetTrigger_L() < 0.6 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated && usePowerUp)
         {
             if(powerUp is IncreasedRange)
             {
@@ -56,7 +56,7 @@ public class Knight : Champion
                 usePowerUp = false;
             }
         }
-        if (Input.GetAxis(PowerUpButton) == 0)
+        if (controller.GetTrigger_R() == 0)
         {
             usePowerUp = true;
         }
