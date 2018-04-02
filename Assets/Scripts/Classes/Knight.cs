@@ -177,7 +177,8 @@ public class Knight : Champion
     public override void DeathBehaviour()
     {
         animator.SetTrigger("DeadTrigger");
-       // StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(this, 1.75f));
+        damageDisplay.SetText(1.0f);
+        // StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(this, 1.75f));
         if (powerUpParticleSystem != null)
         {
             powerUpParticleSystem.Play();

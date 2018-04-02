@@ -433,7 +433,6 @@ public class ManagerInGame : MonoBehaviour {
 
     private void LastPlayerImmunity()
     {
-        Debug.Log(playerAlive);
         if(PlayerAlive == 1)
         {
             foreach(Champion champ in Players)
