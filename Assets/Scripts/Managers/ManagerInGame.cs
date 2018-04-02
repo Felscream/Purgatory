@@ -349,6 +349,7 @@ public class ManagerInGame : MonoBehaviour {
         CheckPlayerAlive();
         if(PlayerAlive == 1)
         {
+            yield return new WaitForSeconds(cameraController.ZoomDuration);
             StartCoroutine(cameraController.ZoomIn(position, waitTime));
             yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
         }
