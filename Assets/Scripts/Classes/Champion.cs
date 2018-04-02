@@ -134,7 +134,7 @@ public abstract class Champion : MonoBehaviour {
     protected Collider2D playerBox;
     protected Collider2D physicBox;
     protected Collider2D diveBox;
-    protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false, isClashing=false;
+    protected bool jumping, falling = false, immune = true, parrying = false, fatigued = false, attacking = false, dead = false, isClashing=false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.blocked;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
@@ -641,14 +641,14 @@ public abstract class Champion : MonoBehaviour {
         animator.ResetTrigger("SecondaryAttack");
         animator.speed = (1 / Time.timeScale);
         isClashing = true;
-        //GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
+        SpriteRenderer playerNumber = originalParent.GetComponentInChildren<SpriteRenderer>();
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
        // controller.AddRumble(0.1f, new Vector2(0.4f, 0.4f), 0.1f);
-        /*foreach(SpriteRenderer sprite in sprites)
-        {*/
-            sprite.sortingLayerName = "Clash";
-            sprite.sortingOrder = 10;
-        //}
+
+        sprite.sortingLayerName = "Clash";
+        sprite.sortingOrder = 10;
+        playerNumber.sortingLayerName = "Clash";
+        playerNumber.sortingOrder = 10;
     }
     public void NormalMode()
     {
@@ -656,14 +656,14 @@ public abstract class Champion : MonoBehaviour {
         animator.speed = 1;
         isClashing = false;
 
-        GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
-        SpriteRenderer[] sprites = parent.GetComponentsInChildren<SpriteRenderer>();
-        SetNormalStatus();
-        foreach (SpriteRenderer sprite in sprites)
-        {
-            sprite.sortingLayerName = "Default";
-            sprite.sortingOrder = 0;
-        }
+        SpriteRenderer playerNumber = originalParent.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        // controller.AddRumble(0.1f, new Vector2(0.4f, 0.4f), 0.1f);
+
+        sprite.sortingLayerName = "Clash";
+        sprite.sortingOrder = 10;
+        playerNumber.sortingLayerName = "Clash";
+        playerNumber.sortingOrder = 10;
     }
 
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
@@ -1603,6 +1603,7 @@ public abstract class Champion : MonoBehaviour {
     public virtual void DeathBehaviour()
     {
         animator.SetBool("Dead", true);
+        StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(transform.position, 2.0f));
         if(powerUpParticleSystem != null)
         {
             powerUpParticleSystem.Play();
