@@ -172,6 +172,32 @@ public class CameraControl : MonoBehaviour {
         isZooming = false;
         StartCoroutine(ZoomOut(startingPosition, desiredZoomDuration));
     }
+
+    public IEnumerator DeathCamera(Champion target, float waitTime)
+    {
+        isZooming = true;
+        Vector3 startingPosition = MainAxis.position;
+        Vector3 endPosition = new Vector3(target.transform.position.x, target.transform.position.y, -1);
+        StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
+        float i = 0.0f;
+        float rate = 1.0f / zoomDuration;
+        while (i < 1.0)
+        {
+            i += Time.unscaledDeltaTime * rate;
+            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            yield return null;
+        }
+        float timer = 0.0f;
+        while (timer < waitTime)
+        {
+            mainAxis.position = new Vector3(target.transform.position.x, target.transform.position.y, -1);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        isZooming = false;
+        StartCoroutine(ZoomOut(mainAxis.position));
+    }
     public IEnumerator ZoomOrthographic(float start, float end)
     {
         float i = 0.0f;

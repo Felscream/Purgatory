@@ -344,13 +344,13 @@ public class ManagerInGame : MonoBehaviour {
         UnpauseAgentsAudio();
     }
 
-    public IEnumerator LastDeathCameraEffect(Vector2 position, float waitTime)
+    public IEnumerator LastDeathCameraEffect(Champion champ, float waitTime)
     {
         CheckPlayerAlive();
         if(PlayerAlive == 1)
         {
             yield return new WaitForSeconds(cameraController.ZoomDuration);
-            StartCoroutine(cameraController.ZoomIn(position, waitTime));
+            StartCoroutine(cameraController.DeathCamera(champ, waitTime));
             yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
         }
     }

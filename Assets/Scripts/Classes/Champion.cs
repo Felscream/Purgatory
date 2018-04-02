@@ -1609,7 +1609,7 @@ public abstract class Champion : MonoBehaviour {
         animator.SetBool("Dead", true);
         float length = animator.GetCurrentAnimatorStateInfo(0).length;
         Debug.Log(length);
-        StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(transform.position, 2.0f));
+        //StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(this, 2.0f));
         if(powerUpParticleSystem != null)
         {
             powerUpParticleSystem.Play();
