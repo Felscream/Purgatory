@@ -47,6 +47,7 @@ public class SelectionPlayer1 : MonoBehaviour
 
     // Joystick is running ?
     bool m_isAxisOneInUse = false;
+    private X360_controller controller;
 
     // Use this for initialization
     void Start()
@@ -62,6 +63,7 @@ public class SelectionPlayer1 : MonoBehaviour
         championsSelected_ = ChampionsSelected.GetInstance();
 
         startText = transform.parent.Find("StartText");
+        controller = ControllerManager.Instance.GetController(playerNumber);
     }
 
     // Update is called once per frame
@@ -81,7 +83,7 @@ public class SelectionPlayer1 : MonoBehaviour
     public void AddPlayers()
     {
         // Player 1 join the game
-        if (Input.GetButtonDown(StartJoystick))
+        if (controller.GetButtonDown("Start"))
         {
             if (!playerIsHere)
             {
@@ -104,41 +106,45 @@ public class SelectionPlayer1 : MonoBehaviour
     public void SelectionAndDeselection()
     {
         // Player 1 validate his choice
-        if (Input.GetButtonDown(Jump) && !playerChoosed)
+        if(controller != null)
         {
-            playerChoosed = true;
-            championsSelected_.playerSelection[playerNumber-1] = selectionIndexPlayer;
-            championsSelected_.PlayerNumber++;
-            playerSelection.gameObject.SetActive(false);
-            playerValidate.gameObject.SetActive(true);
-            if (championsSelected_.PlayerNumber >= 2)
+            if (controller.GetButtonDown("A") && !playerChoosed)
             {
-                startText.gameObject.SetActive(true);
-            }
-        }
-        // Player 1 want to change his champion
-        if (Input.GetButtonDown(Dodge))
-        {
-            if (playerChoosed)
-            {
-                playerChoosed = false;
-                championsSelected_.playerSelection[playerNumber - 1] = 0;
-                championsSelected_.PlayerNumber--;
-                playerSelection.gameObject.SetActive(true);
-                playerValidate.gameObject.SetActive(false);
-                if (championsSelected_.PlayerNumber < 2)
+                playerChoosed = true;
+                championsSelected_.playerSelection[playerNumber - 1] = selectionIndexPlayer;
+                championsSelected_.PlayerNumber++;
+                playerSelection.gameObject.SetActive(false);
+                playerValidate.gameObject.SetActive(true);
+                if (championsSelected_.PlayerNumber >= 2)
                 {
-                    startText.gameObject.SetActive(false);
+                    startText.gameObject.SetActive(true);
                 }
             }
-            else // Player doesn't want to be part of the game anymore
+            // Player 1 want to change his champion
+            if (controller.GetButtonDown("B"))
             {
-                playerJoin.gameObject.SetActive(true);
-                playerSelection.gameObject.SetActive(false);
-                playerIsHere = false;
-                selectionIndexPlayer = 1;
+                if (playerChoosed)
+                {
+                    playerChoosed = false;
+                    championsSelected_.playerSelection[playerNumber - 1] = 0;
+                    championsSelected_.PlayerNumber--;
+                    playerSelection.gameObject.SetActive(true);
+                    playerValidate.gameObject.SetActive(false);
+                    if (championsSelected_.PlayerNumber < 2)
+                    {
+                        startText.gameObject.SetActive(false);
+                    }
+                }
+                else // Player doesn't want to be part of the game anymore
+                {
+                    playerJoin.gameObject.SetActive(true);
+                    playerSelection.gameObject.SetActive(false);
+                    playerIsHere = false;
+                    selectionIndexPlayer = 1;
+                }
             }
         }
+        
         
     }
 
@@ -146,7 +152,7 @@ public class SelectionPlayer1 : MonoBehaviour
     {
         if (!m_isAxisOneInUse)
         {
-            if (Input.GetAxisRaw(Horizontal) == -1)
+            if (controller.GetStick_L().X < 0f)
             {
                 m_isAxisOneInUse = true;
                 DecreaseIndex();
@@ -154,7 +160,7 @@ public class SelectionPlayer1 : MonoBehaviour
             }
             else
             {
-                if (Input.GetAxisRaw(Horizontal) == 1)
+                if (controller.GetStick_L().X > 0f)
                 {
                     m_isAxisOneInUse = true;
                     IncreaseIndex();
@@ -163,7 +169,7 @@ public class SelectionPlayer1 : MonoBehaviour
             }
         }
 
-        if (Input.GetAxisRaw(Horizontal) == 0 && m_isAxisOneInUse == true)
+        if (controller.GetStick_L().X == 0 && m_isAxisOneInUse == true)
         {
             m_isAxisOneInUse = false;
         }
