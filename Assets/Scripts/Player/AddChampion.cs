@@ -43,23 +43,23 @@ public class AddChampion : MonoBehaviour {
 			player3_indexSelection = championsSelected_.playerSelection[2];
 			player4_indexSelection = championsSelected_.playerSelection[3];
 
-			CreateChampion(player1, player1_indexSelection, HUDPlayer1);
-			CreateChampion(player2, player2_indexSelection, HUDPlayer2);
-			CreateChampion(player3, player3_indexSelection, HUDPlayer3);
-			CreateChampion(player4, player4_indexSelection, HUDPlayer4);
+			CreateChampion(player1, player1_indexSelection, HUDPlayer1, 1);
+			CreateChampion(player2, player2_indexSelection, HUDPlayer2, 2);
+			CreateChampion(player3, player3_indexSelection, HUDPlayer3, 3);
+			CreateChampion(player4, player4_indexSelection, HUDPlayer4, 4);
 		}
 		else
 		{        
 			// Si on ne passe pas par LobbyManager
-			CreateChampion(player1, 3, HUDPlayer1);
-			CreateChampion(player2, 2, HUDPlayer2);
-			CreateChampion(player3, 2, HUDPlayer3);
-			CreateChampion(player4, 1, HUDPlayer4);
+			CreateChampion(player1, 3, HUDPlayer1, 1);
+			CreateChampion(player2, 2, HUDPlayer2, 2);
+			CreateChampion(player3, 2, HUDPlayer3, 3);
+			CreateChampion(player4, 1, HUDPlayer4, 4);
 		}
 	}
 
 	// Ajoute un joueur de la classe correspondante, si il n'existe pas déjà
-	public void CreateChampion(GameObject player, int index, CanvasGroup HUDPlayer)
+	public void CreateChampion(GameObject player, int index, CanvasGroup HUDPlayer, int controllerNumber)
 	{
 		if (index != 0)
 		{
@@ -93,6 +93,12 @@ public class AddChampion : MonoBehaviour {
 				player.GetComponentInChildren<FollowPlayerScript>().SetChampion(championPlayer);
 				player.GetComponent<PlayerInput>().SetChampion(championPlayer);
 				player.GetComponent<PlayerInput>().GetPlayerControlInput();
+                /*Debug.Log(ControllerManager.Instance.GetController(index).IsConnected);
+                if(ControllerManager.Instance.GetController(index).IsConnected)
+                {*/
+                    player.GetComponentInChildren<Champion>().SetController(controllerNumber);
+                //}
+                
 			}
 		}
 	}

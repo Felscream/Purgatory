@@ -175,6 +175,8 @@ public abstract class Champion : MonoBehaviour {
     protected bool lowStaminaOnce = false;
     protected bool ultOnce = false;
     protected AudioSource audioSource; // remove when narrator is fully implemented
+    [NonSerialized] public Transform originalParent;
+    X360_controller controller;
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -246,6 +248,7 @@ public abstract class Champion : MonoBehaviour {
             s.source.volume = audioVolumeManager.SoundEffectVolume;
             s.source.spatialBlend = 0.0f;
         }
+        originalParent = transform.parent;
     }
     protected void FixedUpdate()
     {
@@ -372,6 +375,15 @@ public abstract class Champion : MonoBehaviour {
 
             }
         }
+        if(controller != null)
+        {
+            if (controller.GetButtonDown("A"))
+            {
+                TestRumble();
+                Debug.Log("A down");
+            }   
+        }
+        
     }
     protected virtual void LateUpdate()
     {
@@ -1599,5 +1611,16 @@ public abstract class Champion : MonoBehaviour {
         temp.transform.SetParent(playerHUD.transform.parent);
         damageDisplay = temp.GetComponent<PopupDamage>();
         damageDisplay.Target = this;
+    }
+    void TestRumble()
+    {
+        //                timer            power         fade
+        //controller.AddRumble(1.0f, new Vector2(0.9f, 0.9f), 0.5f);
+        controller.AddRumble(0.5f, new Vector2(0.5f, 0.5f), 0.2f);
+    }
+
+    public void SetController(int index)
+    {
+        controller = ControllerManager.Instance.GetController(index);
     }
 }
