@@ -15,7 +15,7 @@ public class ManagerInGame : MonoBehaviour {
     private bool SpawnOrb;
 	private bool SpawnItem;
     private int playerAlive = 0;
-    public Component[] Players;
+    public Champion[] Players;
     private static ManagerInGame instance = null;
     protected Slider ClashSlider;
     protected GameObject background;
@@ -187,9 +187,11 @@ public class ManagerInGame : MonoBehaviour {
         GameObject bkg = Instantiate(backgroundEffect, cameraGo.transform);
         aBaseRate = attackAura.GetComponent<ParticleSystem>().emission.rateOverTime.constant;
         dBaseRate = defendAura.GetComponent<ParticleSystem>().emission.rateOverTime.constant;
-        
+
+
         //Actual Clash
         canvas.gameObject.SetActive(true);
+        
         while (time < clashTime && value < 100 && value > 0)
         {
             time += Time.unscaledDeltaTime;
@@ -197,20 +199,23 @@ public class ManagerInGame : MonoBehaviour {
             ClashSlider.value = value;
 
             AuraManager(value, attackAura, defendAura);
-
+            
             cameraController.Shake(/*Mathf.Abs(value-50) / 2f + */ time*4, 5, 1000);
+            
             yield return null;
         }
         if (value >= 50)
         {
             defender.ReduceHealth(defender.Health);
             audioManager.PlaySoundEffect("DefenseLoss");
+            defender.Controller.AddRumble(0.2f, new Vector2(.9f,.9f), 0.2f);
         }
         else
         {
             defender.determination--;
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
+            attacker.Controller.AddRumble(0.2f, new Vector2(.9f, .9f), 0.2f);
             audioManager.PlaySoundEffect("DefenseWin");
         }
         
@@ -373,11 +378,19 @@ public class ManagerInGame : MonoBehaviour {
             yield return null;
         }
         cameraController.Shake(10, firstShakes, 100, true);
+        foreach(Champion c in Players)
+        {
+            c.Controller.AddRumble(2.0f, new Vector2(0.6f, 0.6f), 2.0f);
+        }
         while (timer < ouroborosSecondShakeTimer)
         {
             timer += Time.deltaTime;
             yield return null;
         }
         cameraController.Shake(10, secondShakes, 100, true);
+        foreach (Champion c in Players)
+        {
+            c.Controller.AddRumble(1.5f, new Vector2(0.6f, 0.6f), 1.5f);
+        }
     }
 }

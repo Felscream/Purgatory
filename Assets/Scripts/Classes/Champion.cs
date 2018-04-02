@@ -376,17 +376,7 @@ public abstract class Champion : MonoBehaviour {
 
                 }
             }
-            
         }
-        if(controller != null)
-        {
-            if (controller.GetButtonDown("A"))
-            {
-                TestRumble();
-                Debug.Log("A down");
-            }   
-        }
-        
     }
     protected virtual void LateUpdate()
     {
@@ -648,7 +638,7 @@ public abstract class Champion : MonoBehaviour {
         isClashing = true;
         GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
         SpriteRenderer[] sprites = parent.GetComponentsInChildren<SpriteRenderer>();
-
+       // controller.AddRumble(0.1f, new Vector2(0.4f, 0.4f), 0.1f);
         foreach(SpriteRenderer sprite in sprites)
         {
             sprite.sortingLayerName = "Clash";
@@ -697,6 +687,7 @@ public abstract class Champion : MonoBehaviour {
                     dmg = dmg * damageReductionMultiplier;
                     animator.SetTrigger("Blocked");
                     ResetAttackTokens();
+                    controller.AddRumble(0.3f, new Vector2(0.1f, 0.1f), 0.3f);
                 }
                 else //the attack is coming from behind or the attack is a guard breaker
                 {
@@ -714,6 +705,7 @@ public abstract class Champion : MonoBehaviour {
                 {
                     cameraController.Shake(dmg, 5, 1000);
                 }
+                controller.AddRumble(0.3f, new Vector2(0.5f, 0.5f), 0.3f);
             }
             else //attacker is behind the player or the player is not guarding
             {
@@ -732,6 +724,7 @@ public abstract class Champion : MonoBehaviour {
                         cameraController.Shake(dmg, 5, 1000);
                     }
                     ResetAttackTokens();
+                    controller.AddRumble(0.3f, new Vector2(0.5f, 0.5f), 0.3f);
                 }
                 //else we do nothing, guard breaks are ineffective against non guarding enemies
             }
@@ -748,8 +741,10 @@ public abstract class Champion : MonoBehaviour {
                     IncreaseLimitBreak(limitBreakOnParry);
                     attacker.SetStunStatus(parryStunDuration);
                     PlaySoundEffect("Parry");
+                    controller.AddRumble(0.3f, new Vector2(0.9f, 0.9f), 0.3f);
                 }
             }
+            
         }
     }
 
@@ -1389,6 +1384,7 @@ public abstract class Champion : MonoBehaviour {
             rb.AddForce(new Vector2(projectionForce.x * attackerFacing, projectionForce.y), ForceMode2D.Impulse);
             StartCoroutine(EffectCoroutine(duration));
             projectedCoroutine = StartCoroutine(ProjectionCoroutine());
+            controller.AddRumble(0.1f, new Vector2(0.5f, 0.5f), 0.1f);
         }
     }
     public void SetNormalStatus()
@@ -1417,6 +1413,7 @@ public abstract class Champion : MonoBehaviour {
             specialStatus = Enum_SpecialStatus.stun;
             SetStunEffects();
             StartCoroutine(EffectCoroutine(duration));
+            controller.AddRumble(0.1f, new Vector2(0.9f, 0.9f), 0.1f);
         }
         
     }
@@ -1625,5 +1622,13 @@ public abstract class Champion : MonoBehaviour {
     public void SetController(int index)
     {
         controller = ControllerManager.Instance.GetController(index);
+    }
+
+    public X360_controller Controller
+    {
+        get
+        {
+            return controller;
+        }
     }
 }

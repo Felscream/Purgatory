@@ -25,7 +25,7 @@ class XRumble
     public Vector2 power;  // Intensity of rumble
     public void Update()
     {
-        this.timer -= Time.deltaTime;
+        this.timer -= Time.unscaledDeltaTime;
     }
 }
 public class X360_controller

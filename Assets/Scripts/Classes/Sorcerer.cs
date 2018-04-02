@@ -235,6 +235,7 @@ public class Sorcerer : Champion
         ultimateParticleSystem.Play();
         float timer = 0.0f;
         PlaySoundEffect("Ultimate");
+        controller.AddRumble(ultimateDuration, new Vector2(0.8f, 0.8f), ultimateDuration);
         float radius = ultimateMinRadius;
         float difference = (ultimateMaxRadius - ultimateMinRadius) / minToMaxTimeTransition;
         while (timer <= ultimateDuration)
