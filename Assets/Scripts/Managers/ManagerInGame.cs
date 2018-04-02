@@ -426,6 +426,7 @@ public class ManagerInGame : MonoBehaviour {
         {
             champ.hardBlock = false;
             champ.Immunity = false;
+            champ.InputStatus = Enum_InputStatus.allowed;
         }
         Narrator.Instance.StartOfTheGame();
     }

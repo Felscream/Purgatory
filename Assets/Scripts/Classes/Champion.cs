@@ -1254,6 +1254,10 @@ public abstract class Champion : MonoBehaviour {
 		{
 			return inputStatus;
 		}
+        set
+        {
+            inputStatus = value;
+        }
 	}
 	public Enum_DodgeStatus Dodging
 	{
@@ -1603,6 +1607,8 @@ public abstract class Champion : MonoBehaviour {
     public virtual void DeathBehaviour()
     {
         animator.SetBool("Dead", true);
+        float length = animator.GetCurrentAnimatorStateInfo(0).length;
+        Debug.Log(length);
         StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(transform.position, 2.0f));
         if(powerUpParticleSystem != null)
         {
