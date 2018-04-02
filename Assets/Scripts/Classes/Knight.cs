@@ -47,20 +47,22 @@ public class Knight : Champion
     protected override void Update()
     {
         base.Update();
-        if(controller.GetTrigger_R() != 0 && controller.GetTrigger_L() < 0.6 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated && usePowerUp)
+        if(inputStatus != Enum_InputStatus.blocked)
         {
-            if(powerUp is IncreasedRange)
+            if (controller.GetTrigger_R() != 0 && controller.GetTrigger_L() < 0.6 && powerUp != null && powerUp.PowerUpStatus == Enum_PowerUpStatus.activated && usePowerUp)
             {
-                IncreasedRange temp = (IncreasedRange)powerUp;
-                temp.StopPowerUp();
-                usePowerUp = false;
+                if (powerUp is IncreasedRange)
+                {
+                    IncreasedRange temp = (IncreasedRange)powerUp;
+                    temp.StopPowerUp();
+                    usePowerUp = false;
+                }
+            }
+            if (controller.GetTrigger_R() == 0)
+            {
+                usePowerUp = true;
             }
         }
-        if (controller.GetTrigger_R() == 0)
-        {
-            usePowerUp = true;
-        }
-        
     }
     protected override void LateUpdate()
     {

@@ -38,6 +38,8 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] private int firstShakes;
     [SerializeField] private float ouroborosSecondShakeTimer;
     [SerializeField] private int secondShakes;
+    [SerializeField] private float startCountDown = 3.0f;
+    [SerializeField] private Text countDownUI;
 
     private List<AudioSource> agentsAudioSources = new List<AudioSource>();
 
@@ -87,7 +89,7 @@ public class ManagerInGame : MonoBehaviour {
             defaultZoomOrthographicSize = cameraController.ZoomOrthographicSize;
         }
         audioManager = AudioVolumeManager.GetInstance();
-        Narrator.Instance.StartOfTheGame();
+        
     }
     void Update () {
         CheckPlayerAlive();
@@ -392,5 +394,27 @@ public class ManagerInGame : MonoBehaviour {
         {
             c.Controller.AddRumble(1.5f, new Vector2(0.6f, 0.6f), 1.5f);
         }
+    }
+
+    public IEnumerator StartGame()
+    {
+        float timer = startCountDown;
+        Animator anim = countDownUI.GetComponent<Animator>();
+        while(timer > 0)
+        {
+            countDownUI.text = timer.ToString();
+            countDownUI.gameObject.SetActive(true);
+            anim.Play("countdown", -1, 0.0f);
+            timer -= 1;
+            yield return new WaitForSeconds(1);
+            
+            yield return null;
+        }
+
+        foreach(Champion champ in Players)
+        {
+            champ.hardBlock = false;
+        }
+        Narrator.Instance.StartOfTheGame();
     }
 }

@@ -135,7 +135,7 @@ public abstract class Champion : MonoBehaviour {
     protected Collider2D physicBox;
     protected Collider2D diveBox;
     protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false, isClashing=false;
-    protected Enum_InputStatus inputStatus = Enum_InputStatus.allowed;
+    protected Enum_InputStatus inputStatus = Enum_InputStatus.blocked;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
     protected Enum_GuardStatus guardStatus = Enum_GuardStatus.noGuard;
@@ -177,6 +177,7 @@ public abstract class Champion : MonoBehaviour {
     protected AudioSource audioSource; // remove when narrator is fully implemented
     [NonSerialized] public Transform originalParent;
     protected X360_controller controller;
+    [NonSerialized] public bool hardBlock = true;
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -260,12 +261,16 @@ public abstract class Champion : MonoBehaviour {
         {
             DynamicFall();
         }
-        if (jumping && guardStatus == Enum_GuardStatus.noGuard)
+        if(!hardBlock)
         {
-            Jump();
-            jumping = false;
+            if (jumping && guardStatus == Enum_GuardStatus.noGuard)
+            {
+                Jump();
+                jumping = false;
+            }
+            Move(movementX, movementY);
         }
-        Move(movementX, movementY);
+        
         if (dead)
         {
             
@@ -279,7 +284,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if (!dead)
         {
-            if(controller != null)
+            if(controller != null && !hardBlock)
             {
                 RegenerateStaminaPerSecond();
                 RegenerateLimitBreakPerSecond();

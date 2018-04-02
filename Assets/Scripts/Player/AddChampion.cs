@@ -14,7 +14,7 @@ public class AddChampion : MonoBehaviour {
 	ChampionsSelected championsSelected_;
 	private int player1_indexSelection, player2_indexSelection, player3_indexSelection, player4_indexSelection;
 	public CanvasGroup[] HUDPlayer = new CanvasGroup[4];
-
+    private ManagerInGame gameManager;
 	// Use this for initialization
 	void Start ()
 	{
@@ -56,6 +56,8 @@ public class AddChampion : MonoBehaviour {
 			CreateChampion(player3, 2, HUDPlayer3, 3);
 			CreateChampion(player4, 1, HUDPlayer4, 4);
 		}
+
+        StartCoroutine(ManagerInGame.GetInstance().StartGame());
 	}
 
 	// Ajoute un joueur de la classe correspondante, si il n'existe pas déjà
