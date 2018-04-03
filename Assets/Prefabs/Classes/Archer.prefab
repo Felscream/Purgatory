@@ -477,7 +477,7 @@ MonoBehaviour:
     recoilForce: {x: 2, y: 0}
     projectionDuration: 1.5
     staminaCost: 20
-    damage: 10
+    damage: 6
     movementForce: 20
     guardBreaker: 0
     haveSpecialEffect: 0

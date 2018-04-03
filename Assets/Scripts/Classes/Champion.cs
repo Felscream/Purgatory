@@ -178,6 +178,8 @@ public abstract class Champion : MonoBehaviour {
     [NonSerialized] public Transform originalParent;
     protected X360_controller controller;
     [NonSerialized] public bool hardBlock = true;
+    [NonSerialized] public Score playerScore;
+    protected ScoreManager scoreManager;
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -237,6 +239,7 @@ public abstract class Champion : MonoBehaviour {
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
         ManagerInGame gameManager = ManagerInGame.GetInstance();
+        scoreManager = ScoreManager.GetInstance();
         foreach (Sound s in soundEffects)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -606,7 +609,6 @@ public abstract class Champion : MonoBehaviour {
         {
             attacker.IncreaseLimitBreak(attacker.limitBreakOnHit);
         }
-        
         if(damageDisplay == null)
         {
             InstantiateDamageDisplay();
@@ -690,6 +692,7 @@ public abstract class Champion : MonoBehaviour {
                 {
                     Narrator.Instance.Guard();
                     ReduceStamina(dmg * blockStaminaCostMultiplier);
+                    playerScore.AddScore((int)Mathf.Ceil(dmg));
                     dmg = dmg * damageReductionMultiplier;
                     animator.SetTrigger("Blocked");
                     ResetAttackTokens();
@@ -707,6 +710,12 @@ public abstract class Champion : MonoBehaviour {
                     ResetAttackTokens();
                 }
                 ReduceHealth(dmg, clashPossible, attacker);
+                if(attacker != null)
+                {
+                    attacker.playerScore.AddScore(Mathf.CeilToInt(dmg));
+                }
+                
+                playerScore.AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
                 if (cameraController != null)
                 {
                     cameraController.Shake(dmg, 5, 1000);
@@ -725,6 +734,11 @@ public abstract class Champion : MonoBehaviour {
                     }
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ReduceHealth(dmg, clashPossible, attacker);
+                    if (attacker != null)
+                    {
+                        attacker.playerScore.AddScore(Mathf.CeilToInt(dmg));
+                    }
+                    playerScore.AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
                     if (cameraController != null)
                     {
                         cameraController.Shake(dmg, 5, 1000);
@@ -748,6 +762,9 @@ public abstract class Champion : MonoBehaviour {
                     attacker.SetStunStatus(parryStunDuration);
                     PlaySoundEffect("Parry");
                     controller.AddRumble(0.3f, new Vector2(0.9f, 0.9f), 0.3f);
+                    attacker.playerScore.ResetMultiplier();
+                    playerScore.IncreaseMultiplier();
+                    playerScore.AddScore(scoreManager.parryPoints);
                 }
             }
             
@@ -1601,6 +1618,7 @@ public abstract class Champion : MonoBehaviour {
         */
         //this works but uses a string
         gameObject.layer = LayerMask.NameToLayer("Dead");
+        playerScore.AddScore(Mathf.CeilToInt(-playerScore.totalScore / 0.5f));
         DeathBehaviour();
     }
 
@@ -1631,7 +1649,18 @@ public abstract class Champion : MonoBehaviour {
 
     public void SetController(int index)
     {
+        Enum_Champion temp = Enum_Champion.Knight;
+        if(this is Sorcerer)
+        {
+            temp = Enum_Champion.Sorcerer;
+        }
+        else if(this is Archer)
+        {
+            temp = Enum_Champion.Archer;
+        }
         controller = ControllerManager.Instance.GetController(index);
+        ScoreManager.GetInstance().challengers.Add(new Score(temp));
+        playerScore = ScoreManager.GetInstance().challengers[index - 1];
     }
 
     public X360_controller Controller

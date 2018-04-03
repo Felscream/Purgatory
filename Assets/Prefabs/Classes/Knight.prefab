@@ -442,7 +442,7 @@ MonoBehaviour:
     stunLock: 0
     recoilForce: {x: 30, y: 0}
     projectionDuration: 0.25
-    staminaCost: 12
+    staminaCost: 30
     damage: 5
     movementForce: 20
     guardBreaker: 0
@@ -455,7 +455,7 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 5
+    staminaCost: 8
     damage: 10
     movementForce: 2
     guardBreaker: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 5
+    staminaCost: 8
     damage: 12
     movementForce: 2
     guardBreaker: 0
@@ -481,7 +481,7 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 5
+    staminaCost: 7
     damage: 12
     movementForce: 2
     guardBreaker: 0
@@ -494,7 +494,7 @@ MonoBehaviour:
     stunLock: 5
     recoilForce: {x: 5, y: 0}
     projectionDuration: 1.5
-    staminaCost: 5
+    staminaCost: 7
     damage: 17
     movementForce: 2
     guardBreaker: 0

@@ -98,7 +98,8 @@ public class AddChampion : MonoBehaviour {
                 /*Debug.Log(ControllerManager.Instance.GetController(index).IsConnected);
                 if(ControllerManager.Instance.GetController(index).IsConnected)
                 {*/
-                    player.GetComponentInChildren<Champion>().SetController(controllerNumber);
+                Champion temp = player.GetComponentInChildren<Champion>();
+                temp.SetController(controllerNumber);
                 //}
                 
 			}

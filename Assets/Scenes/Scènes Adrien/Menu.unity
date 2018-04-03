@@ -2621,6 +2621,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 525036160}
+--- !u!1001 &528344571
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.7472316
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.47514668
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.3995415
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355248604906970, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f9c29ae6dfa298c48b0c295bae404641, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &546503344
 GameObject:
   m_ObjectHideFlags: 0
@@ -5089,41 +5131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18d243001415a64ba1d67938c28b9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KnightPlayer1: {fileID: 905350083}
-  ArcherPlayer1: {fileID: 55221186}
-  SorcererPlayer1: {fileID: 770504552}
-  KnightPlayer2: {fileID: 1270354469}
-  ArcherPlayer2: {fileID: 1050375496}
-  SorcererPlayer2: {fileID: 932344387}
-  KnightPlayer3: {fileID: 1110246022}
-  ArcherPlayer3: {fileID: 1589263347}
-  SorcererPlayer3: {fileID: 123431497}
-  KnightPlayer4: {fileID: 178863105}
-  ArcherPlayer4: {fileID: 1077472000}
-  SorcererPlayer4: {fileID: 289773449}
-  Jump_P1: Jump_P1
-  Jump_P2: Jump_P2
-  Jump_P3: Jump_P3
-  Jump_P4: Jump_P4
-  Horizontal_P1: Horizontal_P1
-  Horizontal_P2: Horizontal_P2
-  Horizontal_P3: Horizontal_P3
-  Horizontal_P4: Horizontal_P4
-  player1KnightButton: {fileID: 1636771117}
-  player1ArcherButton: {fileID: 75586158}
-  player1SorcererButton: {fileID: 579066370}
-  player2KnightButton: {fileID: 1142560465}
-  player2ArcherButton: {fileID: 99226689}
-  player2SorcererButton: {fileID: 1614702838}
-  player3KnightButton: {fileID: 1154940980}
-  player3ArcherButton: {fileID: 401145074}
-  player3SorcererButton: {fileID: 402796630}
-  player4KnightButton: {fileID: 11055997}
-  player4ArcherButton: {fileID: 1030527631}
-  player4SorcererButton: {fileID: 1030527631}
-  quitter: {fileID: 0}
-  back: {fileID: 0}
-  LaunchGame: {fileID: 0}
 --- !u!1 &1154940980
 GameObject:
   m_ObjectHideFlags: 0

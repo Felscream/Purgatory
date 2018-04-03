@@ -42,6 +42,7 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] private Text countDownUI;
 
     private List<AudioSource> agentsAudioSources = new List<AudioSource>();
+    private ScoreManager scoreManager;
 
     //camera variables
     private float defaultOrthographicSize;
@@ -89,7 +90,7 @@ public class ManagerInGame : MonoBehaviour {
             defaultZoomOrthographicSize = cameraController.ZoomOrthographicSize;
         }
         audioManager = AudioVolumeManager.GetInstance();
-
+        scoreManager = ScoreManager.GetInstance();
     }
     void Update () {
         CheckPlayerAlive();
@@ -212,9 +213,13 @@ public class ManagerInGame : MonoBehaviour {
             defender.ReduceHealth(defender.Health);
             audioManager.PlaySoundEffect("DefenseLoss");
             defender.Controller.AddRumble(0.2f, new Vector2(.9f,.9f), 0.2f);
+            attacker.playerScore.AddScore(scoreManager.executionResistancePoints);
+            attacker.playerScore.IncreaseMultiplier(); // increase multiplier after adding score
         }
         else
         {
+            defender.playerScore.IncreaseMultiplier(); //increase multiplier before adding score
+            defender.playerScore.AddScore(scoreManager.executionResistancePoints);
             defender.determination--;
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
@@ -422,6 +427,7 @@ public class ManagerInGame : MonoBehaviour {
             yield return null;
         }
 
+        ScoreManager.GetInstance().gameStart = true; 
         foreach(Champion champ in Players)
         {
             champ.hardBlock = false;
@@ -442,6 +448,7 @@ public class ManagerInGame : MonoBehaviour {
                     champ.Immunity = true;
                 }
             }
+            ScoreManager.GetInstance().gameStart = false;
         }
     }
 }
