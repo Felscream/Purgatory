@@ -73,6 +73,10 @@ public class ManagerInGame : MonoBehaviour {
     {
         CheckPlayerAlive();
         ClashSlider = ClashHUD.GetComponentInChildren<Slider>();
+        if(ClashHUD == null)
+        {
+            Debug.LogError("[ManagerInGame] : No ClashHUD set up");
+        }
         background = ClashHUD.GetComponentInChildren<SpriteRenderer>().gameObject;
         canvas = ClashHUD.GetComponentInChildren<Canvas>().gameObject;
         cameraGo = Camera.main.gameObject;
