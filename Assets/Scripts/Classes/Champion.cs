@@ -261,11 +261,9 @@ public abstract class Champion : MonoBehaviour {
         originalParent = transform.parent;
         playerHUD.GetComponentInChildren<Multiplier>().target = this;
         stunPs = transform.Find("StunPS").GetComponent<ParticleSystem>();
-        stunPs.Stop();
         slowPs = transform.Find("SlowPS").GetComponent<ParticleSystem>();
-        slowPs.Stop();
         poisonPs = transform.Find("PoisonPS").GetComponent<ParticleSystem>();
-        poisonPs.Stop();
+        StopStatusParticleSystems();
     }
     protected void FixedUpdate()
     {
@@ -1470,9 +1468,7 @@ public abstract class Champion : MonoBehaviour {
             StopCoroutine(projectedCoroutine);
             rb.velocity = Vector2.zero;
         }
-        stunPs.Stop();
-        poisonPs.Stop();
-        slowPs.Stop();
+        StopStatusParticleSystems();
         animator.SetBool("Projected", false);
         animator.SetBool("Stunned", false);
         specialStatus = Enum_SpecialStatus.normal;
@@ -1662,6 +1658,7 @@ public abstract class Champion : MonoBehaviour {
         dead = true;
         playerBox.enabled = false;
         StopMovement(1);
+        StopStatusParticleSystems();
         Debug.Log(transform.parent.name + " died");
 
         //TO DO : find a way to use the deadLayer variable since this doesn't work
@@ -1744,6 +1741,20 @@ public abstract class Champion : MonoBehaviour {
             {
                 ps.SetText(s);
             }
+        }
+    }
+
+    protected void StopStatusParticleSystems()
+    {
+        if(stunPs != null && poisonPs != null && slowPs != null)
+        {
+            stunPs.Stop();
+            poisonPs.Stop();
+            slowPs.Stop();
+        }
+        else
+        {
+            Debug.LogError("[Champion] : status particle system missing on : "+transform.name );
         }
     }
 }
