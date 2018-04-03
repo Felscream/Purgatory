@@ -101,7 +101,6 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("UltimateSettings")]
     [SerializeField] protected ParticleSystem ultimateParticleSystem;
-    [SerializeField] protected float zoomWaitDuration = 1.0f;
 
     [Header("PowerUpSettings")]
     [SerializeField]
@@ -116,9 +115,11 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Sound Settings")]
     [SerializeField] protected Sound[] soundEffects;
-    private Queue<float> scoreQueue;
 
-
+    [Header("Status Alteration Settings")]
+    protected ParticleSystem stunPs;
+    protected ParticleSystem poisonPs;
+    protected ParticleSystem slowPs;
     public Attack specialAttack;
     public Attack combo1;
     
@@ -259,6 +260,12 @@ public abstract class Champion : MonoBehaviour {
         }
         originalParent = transform.parent;
         playerHUD.GetComponentInChildren<Multiplier>().target = this;
+        stunPs = transform.Find("StunPS").GetComponent<ParticleSystem>();
+        stunPs.Stop();
+        slowPs = transform.Find("SlowPS").GetComponent<ParticleSystem>();
+        slowPs.Stop();
+        poisonPs = transform.Find("PoisonPS").GetComponent<ParticleSystem>();
+        poisonPs.Stop();
     }
     protected void FixedUpdate()
     {
@@ -1463,6 +1470,9 @@ public abstract class Champion : MonoBehaviour {
             StopCoroutine(projectedCoroutine);
             rb.velocity = Vector2.zero;
         }
+        stunPs.Stop();
+        poisonPs.Stop();
+        slowPs.Stop();
         animator.SetBool("Projected", false);
         animator.SetBool("Stunned", false);
         specialStatus = Enum_SpecialStatus.normal;
@@ -1475,6 +1485,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if(!immune && specialStatus != Enum_SpecialStatus.stun)
         {
+            stunPs.Play();
             rb.velocity = Vector2.zero;
             animator.SetBool("Projected", false);
             animator.SetBool("Stunned", true);
@@ -1491,6 +1502,7 @@ public abstract class Champion : MonoBehaviour {
         //Debug.Log("POISON");
         if (!immune)
         {
+            poisonPs.Play();
             specialStatus = Enum_SpecialStatus.poison;
             StartCoroutine(PoisonCoroutine(poisonDamage));
             StartCoroutine(EffectCoroutine(duration));
@@ -1501,6 +1513,7 @@ public abstract class Champion : MonoBehaviour {
         //Debug.Log("SLOW");
         if (!immune)
         {
+            slowPs.Play();
             specialStatus = Enum_SpecialStatus.slow;
             speed = baseSpeed * slowRatio;
             StartCoroutine(EffectCoroutine(duration));
