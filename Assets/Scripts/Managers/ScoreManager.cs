@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour {
     [NonSerialized] public List<Score> leaderboard = new List<Score>();
     [NonSerialized] public List<Score> challengers = new List<Score>();
     [NonSerialized] public bool gameStart = false;
-    public int leaderboardSize;
+    public int leaderboardSize = 10;
     public int executionPoints = 500;
     public int heartPoints = 150;
     public int executionResistancePoints = 375;
@@ -137,11 +137,14 @@ public class Score : IEquatable<Score> , IComparable<Score>
     }
     public void AddScore(int amount)
     {
-        if (amount < 0)
+        if (ScoreManager.GetInstance().gameStart)
         {
-            ResetMultiplier();
+            if (amount < 0)
+            {
+                ResetMultiplier();
+            }
+            totalScore = Mathf.Min(Mathf.Max(0, totalScore + amount * multiplier), 99999999);
         }
-        totalScore = Mathf.Min(Mathf.Max(0, amount * multiplier), int.MaxValue); 
     }
 
     public int TotalScore

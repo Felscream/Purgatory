@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -114,6 +115,7 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("Sound Settings")]
     [SerializeField] protected Sound[] soundEffects;
+    private Queue<float> scoreQueue;
 
 
     public Attack specialAttack;
@@ -180,6 +182,8 @@ public abstract class Champion : MonoBehaviour {
     [NonSerialized] public bool hardBlock = true;
     [NonSerialized] public Score playerScore;
     protected ScoreManager scoreManager;
+    private bool updatingScore = false;
+
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -1150,7 +1154,10 @@ public abstract class Champion : MonoBehaviour {
 		staminaSlider.value = stamina;
 
 		limitBreakSlider.value = limitBreakGauge;
-		float b = healthSlider.value;
+        Text score = playerHUD.transform.Find("Score").GetComponent<Text>();
+        Text multiplier = playerHUD.transform.Find("Multiplier").GetComponent<Text>();
+
+        float b = healthSlider.value;
 		if (a != b) //si recu des degats, barre colorée supplémentaire
 		{
 			timerDamageHUD = 40;
@@ -1177,8 +1184,32 @@ public abstract class Champion : MonoBehaviour {
 		//ultiImageSlider.fillAmount = 0.75f;
 		ChangeColorHealthSlider();
 
-		//PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
-		//UltiAvailable(true);
+        //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
+        //UltiAvailable(true);
+        /*if(scoreUpdateCoroutine != null)
+        {
+            StopCoroutine(scoreUpdateCoroutine);
+        }*/
+        score.text = playerScore.totalScore.ToString();
+        
+        StringBuilder sb = new StringBuilder("x");
+        switch (playerScore.multiplier)
+        {
+            case 2:
+                multiplier.color = Color.red;
+                break;
+            case 3:
+                multiplier.color = Color.green;
+                break;
+            case 4:
+                multiplier.color = Color.blue;
+                break;
+            default:
+                multiplier.color = Color.grey;
+                break;
+        }
+        sb.Append(playerScore.multiplier.ToString());
+        multiplier.text = sb.ToString();
 	}
 
 	public void ChangeColorHealthSlider()

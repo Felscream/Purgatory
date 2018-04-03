@@ -51,3 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fd10a82345fd94c8f3492fe58ca418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leaderboardSize: 10
+  executionPoints: 500
+  heartPoints: 150
+  executionResistancePoints: 375
+  pickupPoints: 50
+  parryPoints: 250
+  timerBetweenIncrease: 20
