@@ -66,7 +66,7 @@ public class Attack {
                     BreakingOrb orb = enemy.GetComponent<BreakingOrb>();
                     if (orb != null)
                     {
-                        orb.TakeDamage(1);
+                        orb.TakeDamage(1, user);
                     }
                     else
                     {

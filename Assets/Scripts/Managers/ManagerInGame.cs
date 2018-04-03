@@ -213,13 +213,13 @@ public class ManagerInGame : MonoBehaviour {
             defender.ReduceHealth(defender.Health);
             audioManager.PlaySoundEffect("DefenseLoss");
             defender.Controller.AddRumble(0.2f, new Vector2(.9f,.9f), 0.2f);
-            attacker.playerScore.AddScore(scoreManager.executionResistancePoints);
+            attacker.AddScore(scoreManager.executionResistancePoints);
             attacker.playerScore.IncreaseMultiplier(); // increase multiplier after adding score
         }
         else
         {
             defender.playerScore.IncreaseMultiplier(); //increase multiplier before adding score
-            defender.playerScore.AddScore(scoreManager.executionResistancePoints);
+            defender.AddScore(scoreManager.executionResistancePoints);
             defender.determination--;
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);

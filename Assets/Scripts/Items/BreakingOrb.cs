@@ -8,6 +8,7 @@ public class BreakingOrb : MonoBehaviour {
 	private Animator anim;
 	private Rigidbody2D rgb;
 	private Collider2D coll;
+    private Champion player;
 	// Use this for initialization
 	void Start () {
 		life= Random.Range(7,11);
@@ -29,10 +30,11 @@ public class BreakingOrb : MonoBehaviour {
 		}
 	}
 
-	public void TakeDamage(int dmg)
+	public void TakeDamage(int dmg, Champion attacker)
 	{
 		life -= dmg;
 		if (life <= 0) {
+            player = attacker;
 			Destroy(rgb);
 			coll.isTrigger = true;
 			this.gameObject.layer = 16;

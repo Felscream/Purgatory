@@ -48,6 +48,7 @@ public abstract class Champion : MonoBehaviour {
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
     [SerializeField] protected GameObject damageDisplayPrefab;
+    [SerializeField] protected GameObject scoreDisplayPrefab;
 
     [Header("Jump Settings")]
     [SerializeField] protected float jumpHeight = 10;
@@ -257,6 +258,7 @@ public abstract class Champion : MonoBehaviour {
             s.source.spatialBlend = 0.0f;
         }
         originalParent = transform.parent;
+        playerHUD.GetComponentInChildren<Multiplier>().target = this;
     }
     protected void FixedUpdate()
     {
@@ -696,7 +698,7 @@ public abstract class Champion : MonoBehaviour {
                 {
                     Narrator.Instance.Guard();
                     ReduceStamina(dmg * blockStaminaCostMultiplier);
-                    playerScore.AddScore((int)Mathf.Ceil(dmg));
+                    AddScore((int)Mathf.Ceil(dmg));
                     dmg = dmg * damageReductionMultiplier;
                     animator.SetTrigger("Blocked");
                     ResetAttackTokens();
@@ -716,10 +718,14 @@ public abstract class Champion : MonoBehaviour {
                 ReduceHealth(dmg, clashPossible, attacker);
                 if(attacker != null)
                 {
-                    attacker.playerScore.AddScore(Mathf.CeilToInt(dmg));
+                    attacker.AddScore(Mathf.CeilToInt(dmg));
+                    AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
                 }
-                
-                playerScore.AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
+                else
+                {
+                    AddScore(Mathf.FloorToInt(-dmg));
+                }
+
                 if (cameraController != null)
                 {
                     cameraController.Shake(dmg, 5, 1000);
@@ -740,9 +746,14 @@ public abstract class Champion : MonoBehaviour {
                     ReduceHealth(dmg, clashPossible, attacker);
                     if (attacker != null)
                     {
-                        attacker.playerScore.AddScore(Mathf.CeilToInt(dmg));
+                        attacker.AddScore(Mathf.CeilToInt(dmg));
+                        AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
                     }
-                    playerScore.AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
+                    else
+                    {
+                        AddScore(Mathf.FloorToInt(-dmg));
+                    }
+
                     if (cameraController != null)
                     {
                         cameraController.Shake(dmg, 5, 1000);
@@ -768,7 +779,7 @@ public abstract class Champion : MonoBehaviour {
                     controller.AddRumble(0.3f, new Vector2(0.9f, 0.9f), 0.3f);
                     attacker.playerScore.ResetMultiplier();
                     playerScore.IncreaseMultiplier();
-                    playerScore.AddScore(scoreManager.parryPoints);
+                    AddScore(scoreManager.parryPoints);
                 }
             }
             
@@ -1649,7 +1660,7 @@ public abstract class Champion : MonoBehaviour {
         */
         //this works but uses a string
         gameObject.layer = LayerMask.NameToLayer("Dead");
-        playerScore.AddScore(Mathf.CeilToInt(-playerScore.totalScore / 0.5f));
+        AddScore(Mathf.CeilToInt(-playerScore.totalScore / 0.5f));
         DeathBehaviour();
     }
 
@@ -1699,6 +1710,27 @@ public abstract class Champion : MonoBehaviour {
         get
         {
             return controller;
+        }
+    }
+
+    public void AddScore(int s)
+    {
+        if(Mathf.Abs(s) > 1.0f)
+        {
+            PopupScore ps;
+            playerScore.AddScore(s);
+            GameObject temp = Instantiate(scoreDisplayPrefab);
+            temp.transform.SetParent(playerHUD.transform.parent);
+            ps = temp.GetComponent<PopupScore>();
+            ps.Target = this;
+            if(s > 0)
+            {
+                ps.SetText(s * playerScore.multiplier);
+            }
+            else
+            {
+                ps.SetText(s);
+            }
         }
     }
 }

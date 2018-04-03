@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour {
     private static ScoreManager instance;
-    [NonSerialized] public List<Score> leaderboard = new List<Score>();
+    [NonSerialized] public List<ScoreData> leaderboard = new List<ScoreData>();
     [NonSerialized] public List<Score> challengers = new List<Score>();
     [NonSerialized] public bool gameStart = false;
     public int leaderboardSize = 10;
@@ -70,9 +70,11 @@ public class ScoreManager : MonoBehaviour {
 
     public void AddChallengersToLeaderboard()
     {
+        DateTime date = DateTime.Now;
         foreach(Score s in challengers)
         {
-            leaderboard.Add(s);
+            ScoreData data = new ScoreData(s.totalScore, s.champion);
+            leaderboard.Add(data);
         }
         leaderboard.Sort();
         if (leaderboard.Count > leaderboardSize)
@@ -108,8 +110,7 @@ public class ScoreManager : MonoBehaviour {
     }
 }
 
-[Serializable]
-public class Score : IEquatable<Score> , IComparable<Score>
+public class Score
 {
     public string playerName;
     public int totalScore;
@@ -155,12 +156,38 @@ public class Score : IEquatable<Score> , IComparable<Score>
         }
 
     }
+}
+
+[Serializable]
+public struct LeaderboardData
+{
+    public List<ScoreData> leaderboard;
+
+    public LeaderboardData(List<ScoreData> l)
+    {
+        leaderboard = l;
+    }
+}
+
+[Serializable]
+public struct ScoreData : IEquatable<Score>, IComparable<Score>
+{
+    public string playerName;
+    public int totalScore;
+    public Enum_Champion champion;
+
+    public ScoreData(int score, Enum_Champion champ, string p = "AAA")
+    {
+        playerName = p;
+        totalScore = score;
+        champion = champ;
+    }
     public override bool Equals(object obj)
     {
-        if (obj == null) return false;
-        Score objAsPart = obj as Score;
-        if (objAsPart == null) return false;
-        else return Equals(objAsPart);
+        if (obj == null) { return false ; }
+        Score s = obj as Score;
+        if (s == null) { return false; }
+        else return Equals(s);
     }
 
     public bool Equals(Score other)
@@ -174,7 +201,7 @@ public class Score : IEquatable<Score> , IComparable<Score>
         if (comparePart == null)
             return 1;
 
-        else
+        else 
             return comparePart.totalScore.CompareTo(this.totalScore);   //inverse sorting - greater to smaller value
     }
 
@@ -183,18 +210,6 @@ public class Score : IEquatable<Score> , IComparable<Score>
         return totalScore;
     }
 }
-
-[Serializable]
-public struct LeaderboardData
-{
-    public List<Score> leaderboard;
-
-    public LeaderboardData(List<Score> l)
-    {
-        leaderboard = l;
-    }
-}
-
 [Serializable]
 public enum Enum_Champion
 {

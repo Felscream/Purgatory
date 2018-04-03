@@ -359,6 +359,8 @@ MonoBehaviour:
   playerHUD: {fileID: 0}
   damageDisplayPrefab: {fileID: 1022562811663342, guid: 7477b39496a41cf4788d295d78fbb78c,
     type: 2}
+  scoreDisplayPrefab: {fileID: 1022562811663342, guid: d216bab41fa25b1438194adc3f93eb6c,
+    type: 2}
   jumpHeight: 10
   fallMultiplier: 8
   jumpVelocityAtApex: 3

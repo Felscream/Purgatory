@@ -30,13 +30,13 @@ public class PickUp : MonoBehaviour {
 			{			//16: layer collectables
 			if (other.gameObject.tag.Equals ("Health")) {
 				player.Health += HealthAmount;
-                player.playerScore.AddScore(scoreManager.pickupPoints);
+                player.AddScore(scoreManager.pickupPoints);
                 audioManager.PlaySoundEffect("HealthPickUp");
 				//Debug.Log ("Health: " + player.Health);
 			}
 			if (other.gameObject.tag.Equals ("Stamina")) {
 				InvokeRepeating ("StaminaRecover", 1, 1);
-                player.playerScore.AddScore(scoreManager.pickupPoints);
+                player.AddScore(scoreManager.pickupPoints);
                 audioManager.PlaySoundEffect("StaminaPickUp");
                 //Debug.Log ("Stamina: " + player.Stamina);
 			}
@@ -45,7 +45,7 @@ public class PickUp : MonoBehaviour {
 				player.IncreaseLimitBreak(player.maxLimitBreakGauge*0.4f);
 				Debug.Log (player.LimitBreakGauge);
 				player.Health += player.BaseHealth * 0.65f;
-                player.playerScore.AddScore(scoreManager.heartPoints);
+                player.AddScore(scoreManager.heartPoints);
                 StartCoroutine(gameManager.Ouroboros());
 				//Debug.Log ("Ajout des buffs ouroboros");
 			}
