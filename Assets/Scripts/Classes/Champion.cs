@@ -1660,7 +1660,7 @@ public abstract class Champion : MonoBehaviour {
         */
         //this works but uses a string
         gameObject.layer = LayerMask.NameToLayer("Dead");
-        AddScore(Mathf.CeilToInt(-playerScore.totalScore / 0.5f));
+        AddScore(Mathf.CeilToInt(-playerScore.totalScore * 0.5f));
         DeathBehaviour();
     }
 
