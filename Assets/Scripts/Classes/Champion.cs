@@ -674,10 +674,10 @@ public abstract class Champion : MonoBehaviour {
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         // controller.AddRumble(0.1f, new Vector2(0.4f, 0.4f), 0.1f);
 
-        sprite.sortingLayerName = "Clash";
-        sprite.sortingOrder = 10;
-        playerNumber.sortingLayerName = "Clash";
-        playerNumber.sortingOrder = 10;
+        sprite.sortingLayerName = "Default";
+        sprite.sortingOrder = 0;
+        playerNumber.sortingLayerName = "Default";
+        playerNumber.sortingOrder = 0;
     }
 
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
