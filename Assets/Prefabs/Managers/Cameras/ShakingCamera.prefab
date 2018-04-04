@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 114580406649343132}
   - component: {fileID: 114114119197396480}
   - component: {fileID: 114228829400378116}
+  - component: {fileID: 114743912071728704}
   m_Layer: 0
   m_Name: Camera_Prefab
   m_TagString: MainCamera
@@ -164,7 +165,7 @@ MonoBehaviour:
   intensityReduction: 15
   defaultOrthographicSize: 11.25
   zoomOrthographicSize: 2.8125
-  zoomDuration: 0.05
+  zoomDuration: 0.1
 --- !u!114 &114228829400378116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,6 +188,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a695d4aa6cd99744cb7a0d01ef595bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114743912071728704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702260323237120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: d4533677a04928f468ddefcf0ed8ae9c, type: 2}
 --- !u!124 &124645541151036434
 Behaviour:
   m_ObjectHideFlags: 1

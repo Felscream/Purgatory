@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class ManagerInGame : MonoBehaviour {
@@ -43,7 +44,7 @@ public class ManagerInGame : MonoBehaviour {
 
     private List<AudioSource> agentsAudioSources = new List<AudioSource>();
     private ScoreManager scoreManager;
-
+    private PostProcessingProfile profile;
     //camera variables
     private float defaultOrthographicSize;
     private float defaultZoomOrthographicSize;
@@ -95,6 +96,8 @@ public class ManagerInGame : MonoBehaviour {
         }
         audioManager = AudioVolumeManager.GetInstance();
         scoreManager = ScoreManager.GetInstance();
+        profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
+        ResetChromaticAberration();
     }
     void Update () {
         CheckPlayerAlive();
@@ -454,5 +457,21 @@ public class ManagerInGame : MonoBehaviour {
             }
             ScoreManager.GetInstance().gameStart = false;
         }
+    }
+
+    public IEnumerator ChromaticAberration(float duration, float intensity = 1.0f)
+    {
+        ChromaticAberrationModel.Settings ch = profile.chromaticAberration.settings;
+        ch.intensity = intensity;
+        profile.chromaticAberration.settings = ch;
+        yield return new WaitForSecondsRealtime(duration);
+        ResetChromaticAberration();
+    }
+
+    private void ResetChromaticAberration()
+    {
+        ChromaticAberrationModel.Settings ch = profile.chromaticAberration.settings;
+        ch.intensity = 0.0f;
+        profile.chromaticAberration.settings = ch;
     }
 }

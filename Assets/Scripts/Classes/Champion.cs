@@ -45,6 +45,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
     [SerializeField] protected GameObject shockwave;
+    
 
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
@@ -121,6 +122,7 @@ public abstract class Champion : MonoBehaviour {
     protected ParticleSystem stunPs;
     protected ParticleSystem poisonPs;
     protected ParticleSystem slowPs;
+
     public Attack specialAttack;
     public Attack combo1;
     
@@ -186,6 +188,7 @@ public abstract class Champion : MonoBehaviour {
     [NonSerialized] public Score playerScore;
     protected ScoreManager scoreManager;
     private bool updatingScore = false;
+    protected ManagerInGame gameManager;
 
     private void OnDrawGizmos()
     {
@@ -245,7 +248,7 @@ public abstract class Champion : MonoBehaviour {
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
-        ManagerInGame gameManager = ManagerInGame.GetInstance();
+        gameManager = ManagerInGame.GetInstance();
         scoreManager = ScoreManager.GetInstance();
         foreach (Sound s in soundEffects)
         {
