@@ -13,7 +13,6 @@ public class AddChampion : MonoBehaviour {
 	// ChampionsSelected instance from player selection
 	ChampionsSelected championsSelected_;
 	private int player1_indexSelection, player2_indexSelection, player3_indexSelection, player4_indexSelection;
-	public CanvasGroup[] HUDPlayer = new CanvasGroup[4];
     private ManagerInGame gameManager;
 	// Use this for initialization
 	void Start ()
