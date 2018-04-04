@@ -25,8 +25,8 @@ public class CameraControl : MonoBehaviour {
     private Vector3 origin;
     private AudioVolumeManager audioVolumeManager;
     [System.NonSerialized] public bool isZooming = false;
-
-	// Use this for initialization
+    [System.NonSerialized] public Coroutine zoomOutCoroutine;
+    // Use this for initialization
     void Awake()
     {
         //enabled = false;
@@ -151,7 +151,7 @@ public class CameraControl : MonoBehaviour {
         yield return new WaitForSecondsRealtime(zoomDuration + waitTime);
 
         isZooming = false;
-        StartCoroutine(ZoomOut(startingPosition));
+        zoomOutCoroutine = StartCoroutine(ZoomOut());
     }
     public IEnumerator ZoomIn(Vector2 position, float waitTime, float desiredOrthographicSize, float desiredZoomDuration) //overload
     {
@@ -170,7 +170,7 @@ public class CameraControl : MonoBehaviour {
         yield return new WaitForSecondsRealtime(desiredZoomDuration + waitTime);
 
         isZooming = false;
-        StartCoroutine(ZoomOut(startingPosition, desiredZoomDuration));
+        zoomOutCoroutine = StartCoroutine(ZoomOut(desiredZoomDuration));
     }
 
     public IEnumerator DeathCamera(Champion target, float waitTime)
@@ -196,7 +196,7 @@ public class CameraControl : MonoBehaviour {
         }
 
         isZooming = false;
-        StartCoroutine(ZoomOut(mainAxis.position));
+        zoomOutCoroutine = StartCoroutine(ZoomOut());
     }
     public IEnumerator ZoomOrthographic(float start, float end)
     {
@@ -221,7 +221,7 @@ public class CameraControl : MonoBehaviour {
         }
     }
 
-    public IEnumerator ZoomOut(Vector3 endPosition)
+    public IEnumerator ZoomOut()
     {
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize));
         float i = 0.0f;
@@ -235,7 +235,7 @@ public class CameraControl : MonoBehaviour {
             yield return null;
         }
     }
-    public IEnumerator ZoomOut(Vector3 endPosition, float desiredZoomDuration) //overload
+    public IEnumerator ZoomOut(float desiredZoomDuration) //overload
     {
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, defaultOrthographicSize, desiredZoomDuration));
         float i = 0.0f;

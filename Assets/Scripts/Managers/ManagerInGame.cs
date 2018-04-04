@@ -62,6 +62,7 @@ public class ManagerInGame : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
+            Cursor.visible = false;
         }
         else
         {
@@ -176,6 +177,10 @@ public class ManagerInGame : MonoBehaviour {
         attacker.ClashMode();
 
         //Animation at the start of a clash
+        if (cameraController.zoomOutCoroutine != null)
+        {
+            cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
+        }
         StartCoroutine(cameraController.ZoomIn(finalPos, clashTime, orthographicSize, clashZoomDuration));
         GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(false);
         GetComponentInChildren<AddChampion>().HUDPlayer2.gameObject.SetActive(false);
@@ -241,7 +246,7 @@ public class ManagerInGame : MonoBehaviour {
         if (cameraController.isZooming)
         {
             StopCoroutine("cameraController.ZoomIn");
-            StartCoroutine(cameraController.ZoomOut(startingPos));
+            StartCoroutine(cameraController.ZoomOut());
         }
         cameraController.ZoomDuration = zd;
         alpha = 1.0f;
@@ -345,6 +350,10 @@ public class ManagerInGame : MonoBehaviour {
 
     public IEnumerator UltimateCameraEffect(Vector2 position, float waitTime, Champion champion)
     {
+        if (cameraController.zoomOutCoroutine != null)
+        {
+            cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
+        }
         PauseAgentsAudio();
         Time.timeScale = 0.0001f;
         champion.animator.speed = 1 / Time.timeScale;
@@ -358,6 +367,10 @@ public class ManagerInGame : MonoBehaviour {
 
     public IEnumerator LastDeathCameraEffect(Champion champ, float waitTime)
     {
+        if (cameraController.zoomOutCoroutine != null)
+        {
+            cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
+        }
         CheckPlayerAlive();
         if(PlayerAlive == 1)
         {
