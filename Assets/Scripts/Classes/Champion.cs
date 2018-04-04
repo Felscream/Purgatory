@@ -44,6 +44,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] public int determination = 3;
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
+    [SerializeField] protected GameObject shockwave;
 
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
@@ -1756,5 +1757,10 @@ public abstract class Champion : MonoBehaviour {
         {
             Debug.LogError("[Champion] : status particle system missing on : "+transform.name );
         }
+    }
+
+    public void InstantiateShockwave()
+    {
+        GameObject shock = Instantiate(shockwave, transform);
     }
 }

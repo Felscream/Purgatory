@@ -479,6 +479,7 @@ MonoBehaviour:
   deadLayer:
     serializedVersion: 2
     m_Bits: 16384
+  shockwave: {fileID: 1337472139045792, guid: 341ffd638c7084348a9b84a4444c87de, type: 2}
   playerHUD: {fileID: 0}
   damageDisplayPrefab: {fileID: 1022562811663342, guid: 7477b39496a41cf4788d295d78fbb78c,
     type: 2}

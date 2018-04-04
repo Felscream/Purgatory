@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BreakingOrb : MonoBehaviour {
-
+    [SerializeField] private GameObject shockwave;
 	public int life;
 	private Animator anim;
 	private Rigidbody2D rgb;
@@ -38,6 +38,8 @@ public class BreakingOrb : MonoBehaviour {
 			Destroy(rgb);
 			coll.isTrigger = true;
 			this.gameObject.layer = 16;
-		}
+            GameObject shock = Instantiate(shockwave, transform);
+            shock.transform.parent = null;
+        }
 	}
 }
