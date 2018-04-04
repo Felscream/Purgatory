@@ -26,6 +26,7 @@ public class CameraControl : MonoBehaviour {
     private AudioVolumeManager audioVolumeManager;
     [System.NonSerialized] public bool isZooming = false;
     [System.NonSerialized] public Coroutine zoomOutCoroutine;
+    [System.NonSerialized] public Coroutine zoomInCoroutine;
     // Use this for initialization
     void Awake()
     {
@@ -177,20 +178,20 @@ public class CameraControl : MonoBehaviour {
     {
         isZooming = true;
         Vector3 startingPosition = MainAxis.position;
-        Vector3 endPosition = new Vector3(target.transform.position.x, target.transform.position.y, -1);
         StartCoroutine(ZoomOrthographic(mainCamera.orthographicSize, zoomOrthographicSize));
         float i = 0.0f;
         float rate = 1.0f / zoomDuration;
         while (i < 1.0)
         {
             i += Time.unscaledDeltaTime * rate;
+            Vector3 endPosition = new Vector3(target.transform.position.x, target.transform.position.y, origin.z);
             mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
             yield return null;
         }
         float timer = 0.0f;
-        while (timer < waitTime)
+        while (timer < waitTime + ZoomDuration)
         {
-            mainAxis.position = new Vector3(target.transform.position.x, target.transform.position.y, -1);
+            mainAxis.position = new Vector3(target.transform.position.x, target.transform.position.y, origin.z);
             timer += Time.deltaTime;
             yield return null;
         }
@@ -206,6 +207,7 @@ public class CameraControl : MonoBehaviour {
         {
             i += Time.unscaledDeltaTime * rate;
             mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
+            Debug.Log(mainCamera.orthographicSize);
             yield return null;
         }
     }

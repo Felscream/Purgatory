@@ -181,7 +181,11 @@ public class ManagerInGame : MonoBehaviour {
         {
             cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
         }
-        StartCoroutine(cameraController.ZoomIn(finalPos, clashTime, orthographicSize, clashZoomDuration));
+        if(cameraController.zoomInCoroutine != null)
+        {
+            cameraController.StopCoroutine(cameraController.zoomInCoroutine);
+        }
+        cameraController.zoomInCoroutine = StartCoroutine(cameraController.ZoomIn(finalPos, clashTime, orthographicSize, clashZoomDuration));
         GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(false);
         GetComponentInChildren<AddChampion>().HUDPlayer2.gameObject.SetActive(false);
         GetComponentInChildren<AddChampion>().HUDPlayer3.gameObject.SetActive(false);
@@ -357,7 +361,7 @@ public class ManagerInGame : MonoBehaviour {
         PauseAgentsAudio();
         Time.timeScale = 0.0001f;
         champion.animator.speed = 1 / Time.timeScale;
-        StartCoroutine(cameraController.ZoomIn(position, waitTime));
+        cameraController.zoomInCoroutine = StartCoroutine(cameraController.ZoomIn(position, waitTime));
         yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
         Time.timeScale = 1.0f;
         champion.EndUltLoop();
@@ -365,18 +369,17 @@ public class ManagerInGame : MonoBehaviour {
         UnpauseAgentsAudio();
     }
 
-    public IEnumerator LastDeathCameraEffect(Champion champ, float waitTime)
+    public void LastDeathCameraEffect(Champion champ, float waitTime)
     {
-        if (cameraController.zoomOutCoroutine != null)
-        {
-            cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
-        }
+        
         CheckPlayerAlive();
         if(PlayerAlive == 1)
         {
-            yield return new WaitForSeconds(cameraController.ZoomDuration);
-            StartCoroutine(cameraController.DeathCamera(champ, waitTime));
-            yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
+            if (cameraController.zoomOutCoroutine != null)
+            {
+                cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
+            }
+            StartCoroutine(cameraController.ZoomIn(champ.transform.position, waitTime));
         }
     }
     public float ComputeOrthographicSize(Vector2 pOne, Vector2 pTwo)

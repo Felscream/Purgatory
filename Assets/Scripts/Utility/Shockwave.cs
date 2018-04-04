@@ -12,16 +12,13 @@ public class Shockwave : MonoBehaviour
     {
         step = (targetScale - startScale) / duration;
         transform.localScale = new Vector3(0.1f,0.1f,0.1f);
-        Debug.Log(step);
         StartCoroutine(ManagerInGame.GetInstance().ChromaticAberration(chromaticAberDuration));
     }
     void Update()
     {
-        Debug.Log(transform.localScale);
         transform.localScale += step * Time.unscaledDeltaTime;
         if (transform.localScale.x > targetScale.x)
         {
-            //transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             Destroy(gameObject);
         }
     }

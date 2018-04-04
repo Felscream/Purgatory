@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chromaticAberDuration: 0.4
   startScale: {x: 0, y: 0, z: 0}
-  targetScale: {x: 12, y: 12, z: 12}
+  targetScale: {x: 14, y: 14, z: 14}
   duration: 0.6
 --- !u!212 &212214181354776252
 SpriteRenderer:

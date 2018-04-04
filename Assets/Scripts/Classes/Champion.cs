@@ -1675,6 +1675,7 @@ public abstract class Champion : MonoBehaviour {
         //this works but uses a string
         gameObject.layer = LayerMask.NameToLayer("Dead");
         AddScore(Mathf.CeilToInt(-playerScore.totalScore * 0.5f));
+        //ManagerInGame.GetInstance().LastDeathCameraEffect(this, 2.0f);// bugged
         DeathBehaviour();
     }
 
@@ -1682,7 +1683,7 @@ public abstract class Champion : MonoBehaviour {
     {
         animator.SetBool("Dead", true);
         damageDisplay.SetText(1.0f);
-        //StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(this, 2.0f));
+        
         if(powerUpParticleSystem != null)
         {
             powerUpParticleSystem.Play();

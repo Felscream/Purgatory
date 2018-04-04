@@ -178,7 +178,6 @@ public class Knight : Champion
     {
         animator.SetTrigger("DeadTrigger");
         damageDisplay.SetText(1.0f);
-        // StartCoroutine(ManagerInGame.GetInstance().LastDeathCameraEffect(this, 1.75f));
         if (powerUpParticleSystem != null)
         {
             powerUpParticleSystem.Play();
