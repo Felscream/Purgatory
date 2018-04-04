@@ -41,7 +41,7 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] private int secondShakes;
     [SerializeField] private float startCountDown = 3.0f;
     [SerializeField] private Text countDownUI;
-
+    [SerializeField] protected float timeBeforeEndGame = 3.0f;
     private List<AudioSource> agentsAudioSources = new List<AudioSource>();
     private ScoreManager scoreManager;
     private PostProcessingProfile profile;
@@ -473,5 +473,12 @@ public class ManagerInGame : MonoBehaviour {
         ChromaticAberrationModel.Settings ch = profile.chromaticAberration.settings;
         ch.intensity = 0.0f;
         profile.chromaticAberration.settings = ch;
+    }
+
+    protected IEnumerator ProcEndGame()
+    {
+        SceneManager.LoadSceneAsync("Victory");
+        Narrator.Instance.End();
+        yield return new WaitForSeconds(timeBeforeEndGame);
     }
 }
