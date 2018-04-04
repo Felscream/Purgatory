@@ -51,7 +51,7 @@ public class AddChampion : MonoBehaviour {
 		else
 		{        
 			// Si on ne passe pas par LobbyManager
-			CreateChampion(player1, 1, HUDPlayer1, 1);
+			CreateChampion(player1, 2, HUDPlayer1, 1);
 			CreateChampion(player2, 3, HUDPlayer2, 2);
 			CreateChampion(player3, 2, HUDPlayer3, 3);
 			CreateChampion(player4, 1, HUDPlayer4, 4);
@@ -98,8 +98,8 @@ public class AddChampion : MonoBehaviour {
                 /*Debug.Log(ControllerManager.Instance.GetController(index).IsConnected);
                 if(ControllerManager.Instance.GetController(index).IsConnected)
                 {*/
-                Champion temp = player.GetComponentInChildren<Champion>();
-                temp.SetController(controllerNumber);
+
+                championPlayer.SetController(controllerNumber);
                 //}
                 
 			}

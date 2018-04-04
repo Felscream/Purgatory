@@ -49,7 +49,8 @@ public class PickUp : MonoBehaviour {
                 StartCoroutine(gameManager.Ouroboros());
 				//Debug.Log ("Ajout des buffs ouroboros");
 			}
-			other.gameObject.SetActive (false);
+            Destroy(other.gameObject);
+			//other.gameObject.SetActive (false);
 		}
 	}
 
