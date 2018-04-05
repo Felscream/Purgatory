@@ -223,7 +223,19 @@ public class X360_controller
     {
         return state.ThumbSticks.Left;
     }
-
+    public float GetStickRaw_LX()
+    {
+        float x = 0.0f;
+        if(state.ThumbSticks.Left.X < 0.0f)
+        {
+            x = -1.0f;
+        }
+        else if(state.ThumbSticks.Left.X > 0.0f)
+        {
+            x = 1.0f;
+        }
+        return x;
+    }
     // Return axes of right thumbstick
     public GamePadThumbSticks.StickValue GetStick_R()
     {

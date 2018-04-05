@@ -115,7 +115,7 @@ public class ManagerInGame : MonoBehaviour {
 			SpawnOrb = true;
 		}
         if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
-			//SceneManager.LoadScene (1);
+			SceneManager.LoadScene(3);
             Narrator.Instance.End();
 			//ici ajouter le changement de scène et toute les modifs à prendre en compte
 		}
@@ -469,6 +469,7 @@ public class ManagerInGame : MonoBehaviour {
                 if (!champ.Dead)
                 {
                     champ.Immunity = true;
+                    champ.AddScore(ScoreManager.GetInstance().victoryPoints);
                 }
             }
             ScoreManager.GetInstance().gameStart = false;

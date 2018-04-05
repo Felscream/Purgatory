@@ -90,7 +90,6 @@ public class ControllerManager : MonoBehaviour {
             if (controllers[i].IsConnected && controllers[i].GetButton(button))
                 return true;
         }
-
         return false;
     }
     public bool GetButtonDownAny(string button)

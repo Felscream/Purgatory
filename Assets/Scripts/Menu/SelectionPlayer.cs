@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class SelectionPlayer1 : MonoBehaviour
+public class SelectionPlayer : MonoBehaviour
 {
     // Animator for selected animation
     private Animator KnightPlayerAnim;
@@ -41,9 +41,9 @@ public class SelectionPlayer1 : MonoBehaviour
 
     // StartText must be displayed only if there are 2 or more players
     private Transform startText;
-    
+
     // ChampionsSelected instance
-    ChampionsSelected championsSelected_;
+    ChampionManager championsSelected_;
 
     // Joystick is running ?
     bool m_isAxisOneInUse = false;
@@ -60,7 +60,7 @@ public class SelectionPlayer1 : MonoBehaviour
         ArcherPlayerAnim = ArcherPlayer.GetComponent<Animator>();
         SorcererPlayerAnim = SorcererPlayer.GetComponent<Animator>();
 
-        championsSelected_ = ChampionsSelected.GetInstance();
+        championsSelected_ = ChampionManager.GetInstance();
 
         startText = transform.parent.Find("StartText");
         controller = ControllerManager.Instance.GetController(playerNumber);
