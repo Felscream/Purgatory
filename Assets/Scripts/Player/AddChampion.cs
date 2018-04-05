@@ -10,8 +10,8 @@ public class AddChampion : MonoBehaviour {
 	public Champion prefabKnight, prefabSorcerer, prefabArcher;
 	public string Start_P1, Start_P2, Start_P3, Start_P4;
 
-	// ChampionsSelected instance from player selection
-	ChampionsSelected championsSelected_;
+    // ChampionsSelected instance from player selection
+    ChampionManager championsSelected_;
 	private int player1_indexSelection, player2_indexSelection, player3_indexSelection, player4_indexSelection;
     private ManagerInGame gameManager;
 	// Use this for initialization
@@ -34,7 +34,7 @@ public class AddChampion : MonoBehaviour {
 		floatingJ4 = player4.transform.GetChild(0).gameObject;
 
 		// Instance for prefab
-		championsSelected_ = ChampionsSelected.GetInstance();
+		championsSelected_ = ChampionManager.GetInstance();
 		if (championsSelected_ != null)
 		{
 			player1_indexSelection = championsSelected_.playerSelection[0];

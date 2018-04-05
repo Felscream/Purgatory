@@ -804,6 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start_P1: Start_P1
   playerSelection: 
+  playerScore: 
 --- !u!1 &269579479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,7 +1094,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rejoindre la partie J1
+  m_Text: Rejoindre la partie J3
 --- !u!222 &404377191
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1560,7 +1561,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rejoindre la partie J1
+  m_Text: Rejoindre la partie J2
 --- !u!222 &575991430
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4633,7 +4634,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Rejoindre la partie J1
+  m_Text: Rejoindre la partie J4
 --- !u!222 &1904597292
 CanvasRenderer:
   m_ObjectHideFlags: 0
