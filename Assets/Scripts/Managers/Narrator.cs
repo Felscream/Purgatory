@@ -28,7 +28,7 @@ public class Narrator : MonoBehaviour {
     {
         get
         {
-            return Time.deltaTime - lastCommentTime;
+            return Time.time - lastCommentTime;
         }
     }
     protected bool WillComment
@@ -95,7 +95,7 @@ public class Narrator : MonoBehaviour {
         {
             int i = Random.Range(0, comments.Length);
             audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
-            lastCommentTime = Time.deltaTime;
+            lastCommentTime = Time.time;
         }
     }
 
