@@ -18,6 +18,7 @@ public class ScoreManager : MonoBehaviour {
     public int executionResistancePoints = 375;
     public int pickupPoints = 50;
     public int parryPoints = 250;
+    public int victoryPoints = 1000;
     public float timerBetweenIncrease = 20.0f;
     private string fileName = "scoreData.dat";
     

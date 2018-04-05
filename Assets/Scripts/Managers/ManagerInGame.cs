@@ -469,6 +469,7 @@ public class ManagerInGame : MonoBehaviour {
                 if (!champ.Dead)
                 {
                     champ.Immunity = true;
+                    champ.AddScore(ScoreManager.GetInstance().victoryPoints);
                 }
             }
             ScoreManager.GetInstance().gameStart = false;

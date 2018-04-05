@@ -1682,7 +1682,7 @@ public abstract class Champion : MonoBehaviour {
         */
         //this works but uses a string
         gameObject.layer = LayerMask.NameToLayer("Dead");
-        AddScore(Mathf.CeilToInt(-playerScore.totalScore * 0.5f));
+        playerScore.ResetMultiplier();
         //ManagerInGame.GetInstance().LastDeathCameraEffect(this, 2.0f);// bugged
         DeathBehaviour();
     }
