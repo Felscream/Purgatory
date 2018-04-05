@@ -559,6 +559,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fced9ee3fa4b004b82718839d657072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reprendre: {fileID: 114805430521287542}
+  options: {fileID: 114858132571376102}
+  quitter: {fileID: 114219723940375902}
+  controlManager: {fileID: 0}
 --- !u!114 &114805430521287542
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -104,4 +104,14 @@ public class ControllerManager : MonoBehaviour {
 
         return false;
     }
+    public int getControllerIndexOnButtonDown(string button)
+    {
+        for (int i = 0; i < controllers.Count; ++i)
+        {
+            // Gamepad meets both conditions
+            if (controllers[i].IsConnected && controllers[i].GetButtonDown(button))
+                return i+1;
+        }
+        return -1;
+    }
 }

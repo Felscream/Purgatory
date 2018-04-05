@@ -461,6 +461,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114792500132735476, guid: 339346478e78be641a8a473456b764a7,
+        type: 2}
+      propertyPath: controlManager
+      value: 
+      objectReference: {fileID: 1952380343}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 339346478e78be641a8a473456b764a7, type: 2}
   m_IsPrefabParent: 0
@@ -548,6 +553,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fa237dfa952f07a4fb2026870916ec4b, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1952380343 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114541276119264228, guid: fa237dfa952f07a4fb2026870916ec4b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1856759126}
+  m_Script: {fileID: 11500000, guid: 878b1a008b5aa174f997f15d9785336a, type: 3}
 --- !u!1001 &2055725200
 Prefab:
   m_ObjectHideFlags: 0
