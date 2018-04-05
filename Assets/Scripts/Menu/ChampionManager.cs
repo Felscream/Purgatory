@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChampionsSelected : MonoBehaviour {
+public class ChampionManager: MonoBehaviour {
 
-    private static ChampionsSelected instance;
+    private static ChampionManager instance;
     //private int player1_indexSelection = 0, player2_indexSelection = 0, player3_indexSelection = 0, player4_indexSelection = 0;
     private int playerNumber;
 
@@ -13,6 +13,7 @@ public class ChampionsSelected : MonoBehaviour {
     private bool lobbySelected = false;
     private AudioVolumeManager audioVolumeManager;
     public int[] playerSelection;
+    public int[] playerScore;
 
     void Awake()
     {
@@ -39,15 +40,25 @@ public class ChampionsSelected : MonoBehaviour {
         playerSelection[2] = 0;
         // Player 4 index = 0;
         playerSelection[3] = 0;
+
+        // Player 1 index = 0;
+        playerScore[0] = 0;
+        // Player 2 index = 0;
+        playerScore[1] = 0;
+        // Player 3 index = 0;
+        playerScore[2] = 0;
+        // Player 4 index = 0;
+        playerScore[3] = 0;
+
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioVolumeManager.PlayTheme("LobbyTheme");
     }
 
-    public static ChampionsSelected GetInstance()
+    public static ChampionManager GetInstance()
     {
         if (instance == null)
         {
-            Debug.Log("No instance of " + typeof(ChampionsSelected));
+            Debug.Log("No instance of " + typeof(ChampionManager));
             return null;
         }
         return instance;

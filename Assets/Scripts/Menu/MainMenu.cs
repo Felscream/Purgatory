@@ -7,6 +7,9 @@ using UnityEngine.Video;
 public class MainMenu : MonoBehaviour {
 
     AudioVolumeManager audioVolumeManager;
+
+
+
     // Use this for initialization
     void Start () {
         audioVolumeManager = AudioVolumeManager.GetInstance();
