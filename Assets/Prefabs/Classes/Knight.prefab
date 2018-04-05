@@ -613,7 +613,7 @@ MonoBehaviour:
     canClash: 0
   ultimateProjectile: {fileID: 1202958830836326, guid: dcf391f3b021d214e8da0ec900febdea,
     type: 2}
-  projectileSpawnOffset: {x: 0, y: 1.35}
+  projectileSpawnOffset: {x: 1.2, y: 1.35}
 --- !u!114 &114615723824182320
 MonoBehaviour:
   m_ObjectHideFlags: 1

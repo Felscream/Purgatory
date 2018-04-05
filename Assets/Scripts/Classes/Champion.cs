@@ -395,7 +395,7 @@ public abstract class Champion : MonoBehaviour {
                             jumping = true;
                         }
 
-                        movementX = Mathf.Ceil(controller.GetStick_L().X);
+                        movementX = controller.GetStickRaw_LX();
                     }
 
                 }
