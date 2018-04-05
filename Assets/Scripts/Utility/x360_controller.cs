@@ -23,6 +23,7 @@ class XRumble
     public float timer;    // Rumble timer
     public float fadeTime; // Fade-out (in seconds)
     public Vector2 power;  // Intensity of rumble
+
     public void Update()
     {
         this.timer -= Time.unscaledDeltaTime;
@@ -199,6 +200,9 @@ public class X360_controller
                 {
                     // Remove expired event
                     rumbleEvents.Remove(rumbleEvents[i]);
+                    if(rumbleEvents.Count == 0){
+                        GamePad.SetVibration(playerIndex, 0.0f, 0.0f);
+                    }
                 }
             }
         }
@@ -223,6 +227,7 @@ public class X360_controller
     // Return axes of right thumbstick
     public GamePadThumbSticks.StickValue GetStick_R()
     {
+        
         return state.ThumbSticks.Right;
     }
     public float GetTrigger_L() { return state.Triggers.Left; }
