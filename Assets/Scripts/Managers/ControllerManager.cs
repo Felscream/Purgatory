@@ -100,7 +100,6 @@ public class ControllerManager : MonoBehaviour {
             if (controllers[i].IsConnected && controllers[i].GetButtonDown(button))
                 return true;
         }
-
         return false;
     }
     public int getControllerIndexOnButtonDown(string button)
