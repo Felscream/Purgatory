@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,10 +44,14 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] public int determination = 3;
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
+    [SerializeField] protected GameObject shockwave;
+    [SerializeField] protected GameObject simpleShockwave;
+
 
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
     [SerializeField] protected GameObject damageDisplayPrefab;
+    [SerializeField] protected GameObject scoreDisplayPrefab;
 
     [Header("Jump Settings")]
     [SerializeField] protected float jumpHeight = 10;
@@ -99,7 +104,6 @@ public abstract class Champion : MonoBehaviour {
 
     [Header("UltimateSettings")]
     [SerializeField] protected ParticleSystem ultimateParticleSystem;
-    [SerializeField] protected float zoomWaitDuration = 1.0f;
 
     [Header("PowerUpSettings")]
     [SerializeField]
@@ -115,6 +119,10 @@ public abstract class Champion : MonoBehaviour {
     [Header("Sound Settings")]
     [SerializeField] protected Sound[] soundEffects;
 
+    [Header("Status Alteration Settings")]
+    protected ParticleSystem stunPs;
+    protected ParticleSystem poisonPs;
+    protected ParticleSystem slowPs;
 
     public Attack specialAttack;
     public Attack combo1;
@@ -134,7 +142,7 @@ public abstract class Champion : MonoBehaviour {
     protected Collider2D playerBox;
     protected Collider2D physicBox;
     protected Collider2D diveBox;
-    protected bool jumping, falling = false, immune = false, parrying = false, fatigued = false, attacking = false, dead = false, isClashing=false;
+    protected bool jumping, falling = false, immune = true, parrying = false, fatigued = false, attacking = false, dead = false, isClashing=false;
     protected Enum_InputStatus inputStatus = Enum_InputStatus.blocked;
     protected Enum_DodgeStatus dodgeStatus = Enum_DodgeStatus.ready;
     protected Enum_StaminaRegeneration staminaRegenerationStatus = Enum_StaminaRegeneration.regenerating;
@@ -178,6 +186,11 @@ public abstract class Champion : MonoBehaviour {
     [NonSerialized] public Transform originalParent;
     protected X360_controller controller;
     [NonSerialized] public bool hardBlock = true;
+    [NonSerialized] public Score playerScore;
+    protected ScoreManager scoreManager;
+    private bool updatingScore = false;
+    protected ManagerInGame gameManager;
+
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -236,7 +249,8 @@ public abstract class Champion : MonoBehaviour {
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
-        ManagerInGame gameManager = ManagerInGame.GetInstance();
+        gameManager = ManagerInGame.GetInstance();
+        scoreManager = ScoreManager.GetInstance();
         foreach (Sound s in soundEffects)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -250,6 +264,11 @@ public abstract class Champion : MonoBehaviour {
             s.source.spatialBlend = 0.0f;
         }
         originalParent = transform.parent;
+        playerHUD.GetComponentInChildren<Multiplier>().target = this;
+        stunPs = transform.Find("StunPS").GetComponent<ParticleSystem>();
+        slowPs = transform.Find("SlowPS").GetComponent<ParticleSystem>();
+        poisonPs = transform.Find("PoisonPS").GetComponent<ParticleSystem>();
+        StopStatusParticleSystems();
     }
     protected void FixedUpdate()
     {
@@ -606,7 +625,6 @@ public abstract class Champion : MonoBehaviour {
         {
             attacker.IncreaseLimitBreak(attacker.limitBreakOnHit);
         }
-        
         if(damageDisplay == null)
         {
             InstantiateDamageDisplay();
@@ -641,14 +659,14 @@ public abstract class Champion : MonoBehaviour {
         animator.ResetTrigger("SecondaryAttack");
         animator.speed = (1 / Time.timeScale);
         isClashing = true;
-        //GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
+        SpriteRenderer playerNumber = originalParent.GetComponentInChildren<SpriteRenderer>();
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
        // controller.AddRumble(0.1f, new Vector2(0.4f, 0.4f), 0.1f);
-        /*foreach(SpriteRenderer sprite in sprites)
-        {*/
-            sprite.sortingLayerName = "Clash";
-            sprite.sortingOrder = 10;
-        //}
+
+        sprite.sortingLayerName = "Clash";
+        sprite.sortingOrder = 10;
+        playerNumber.sortingLayerName = "Clash";
+        playerNumber.sortingOrder = 10;
     }
     public void NormalMode()
     {
@@ -656,14 +674,14 @@ public abstract class Champion : MonoBehaviour {
         animator.speed = 1;
         isClashing = false;
 
-        GameObject parent = GetComponentInParent<PlayerInput>().gameObject;
-        SpriteRenderer[] sprites = parent.GetComponentsInChildren<SpriteRenderer>();
-        SetNormalStatus();
-        foreach (SpriteRenderer sprite in sprites)
-        {
-            sprite.sortingLayerName = "Default";
-            sprite.sortingOrder = 0;
-        }
+        SpriteRenderer playerNumber = originalParent.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        // controller.AddRumble(0.1f, new Vector2(0.4f, 0.4f), 0.1f);
+
+        sprite.sortingLayerName = "Default";
+        sprite.sortingOrder = 0;
+        playerNumber.sortingLayerName = "Default";
+        playerNumber.sortingOrder = 0;
     }
 
     public virtual void ApplyStunLock(int duration) // Player can't execute action while damaged
@@ -690,6 +708,7 @@ public abstract class Champion : MonoBehaviour {
                 {
                     Narrator.Instance.Guard();
                     ReduceStamina(dmg * blockStaminaCostMultiplier);
+                    AddScore((int)Mathf.Ceil(dmg));
                     dmg = dmg * damageReductionMultiplier;
                     animator.SetTrigger("Blocked");
                     ResetAttackTokens();
@@ -707,6 +726,16 @@ public abstract class Champion : MonoBehaviour {
                     ResetAttackTokens();
                 }
                 ReduceHealth(dmg, clashPossible, attacker);
+                if(attacker != null)
+                {
+                    attacker.AddScore(Mathf.CeilToInt(dmg));
+                    AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
+                }
+                else
+                {
+                    AddScore(Mathf.FloorToInt(-dmg));
+                }
+
                 if (cameraController != null)
                 {
                     cameraController.Shake(dmg, 5, 1000);
@@ -725,6 +754,16 @@ public abstract class Champion : MonoBehaviour {
                     }
                     rb.AddForce(recoilForce * attackerFacing, ForceMode2D.Impulse);
                     ReduceHealth(dmg, clashPossible, attacker);
+                    if (attacker != null)
+                    {
+                        attacker.AddScore(Mathf.CeilToInt(dmg));
+                        AddScore(Mathf.FloorToInt(-dmg * (3 - attacker.determination + 1)));
+                    }
+                    else
+                    {
+                        AddScore(Mathf.FloorToInt(-dmg));
+                    }
+
                     if (cameraController != null)
                     {
                         cameraController.Shake(dmg, 5, 1000);
@@ -742,12 +781,16 @@ public abstract class Champion : MonoBehaviour {
                 if(attacker != null && !isProjectile)
                 {
                     Narrator.Instance.Parry();
+                    GameObject sshock = Instantiate(simpleShockwave, transform);
                     Debug.Log("Parried");
                     rb.velocity = Vector2.zero;
                     IncreaseLimitBreak(limitBreakOnParry);
                     attacker.SetStunStatus(parryStunDuration);
                     PlaySoundEffect("Parry");
                     controller.AddRumble(0.3f, new Vector2(0.9f, 0.9f), 0.3f);
+                    attacker.playerScore.ResetMultiplier();
+                    playerScore.IncreaseMultiplier();
+                    AddScore(scoreManager.parryPoints);
                 }
             }
             
@@ -1133,7 +1176,10 @@ public abstract class Champion : MonoBehaviour {
 		staminaSlider.value = stamina;
 
 		limitBreakSlider.value = limitBreakGauge;
-		float b = healthSlider.value;
+        Text score = playerHUD.transform.Find("Score").GetComponent<Text>();
+        Text multiplier = playerHUD.transform.Find("Multiplier").GetComponent<Text>();
+
+        float b = healthSlider.value;
 		if (a != b) //si recu des degats, barre colorée supplémentaire
 		{
 			timerDamageHUD = 40;
@@ -1160,8 +1206,32 @@ public abstract class Champion : MonoBehaviour {
 		//ultiImageSlider.fillAmount = 0.75f;
 		ChangeColorHealthSlider();
 
-		//PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
-		//UltiAvailable(true);
+        //PowerUpAvailable(true); //changer la transparence du powerup (1 quand dispo et 0.4 quand en charge)
+        //UltiAvailable(true);
+        /*if(scoreUpdateCoroutine != null)
+        {
+            StopCoroutine(scoreUpdateCoroutine);
+        }*/
+        score.text = playerScore.totalScore.ToString();
+        
+        StringBuilder sb = new StringBuilder("x");
+        switch (playerScore.multiplier)
+        {
+            case 2:
+                multiplier.color = Color.red;
+                break;
+            case 3:
+                multiplier.color = Color.green;
+                break;
+            case 4:
+                multiplier.color = Color.blue;
+                break;
+            default:
+                multiplier.color = Color.grey;
+                break;
+        }
+        sb.Append(playerScore.multiplier.ToString());
+        multiplier.text = sb.ToString();
 	}
 
 	public void ChangeColorHealthSlider()
@@ -1254,6 +1324,10 @@ public abstract class Champion : MonoBehaviour {
 		{
 			return inputStatus;
 		}
+        set
+        {
+            inputStatus = value;
+        }
 	}
 	public Enum_DodgeStatus Dodging
 	{
@@ -1400,6 +1474,7 @@ public abstract class Champion : MonoBehaviour {
             StopCoroutine(projectedCoroutine);
             rb.velocity = Vector2.zero;
         }
+        StopStatusParticleSystems();
         animator.SetBool("Projected", false);
         animator.SetBool("Stunned", false);
         specialStatus = Enum_SpecialStatus.normal;
@@ -1412,6 +1487,7 @@ public abstract class Champion : MonoBehaviour {
     {
         if(!immune && specialStatus != Enum_SpecialStatus.stun)
         {
+            stunPs.Play();
             rb.velocity = Vector2.zero;
             animator.SetBool("Projected", false);
             animator.SetBool("Stunned", true);
@@ -1428,6 +1504,7 @@ public abstract class Champion : MonoBehaviour {
         //Debug.Log("POISON");
         if (!immune)
         {
+            poisonPs.Play();
             specialStatus = Enum_SpecialStatus.poison;
             StartCoroutine(PoisonCoroutine(poisonDamage));
             StartCoroutine(EffectCoroutine(duration));
@@ -1438,6 +1515,7 @@ public abstract class Champion : MonoBehaviour {
         //Debug.Log("SLOW");
         if (!immune)
         {
+            slowPs.Play();
             specialStatus = Enum_SpecialStatus.slow;
             speed = baseSpeed * slowRatio;
             StartCoroutine(EffectCoroutine(duration));
@@ -1545,7 +1623,7 @@ public abstract class Champion : MonoBehaviour {
 
     IEnumerator PoisonCoroutine(float poisonDamage)
     {
-        while (specialStatus == Enum_SpecialStatus.poison)
+        while (specialStatus == Enum_SpecialStatus.poison && !dead)
         {
             if(poisonDamage >= Health)
             {
@@ -1571,7 +1649,11 @@ public abstract class Champion : MonoBehaviour {
 
     public void Death()
     {
-        inputStatus = Enum_InputStatus.blocked;
+        if (projectedCoroutine != null)
+        {
+            StopCoroutine(projectedCoroutine);
+        }
+        SetNormalStatus();
         foreach (AnimatorControllerParameter parameter in animator.parameters)
         {
             if (parameter.type == AnimatorControllerParameterType.Bool)
@@ -1579,6 +1661,7 @@ public abstract class Champion : MonoBehaviour {
                 animator.SetBool(parameter.name, false);
             }
         }
+        inputStatus = Enum_InputStatus.blocked;
         if (!IsGrounded())
         {
             Fall();
@@ -1586,6 +1669,8 @@ public abstract class Champion : MonoBehaviour {
         dead = true;
         playerBox.enabled = false;
         StopMovement(1);
+        
+        
         Debug.Log(transform.parent.name + " died");
 
         //TO DO : find a way to use the deadLayer variable since this doesn't work
@@ -1597,12 +1682,16 @@ public abstract class Champion : MonoBehaviour {
         */
         //this works but uses a string
         gameObject.layer = LayerMask.NameToLayer("Dead");
+        AddScore(Mathf.CeilToInt(-playerScore.totalScore * 0.5f));
+        //ManagerInGame.GetInstance().LastDeathCameraEffect(this, 2.0f);// bugged
         DeathBehaviour();
     }
 
     public virtual void DeathBehaviour()
     {
         animator.SetBool("Dead", true);
+        damageDisplay.SetText(1.0f);
+        
         if(powerUpParticleSystem != null)
         {
             powerUpParticleSystem.Play();
@@ -1625,7 +1714,18 @@ public abstract class Champion : MonoBehaviour {
 
     public void SetController(int index)
     {
+        Enum_Champion temp = Enum_Champion.Knight;
+        if(this is Sorcerer)
+        {
+            temp = Enum_Champion.Sorcerer;
+        }
+        else if(this is Archer)
+        {
+            temp = Enum_Champion.Archer;
+        }
         controller = ControllerManager.Instance.GetController(index);
+        ScoreManager.GetInstance().challengers.Add(new Score(temp));
+        playerScore = ScoreManager.GetInstance().challengers[index - 1];
     }
 
     public X360_controller Controller
@@ -1634,5 +1734,45 @@ public abstract class Champion : MonoBehaviour {
         {
             return controller;
         }
+    }
+
+    public void AddScore(int s)
+    {
+        if(Mathf.Abs(s) > 1.0f)
+        {
+            PopupScore ps;
+            playerScore.AddScore(s);
+            GameObject temp = Instantiate(scoreDisplayPrefab);
+            temp.transform.SetParent(playerHUD.transform.parent);
+            ps = temp.GetComponent<PopupScore>();
+            ps.Target = this;
+            if(s > 0)
+            {
+                ps.SetText(s * playerScore.multiplier);
+            }
+            else
+            {
+                ps.SetText(s);
+            }
+        }
+    }
+
+    protected void StopStatusParticleSystems()
+    {
+        if(stunPs != null && poisonPs != null && slowPs != null)
+        {
+            stunPs.Stop();
+            poisonPs.Stop();
+            slowPs.Stop();
+        }
+        else
+        {
+            Debug.LogError("[Champion] : status particle system missing on : "+transform.name );
+        }
+    }
+
+    public void InstantiateShockwave()
+    {
+        GameObject shock = Instantiate(shockwave, transform);
     }
 }

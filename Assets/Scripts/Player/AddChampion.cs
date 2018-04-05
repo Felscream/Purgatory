@@ -13,7 +13,6 @@ public class AddChampion : MonoBehaviour {
 	// ChampionsSelected instance from player selection
 	ChampionsSelected championsSelected_;
 	private int player1_indexSelection, player2_indexSelection, player3_indexSelection, player4_indexSelection;
-	public CanvasGroup[] HUDPlayer = new CanvasGroup[4];
     private ManagerInGame gameManager;
 	// Use this for initialization
 	void Start ()
@@ -52,7 +51,7 @@ public class AddChampion : MonoBehaviour {
 		{        
 			// Si on ne passe pas par LobbyManager
 			CreateChampion(player1, 1, HUDPlayer1, 1);
-			CreateChampion(player2, 1, HUDPlayer2, 2);
+			CreateChampion(player2, 3, HUDPlayer2, 2);
 			CreateChampion(player3, 2, HUDPlayer3, 3);
 			CreateChampion(player4, 1, HUDPlayer4, 4);
 		}
@@ -98,7 +97,8 @@ public class AddChampion : MonoBehaviour {
                 /*Debug.Log(ControllerManager.Instance.GetController(index).IsConnected);
                 if(ControllerManager.Instance.GetController(index).IsConnected)
                 {*/
-                    player.GetComponentInChildren<Champion>().SetController(controllerNumber);
+
+                championPlayer.SetController(controllerNumber);
                 //}
                 
 			}

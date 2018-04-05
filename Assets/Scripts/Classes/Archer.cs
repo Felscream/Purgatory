@@ -76,18 +76,20 @@ public class Archer : Champion
     protected override void Update()
     {
         base.Update();
-        
-        if (controller.GetButton("Y") && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard && IsGrounded() && !dead)
+        if(!hardBlock || inputStatus != Enum_InputStatus.blocked)
         {
-            if (controller.GetButtonDown("Y"))
+            if (controller.GetButton("Y") && InputStatus != Enum_InputStatus.onlyMovement && !Fatigue && guardStatus == Enum_GuardStatus.noGuard && IsGrounded() && !dead)
             {
-                ReduceStamina(secondaryFireStaminaCost); //remove stamina once
+                if (controller.GetButtonDown("Y"))
+                {
+                    ReduceStamina(secondaryFireStaminaCost); //remove stamina once
+                }
+                Charge(); //only charge when grounded
             }
-            Charge(); //only charge when grounded
-        }
-        else if (controller.GetButtonUp("Y") && !Fatigue)
-        {
-            Release();
+            else if (controller.GetButtonUp("Y") && !Fatigue)
+            {
+                Release();
+            }
         }
     }
 

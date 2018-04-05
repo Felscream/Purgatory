@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.PostProcessing;
 using UnityEngine.SceneManagement;
 
 public class ManagerInGame : MonoBehaviour {
@@ -40,9 +41,10 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] private int secondShakes;
     [SerializeField] private float startCountDown = 3.0f;
     [SerializeField] private Text countDownUI;
-
+    [SerializeField] protected float timeBeforeEndGame = 3.0f;
     private List<AudioSource> agentsAudioSources = new List<AudioSource>();
-
+    private ScoreManager scoreManager;
+    private PostProcessingProfile profile;
     //camera variables
     private float defaultOrthographicSize;
     private float defaultZoomOrthographicSize;
@@ -60,18 +62,23 @@ public class ManagerInGame : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
+            Cursor.visible = false;
         }
         else
         {
             Destroy(gameObject);
         }
-        Players = GetComponentsInChildren<Champion>();
+        
 	}
 
     private void Start()
     {
         CheckPlayerAlive();
         ClashSlider = ClashHUD.GetComponentInChildren<Slider>();
+        if(ClashHUD == null)
+        {
+            Debug.LogError("[ManagerInGame] : No ClashHUD set up");
+        }
         background = ClashHUD.GetComponentInChildren<SpriteRenderer>().gameObject;
         canvas = ClashHUD.GetComponentInChildren<Canvas>().gameObject;
         cameraGo = Camera.main.gameObject;
@@ -89,7 +96,9 @@ public class ManagerInGame : MonoBehaviour {
             defaultZoomOrthographicSize = cameraController.ZoomOrthographicSize;
         }
         audioManager = AudioVolumeManager.GetInstance();
-        
+        scoreManager = ScoreManager.GetInstance();
+        profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
+        ResetChromaticAberration();
     }
     void Update () {
         CheckPlayerAlive();
@@ -105,11 +114,12 @@ public class ManagerInGame : MonoBehaviour {
 			//Instantiate (Plateform);
 			SpawnOrb = true;
 		}
-        /*if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
-			SceneManager.LoadScene (1);
+        if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
+			//SceneManager.LoadScene (1);
             Narrator.Instance.End();
 			//ici ajouter le changement de scène et toute les modifs à prendre en compte
-		}*/
+		}
+        LastPlayerImmunity();
     }
 
     void SpawningItems(){
@@ -167,7 +177,15 @@ public class ManagerInGame : MonoBehaviour {
         attacker.ClashMode();
 
         //Animation at the start of a clash
-        StartCoroutine(cameraController.ZoomIn(finalPos, clashTime, orthographicSize, clashZoomDuration));
+        if (cameraController.zoomOutCoroutine != null)
+        {
+            cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
+        }
+        if(cameraController.zoomInCoroutine != null)
+        {
+            cameraController.StopCoroutine(cameraController.zoomInCoroutine);
+        }
+        cameraController.zoomInCoroutine = StartCoroutine(cameraController.ZoomIn(finalPos, clashTime, orthographicSize, clashZoomDuration));
         GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(false);
         GetComponentInChildren<AddChampion>().HUDPlayer2.gameObject.SetActive(false);
         GetComponentInChildren<AddChampion>().HUDPlayer3.gameObject.SetActive(false);
@@ -211,9 +229,13 @@ public class ManagerInGame : MonoBehaviour {
             defender.ReduceHealth(defender.Health);
             audioManager.PlaySoundEffect("DefenseLoss");
             defender.Controller.AddRumble(0.2f, new Vector2(.9f,.9f), 0.2f);
+            attacker.AddScore(scoreManager.executionResistancePoints);
+            attacker.playerScore.IncreaseMultiplier(); // increase multiplier after adding score
         }
         else
         {
+            defender.playerScore.IncreaseMultiplier(); //increase multiplier before adding score
+            defender.AddScore(scoreManager.executionResistancePoints);
             defender.determination--;
             defender.Health += defenderHealthGain;
             attacker.ReduceHealth(attackerHealthLoss);
@@ -228,7 +250,7 @@ public class ManagerInGame : MonoBehaviour {
         if (cameraController.isZooming)
         {
             StopCoroutine("cameraController.ZoomIn");
-            StartCoroutine(cameraController.ZoomOut(startingPos));
+            StartCoroutine(cameraController.ZoomOut());
         }
         cameraController.ZoomDuration = zd;
         alpha = 1.0f;
@@ -312,7 +334,6 @@ public class ManagerInGame : MonoBehaviour {
     public void CheckPlayerAlive()
     {
         int temp = 0;
-        Players = GetComponentsInChildren<Champion>();
         foreach (Champion player in Players)
         {
             if (player != null && !player.Dead)
@@ -333,10 +354,14 @@ public class ManagerInGame : MonoBehaviour {
 
     public IEnumerator UltimateCameraEffect(Vector2 position, float waitTime, Champion champion)
     {
+        if (cameraController.zoomOutCoroutine != null)
+        {
+            cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
+        }
         PauseAgentsAudio();
         Time.timeScale = 0.0001f;
         champion.animator.speed = 1 / Time.timeScale;
-        StartCoroutine(cameraController.ZoomIn(position, waitTime));
+        cameraController.zoomInCoroutine = StartCoroutine(cameraController.ZoomIn(position, waitTime));
         yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
         Time.timeScale = 1.0f;
         champion.EndUltLoop();
@@ -344,6 +369,19 @@ public class ManagerInGame : MonoBehaviour {
         UnpauseAgentsAudio();
     }
 
+    public void LastDeathCameraEffect(Champion champ, float waitTime)
+    {
+        
+        CheckPlayerAlive();
+        if(PlayerAlive == 1)
+        {
+            if (cameraController.zoomOutCoroutine != null)
+            {
+                cameraController.StopCoroutine(cameraController.zoomOutCoroutine);
+            }
+            StartCoroutine(cameraController.ZoomIn(champ.transform.position, waitTime));
+        }
+    }
     public float ComputeOrthographicSize(Vector2 pOne, Vector2 pTwo)
     {
         float orthographicSize = defaultOrthographicSize;
@@ -399,6 +437,7 @@ public class ManagerInGame : MonoBehaviour {
     public IEnumerator StartGame()
     {
         float timer = startCountDown;
+        Players = GetComponentsInChildren<Champion>();
         Animator anim = countDownUI.GetComponent<Animator>();
         while(timer > 0)
         {
@@ -411,10 +450,51 @@ public class ManagerInGame : MonoBehaviour {
             yield return null;
         }
 
+        ScoreManager.GetInstance().gameStart = true; 
         foreach(Champion champ in Players)
         {
             champ.hardBlock = false;
+            champ.Immunity = false;
+            champ.InputStatus = Enum_InputStatus.allowed;
         }
         Narrator.Instance.StartOfTheGame();
+    }
+
+    private void LastPlayerImmunity()
+    {
+        if(PlayerAlive == 1)
+        {
+            foreach(Champion champ in Players)
+            {
+                if (!champ.Dead)
+                {
+                    champ.Immunity = true;
+                }
+            }
+            ScoreManager.GetInstance().gameStart = false;
+        }
+    }
+
+    public IEnumerator ChromaticAberration(float duration, float intensity = 1.0f)
+    {
+        ChromaticAberrationModel.Settings ch = profile.chromaticAberration.settings;
+        ch.intensity = intensity;
+        profile.chromaticAberration.settings = ch;
+        yield return new WaitForSecondsRealtime(duration);
+        ResetChromaticAberration();
+    }
+
+    private void ResetChromaticAberration()
+    {
+        ChromaticAberrationModel.Settings ch = profile.chromaticAberration.settings;
+        ch.intensity = 0.0f;
+        profile.chromaticAberration.settings = ch;
+    }
+
+    protected IEnumerator ProcEndGame()
+    {
+        SceneManager.LoadSceneAsync("Victory");
+        Narrator.Instance.End();
+        yield return new WaitForSeconds(timeBeforeEndGame);
     }
 }

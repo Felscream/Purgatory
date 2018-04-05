@@ -91,33 +91,18 @@ public class Arrow : Projectile
     {
         if (arrowStatus == Enum_SpecialStatus.stun)
         {
-            GameObject stunAnim = Instantiate(stunSprite, foe.transform.position, foe.transform.rotation);
-            stunAnim.transform.SetParent(foe.transform);
-            stunAnim.transform.Translate(new Vector3(0.0f, 1.25f, 0.0f));
-            stunAnim.transform.localScale += new Vector3(1.5F, 1.5F, 0);
-            Destroy(stunAnim, 5.0f);
             foe.SetStunStatus();
         }
         else
         {
             if (arrowStatus == Enum_SpecialStatus.poison)
             {
-                GameObject stunAnim = Instantiate(poisonSprite, foe.transform.position, foe.transform.rotation);
-                stunAnim.transform.SetParent(foe.transform);
-                stunAnim.transform.Translate(new Vector3(0.0f, 0.0f, -0.1f));
-                stunAnim.transform.localScale += new Vector3(1.25F, 1.3F, 0);
-                Destroy(stunAnim, 5f);
                 foe.SetPoisonStatus(PoisonDamage, poisonDuration);
             }
             else
             {
                 if (arrowStatus == Enum_SpecialStatus.slow)
                 {
-                    GameObject slowAnim = Instantiate(slowSprite, foe.transform.position, foe.transform.rotation);
-                    slowAnim.transform.SetParent(foe.transform);
-                    slowAnim.transform.Translate(new Vector3(0.2f, 0.0f, -0.1f));
-                    slowAnim.transform.localScale += new Vector3(1.0F, 1.5F, 0);
-                    Destroy(slowAnim, 5f);
                     foe.SetSlowStatus();
                 }
             }

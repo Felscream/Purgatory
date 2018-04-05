@@ -35,16 +35,20 @@ public class PopupDamage : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if(target != null)
+        if (damageText == null)
+        {
+            damageText = GetComponentInChildren<Text>();
+        }
+        if (target != null)
         {
             Vector3 reference = target.transform.position;
-            if(target.transform.position.x > 19.5f)
+            if(target.transform.position.x > 18f)
             {
-                reference = new Vector3(reference.x - Mathf.Abs(finalOffset.x), reference.y, reference.z);
+                reference = new Vector3(reference.x - Mathf.Abs(finalOffset.x + damageText.fontSize/9.0f), reference.y, reference.z);
             }
-            if(target.transform.position.x < 19.5f)
+            if(target.transform.position.x < -18f)
             {
-                reference = new Vector3(reference.x + Mathf.Abs(finalOffset.x), reference.y, reference.z);
+                reference = new Vector3(reference.x + Mathf.Abs(finalOffset.x + damageText.fontSize /9.0f), reference.y, reference.z);
             }
             transform.position = Camera.main.WorldToScreenPoint(reference + (Vector3)finalOffset);
         }
@@ -63,7 +67,7 @@ public class PopupDamage : MonoBehaviour {
             {
                 damageText = GetComponentInChildren<Text>();
             }
-            if (!(target.Health <= 0.0f))
+            if (!target.Dead)
             {
                 sb.Append(Mathf.Round(totalDamage).ToString());
                 if (totalDamage > lastTierValue)

@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c739717ca7864ad498e3e940e0be005f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shockwave: {fileID: 1337472139045792, guid: 341ffd638c7084348a9b84a4444c87de, type: 2}
   life: 0
 --- !u!212 &212610055039943204
 SpriteRenderer:

@@ -177,6 +177,7 @@ public class Knight : Champion
     public override void DeathBehaviour()
     {
         animator.SetTrigger("DeadTrigger");
+        damageDisplay.SetText(1.0f);
         if (powerUpParticleSystem != null)
         {
             powerUpParticleSystem.Play();

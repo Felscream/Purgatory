@@ -209,7 +209,6 @@ public class Sorcerer : Champion
         animator.SetBool("Fall", false);
         animator.SetTrigger("Ultimate");
         rb.velocity = Vector2.zero;
-        //rb.isKinematic = true;
         rb.gravityScale = 0.0f;
         immune = true;
     }
@@ -232,6 +231,7 @@ public class Sorcerer : Champion
 
     private IEnumerator CastBarrierCoroutine()
     {
+        rb.isKinematic = true;
         ultimateParticleSystem.Play();
         float timer = 0.0f;
         PlaySoundEffect("Ultimate");
