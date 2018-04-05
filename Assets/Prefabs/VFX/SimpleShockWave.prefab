@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4194333714878024}
   - component: {fileID: 212214181354776252}
-  - component: {fileID: 114833276136648688}
+  - component: {fileID: 114588091463073166}
   m_Layer: 0
-  m_Name: ShockWave
+  m_Name: SimpleShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114833276136648688
+--- !u!114 &114588091463073166
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,13 +49,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1337472139045792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8559a1935a2cdef4a95ddd4b7baabc43, type: 3}
+  m_Script: {fileID: 11500000, guid: ec1b440420af88847b3aa30df3148df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startScale: {x: 0, y: 0, z: 0}
-  targetScale: {x: 16, y: 16, z: 16}
-  duration: 0.6
-  chromaticAberDuration: 0.4
+  targetScale: {x: 2, y: 2, z: 0}
+  duration: 0.2
 --- !u!212 &212214181354776252
 SpriteRenderer:
   m_ObjectHideFlags: 1

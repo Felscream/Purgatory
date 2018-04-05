@@ -207,7 +207,6 @@ public class CameraControl : MonoBehaviour {
         {
             i += Time.unscaledDeltaTime * rate;
             mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
-            Debug.Log(mainCamera.orthographicSize);
             yield return null;
         }
     }

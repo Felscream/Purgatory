@@ -45,7 +45,8 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected float baseSpeed = 10;
     [SerializeField] protected LayerMask deadLayer;
     [SerializeField] protected GameObject shockwave;
-    
+    [SerializeField] protected GameObject simpleShockwave;
+
 
     [Header("HUDSettings")]
     [SerializeField] public CanvasGroup playerHUD;
@@ -780,6 +781,7 @@ public abstract class Champion : MonoBehaviour {
                 if(attacker != null && !isProjectile)
                 {
                     Narrator.Instance.Parry();
+                    GameObject sshock = Instantiate(simpleShockwave, transform);
                     Debug.Log("Parried");
                     rb.velocity = Vector2.zero;
                     IncreaseLimitBreak(limitBreakOnParry);
@@ -1621,7 +1623,7 @@ public abstract class Champion : MonoBehaviour {
 
     IEnumerator PoisonCoroutine(float poisonDamage)
     {
-        while (specialStatus == Enum_SpecialStatus.poison)
+        while (specialStatus == Enum_SpecialStatus.poison && !dead)
         {
             if(poisonDamage >= Health)
             {
@@ -1647,7 +1649,11 @@ public abstract class Champion : MonoBehaviour {
 
     public void Death()
     {
-        inputStatus = Enum_InputStatus.blocked;
+        if (projectedCoroutine != null)
+        {
+            StopCoroutine(projectedCoroutine);
+        }
+        SetNormalStatus();
         foreach (AnimatorControllerParameter parameter in animator.parameters)
         {
             if (parameter.type == AnimatorControllerParameterType.Bool)
@@ -1655,6 +1661,7 @@ public abstract class Champion : MonoBehaviour {
                 animator.SetBool(parameter.name, false);
             }
         }
+        inputStatus = Enum_InputStatus.blocked;
         if (!IsGrounded())
         {
             Fall();
@@ -1662,7 +1669,8 @@ public abstract class Champion : MonoBehaviour {
         dead = true;
         playerBox.enabled = false;
         StopMovement(1);
-        StopStatusParticleSystems();
+        
+        
         Debug.Log(transform.parent.name + " died");
 
         //TO DO : find a way to use the deadLayer variable since this doesn't work
