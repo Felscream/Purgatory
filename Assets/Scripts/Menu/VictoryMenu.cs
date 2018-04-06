@@ -54,7 +54,7 @@ public class VictoryMenu: MonoBehaviour {
                 Affichage(playerSelection, winner.playerID);
                 break;
             case 2: // Deuxième place
-                if(losers[0] != null)
+                if(losers.Count >= 1)
                 {
                     playerSelection = losers[0].champion;
                     ScoreText.GetComponent<Text>().text = losers[0].TotalScore.ToString();
@@ -66,7 +66,7 @@ public class VictoryMenu: MonoBehaviour {
                 }
                 break;
             case 3: // Troisième place
-                if (losers[1] != null)
+                if (losers.Count >= 2)
                 {
                     playerSelection = losers[1].champion;
                     ScoreText.GetComponent<Text>().text = losers[1].TotalScore.ToString();
@@ -78,7 +78,7 @@ public class VictoryMenu: MonoBehaviour {
                 }
                 break;
             case 4: // Quatrième place
-                if (losers[2] != null)
+                if (losers.Count >= 3)
                 {
                     playerSelection = losers[2].champion;
                     ScoreText.GetComponent<Text>().text = losers[2].TotalScore.ToString();

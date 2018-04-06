@@ -52,6 +52,8 @@ public class ManagerInGame : MonoBehaviour {
     private List<Score> losers = new List<Score>();
     private CanvasGroup endGameCanvasGroup;
     private VictoryMenu[] endGameDisplays;
+    private Button[] endGameButtons;
+    private InputField winnerName;
     public bool EndGame { get; set; }
     public static ManagerInGame GetInstance()
     {
@@ -105,13 +107,7 @@ public class ManagerInGame : MonoBehaviour {
         scoreManager = ScoreManager.GetInstance();
         profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
         ResetChromaticAberration();
-        endGameCanvasGroup = GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<CanvasGroup>();
-        GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<Canvas>().worldCamera = Camera.main;
-        endGameDisplays = endGameCanvasGroup.GetComponentsInChildren<VictoryMenu>();
-        if(endGameDisplays.Length == 0)
-        {
-            Debug.LogError("[ManagerInGame] : No end game canvas");
-        }
+        InitializeEndGameHUD();
         
     }
     void Update () {
@@ -540,7 +536,7 @@ public class ManagerInGame : MonoBehaviour {
                 Debug.Log(length);
             }
             yield return new WaitForSeconds(length);
-            StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("MainMenuTheme", timeBeforeEndGame));
+            AudioVolumeManager.GetInstance().StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("MainMenuTheme", timeBeforeEndGame));
             do
             {
                 GetComponentInChildren<AddChampion>().HUDPlayer1.alpha -= step * Time.unscaledDeltaTime;
@@ -552,6 +548,7 @@ public class ManagerInGame : MonoBehaviour {
                 yield return null;
             }
             while (timer <= timeBeforeEndGame);
+            Cursor.visible = true;
             GetComponentInChildren<AddChampion>().HUDPlayer1.transform.parent.gameObject.SetActive(false);
             timer = 0.0f;
             CanvasGroup scoreDisplay = endGameCanvasGroup.transform.Find("Classment").GetComponent<CanvasGroup>();
@@ -566,7 +563,8 @@ public class ManagerInGame : MonoBehaviour {
                 }
                 while (timer <= timeBeforeEndGame);
             }
-            Cursor.visible = true;
+            ToggleEndGameButtonInteraction();
+            
         }
     }
 
@@ -581,6 +579,78 @@ public class ManagerInGame : MonoBehaviour {
 
     public void LoadMainMenu()
     {
+        scoreManager.AddChallengerToLeaderboard(winner);
+        ToggleEndGameButtonInteraction();
+        audioManager.PlaySoundEffect("Select");
         SceneManager.LoadScene(0);
+    }
+
+    public void Reload()
+    {
+        scoreManager.AddChallengerToLeaderboard(winner);
+        ToggleEndGameButtonInteraction();
+        audioManager.PlaySoundEffect("Select");
+        Time.timeScale = 1.0f;
+        AudioVolumeManager.GetInstance().StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("InGameTheme", timeBeforeEndGame));
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+
+    public void LoadLobby()
+    {
+        scoreManager.AddChallengerToLeaderboard(winner);
+        ToggleEndGameButtonInteraction();
+        audioManager.PlaySoundEffect("Select");
+        Time.timeScale = 1.0f;
+        AudioVolumeManager.GetInstance().StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("LobbyTheme", timeBeforeEndGame));
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
+    }
+    private IEnumerator ReloadSceneAsyc()
+    {
+        AsyncOperation asyncLoad= SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        while (!asyncLoad.isDone)
+        {
+            Debug.Log(asyncLoad.progress);
+            yield return null;
+        }
+    }
+
+    private void InitializeEndGameHUD()
+    {
+        endGameCanvasGroup = GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<CanvasGroup>();
+        endGameButtons = endGameCanvasGroup.GetComponentsInChildren<Button>();
+        foreach (Button b in endGameButtons)
+        {
+            b.interactable = false;
+        }
+        //endGameCanvasGroup.gameObject.SetActive(false);
+        
+        GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<Canvas>().worldCamera = Camera.main;
+        endGameDisplays = endGameCanvasGroup.GetComponentsInChildren<VictoryMenu>();
+        if (endGameDisplays.Length == 0)
+        {
+            Debug.LogError("[ManagerInGame] : No end game canvas");
+        }
+        else
+        {
+            winnerName = endGameDisplays[0].GetComponentInChildren<InputField>();
+        }
+        if(winnerName == null)
+        {
+            Debug.LogError("[ManagerInGame] : No winner name input field");
+        }
+        else
+        {
+            winnerName.interactable = false;
+        }
+        
+    }
+
+    private void ToggleEndGameButtonInteraction()
+    {
+        winnerName.interactable = !winnerName.interactable;
+        foreach(Button b in endGameButtons)
+        {
+            b.interactable = !b.interactable;
+        }
     }
 }

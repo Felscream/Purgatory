@@ -79,7 +79,7 @@ public class AudioVolumeManager : MonoBehaviour {
             yield break;
         }
         AudioSource current = GetCurrentTheme();
-        if(current == null)
+        if(current == null || current == newT.source)
         {
             Debug.LogWarning("No theme playing");
             yield break;
@@ -94,6 +94,7 @@ public class AudioVolumeManager : MonoBehaviour {
             yield return null;
         }
         current.Stop();
+        current.volume = musicVolume;
         newT.source.volume = musicVolume;
 
         

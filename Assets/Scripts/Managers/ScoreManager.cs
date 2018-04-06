@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour {
     [NonSerialized] public List<ScoreData> leaderboard = new List<ScoreData>();
     [NonSerialized] public List<Score> challengers = new List<Score>();
     [NonSerialized] public bool gameStart = false;
-    public int leaderboardSize = 10;
+    public int leaderboardSize = 9;
     public int executionPoints = 500;
     public int heartPoints = 150;
     public int executionResistancePoints = 375;
@@ -68,14 +68,10 @@ public class ScoreManager : MonoBehaviour {
         }        
     }
 
-    public void AddChallengersToLeaderboard()
+    public void AddChallengerToLeaderboard(Score challenger)
     {
-        DateTime date = DateTime.Now;
-        foreach(Score s in challengers)
-        {
-            ScoreData data = new ScoreData(s.totalScore, s.champion);
-            leaderboard.Add(data);
-        }
+        ScoreData data = new ScoreData(challenger.totalScore, challenger.champion, challenger.playerName);
+        leaderboard.Add(data);
         leaderboard.Sort();
         if (leaderboard.Count > leaderboardSize)
         {
@@ -84,6 +80,10 @@ public class ScoreManager : MonoBehaviour {
             {
                 leaderboard.RemoveAt(leaderboard.Count - 1);
             }
+        }
+        foreach(ScoreData d in leaderboard)
+        {
+            Debug.Log(d.playerName + " " + d.totalScore);
         }
     }
     private void Save()
@@ -113,6 +113,7 @@ public class ScoreManager : MonoBehaviour {
 public class Score : IEquatable<Score>, IComparable<Score>
 {
     public int playerID;
+    public string playerName = "AAA";
     public int totalScore;
     public int multiplier;
     public Enum_Champion champion;
