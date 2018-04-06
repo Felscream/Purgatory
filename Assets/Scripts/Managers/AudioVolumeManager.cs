@@ -66,6 +66,35 @@ public class AudioVolumeManager : MonoBehaviour {
         t.source.Play();
     }
     
+    public IEnumerator FadeTheme(string newTheme, float fadeDuration)
+    {
+        Sound newT = Array.Find(themes, theme => theme.name == newTheme);
+        if (newT == null)
+        {
+            Debug.LogWarning("Sound effect " + name + " not found");
+            yield break;
+        }
+        AudioSource current = GetCurrentTheme();
+        if(current == null)
+        {
+            Debug.LogWarning("No theme playing");
+            yield break;
+        }
+        newT.source.volume = 0.0f;
+        newT.source.Play();
+        float step = musicVolume / fadeDuration;
+        while (newT.source.volume <= musicVolume)
+        {
+            current.volume -= step * Time.unscaledDeltaTime;
+            newT.source.volume += step * Time.unscaledDeltaTime;
+            yield return null;
+        }
+        current.Stop();
+        newT.source.volume = musicVolume;
+
+        
+
+    }
     private void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -162,6 +191,18 @@ public class AudioVolumeManager : MonoBehaviour {
         {
             voiceVolume = value;
         }
+    }
+
+    public AudioSource GetCurrentTheme()
+    {
+        foreach(Sound t in themes)
+        {
+            if (t.source.isPlaying)
+            {
+                return t.source;
+            }
+        }
+        return null;
     }
 }
 

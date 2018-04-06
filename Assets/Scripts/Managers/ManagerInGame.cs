@@ -539,6 +539,7 @@ public class ManagerInGame : MonoBehaviour {
                 Debug.Log(length);
             }
             yield return new WaitForSeconds(length);
+            StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("MainMenuTheme", timeBeforeEndGame));
             do
             {
                 GetComponentInChildren<AddChampion>().HUDPlayer1.alpha -= step * Time.unscaledDeltaTime;
@@ -562,10 +563,8 @@ public class ManagerInGame : MonoBehaviour {
                 }
                 while (timer <= timeBeforeEndGame);
             }
+            Cursor.visible = true;
         }
-        
-
-        
     }
 
     public Score GetWinner()
@@ -577,4 +576,8 @@ public class ManagerInGame : MonoBehaviour {
         return losers;
     }
 
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
