@@ -48,6 +48,10 @@ public class ManagerInGame : MonoBehaviour {
     //camera variables
     private float defaultOrthographicSize;
     private float defaultZoomOrthographicSize;
+    private Score winner;
+    private List<Score> losers = new List<Score>();
+    private CanvasGroup endGameCanvasGroup;
+    private VictoryMenu[] endGameDisplays;
     public static ManagerInGame GetInstance()
     {
         if (instance == null)
@@ -99,6 +103,13 @@ public class ManagerInGame : MonoBehaviour {
         scoreManager = ScoreManager.GetInstance();
         profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
         ResetChromaticAberration();
+        endGameCanvasGroup = GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<CanvasGroup>();
+        endGameDisplays = endGameCanvasGroup.GetComponentsInChildren<VictoryMenu>();
+        if(endGameDisplays.Length == 0)
+        {
+            Debug.LogError("[ManagerInGame] : No end game canvas");
+        }
+        
     }
     void Update () {
         CheckPlayerAlive();
@@ -114,12 +125,24 @@ public class ManagerInGame : MonoBehaviour {
 			//Instantiate (Plateform);
 			SpawnOrb = true;
 		}
-        if (playerAlive == 1) {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
-			SceneManager.LoadScene(3);
+        if (playerAlive <= 1 && scoreManager.gameStart)
+        {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
+            LastPlayerImmunity();
+            //SceneManager.LoadScene(3);
             Narrator.Instance.End();
-			//ici ajouter le changement de scène et toute les modifs à prendre en compte
-		}
-        LastPlayerImmunity();
+            GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(false);
+            GetComponentInChildren<AddChampion>().HUDPlayer2.gameObject.SetActive(false);
+            GetComponentInChildren<AddChampion>().HUDPlayer3.gameObject.SetActive(false);
+            GetComponentInChildren<AddChampion>().HUDPlayer4.gameObject.SetActive(false);
+            foreach (VictoryMenu vm in endGameDisplays)
+            {
+                endGameCanvasGroup.alpha = 1.0f;
+                vm.CalculateScore();
+            }
+            scoreManager.gameStart = false;
+            //ici ajouter le changement de scène et toute les modifs à prendre en compte
+        }
+        
     }
 
     void SpawningItems(){
@@ -249,7 +272,7 @@ public class ManagerInGame : MonoBehaviour {
         Destroy(bkg);
         if (cameraController.isZooming)
         {
-            StopCoroutine("cameraController.ZoomIn");
+            cameraController.StopCoroutine("cameraController.ZoomIn");
             StartCoroutine(cameraController.ZoomOut());
         }
         cameraController.ZoomDuration = zd;
@@ -462,18 +485,26 @@ public class ManagerInGame : MonoBehaviour {
 
     private void LastPlayerImmunity()
     {
-        if(PlayerAlive == 1)
+        foreach(Champion champ in Players)
         {
-            foreach(Champion champ in Players)
+            if (!champ.Dead)
             {
-                if (!champ.Dead)
-                {
-                    champ.Immunity = true;
-                    champ.AddScore(ScoreManager.GetInstance().victoryPoints);
-                }
+                champ.Immunity = true;
+                champ.AddScore(ScoreManager.GetInstance().victoryPoints);
+                winner = champ.playerScore;
             }
-            ScoreManager.GetInstance().gameStart = false;
+            else
+            {
+                losers.Add(champ.playerScore);
+            }
         }
+        losers.Sort();
+        if(winner == null)
+        {
+            winner = losers[0];
+        }
+        
+        
     }
 
     public IEnumerator ChromaticAberration(float duration, float intensity = 1.0f)
@@ -498,4 +529,14 @@ public class ManagerInGame : MonoBehaviour {
         Narrator.Instance.End();
         yield return new WaitForSeconds(timeBeforeEndGame);
     }
+
+    public Score GetWinner()
+    {
+        return winner;
+    }
+    public List<Score> GetLosers()
+    {
+        return losers;
+    }
+
 }

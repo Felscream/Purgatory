@@ -21,7 +21,6 @@ public class ScoreManager : MonoBehaviour {
     public int victoryPoints = 1000;
     public float timerBetweenIncrease = 20.0f;
     private string fileName = "scoreData.dat";
-    
     void Awake()
     {
         if (instance == null)
@@ -111,16 +110,17 @@ public class ScoreManager : MonoBehaviour {
     }
 }
 
-public class Score
+public class Score : IEquatable<Score>, IComparable<Score>
 {
-    public string playerName;
+    public int playerID;
     public int totalScore;
     public int multiplier;
     public Enum_Champion champion;
     public float timer;
 
-    public Score(Enum_Champion champ)
+    public Score(int id, Enum_Champion champ)
     {
+        playerID = id -1;
         totalScore = 0;
         multiplier = 1;
         champion = champ;
@@ -157,33 +157,7 @@ public class Score
         }
 
     }
-}
-
-[Serializable]
-public struct LeaderboardData
-{
-    public List<ScoreData> leaderboard;
-
-    public LeaderboardData(List<ScoreData> l)
-    {
-        leaderboard = l;
-    }
-}
-
-[Serializable]
-public struct ScoreData : IEquatable<Score>, IComparable<Score>
-{
-    public string playerName;
-    public int totalScore;
-    public Enum_Champion champion;
-
-    public ScoreData(int score, Enum_Champion champ, string p = "AAA")
-    {
-        playerName = p;
-        totalScore = score;
-        champion = champ;
-    }
-    public override bool Equals(object obj)
+     public override bool Equals(object obj)
     {
         if (obj == null) { return false ; }
         Score s = obj as Score;
@@ -198,6 +172,59 @@ public struct ScoreData : IEquatable<Score>, IComparable<Score>
     }
 
     public int CompareTo(Score comparePart)
+    {
+        if (comparePart == null)
+            return 1;
+
+        else 
+            return comparePart.totalScore.CompareTo(this.totalScore);   //inverse sorting - greater to smaller value
+    }
+
+    public override int GetHashCode()
+    {
+        return totalScore;
+    }
+}
+
+[Serializable]
+public struct LeaderboardData
+{
+    public List<ScoreData> leaderboard;
+
+    public LeaderboardData(List<ScoreData> l)
+    {
+        leaderboard = l;
+    }
+}
+
+[Serializable]
+public class ScoreData : IEquatable<ScoreData>, IComparable<ScoreData>
+{
+    public string playerName;
+    public int totalScore;
+    public Enum_Champion champion;
+
+    public ScoreData(int score, Enum_Champion champ, string p = "AAA")
+    {
+        playerName = p;
+        totalScore = score;
+        champion = champ;
+    }
+    public override bool Equals(object obj)
+    {
+        if (obj == null) { return false ; }
+        ScoreData s = obj as ScoreData;
+        if (s == null) { return false; }
+        else return Equals(s);
+    }
+
+    public bool Equals(ScoreData other)
+    {
+        if (other == null) return false;
+        return (this.totalScore.Equals(other.totalScore));
+    }
+
+    public int CompareTo(ScoreData comparePart)
     {
         if (comparePart == null)
             return 1;

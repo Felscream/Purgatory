@@ -13,7 +13,6 @@ public class ChampionManager: MonoBehaviour {
     private bool lobbySelected = false;
     private AudioVolumeManager audioVolumeManager;
     public int[] playerSelection;
-    public int[] playerScore;
 
     void Awake()
     {
@@ -41,14 +40,6 @@ public class ChampionManager: MonoBehaviour {
         // Player 4 index = 0;
         playerSelection[3] = 0;
 
-        // Player 1 index = 0;
-        playerScore[0] = 0;
-        // Player 2 index = 0;
-        playerScore[1] = 0;
-        // Player 3 index = 0;
-        playerScore[2] = 0;
-        // Player 4 index = 0;
-        playerScore[3] = 0;
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioVolumeManager.PlayTheme("LobbyTheme");

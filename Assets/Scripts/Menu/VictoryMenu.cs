@@ -7,11 +7,9 @@ using UnityEngine.UI; // Required when Using UI elements.
 public class VictoryMenu: MonoBehaviour {
 
     // ChampionsSelected instance
-    ChampionManager championsSelected_;
-    private int playerSelection;
-    // Tous les scores
-    private int[] playerScore;
-    private int[] playerScoreOrder;
+    ScoreManager scoreManager;
+    ManagerInGame gameManager;
+    private Enum_Champion playerSelection;
 
     // La tableau sur lequel on met le script
     public int tableIndex;
@@ -38,64 +36,57 @@ public class VictoryMenu: MonoBehaviour {
     // Use this for initialization
     void Start () {
         // Instance for prefab
-        championsSelected_ = ChampionManager.GetInstance();
-
-        for (int i=0; i < championsSelected_.playerScore.Length; i++)
-        {
-            playerScore[i] = championsSelected_.playerSelection[i];
-        }
-        CalculateScore();
+        scoreManager = ScoreManager.GetInstance();
+        gameManager = ManagerInGame.GetInstance();
     }
 
-    private void CalculateScore()
+    public void CalculateScore()
     {
-        playerScoreOrder = playerScore;
-        Array.Sort(playerScoreOrder);
-        
+
+        Score winner = gameManager.GetWinner();
+        List<Score> losers = gameManager.GetLosers();
         switch (tableIndex)
         {
             case 1: // Première place
-                for (int i = 0; i < playerScore.Length; i++)
-                {
-                    if (playerScore[i] == playerScoreOrder[0])
-                    {
-                        playerSelection = championsSelected_.playerSelection[i];
-                        ScoreText.GetComponent<Text>().text = "Score : " + playerScoreOrder[0];
-                        Affichage(playerSelection, i);
-                    }
-                }
+                
+                playerSelection = winner.champion;
+                ScoreText.GetComponent<Text>().text = winner.TotalScore.ToString() ;
+                Affichage(playerSelection, winner.playerID);
                 break;
             case 2: // Deuxième place
-                for (int i = 0; i < playerScore.Length; i++)
+                if(losers[0] != null)
                 {
-                    if (playerScore[i] == playerScoreOrder[1])
-                    {
-                        playerSelection = championsSelected_.playerSelection[i];
-                        ScoreText.GetComponent<Text>().text = "Score : " + playerScoreOrder[1];
-                        Affichage(playerSelection, i);
-                    }
+                    playerSelection = losers[0].champion;
+                    ScoreText.GetComponent<Text>().text = losers[0].TotalScore.ToString();
+                    Affichage(playerSelection, losers[0].playerID);
+                }
+                else
+                {
+                    gameObject.SetActive(false);
                 }
                 break;
             case 3: // Troisième place
-                for (int i = 0; i < playerScore.Length; i++)
+                if (losers[1] != null)
                 {
-                    if (playerScore[i] == playerScoreOrder[2])
-                    {
-                        playerSelection = championsSelected_.playerSelection[i];
-                        ScoreText.GetComponent<Text>().text = "Score : " + playerScoreOrder[2];
-                        Affichage(playerSelection, i);
-                    }
+                    playerSelection = losers[1].champion;
+                    ScoreText.GetComponent<Text>().text = losers[1].TotalScore.ToString();
+                    Affichage(playerSelection, losers[1].playerID);
+                }
+                else
+                {
+                    gameObject.SetActive(false);
                 }
                 break;
             case 4: // Quatrième place
-                for (int i = 0; i < playerScore.Length; i++)
+                if (losers[2] != null)
                 {
-                    if (playerScore[i] == playerScoreOrder[3])
-                    {
-                        playerSelection = championsSelected_.playerSelection[i];
-                        ScoreText.GetComponent<Text>().text = "Score : " + playerScoreOrder[3];
-                        Affichage(playerSelection, i);
-                    }
+                    playerSelection = losers[2].champion;
+                    ScoreText.GetComponent<Text>().text = losers[2].TotalScore.ToString();
+                    Affichage(playerSelection, losers[2].playerID);
+                }
+                else
+                {
+                    gameObject.SetActive(false);
                 }
                 break;
             default: // if 0, nothing selected
@@ -103,7 +94,7 @@ public class VictoryMenu: MonoBehaviour {
         }
     }
 
-    private void Affichage(int playerSelection, int playerIndex)
+    private void Affichage(Enum_Champion playerSelection, int playerIndex)
     {
         switch (playerIndex)
         {
@@ -138,39 +129,39 @@ public class VictoryMenu: MonoBehaviour {
 
         switch (playerSelection)
         {
-            case 0:
-                playerTable.gameObject.SetActive(false);
-                break;
-            case 1:
+            case Enum_Champion.Knight:
                 // Changer sprite
                 knightImage.gameObject.SetActive(true);
                 sorcererImage.gameObject.SetActive(false);
                 archerImage.gameObject.SetActive(false);
-                knightIcon.gameObject.SetActive(true);
+               /* knightIcon.gameObject.SetActive(true);
                 sorcererIcon.gameObject.SetActive(false);
-                archerIcon.gameObject.SetActive(false);
+                archerIcon.gameObject.SetActive(false);*/
                 break;
-            case 2:
+            case Enum_Champion.Sorcerer:
                 // Changer sprite
                 knightImage.gameObject.SetActive(false);
                 sorcererImage.gameObject.SetActive(true);
                 archerImage.gameObject.SetActive(false);
-                knightIcon.gameObject.SetActive(false);
+                /*knightIcon.gameObject.SetActive(false);
                 sorcererIcon.gameObject.SetActive(true);
-                archerIcon.gameObject.SetActive(false);
+                archerIcon.gameObject.SetActive(false);*/
                 break;
-            case 3:
+            case Enum_Champion.Archer:
                 // Changer sprite
                 knightImage.gameObject.SetActive(false);
                 sorcererImage.gameObject.SetActive(false);
                 archerImage.gameObject.SetActive(true);
-                knightIcon.gameObject.SetActive(false);
+                /*knightIcon.gameObject.SetActive(false);
                 sorcererIcon.gameObject.SetActive(false);
-                archerIcon.gameObject.SetActive(true);
+                archerIcon.gameObject.SetActive(true);*/
                 break;
             default:
-                print("Incorrect intelligence level.");
+                playerTable.gameObject.SetActive(false);
                 break;
+                /*default:
+                    print("Incorrect intelligence level.");
+                    break;*/
         }
     }
 

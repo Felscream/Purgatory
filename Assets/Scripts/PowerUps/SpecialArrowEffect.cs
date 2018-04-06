@@ -52,14 +52,14 @@ public class SpecialArrowEffect : PowerUp
             case Enum_PowerUpStatus.available:
                 //powerUpImageSlider.fillAmount = 1.0f;
                 powerUpAbilityImage.color = new Color(255, 255, 255, transparencyAvailable);
-                powerUpAbilityImage.transform.parent.localScale = new Vector2(1.0f, 1.0f);
+                powerUpAbilityImage.transform.parent.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
             case Enum_PowerUpStatus.activated:
-                powerUpAbilityImage.transform.parent.localScale = new Vector2(1.25f, 1.25f);
+                powerUpAbilityImage.transform.parent.localScale = new Vector3(1.25f, 1.25f, 1.0f);
                 powerUpAbilityImage.color = new Color(255, 255, 255, transparencyAvailable);
                 break;
             case Enum_PowerUpStatus.onCooldown:
-                powerUpAbilityImage.transform.parent.localScale = new Vector2(1.0f, 1.0f);
+                powerUpAbilityImage.transform.parent.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 powerUpAbilityImage.color = new Color(255, 255, 255, transparencyOnCooldown);
                 break;
         }

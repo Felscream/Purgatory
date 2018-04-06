@@ -16,6 +16,7 @@ TagManager:
   - ground
   - BreakingOrb
   - Obstacle
+  - EndGameCanvas
   layers:
   - Default
   - TransparentFX
@@ -64,4 +65,7 @@ TagManager:
     locked: 0
   - name: Clash
     uniqueID: 616613623
+    locked: 0
+  - name: EndGame
+    uniqueID: 856979087
     locked: 0

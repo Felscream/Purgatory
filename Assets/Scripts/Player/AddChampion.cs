@@ -33,8 +33,9 @@ public class AddChampion : MonoBehaviour {
 		floatingJ3 = player3.transform.GetChild(0).gameObject;
 		floatingJ4 = player4.transform.GetChild(0).gameObject;
 
-		// Instance for prefab
-		championsSelected_ = ChampionManager.GetInstance();
+        ScoreManager.GetInstance().challengers.Clear();
+        // Instance for prefab
+        championsSelected_ = ChampionManager.GetInstance();
 		if (championsSelected_ != null)
 		{
 			player1_indexSelection = championsSelected_.playerSelection[0];
@@ -55,7 +56,7 @@ public class AddChampion : MonoBehaviour {
 			CreateChampion(player3, 2, HUDPlayer3, 3);
 			CreateChampion(player4, 1, HUDPlayer4, 4);
 		}
-
+        
         StartCoroutine(ManagerInGame.GetInstance().StartGame());
 	}
 

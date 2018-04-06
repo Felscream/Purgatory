@@ -1724,7 +1724,7 @@ public abstract class Champion : MonoBehaviour {
             temp = Enum_Champion.Archer;
         }
         controller = ControllerManager.Instance.GetController(index);
-        ScoreManager.GetInstance().challengers.Add(new Score(temp));
+        ScoreManager.GetInstance().challengers.Add(new Score(index, temp));
         playerScore = ScoreManager.GetInstance().challengers[index - 1];
     }
 
