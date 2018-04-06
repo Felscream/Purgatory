@@ -48,6 +48,10 @@ public class AudioVolumeManager : MonoBehaviour {
             Debug.Log("Theme " + name + " not found");
             return;
         }
+        if (t.source.isPlaying)
+        {
+            return;
+        }
         foreach(Sound s in themes)
         {
             s.source.Stop();

@@ -106,6 +106,7 @@ public class ManagerInGame : MonoBehaviour {
         profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
         ResetChromaticAberration();
         endGameCanvasGroup = GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<CanvasGroup>();
+        GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<Canvas>().worldCamera = Camera.main;
         endGameDisplays = endGameCanvasGroup.GetComponentsInChildren<VictoryMenu>();
         if(endGameDisplays.Length == 0)
         {
@@ -551,8 +552,10 @@ public class ManagerInGame : MonoBehaviour {
                 yield return null;
             }
             while (timer <= timeBeforeEndGame);
+            GetComponentInChildren<AddChampion>().HUDPlayer1.transform.parent.gameObject.SetActive(false);
             timer = 0.0f;
             CanvasGroup scoreDisplay = endGameCanvasGroup.transform.Find("Classment").GetComponent<CanvasGroup>();
+            Time.timeScale = 0.0f;
             if (scoreDisplay != null)
             {
                 do
