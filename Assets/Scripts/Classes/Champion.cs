@@ -1213,25 +1213,33 @@ public abstract class Champion : MonoBehaviour {
             StopCoroutine(scoreUpdateCoroutine);
         }*/
         score.text = playerScore.totalScore.ToString();
-        
-        StringBuilder sb = new StringBuilder("x");
-        switch (playerScore.multiplier)
+        if (dead)
         {
-            case 2:
-                multiplier.color = Color.red;
-                break;
-            case 3:
-                multiplier.color = Color.green;
-                break;
-            case 4:
-                multiplier.color = Color.blue;
-                break;
-            default:
-                multiplier.color = Color.grey;
-                break;
+            multiplier.color = Color.grey;
+            multiplier.text = "x1";
         }
-        sb.Append(playerScore.multiplier.ToString());
-        multiplier.text = sb.ToString();
+        else
+        {
+            StringBuilder sb = new StringBuilder("x");
+            switch (playerScore.multiplier)
+            {
+                case 2:
+                    multiplier.color = Color.red;
+                    break;
+                case 3:
+                    multiplier.color = Color.green;
+                    break;
+                case 4:
+                    multiplier.color = Color.blue;
+                    break;
+                default:
+                    multiplier.color = Color.grey;
+                    break;
+            }
+            sb.Append(playerScore.multiplier.ToString());
+            multiplier.text = sb.ToString();
+        }
+        
 	}
 
 	public void ChangeColorHealthSlider()
@@ -1353,7 +1361,14 @@ public abstract class Champion : MonoBehaviour {
 			health = Mathf.Min(Mathf.Max(value, 0.0f),BaseHealth);
             if (health <= 0.0f)
             {
-                Narrator.Instance.Death();
+                if(gameManager.PlayerAlive <= 2)
+                {
+                    Narrator.Instance.End();
+                }
+                else
+                {
+                    Narrator.Instance.Death();
+                }
                 Death();
             }
         }

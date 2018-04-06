@@ -13,7 +13,7 @@ public class PopupScore : MonoBehaviour {
     private Champion target;
     private void Start()
     {
-        Invoke("DestroyObject", displayTime);
+        Destroy(gameObject, displayTime);
     }
     
     public void SetText(int s)
@@ -46,10 +46,5 @@ public class PopupScore : MonoBehaviour {
         {
             target = value;
         }
-    }
-
-    public void DestroyObject()
-    {
-        Destroy(gameObject);
     }
 }

@@ -52,6 +52,7 @@ public class ManagerInGame : MonoBehaviour {
     private List<Score> losers = new List<Score>();
     private CanvasGroup endGameCanvasGroup;
     private VictoryMenu[] endGameDisplays;
+    public bool EndGame { get; set; }
     public static ManagerInGame GetInstance()
     {
         if (instance == null)
@@ -77,6 +78,7 @@ public class ManagerInGame : MonoBehaviour {
 
     private void Start()
     {
+        EndGame = true;
         CheckPlayerAlive();
         ClashSlider = ClashHUD.GetComponentInChildren<Slider>();
         if(ClashHUD == null)
@@ -125,21 +127,15 @@ public class ManagerInGame : MonoBehaviour {
 			//Instantiate (Plateform);
 			SpawnOrb = true;
 		}
-        if (playerAlive <= 1 && scoreManager.gameStart)
+        if (playerAlive <= 1 && !EndGame)
         {   //A laisser en commentaire tant que la scène ne se lance pas depuis le menu de séléction de personnages
             LastPlayerImmunity();
-            //SceneManager.LoadScene(3);
-            Narrator.Instance.End();
-            GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(false);
-            GetComponentInChildren<AddChampion>().HUDPlayer2.gameObject.SetActive(false);
-            GetComponentInChildren<AddChampion>().HUDPlayer3.gameObject.SetActive(false);
-            GetComponentInChildren<AddChampion>().HUDPlayer4.gameObject.SetActive(false);
-            foreach (VictoryMenu vm in endGameDisplays)
-            {
-                endGameCanvasGroup.alpha = 1.0f;
-                vm.CalculateScore();
-            }
+
+            StartCoroutine(ProcEndGame());
+            
+            
             scoreManager.gameStart = false;
+            EndGame = true;
             //ici ajouter le changement de scène et toute les modifs à prendre en compte
         }
         
@@ -480,6 +476,7 @@ public class ManagerInGame : MonoBehaviour {
             champ.Immunity = false;
             champ.InputStatus = Enum_InputStatus.allowed;
         }
+        EndGame = false;
         Narrator.Instance.StartOfTheGame();
     }
 
@@ -525,9 +522,50 @@ public class ManagerInGame : MonoBehaviour {
 
     protected IEnumerator ProcEndGame()
     {
-        SceneManager.LoadSceneAsync("Victory");
+
         Narrator.Instance.End();
-        yield return new WaitForSeconds(timeBeforeEndGame);
+        if (endGameCanvasGroup != null)
+        {
+            foreach (VictoryMenu vm in endGameDisplays)
+            {
+                vm.CalculateScore();
+            }
+            float length = timeBeforeEndGame;
+            float timer = 0.0f;
+            float step = 1.0f / timeBeforeEndGame;
+            if (Narrator.Instance.AudioSource.isPlaying)
+            {
+                length = Narrator.Instance.AudioSource.clip.length;
+                Debug.Log(length);
+            }
+            yield return new WaitForSeconds(length);
+            do
+            {
+                GetComponentInChildren<AddChampion>().HUDPlayer1.alpha -= step * Time.unscaledDeltaTime;
+                GetComponentInChildren<AddChampion>().HUDPlayer2.alpha -= step * Time.unscaledDeltaTime;
+                GetComponentInChildren<AddChampion>().HUDPlayer3.alpha -= step * Time.unscaledDeltaTime;
+                GetComponentInChildren<AddChampion>().HUDPlayer4.alpha -= step * Time.unscaledDeltaTime;
+                endGameCanvasGroup.alpha += step * Time.unscaledDeltaTime;
+                timer += Time.unscaledDeltaTime;
+                yield return null;
+            }
+            while (timer <= timeBeforeEndGame);
+            timer = 0.0f;
+            CanvasGroup scoreDisplay = endGameCanvasGroup.transform.Find("Classment").GetComponent<CanvasGroup>();
+            if (scoreDisplay != null)
+            {
+                do
+                {
+                    scoreDisplay.alpha += step * Time.unscaledDeltaTime;
+                    timer += Time.unscaledDeltaTime;
+                    yield return null;
+                }
+                while (timer <= timeBeforeEndGame);
+            }
+        }
+        
+
+        
     }
 
     public Score GetWinner()

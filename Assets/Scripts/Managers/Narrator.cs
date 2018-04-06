@@ -83,9 +83,13 @@ public class Narrator : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if(TimePassed >= maxTime)
+        if(TimePassed >= maxTime && !ManagerInGame.GetInstance().EndGame)
         {
             PlayRandom(randomComments);
+        }
+        if(audioSource.volume != audioVolumeManager.VoiceVolume)
+        {
+            audioSource.volume = audioVolumeManager.VoiceVolume;
         }
     }
 
@@ -94,7 +98,8 @@ public class Narrator : MonoBehaviour {
         if(comments.Length>0)
         {
             int i = Random.Range(0, comments.Length);
-            audioSource.PlayOneShot(comments[i], audioVolumeManager.VoiceVolume);
+            audioSource.clip = comments[i]; //To get the current clip is needed from an exterior component
+            audioSource.Play();
             lastCommentTime = Time.time;
         }
     }
@@ -154,4 +159,11 @@ public class Narrator : MonoBehaviour {
         PlayRandom(endComments);
     }
 
+    public AudioSource AudioSource
+    {
+        get
+        {
+            return audioSource;
+        }
+    }
 }

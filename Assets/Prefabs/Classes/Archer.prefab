@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25b01cbb48750344b0a5b4370bb16c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 100
+  baseHealth: 1
   determination: 3
   baseSpeed: 10
   deadLayer:
