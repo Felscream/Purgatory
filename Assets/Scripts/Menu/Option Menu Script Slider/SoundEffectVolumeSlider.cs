@@ -26,6 +26,5 @@ public class SoundEffectVolumeSlider : MonoBehaviour
     {
         //Displays the value of the slider in the console.
         volumeManager.SoundEffectVolume = soundEffectVolumeSlider.value;
-        Debug.Log(volumeManager.SoundEffectVolume);
     }
 }

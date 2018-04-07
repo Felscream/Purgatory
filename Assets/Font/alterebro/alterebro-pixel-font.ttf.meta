@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 907ba55df6eafee4f9e345164df13f51
-timeCreated: 1520442634
+guid: c6fd70aca8cb8be43bf288a82c904e01
+timeCreated: 1523042670
 licenseType: Free
 TrueTypeFontImporter:
   externalObjects: {}
@@ -10,11 +10,11 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Minecraft
+  fontName: Alterebro Pixel Font
   fontNames:
-  - Minecraft
+  - Alterebro Pixel Font
   fallbackFontReferences: []
-  customCharacters: "\xE9"
+  customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
