@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 88213986}
   - component: {fileID: 88213985}
   m_Layer: 5
-  m_Name: OptionsButton (1)
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4316,8 +4316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 2091264973}
-  optionButton: {fileID: 0}
-  quitButton: {fileID: 0}
+  optionButton: {fileID: 1664286047}
+  quitButton: {fileID: 88213983}
   optionControlButton: {fileID: 1457719768}
   optionBackButton: {fileID: 1592272686}
   optionCreditsButton: {fileID: 1222679248}
@@ -6235,7 +6235,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 2091264973}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
 --- !u!4 &2118784919
