@@ -75,9 +75,10 @@ public class ClipController : MonoBehaviour {
 
         if (!clipBackToMenu.isPlaying && clipBackToMenu.time >= 1.0f)
         {
-            clipOption.targetCameraAlpha = 1.0f;
+            
             clipBackToMenu.targetCameraAlpha = 0.4f;
             LaunchCanvasMainMenu();
+            clipOption.targetCameraAlpha = 1.0f;
         }
 
         if (!clipControlMenu.isPlaying && clipControlMenu.time >= 0.5f)
