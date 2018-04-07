@@ -2,23 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour {
 
     AudioVolumeManager audioVolumeManager;
 
+    private int panelIndex;
+    private X360_controller controller;
+
+    // all buttons
+    [SerializeField] GameObject playButton;
+    [SerializeField] GameObject optionButton;
+    [SerializeField] GameObject quitButton;
+    [SerializeField] GameObject optionControlButton;
+    [SerializeField] GameObject optionBackButton;
+    [SerializeField] GameObject optionCreditsButton;
+    [SerializeField] GameObject controlBackButton;
+    [SerializeField] GameObject creditsBackButton;
 
 
     // Use this for initialization
     void Start () {
+        panelIndex = 1;
+        SelectedIndexMenu();
+        controller = ControllerManager.Instance.GetController(0);
+        
         audioVolumeManager = AudioVolumeManager.GetInstance();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Player 1 validate his choice
+        if (controller != null)
+        {
+            
+
+        }
+    }
 
     public void LoadLobbyScene()
     {
@@ -32,4 +55,28 @@ public class MainMenu : MonoBehaviour {
         Debug.Log("Quit!");
         Application.Quit();
     }
+
+
+    public void SelectedIndexMenu()
+    {
+        switch (panelIndex)
+        {
+            case 1: // Menu Principal
+                playButton.GetComponent<Button>().Select();
+                break;
+            case 2: // Options
+                optionControlButton.GetComponent<Button>().Select();
+                break;
+            case 3: // Contrôles
+                controlBackButton.GetComponent<Button>().Select();
+                break;
+            case 4: // Crédits
+                creditsBackButton.GetComponent<Button>().Select();
+                break;
+            default:
+                print("Incorrect intelligence level.");
+                break;
+        }
+    }
+
 }

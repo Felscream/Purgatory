@@ -180,24 +180,24 @@ public class SelectionPlayer : MonoBehaviour
         switch (selectionIndexPlayer)
         {
             case 1:
-                playerKnightButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                playerSorcererButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                playerArcherButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playerKnightButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playerSorcererButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                playerArcherButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 // Changer sprite au lieu de mettre highligth
                 KnightPlayer.gameObject.SetActive(true);
                 SorcererPlayer.gameObject.SetActive(false);
                 ArcherPlayer.gameObject.SetActive(false);
                 break;
             case 2:
-                playerKnightButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                playerSorcererButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                playerArcherButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playerKnightButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                playerSorcererButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playerArcherButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 KnightPlayer.gameObject.SetActive(false);
                 SorcererPlayer.gameObject.SetActive(true);
                 ArcherPlayer.gameObject.SetActive(false);
                 break;
             case 3:
-                playerKnightButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playerKnightButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 playerSorcererButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 playerArcherButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 KnightPlayer.gameObject.SetActive(false);
