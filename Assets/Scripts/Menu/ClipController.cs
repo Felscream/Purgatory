@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class ClipController : MonoBehaviour {
@@ -30,10 +28,6 @@ public class ClipController : MonoBehaviour {
     public RectTransform CreditMenu;
 
     private AudioVolumeManager audioVolumeManager;
-    private Animator anim;
-
-    private Button classement;
-    private Button retour;
     private void Awake()
     {
         
@@ -56,7 +50,6 @@ public class ClipController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        anim = MainMenu.transform.parent.GetComponent<Animator>();
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioVolumeManager.PlayTheme("MainMenuTheme");
         //MainMenu.gameObject.SetActive(false);
@@ -82,10 +75,9 @@ public class ClipController : MonoBehaviour {
 
         if (!clipBackToMenu.isPlaying && clipBackToMenu.time >= 1.0f)
         {
-            
+            clipOption.targetCameraAlpha = 1.0f;
             clipBackToMenu.targetCameraAlpha = 0.4f;
             LaunchCanvasMainMenu();
-            clipOption.targetCameraAlpha = 1.0f;
         }
 
         if (!clipControlMenu.isPlaying && clipControlMenu.time >= 0.5f)
@@ -131,20 +123,6 @@ public class ClipController : MonoBehaviour {
 
         PlayOptionsMenu();
     }
-    public void ChangeClipMainMenuToLeaderboardMenu()
-    {
-        audioVolumeManager.PlaySoundEffect("Select");
-        MainMenu.gameObject.SetActive(false);
-
-        LaunchMainMenu.gameObject.SetActive(false);
-        LaunchBackToMenu.gameObject.SetActive(false);
-        LaunchControlMenu.gameObject.SetActive(false);
-        LaunchBackToOptionMenu.gameObject.SetActive(false);
-
-        //LaunchOptionsClip.SetActive(true);
-
-        
-    }
 
     public void ChangeClipOptionsMenuToControlMenu()
     {
@@ -178,7 +156,6 @@ public class ClipController : MonoBehaviour {
 
         PlayCreditMenu();
     }
-
 
     public void ChangeClipBackToMenu()
     {
@@ -285,27 +262,4 @@ public class ClipController : MonoBehaviour {
         CreditMenu.gameObject.SetActive(true);
     }
 
-    public void LaunchCanvasLeaderboard()
-    {
-        anim.SetTrigger("sRight");
-        audioVolumeManager.PlaySoundEffect("Select");
-        anim.ResetTrigger("sLeft");
-        classement = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        classement.interactable = false;
-        if(retour != null)
-        {
-            retour.interactable = true;
-        }
-        
-    }
-
-    public void LaunchCanvasMenuFromLeaderboard()
-    {
-        anim.SetTrigger("sLeft");
-        audioVolumeManager.PlaySoundEffect("Cancel");
-        anim.ResetTrigger("sRight");
-        retour = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        retour.interactable = false;
-        classement.interactable = true;
-    }
 }

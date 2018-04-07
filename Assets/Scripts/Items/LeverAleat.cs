@@ -5,7 +5,7 @@ using UnityEngine;
 public class LeverAleat : Lever {
 
     public List<GameObject> trapList;
-    private GameObject thirdTrap = null;
+    private GameObject secondTrap = null, thirdTrap = null;
 
     public override void Engage()
     {
