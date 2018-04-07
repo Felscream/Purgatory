@@ -199,7 +199,7 @@ public class SelectionPlayer : MonoBehaviour
             case 3:
                 playerKnightButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 playerSorcererButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                playerArcherButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                playerArcherButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 KnightPlayer.gameObject.SetActive(false);
                 SorcererPlayer.gameObject.SetActive(false);
                 ArcherPlayer.gameObject.SetActive(true);

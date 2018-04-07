@@ -11,13 +11,14 @@ public class MainMenu : MonoBehaviour {
     AudioVolumeManager audioVolumeManager;
 
     private int panelIndex;
-    private int mainMenuIndex;
-    private int optionMenuIndex;
+    private int mainMenuIndex = 1;
+    private int optionMenuIndex = 1;
 
     private X360_controller controller;
 
     // Joystick is running ?
     bool m_isAxisOneInUse = false;
+    bool changePanel = false;
 
     // all buttons
     [SerializeField] GameObject playButton;
@@ -29,14 +30,17 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] GameObject controlBackButton;
     [SerializeField] GameObject creditsBackButton;
 
+    public GameObject clipMenu;
+    ClipController clipController_;
+
 
     // Use this for initialization
     void Start () {
+        clipController_ = clipMenu.GetComponent<ClipController>();
+
         panelIndex = 1;
-        //SelectedIndexMenu();
         controller = ControllerManager.Instance.GetController(1);
-        Debug.Log(controller.IsConnected);
-        Debug.Log("m'okay");
+        SelectedIndexMenu();
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
     }
@@ -45,12 +49,51 @@ public class MainMenu : MonoBehaviour {
     void Update()
     {
         // Player 1 validate his choice
-        if (controller != null)
+        if (controller != null && changePanel)
         {
             SelectedIndexMenu();
+        }
+        SelectionWithController();
+        PressedButton();
+    }
 
+    private void PressedButton()
+    {
+        if (controller.GetButtonDown("A"))
+        {
+            switch (panelIndex)
+            {
+                case 1: // Menu Principal
+                    switch (mainMenuIndex)
+                    {
+                        case 1: // Jouer
+                            LoadLobbyScene();
+                            break;
+                        case 2: // Options
+                            clipController_.ChangeClipMainMenuToOptionsMenu();
+                            break;
+                        case 3: // Quitter
+                            QuitGame();
+                            break;
+                        default:
+                            print("Incorrect intelligence level.");
+                            break;
+                    }
+                    break;
+                case 2: // Options
+                    break;
+                case 3: // Contrôles
+                    break;
+                case 4: // Crédits
+                    break;
+                default:
+                    print("Incorrect intelligence level.");
+                    break;
+            }
         }
     }
+
+
 
     public void LoadLobbyScene()
     {
@@ -88,11 +131,13 @@ public class MainMenu : MonoBehaviour {
         }
         // Selection du boutton en fonction du panel activé
         SelectionWithController();
+        changePanel = false;
     }
 
     public void ChangeIndex(int i)
     {
         panelIndex = i;
+        changePanel = true;
     }
 
     public void SelectionWithController()
@@ -161,44 +206,48 @@ public class MainMenu : MonoBehaviour {
 
         
     }
-
-    private void IncreaseOptionMenuIndex()
+    
+    private void DecreaseMainMenuIndex()
     {
-        if (optionMenuIndex < 3) optionMenuIndex++;
-        if (optionMenuIndex == 3) optionMenuIndex = 1;
-
-        switch (optionMenuIndex)
-        {
-            case 1:
-                playButton.GetComponent<Button>().Select();
-                break;
-            case 2:
-                optionButton.GetComponent<Button>().Select();
-                break;
-            case 3:
-                quitButton.GetComponent<Button>().Select();
-                break;
-            default:
-                print("Incorrect intelligence level.");
-                break;
-        }
+        if (mainMenuIndex > 0) mainMenuIndex--;
+        if (mainMenuIndex == 0) mainMenuIndex = 3;
+        switchMainMenu();
     }
 
     private void IncreaseMainMenuIndex()
     {
-        if (mainMenuIndex < 3) mainMenuIndex++;
-        if (mainMenuIndex == 3) mainMenuIndex = 1;
+        if (mainMenuIndex < 4) mainMenuIndex++;
+        if (mainMenuIndex == 4) mainMenuIndex = 1;
+        switchMainMenu();
+    }
 
+    private void switchMainMenu()
+    {
         switch (mainMenuIndex)
         {
             case 1:
                 playButton.GetComponent<Button>().Select();
+                /*
+                playButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                optionButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                quitButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                */
                 break;
             case 2:
                 optionButton.GetComponent<Button>().Select();
+                /*
+                optionButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                quitButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                */
                 break;
             case 3:
                 quitButton.GetComponent<Button>().Select();
+                /*
+                quitButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                optionButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+                */
                 break;
             default:
                 print("Incorrect intelligence level.");
@@ -228,12 +277,12 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
-    private void DecreaseMainMenuIndex()
+    private void IncreaseOptionMenuIndex()
     {
-        if (mainMenuIndex > 1) mainMenuIndex--;
-        if (mainMenuIndex == 1) mainMenuIndex = 3;
+        if (optionMenuIndex < 3) optionMenuIndex++;
+        if (optionMenuIndex == 3) optionMenuIndex = 1;
 
-        switch (mainMenuIndex)
+        switch (optionMenuIndex)
         {
             case 1:
                 playButton.GetComponent<Button>().Select();
@@ -249,4 +298,5 @@ public class MainMenu : MonoBehaviour {
                 break;
         }
     }
+
 }
