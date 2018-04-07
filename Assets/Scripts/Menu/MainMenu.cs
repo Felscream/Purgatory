@@ -19,6 +19,9 @@ public class MainMenu : MonoBehaviour {
     // Joystick is running ?
     bool m_isAxisOneInUse = false;
     bool changePanel = false;
+    bool musicSliderActivated = false;
+    bool effectSliderActivated = false;
+    bool voiceSliderActivated = false;
 
     // all buttons
     [SerializeField] GameObject playButton;
@@ -28,8 +31,11 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] GameObject optionCreditsButton;
 
     [SerializeField] GameObject optionMusicButton;
+    [SerializeField] Slider optionMusicSlider;
     [SerializeField] GameObject optionEffectButton;
+    [SerializeField] Slider optionEffectSlider;
     [SerializeField] GameObject optionVoiceButton;
+    [SerializeField] Slider optionVoiceSlider;
 
     [SerializeField] GameObject optionBackButton;
 
@@ -60,12 +66,25 @@ public class MainMenu : MonoBehaviour {
             SelectedIndexMenu();
         }
         
-        if (!clipController_.ClipStart.isPlaying && clipController_.ClipStart.time >= 1.0f || !clipController_.ClipBackToMenu.isPlaying && clipController_.ClipBackToMenu.time >= 1.0f || !clipController_.ClipOption.isPlaying && clipController_.ClipOption.time >= 1.0f || !clipController_.ClipCreditMenu.isPlaying && clipController_.ClipCreditMenu.time >= 0.5f || (!clipController_.ClipControlMenu.isPlaying && clipController_.ClipControlMenu.time >= 0.5f) || !clipController_.ClipBackFromCreditToOptionMenu.isPlaying && clipController_.ClipBackFromCreditToOptionMenu.time >= 0.5f || !clipController_.ClipBackToOptionMenu.isPlaying && clipController_.ClipBackToOptionMenu.time >= 0.5f)
+        if (!musicSliderActivated && !effectSliderActivated && !voiceSliderActivated && (!clipController_.ClipStart.isPlaying && clipController_.ClipStart.time >= 1.0f || !clipController_.ClipBackToMenu.isPlaying && clipController_.ClipBackToMenu.time >= 1.0f || !clipController_.ClipOption.isPlaying && clipController_.ClipOption.time >= 1.0f || !clipController_.ClipCreditMenu.isPlaying && clipController_.ClipCreditMenu.time >= 0.5f || (!clipController_.ClipControlMenu.isPlaying && clipController_.ClipControlMenu.time >= 0.5f) || !clipController_.ClipBackFromCreditToOptionMenu.isPlaying && clipController_.ClipBackFromCreditToOptionMenu.time >= 0.5f || !clipController_.ClipBackToOptionMenu.isPlaying && clipController_.ClipBackToOptionMenu.time >= 0.5f))
         {
-
-            Debug.Log("fuck");
             SelectionWithController();
             PressedButton();
+        }
+
+        if (musicSliderActivated)
+        {
+            ControlSliderMusicEffectVoice(1);
+        }
+
+        if (effectSliderActivated)
+        {
+            ControlSliderMusicEffectVoice(2);
+        }
+
+        if (voiceSliderActivated)
+        {
+            ControlSliderMusicEffectVoice(3);
         }
     }
 
@@ -106,10 +125,13 @@ public class MainMenu : MonoBehaviour {
                             ChangeIndex(4);
                             break;
                         case 3: // Musique
+                            musicSliderActivated = true;
                             break;
                         case 4: // Effets sonores
+                            effectSliderActivated = true;
                             break;
                         case 5: // Voix
+                            voiceSliderActivated = true;
                             break;
                         case 6: // Retour
                             clipController_.ChangeClipBackToMenu();
@@ -151,7 +173,73 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+    private void ControlSliderMusicEffectVoice(int indexSlider)
+    {
+        switch (indexSlider)
+        {
+            case 1:
+                optionMusicSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 0.5f, 0.5f);
+                if (controller.GetStick_L().X < 0f)
+                {
+                    if (optionMusicSlider.value > 0.0f)
+                        optionMusicSlider.value = optionMusicSlider.value - 0.005f;
+                }
+                if (controller.GetStick_L().X > 0f)
+                {
+                    if (optionMusicSlider.value < 1.0f)
+                        optionMusicSlider.value = optionMusicSlider.value + 0.005f;
+                }
 
+                // Appuie sur B
+                if (controller.GetButtonDown("B"))
+                {
+                    musicSliderActivated = false;
+                    optionMusicSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 1.0f, 1.0f);
+                }
+                break;
+            case 2:
+                optionEffectSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 0.5f, 0.5f);
+                if (controller.GetStick_L().X < 0f)
+                {
+                    if (optionEffectSlider.value > 0.0f)
+                        optionEffectSlider.value = optionEffectSlider.value - 0.005f;
+                }
+                if (controller.GetStick_L().X > 0f)
+                {
+                    if (optionEffectSlider.value < 1.0f)
+                        optionEffectSlider.value = optionEffectSlider.value + 0.005f;
+                }
+
+                // Appuie sur B
+                if (controller.GetButtonDown("B"))
+                {
+                    effectSliderActivated = false;
+                    optionEffectSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 0.5f, 0.5f);
+                }
+                break;
+
+            case 3:
+                optionVoiceSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 1.0f, 0f);
+                if (controller.GetStick_L().X < 0f)
+                {
+                    if (optionVoiceSlider.value > 0.0f)
+                        optionVoiceSlider.value = optionVoiceSlider.value - 0.005f;
+                }
+                if (controller.GetStick_L().X > 0f)
+                {
+                    if (optionVoiceSlider.value < 1.0f)
+                        optionVoiceSlider.value = optionVoiceSlider.value + 0.005f;
+                }
+
+                // Appuie sur B
+                if (controller.GetButtonDown("B"))
+                {
+                    voiceSliderActivated = false;
+                    optionVoiceSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 1.0f, 0f);
+                }
+                break;
+        }        
+    }
 
     public void LoadLobbyScene()
     {
