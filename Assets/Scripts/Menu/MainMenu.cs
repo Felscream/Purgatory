@@ -25,10 +25,13 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] GameObject optionButton;
     [SerializeField] GameObject quitButton;
     [SerializeField] GameObject optionControlButton;
-    [SerializeField] GameObject optionBackButton;
     [SerializeField] GameObject optionCreditsButton;
-    [SerializeField] GameObject controlBackButton;
-    [SerializeField] GameObject creditsBackButton;
+
+    [SerializeField] GameObject optionMusicButton;
+    [SerializeField] GameObject optionEffectButton;
+    [SerializeField] GameObject optionVoiceButton;
+
+    [SerializeField] GameObject optionBackButton;
 
     public GameObject clipMenu;
     ClipController clipController_;
@@ -40,25 +43,35 @@ public class MainMenu : MonoBehaviour {
 
         panelIndex = 1;
         controller = ControllerManager.Instance.GetController(1);
+        
         SelectedIndexMenu();
-
+        switchMainMenu();
         audioVolumeManager = AudioVolumeManager.GetInstance();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         // Player 1 validate his choice
         if (controller != null && changePanel)
         {
+            Debug.Log("select index");
             SelectedIndexMenu();
         }
-        SelectionWithController();
-        PressedButton();
+        
+        if (!clipController_.ClipStart.isPlaying && clipController_.ClipStart.time >= 1.0f || !clipController_.ClipBackToMenu.isPlaying && clipController_.ClipBackToMenu.time >= 1.0f || !clipController_.ClipOption.isPlaying && clipController_.ClipOption.time >= 1.0f || !clipController_.ClipCreditMenu.isPlaying && clipController_.ClipCreditMenu.time >= 0.5f || (!clipController_.ClipControlMenu.isPlaying && clipController_.ClipControlMenu.time >= 0.5f) || !clipController_.ClipBackFromCreditToOptionMenu.isPlaying && clipController_.ClipBackFromCreditToOptionMenu.time >= 0.5f || !clipController_.ClipBackToOptionMenu.isPlaying && clipController_.ClipBackToOptionMenu.time >= 0.5f)
+        {
+
+            Debug.Log("fuck");
+            SelectionWithController();
+            PressedButton();
+        }
     }
 
     private void PressedButton()
     {
+        // Appuie sur A
         if (controller.GetButtonDown("A"))
         {
             switch (panelIndex)
@@ -71,6 +84,7 @@ public class MainMenu : MonoBehaviour {
                             break;
                         case 2: // Options
                             clipController_.ChangeClipMainMenuToOptionsMenu();
+                            ChangeIndex(2);
                             break;
                         case 3: // Quitter
                             QuitGame();
@@ -81,10 +95,54 @@ public class MainMenu : MonoBehaviour {
                     }
                     break;
                 case 2: // Options
+                    switch (optionMenuIndex)
+                    {
+                        case 1: // Contrôles
+                            clipController_.ChangeClipOptionsMenuToControlMenu();
+                            ChangeIndex(3);
+                            break;
+                        case 2: // Crédits
+                            clipController_.ChangeClipOptionsMenuToCreditMenu();
+                            ChangeIndex(4);
+                            break;
+                        case 3: // Musique
+                            break;
+                        case 4: // Effets sonores
+                            break;
+                        case 5: // Voix
+                            break;
+                        case 6: // Retour
+                            clipController_.ChangeClipBackToMenu();
+                            ChangeIndex(1);
+                            break;
+                        default:
+                            print("Incorrect intelligence level.");
+                            break;
+                    }
                     break;
                 case 3: // Contrôles
                     break;
                 case 4: // Crédits
+                    break;
+                default:
+                    print("Incorrect intelligence level.");
+                    break;
+            }
+        }
+        // Appuie sur B
+        if (controller.GetButtonDown("B"))
+        {
+            switch (panelIndex)
+            {
+                case 3: // Contrôles
+                    // Retour
+                    clipController_.ChangeClipControlBackToOptionMenu();
+                    ChangeIndex(2);
+                    break;
+                case 4: // Crédits
+                    // Retour
+                    clipController_.ChangeClipControlBackFromCreditToOptionMenu();
+                    ChangeIndex(2);
                     break;
                 default:
                     print("Incorrect intelligence level.");
@@ -117,20 +175,18 @@ public class MainMenu : MonoBehaviour {
                 playButton.GetComponent<Button>().Select();
                 break;
             case 2: // Options
+                Debug.Log("Je passe ici");
                 optionControlButton.GetComponent<Button>().Select();
                 break;
             case 3: // Contrôles
-                controlBackButton.GetComponent<Button>().Select();
                 break;
             case 4: // Crédits
-                creditsBackButton.GetComponent<Button>().Select();
+                // Juste le bouton B
                 break;
             default:
                 print("Incorrect intelligence level.");
                 break;
         }
-        // Selection du boutton en fonction du panel activé
-        SelectionWithController();
         changePanel = false;
     }
 
@@ -169,7 +225,6 @@ public class MainMenu : MonoBehaviour {
                 }
                 break;
             case 2: // Options
-                optionControlButton.GetComponent<Button>().Select();
                 if (!m_isAxisOneInUse)
                 {
                     //Debug.Log(ControllerManager.Instance.GetController(1).IsConnected);
@@ -194,17 +249,13 @@ public class MainMenu : MonoBehaviour {
                 }
                 break;
             case 3: // Contrôles
-                controlBackButton.GetComponent<Button>().Select();
                 break;
             case 4: // Crédits
-                creditsBackButton.GetComponent<Button>().Select();
                 break;
             default:
                 print("Incorrect intelligence level.");
                 break;
         }
-
-        
     }
     
     private void DecreaseMainMenuIndex()
@@ -257,9 +308,21 @@ public class MainMenu : MonoBehaviour {
 
     private void DecreaseOptionMenuIndex()
     {
-        if (optionMenuIndex > 1) optionMenuIndex--;
-        if (optionMenuIndex == 1) optionMenuIndex = 3;
+        if (optionMenuIndex > 0) optionMenuIndex--;
+        if (optionMenuIndex == 0) optionMenuIndex = 3;
+        switchOptionMenu();
+    }
 
+    private void IncreaseOptionMenuIndex()
+    {
+        if (optionMenuIndex < 7) optionMenuIndex++;
+        if (optionMenuIndex == 7) optionMenuIndex = 1;
+        switchOptionMenu();
+    }
+
+
+    private void switchOptionMenu()
+    {
         switch (optionMenuIndex)
         {
             case 1:
@@ -269,6 +332,15 @@ public class MainMenu : MonoBehaviour {
                 optionCreditsButton.GetComponent<Button>().Select();
                 break;
             case 3:
+                optionMusicButton.GetComponent<Button>().Select();
+                break;
+            case 4:
+                optionEffectButton.GetComponent<Button>().Select();
+                break;
+            case 5:
+                optionVoiceButton.GetComponent<Button>().Select();
+                break;
+            case 6:
                 optionBackButton.GetComponent<Button>().Select();
                 break;
             default:
@@ -276,27 +348,4 @@ public class MainMenu : MonoBehaviour {
                 break;
         }
     }
-
-    private void IncreaseOptionMenuIndex()
-    {
-        if (optionMenuIndex < 3) optionMenuIndex++;
-        if (optionMenuIndex == 3) optionMenuIndex = 1;
-
-        switch (optionMenuIndex)
-        {
-            case 1:
-                playButton.GetComponent<Button>().Select();
-                break;
-            case 2:
-                optionButton.GetComponent<Button>().Select();
-                break;
-            case 3:
-                quitButton.GetComponent<Button>().Select();
-                break;
-            default:
-                print("Incorrect intelligence level.");
-                break;
-        }
-    }
-
 }

@@ -28,6 +28,7 @@ public class ClipController : MonoBehaviour {
     public RectTransform CreditMenu;
 
     private AudioVolumeManager audioVolumeManager;
+    
     private void Awake()
     {
         
@@ -38,13 +39,13 @@ public class ClipController : MonoBehaviour {
 
         LaunchMainMenu.gameObject.SetActive(true);
 
-        clipStart = LaunchMainMenu.GetComponent<VideoPlayer>();
-        clipOption = LaunchOptionsClip.GetComponent<VideoPlayer>();
-        clipBackToMenu = LaunchBackToMenu.GetComponent<VideoPlayer>();
-        clipControlMenu = LaunchControlMenu.GetComponent<VideoPlayer>();
-        clipBackToOptionMenu = LaunchBackToOptionMenu.GetComponent<VideoPlayer>();
-        clipCreditMenu = LaunchCreditMenu.GetComponent<VideoPlayer>();
-        clipBackFromCreditToOptionMenu = LaunchBackFromCreditToOptionMenu.GetComponent<VideoPlayer>();
+        ClipStart = LaunchMainMenu.GetComponent<VideoPlayer>();
+        ClipOption = LaunchOptionsClip.GetComponent<VideoPlayer>();
+        ClipBackToMenu = LaunchBackToMenu.GetComponent<VideoPlayer>();
+        ClipControlMenu = LaunchControlMenu.GetComponent<VideoPlayer>();
+        ClipBackToOptionMenu = LaunchBackToOptionMenu.GetComponent<VideoPlayer>();
+        ClipCreditMenu = LaunchCreditMenu.GetComponent<VideoPlayer>();
+        ClipBackFromCreditToOptionMenu = LaunchBackFromCreditToOptionMenu.GetComponent<VideoPlayer>();
     }
 
     // Use this for initialization
@@ -60,51 +61,51 @@ public class ClipController : MonoBehaviour {
     void Update () {
 
 
-        if (!clipStart.isPlaying && clipStart.time >= 1.0f)
+        if (!ClipStart.isPlaying && ClipStart.time >= 1.0f)
         {
-            clipStart.targetCameraAlpha = 0.4f;
+            ClipStart.targetCameraAlpha = 0.4f;
             LaunchCanvasMainMenu();
         }
 
-        if (!clipOption.isPlaying && clipOption.time >= 1.0f)
+        if (!ClipOption.isPlaying && ClipOption.time >= 1.0f)
         {
-            clipOption.targetCameraAlpha = 0.4f;
-            clipBackToMenu.targetCameraAlpha = 1.0f;
+            ClipOption.targetCameraAlpha = 0.4f;
+            ClipBackToMenu.targetCameraAlpha = 1.0f;
             LaunchCanvasOptionsMenu();
         }
 
-        if (!clipBackToMenu.isPlaying && clipBackToMenu.time >= 1.0f)
+        if (!ClipBackToMenu.isPlaying && ClipBackToMenu.time >= 1.0f)
         {
-            clipOption.targetCameraAlpha = 1.0f;
-            clipBackToMenu.targetCameraAlpha = 0.4f;
+            ClipOption.targetCameraAlpha = 1.0f;
+            ClipBackToMenu.targetCameraAlpha = 0.4f;
             LaunchCanvasMainMenu();
         }
 
-        if (!clipControlMenu.isPlaying && clipControlMenu.time >= 0.5f)
+        if (!ClipControlMenu.isPlaying && ClipControlMenu.time >= 0.5f)
         {
-            clipControlMenu.targetCameraAlpha = 0.0f;
-            clipBackToOptionMenu.targetCameraAlpha = 1.0f;
+            ClipControlMenu.targetCameraAlpha = 0.0f;
+            ClipBackToOptionMenu.targetCameraAlpha = 1.0f;
             LaunchCanvasControlMenu();
         }
 
-        if (!clipCreditMenu.isPlaying && clipCreditMenu.time >= 0.5f)
+        if (!ClipCreditMenu.isPlaying && ClipCreditMenu.time >= 0.5f)
         {
-            clipCreditMenu.targetCameraAlpha = 0.0f;
-            clipBackToOptionMenu.targetCameraAlpha = 1.0f;
+            ClipCreditMenu.targetCameraAlpha = 0.0f;
+            ClipBackToOptionMenu.targetCameraAlpha = 1.0f;
             LaunchCanvasCreditMenu();
         }
 
-        if (!clipBackToOptionMenu.isPlaying && clipBackToOptionMenu.time >= 0.5f)
+        if (!ClipBackToOptionMenu.isPlaying && ClipBackToOptionMenu.time >= 0.5f)
         {
-            clipControlMenu.targetCameraAlpha = 1.0f;
-            clipBackToOptionMenu.targetCameraAlpha = 0.4f;
+            ClipControlMenu.targetCameraAlpha = 1.0f;
+            ClipBackToOptionMenu.targetCameraAlpha = 0.4f;
             LaunchCanvasOptionsMenu();
         }
 
-        if (!clipBackFromCreditToOptionMenu.isPlaying && clipBackFromCreditToOptionMenu.time >= 0.5f)
+        if (!ClipBackFromCreditToOptionMenu.isPlaying && ClipBackFromCreditToOptionMenu.time >= 0.5f)
         {
-            clipCreditMenu.targetCameraAlpha = 1.0f;
-            clipBackFromCreditToOptionMenu.targetCameraAlpha = 0.4f;
+            ClipCreditMenu.targetCameraAlpha = 1.0f;
+            ClipBackFromCreditToOptionMenu.targetCameraAlpha = 0.4f;
             LaunchCanvasOptionsMenu();
         }
     }
@@ -208,37 +209,37 @@ public class ClipController : MonoBehaviour {
 
     private void PlayBackFromCreditToOptionMenu()
     {
-        clipBackFromCreditToOptionMenu.Play();
+        ClipBackFromCreditToOptionMenu.Play();
     }
 
     void PlayBackToMenu()
     {
-        clipBackToMenu.Play();
+        ClipBackToMenu.Play();
     }
 
     void PlayOptionsMenu()
     {
-        clipOption.Play();
+        ClipOption.Play();
     }
 
     private void PlayMainMenuFirstTime()
     {
-        clipStart.Play();
+        ClipStart.Play();
     }
 
     private void PlayControlMenu()
     {
-        clipControlMenu.Play();
+        ClipControlMenu.Play();
     }
 
     private void PlayCreditMenu()
     {
-        clipCreditMenu.Play();
+        ClipCreditMenu.Play();
     }
 
     void PlayBackToOptionMenu()
     {
-        clipBackToOptionMenu.Play();
+        ClipBackToOptionMenu.Play();
     }
 
 
@@ -260,6 +261,97 @@ public class ClipController : MonoBehaviour {
     private void LaunchCanvasCreditMenu()
     {
         CreditMenu.gameObject.SetActive(true);
+    }
+
+    public VideoPlayer ClipStart
+    {
+        get
+        {
+            return clipStart;
+        }
+
+        set
+        {
+            clipStart = value;
+        }
+    }
+
+    public VideoPlayer ClipOption
+    {
+        get
+        {
+            return clipOption;
+        }
+
+        set
+        {
+            clipOption = value;
+        }
+    }
+
+    public VideoPlayer ClipBackToMenu
+    {
+        get
+        {
+            return clipBackToMenu;
+        }
+
+        set
+        {
+            clipBackToMenu = value;
+        }
+    }
+
+    public VideoPlayer ClipControlMenu
+    {
+        get
+        {
+            return clipControlMenu;
+        }
+
+        set
+        {
+            clipControlMenu = value;
+        }
+    }
+
+    public VideoPlayer ClipBackToOptionMenu
+    {
+        get
+        {
+            return clipBackToOptionMenu;
+        }
+
+        set
+        {
+            clipBackToOptionMenu = value;
+        }
+    }
+
+    public VideoPlayer ClipCreditMenu
+    {
+        get
+        {
+            return clipCreditMenu;
+        }
+
+        set
+        {
+            clipCreditMenu = value;
+        }
+    }
+
+    public VideoPlayer ClipBackFromCreditToOptionMenu
+    {
+        get
+        {
+            return clipBackFromCreditToOptionMenu;
+        }
+
+        set
+        {
+            clipBackFromCreditToOptionMenu = value;
+        }
     }
 
 }
