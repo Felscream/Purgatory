@@ -69,7 +69,18 @@ public class AudioVolumeManager : MonoBehaviour {
         }
         t.source.Play();
     }
-    
+    public void PlaySoundEffectRandomPitch(string name)
+    {
+        Sound t = Array.Find(soundEffects, sound => sound.name == name);
+        if (t == null)
+        {
+            Debug.Log("Sound effect " + name + " not found");
+            return;
+        }
+        t.source.pitch = UnityEngine.Random.Range(0.8f, 1.4f);
+        t.source.Play();
+    }
+
     public IEnumerator FadeTheme(string newTheme, float fadeDuration)
     {
         Sound newT = Array.Find(themes, theme => theme.name == newTheme);
