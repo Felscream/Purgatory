@@ -46,6 +46,7 @@ public class ScoreManager : MonoBehaviour {
     private void OnEnable()
     {
         Load();
+        TrimLeaderboard();
     }
 
     private void OnDisable()
@@ -67,24 +68,22 @@ public class ScoreManager : MonoBehaviour {
             }
         }        
     }
-
+    void TrimLeaderboard()
+    {
+        if (leaderboard.Count >= leaderboardSize)
+        {
+            for(int i = leaderboard.Count; i > leaderboardSize; --i)
+            {
+                leaderboard.RemoveAt(i-1);
+            }
+        }
+    }
     public void AddChallengerToLeaderboard(Score challenger)
     {
         ScoreData data = new ScoreData(challenger.totalScore, challenger.champion, challenger.playerName);
         leaderboard.Add(data);
         leaderboard.Sort();
-        if (leaderboard.Count > leaderboardSize)
-        {
-            int toRemove = leaderboardSize - leaderboard.Count;
-            for (int i = toRemove; i == 1; --i)
-            {
-                leaderboard.RemoveAt(leaderboard.Count - 1);
-            }
-        }
-        foreach(ScoreData d in leaderboard)
-        {
-            Debug.Log(d.playerName + " " + d.totalScore);
-        }
+        TrimLeaderboard();
     }
     private void Save()
     {
@@ -119,6 +118,10 @@ public class Score : IEquatable<Score>, IComparable<Score>
     public Enum_Champion champion;
     public float timer;
 
+    public Score()
+    {
+
+    }
     public Score(int id, Enum_Champion champ)
     {
         playerID = id -1;

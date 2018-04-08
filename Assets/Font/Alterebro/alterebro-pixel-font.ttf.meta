@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7cbe4be0cc48bb94fa35d19384931af1
+timeCreated: 1523149821
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 180
+  forceTextureCase: -1
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Alterebro Pixel Font
+  fontNames:
+  - Alterebro Pixel Font
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

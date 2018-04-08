@@ -13,9 +13,10 @@ public class MainMenu : MonoBehaviour {
     private int panelIndex;
     private int mainMenuIndex = 1;
     private int optionMenuIndex = 1;
-
+    private Animator anim;
     private X360_controller controller;
-
+    [SerializeField] private Color sliderActiveColor;
+    [SerializeField] private Color sliderInactiveColor;
     // Joystick is running ?
     bool m_isAxisOneInUse = false;
     bool changePanel = false;
@@ -25,6 +26,7 @@ public class MainMenu : MonoBehaviour {
 
     // all buttons
     [SerializeField] GameObject playButton;
+    [SerializeField] GameObject leaderboardButton;
     [SerializeField] GameObject optionButton;
     [SerializeField] GameObject quitButton;
     [SerializeField] GameObject optionControlButton;
@@ -38,6 +40,7 @@ public class MainMenu : MonoBehaviour {
     [SerializeField] Slider optionVoiceSlider;
 
     [SerializeField] GameObject optionBackButton;
+    [SerializeField] GameObject leaderboardBackButton;
 
     public GameObject clipMenu;
     ClipController clipController_;
@@ -49,7 +52,7 @@ public class MainMenu : MonoBehaviour {
 
         panelIndex = 1;
         controller = ControllerManager.Instance.GetController(1);
-        
+        anim = GetComponent<Animator>();
         SelectedIndexMenu();
         switchMainMenu();
         audioVolumeManager = AudioVolumeManager.GetInstance();
@@ -58,11 +61,13 @@ public class MainMenu : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
+        if(controller.GetButtonDown("A") || controller.GetButtonDown("B"))
+        {
+            Debug.Log(panelIndex);
+        }
         // Player 1 validate his choice
         if (controller != null && changePanel)
         {
-            Debug.Log("select index");
             SelectedIndexMenu();
         }
         
@@ -101,11 +106,15 @@ public class MainMenu : MonoBehaviour {
                         case 1: // Jouer
                             LoadLobbyScene();
                             break;
-                        case 2: // Options
-                            clipController_.ChangeClipMainMenuToOptionsMenu();
+                        case 2: //Leaderboard
+                            LaunchLeaderboardCanvas();
                             ChangeIndex(2);
                             break;
-                        case 3: // Quitter
+                        case 3: // Options
+                            clipController_.ChangeClipMainMenuToOptionsMenu();
+                            ChangeIndex(3);
+                            break;
+                        case 4: // Quitter
                             QuitGame();
                             break;
                         default:
@@ -113,16 +122,20 @@ public class MainMenu : MonoBehaviour {
                             break;
                     }
                     break;
-                case 2: // Options
+                case 2:
+                    LaunchMenuFromLeaderboard();
+                    ChangeIndex(1);
+                    break;
+                case 3: // Options
                     switch (optionMenuIndex)
                     {
                         case 1: // Contrôles
                             clipController_.ChangeClipOptionsMenuToControlMenu();
-                            ChangeIndex(3);
+                            ChangeIndex(4);
                             break;
                         case 2: // Crédits
                             clipController_.ChangeClipOptionsMenuToCreditMenu();
-                            ChangeIndex(4);
+                            ChangeIndex(5);
                             break;
                         case 3: // Musique
                             musicSliderActivated = true;
@@ -142,9 +155,9 @@ public class MainMenu : MonoBehaviour {
                             break;
                     }
                     break;
-                case 3: // Contrôles
+                case 4: // Contrôles
                     break;
-                case 4: // Crédits
+                case 5: // Crédits
                     break;
                 default:
                     print("Incorrect intelligence level.");
@@ -156,15 +169,23 @@ public class MainMenu : MonoBehaviour {
         {
             switch (panelIndex)
             {
-                case 3: // Contrôles
+                case 2:
+                    LaunchMenuFromLeaderboard();
+                    ChangeIndex(1);
+                    break;
+                case 3: //options
+                    // Retour
+                    clipController_.ChangeClipBackToMenu();
+                    ChangeIndex(1);
+                    break;
+                case 4: // Contrôles
                     // Retour
                     clipController_.ChangeClipControlBackToOptionMenu();
-                    ChangeIndex(2);
+                    ChangeIndex(3);
                     break;
-                case 4: // Crédits
-                    // Retour
+                case 5:// Crédits
                     clipController_.ChangeClipControlBackFromCreditToOptionMenu();
-                    ChangeIndex(2);
+                    ChangeIndex(3);
                     break;
                 default:
                     print("Incorrect intelligence level.");
@@ -178,7 +199,7 @@ public class MainMenu : MonoBehaviour {
         switch (indexSlider)
         {
             case 1:
-                optionMusicSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 0.5f, 0.5f);
+                optionMusicSlider.GetComponentInChildren<Image>().color = sliderActiveColor;
                 if (controller.GetStick_L().X < 0f)
                 {
                     if (optionMusicSlider.value > 0.0f)
@@ -194,11 +215,11 @@ public class MainMenu : MonoBehaviour {
                 if (controller.GetButtonDown("B"))
                 {
                     musicSliderActivated = false;
-                    optionMusicSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 1.0f, 1.0f);
+                    optionMusicSlider.GetComponentInChildren<Image>().color = sliderInactiveColor;
                 }
                 break;
             case 2:
-                optionEffectSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 0.5f, 0.5f);
+                optionEffectSlider.GetComponentInChildren<Image>().color = sliderActiveColor;
                 if (controller.GetStick_L().X < 0f)
                 {
                     if (optionEffectSlider.value > 0.0f)
@@ -214,12 +235,12 @@ public class MainMenu : MonoBehaviour {
                 if (controller.GetButtonDown("B"))
                 {
                     effectSliderActivated = false;
-                    optionEffectSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 0.5f, 0.5f);
+                    optionEffectSlider.GetComponentInChildren<Image>().color = sliderInactiveColor;
                 }
                 break;
 
             case 3:
-                optionVoiceSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 1.0f, 0f);
+                optionVoiceSlider.GetComponentInChildren<Image>().color = sliderActiveColor;
                 if (controller.GetStick_L().X < 0f)
                 {
                     if (optionVoiceSlider.value > 0.0f)
@@ -235,7 +256,7 @@ public class MainMenu : MonoBehaviour {
                 if (controller.GetButtonDown("B"))
                 {
                     voiceSliderActivated = false;
-                    optionVoiceSlider.GetComponentInChildren<Image>().color = new Color(1.0f, 1.0f, 0f);
+                    optionVoiceSlider.GetComponentInChildren<Image>().color = sliderInactiveColor;
                 }
                 break;
         }        
@@ -260,15 +281,33 @@ public class MainMenu : MonoBehaviour {
         switch (panelIndex)
         {
             case 1: // Menu Principal
-                playButton.GetComponent<Button>().Select();
+                switch (mainMenuIndex)
+                {
+                    case 1:
+                        playButton.GetComponent<Button>().Select();
+                        break;
+                    case 2:
+                        leaderboardButton.GetComponent<Button>().Select();
+                        break;
+                    case 3:
+                        optionControlButton.GetComponent<Button>().Select();
+                        break;
+                    case 4:
+                        quitButton.GetComponent<Button>().Select();
+                        break;
+                }
+                
                 break;
-            case 2: // Options
+            case 2:
+                leaderboardButton.GetComponent<Button>().Select();
+                break;
+            case 3: // Options
                 Debug.Log("Je passe ici");
                 optionControlButton.GetComponent<Button>().Select();
                 break;
-            case 3: // Contrôles
+            case 4: // Contrôles
                 break;
-            case 4: // Crédits
+            case 5: // Crédits
                 // Juste le bouton B
                 break;
             default:
@@ -312,7 +351,9 @@ public class MainMenu : MonoBehaviour {
                     m_isAxisOneInUse = false;
                 }
                 break;
-            case 2: // Options
+            case 2: //leaderboard
+                break;
+            case 3: // Options
                 if (!m_isAxisOneInUse)
                 {
                     //Debug.Log(ControllerManager.Instance.GetController(1).IsConnected);
@@ -336,9 +377,9 @@ public class MainMenu : MonoBehaviour {
                     m_isAxisOneInUse = false;
                 }
                 break;
-            case 3: // Contrôles
+            case 4: // Contrôles
                 break;
-            case 4: // Crédits
+            case 5: // Crédits
                 break;
             default:
                 print("Incorrect intelligence level.");
@@ -349,14 +390,14 @@ public class MainMenu : MonoBehaviour {
     private void DecreaseMainMenuIndex()
     {
         if (mainMenuIndex > 0) mainMenuIndex--;
-        if (mainMenuIndex == 0) mainMenuIndex = 3;
+        if (mainMenuIndex == 0) mainMenuIndex = 4;
         switchMainMenu();
     }
 
     private void IncreaseMainMenuIndex()
     {
-        if (mainMenuIndex < 4) mainMenuIndex++;
-        if (mainMenuIndex == 4) mainMenuIndex = 1;
+        if (mainMenuIndex < 5) mainMenuIndex++;
+        if (mainMenuIndex == 5) mainMenuIndex = 1;
         switchMainMenu();
     }
 
@@ -373,6 +414,9 @@ public class MainMenu : MonoBehaviour {
                 */
                 break;
             case 2:
+                leaderboardButton.GetComponent<Button>().Select();
+                break;
+            case 3:
                 optionButton.GetComponent<Button>().Select();
                 /*
                 optionButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
@@ -380,7 +424,7 @@ public class MainMenu : MonoBehaviour {
                 quitButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 */
                 break;
-            case 3:
+            case 4:
                 quitButton.GetComponent<Button>().Select();
                 /*
                 quitButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
@@ -397,7 +441,7 @@ public class MainMenu : MonoBehaviour {
     private void DecreaseOptionMenuIndex()
     {
         if (optionMenuIndex > 0) optionMenuIndex--;
-        if (optionMenuIndex == 0) optionMenuIndex = 3;
+        if (optionMenuIndex == 0) optionMenuIndex = 6;
         switchOptionMenu();
     }
 
@@ -435,5 +479,22 @@ public class MainMenu : MonoBehaviour {
                 print("Incorrect intelligence level.");
                 break;
         }
+    }
+
+    public void LaunchLeaderboardCanvas()
+    {
+        anim.SetTrigger("sRight");
+        audioVolumeManager.PlaySoundEffect("Select");
+        leaderboardBackButton.GetComponent<Button>().Select();
+        leaderboardButton.GetComponent<Button>().interactable = false;
+        leaderboardBackButton.GetComponent<Button>().interactable = true;
+    }
+    public void LaunchMenuFromLeaderboard()
+    {
+        anim.SetTrigger("sLeft");
+        audioVolumeManager.PlaySoundEffect("Cancel");
+        leaderboardButton.GetComponent<Button>().interactable = true;
+        leaderboardBackButton.GetComponent<Button>().interactable = false;
+
     }
 }
