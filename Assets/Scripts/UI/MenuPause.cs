@@ -9,24 +9,27 @@ public class MenuPause : MonoBehaviour {
     public Button reprendre, options, quitter;
     public ControllerManager controlManager;
 
+    public GameObject controlsMenu, optionsMenu;
+
     private X360_controller controller;
 
     private bool isChanging = false;
     private bool onDisplay = false;
+    private bool controlsOnDisplay = false;
     private Transform pauseMenu;
 
     private int selectedItem = 1;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         pauseMenu = transform.GetChild(0);
         pauseMenu.gameObject.SetActive(false);
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-		if (controlManager.GetButtonDownAny("Start"))
+    // Update is called once per frame
+    void Update() {
+
+        if (controlManager.GetButtonDownAny("Start"))
         {
             if (!onDisplay)
             {
@@ -52,10 +55,18 @@ public class MenuPause : MonoBehaviour {
             {
                 isChanging = false;
             }
-
-
         }
-	}
+        // Si le joystick qui a mis en pause appuie sur A
+        if (onDisplay && controlManager.GetController(controlManager.getControllerIndexOnButtonDown("Submit")) == controller)
+        {
+            Validate();
+        }
+        // Si le joystick qui a mis en pause appuie sur B
+        if (onDisplay && controlManager.GetController(controlManager.getControllerIndexOnButtonDown("Cancel")) == controller)
+        {
+            Cancel();
+        }
+    }
 
     private void OnPause()
     {
@@ -94,7 +105,7 @@ public class MenuPause : MonoBehaviour {
             selectedItem = 3;
         if (selectedItem == 4)
             selectedItem = 1;
-        
+
         switch (selectedItem)
         {
             case 1:
@@ -106,6 +117,38 @@ public class MenuPause : MonoBehaviour {
             default:
                 quitter.Select();
                 break;
+        }
+    }
+
+    private void ShowOptions()
+    {
+        optionsMenu.SetActive(true);
+    }
+
+
+    private void Validate()
+    {
+        switch (selectedItem)
+        {
+            case 1:
+                reprendre.Select();
+                break;
+            case 2:
+                options.Select();
+                break;
+            default:
+                quitter.Select();
+                break;
+        }
+    }
+    private void Cancel()
+    {
+        if (!controlsOnDisplay)
+        {
+            OnUnpause();
+        } else
+        {
+
         }
     }
 }

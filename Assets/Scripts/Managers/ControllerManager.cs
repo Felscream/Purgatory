@@ -19,7 +19,6 @@ public class ControllerManager : MonoBehaviour {
             }
             return instance;
         }
-        
     }
     void Awake()
     {
