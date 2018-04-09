@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class MenuPause : MonoBehaviour {
 
 
-    public Button reprendre, options, quitter;
+    public Button reprendre, options, quitter, retourControls;
     public ControllerManager controlManager;
+    public ManagerInGame managerInGame;
 
-    public GameObject controlsMenu, optionsMenu;
+    public GameObject controlsMenu, HUDCanvas;
 
     private X360_controller controller;
 
@@ -41,7 +42,7 @@ public class MenuPause : MonoBehaviour {
             }
         }
 
-        if (onDisplay)
+        if (onDisplay && !controlsOnDisplay)
         {
             if (controller != null && controller.GetStick_L().Y < -.2 && !isChanging)
             {
@@ -57,36 +58,38 @@ public class MenuPause : MonoBehaviour {
             }
         }
         // Si le joystick qui a mis en pause appuie sur A
-        if (onDisplay && controlManager.GetController(controlManager.getControllerIndexOnButtonDown("Submit")) == controller)
+        if (onDisplay && controller.GetButtonDown("Submit"))
         {
             Validate();
         }
         // Si le joystick qui a mis en pause appuie sur B
-        if (onDisplay && controlManager.GetController(controlManager.getControllerIndexOnButtonDown("Cancel")) == controller)
+        if (onDisplay && controller.GetButtonDown("Cancel")) ;
         {
             Cancel();
         }
     }
 
-    private void OnPause()
+    public void OnPause()
     {
         controller = controlManager.GetController(controlManager.getControllerIndexOnButtonDown("Start"));
 
         onDisplay = true;
         pauseMenu.gameObject.SetActive(true);
 
-        Time.timeScale = 0.00001f;
+        Time.timeScale = 0.0000f;
         Cursor.visible = true;
-
-        reprendre.Select();
+        //HUDCanvas.SetActive(false);
         selectedItem = 1;
+        options.Select();
+        reprendre.Select();
     }
 
-    private void OnUnpause()
+    public void OnUnpause()
     {
         onDisplay = false;
         pauseMenu.gameObject.SetActive(false);
 
+        //HUDCanvas.SetActive(true);
         Time.timeScale = 1f;
         Cursor.visible = false;
     }
@@ -120,24 +123,38 @@ public class MenuPause : MonoBehaviour {
         }
     }
 
-    private void ShowOptions()
+    public void ShowControls()
     {
-        optionsMenu.SetActive(true);
+        controlsMenu.SetActive(true);
+        controlsOnDisplay = true;
+        retourControls.Select();
+    }
+    public void HideControls()
+    {
+        controlsMenu.SetActive(false);
+        controlsOnDisplay = false;
+        reprendre.Select();
+        selectedItem = 1;
     }
 
 
     private void Validate()
     {
+        if (controlsOnDisplay)
+        {
+            HideControls();
+            return;
+        }
         switch (selectedItem)
         {
             case 1:
-                reprendre.Select();
+                OnUnpause();
                 break;
             case 2:
-                options.Select();
+                ShowControls();
                 break;
             default:
-                quitter.Select();
+                managerInGame.LoadMainMenu();
                 break;
         }
     }
@@ -148,7 +165,7 @@ public class MenuPause : MonoBehaviour {
             OnUnpause();
         } else
         {
-
+            HideControls();
         }
     }
 }

@@ -152,7 +152,7 @@ public class SelectionPlayer : MonoBehaviour
     {
         if (!m_isAxisOneInUse)
         {
-            if (controller.GetStick_L().X < 0f)
+            if (controller.GetStick_L().X < -.2f)
             {
                 m_isAxisOneInUse = true;
                 DecreaseIndex();
@@ -160,7 +160,7 @@ public class SelectionPlayer : MonoBehaviour
             }
             else
             {
-                if (controller.GetStick_L().X > 0f)
+                if (controller.GetStick_L().X > .2f)
                 {
                     m_isAxisOneInUse = true;
                     IncreaseIndex();
@@ -169,7 +169,7 @@ public class SelectionPlayer : MonoBehaviour
             }
         }
 
-        if (controller.GetStick_L().X == 0 && m_isAxisOneInUse == true)
+        if (Mathf.Abs(controller.GetStick_L().X) <.2f && m_isAxisOneInUse == true)
         {
             m_isAxisOneInUse = false;
         }
@@ -198,7 +198,7 @@ public class SelectionPlayer : MonoBehaviour
                 break;
             case 3:
                 playerKnightButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                playerSorcererButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+                playerSorcererButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
                 playerArcherButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                 KnightPlayer.gameObject.SetActive(false);
                 SorcererPlayer.gameObject.SetActive(false);
