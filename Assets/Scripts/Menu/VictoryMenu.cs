@@ -13,6 +13,7 @@ public class VictoryMenu: MonoBehaviour {
 
     // La tableau sur lequel on met le script
     public int tableIndex;
+    public InputField winnerNameInput;
     // Les sprites
     public RectTransform playerTable;
     public RectTransform knightImage;
@@ -52,6 +53,10 @@ public class VictoryMenu: MonoBehaviour {
                 playerSelection = winner.champion;
                 ScoreText.GetComponent<Text>().text = winner.TotalScore.ToString() ;
                 Affichage(playerSelection, winner.playerID);
+                if (winner.TotalScore > scoreManager.GetLastOnLeaderboard().totalScore && winnerNameInput != null)
+                {
+                    winnerNameInput.gameObject.SetActive(true);
+                }
                 break;
             case 2: // Deuxième place
                 if(losers.Count >= 1)

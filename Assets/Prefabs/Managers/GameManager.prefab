@@ -283,7 +283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1107256741071352
 GameObject:
   m_ObjectHideFlags: 1
@@ -5131,6 +5131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableIndex: 3
+  winnerNameInput: {fileID: 0}
   playerTable: {fileID: 224740146720574376}
   knightImage: {fileID: 224680103460437122}
   archerImage: {fileID: 224210931920585202}
@@ -5267,6 +5268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableIndex: 1
+  winnerNameInput: {fileID: 114217417323895562}
   playerTable: {fileID: 224206457369665868}
   knightImage: {fileID: 224761915657659744}
   archerImage: {fileID: 224367146253018388}
@@ -7970,6 +7972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableIndex: 2
+  winnerNameInput: {fileID: 0}
   playerTable: {fileID: 224037617616878252}
   knightImage: {fileID: 224258070336931970}
   archerImage: {fileID: 224991611791343232}
@@ -8575,6 +8578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableIndex: 4
+  winnerNameInput: {fileID: 0}
   playerTable: {fileID: 224844844725281456}
   knightImage: {fileID: 224480919143995318}
   archerImage: {fileID: 224727087620075984}
@@ -9798,7 +9802,7 @@ Canvas:
   m_GameObject: {fileID: 1892319925933604}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 1
   m_PixelPerfect: 1

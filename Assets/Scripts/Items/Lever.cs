@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Lever : MonoBehaviour {
 
     public GameObject trap;
-    private GameObject secondTrap = null;
+    [SerializeField] protected GameObject secondTrap = null;
     public Sprite secondPositionLever;
     public bool canEngage = true;
 

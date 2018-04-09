@@ -7,11 +7,15 @@ public class InsertWinnerName : MonoBehaviour {
 
     private InputField playerName;
     private ManagerInGame gameManager;
-
+    private ScoreManager scoreManager;
+    private ScoreData winnerData;
     private void Start()
     {
         gameManager = ManagerInGame.GetInstance();
+        scoreManager = ScoreManager.GetInstance();
+        
         playerName = GetComponent<InputField>();
+        winnerData = scoreManager.AddChallengerToLeaderboard(gameManager.GetWinner());
     }
 
     private void Update()
@@ -28,7 +32,7 @@ public class InsertWinnerName : MonoBehaviour {
     {
         if(gameManager.GetWinner() != null)
         {
-            gameManager.GetWinner().playerName = playerName.text.ToUpper();
+            winnerData.playerName = playerName.text.ToUpper();
         }
     }
 }

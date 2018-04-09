@@ -579,7 +579,6 @@ public class ManagerInGame : MonoBehaviour {
 
     public void LoadMainMenu()
     {
-        scoreManager.AddChallengerToLeaderboard(winner);
         ToggleEndGameButtonInteraction();
         audioManager.PlaySoundEffect("Select");
         SceneManager.LoadScene(0);
@@ -587,7 +586,6 @@ public class ManagerInGame : MonoBehaviour {
 
     public void Reload()
     {
-        scoreManager.AddChallengerToLeaderboard(winner);
         ToggleEndGameButtonInteraction();
         audioManager.PlaySoundEffect("Select");
         Time.timeScale = 1.0f;
@@ -597,7 +595,6 @@ public class ManagerInGame : MonoBehaviour {
 
     public void LoadLobby()
     {
-        scoreManager.AddChallengerToLeaderboard(winner);
         ToggleEndGameButtonInteraction();
         audioManager.PlaySoundEffect("Select");
         Time.timeScale = 1.0f;
@@ -638,16 +635,11 @@ public class ManagerInGame : MonoBehaviour {
         {
             Debug.LogError("[ManagerInGame] : No winner name input field");
         }
-        else
-        {
-            winnerName.interactable = false;
-        }
         
     }
 
     private void ToggleEndGameButtonInteraction()
     {
-        winnerName.interactable = !winnerName.interactable;
         foreach(Button b in endGameButtons)
         {
             b.interactable = !b.interactable;

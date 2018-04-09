@@ -78,12 +78,13 @@ public class ScoreManager : MonoBehaviour {
             }
         }
     }
-    public void AddChallengerToLeaderboard(Score challenger)
+    public ScoreData AddChallengerToLeaderboard(Score challenger)
     {
         ScoreData data = new ScoreData(challenger.totalScore, challenger.champion, challenger.playerName);
         leaderboard.Add(data);
         leaderboard.Sort();
         TrimLeaderboard();
+        return data;
     }
     private void Save()
     {
@@ -106,6 +107,13 @@ public class ScoreManager : MonoBehaviour {
             data.leaderboard.Sort();
             leaderboard = data.leaderboard;
         }
+    }
+
+    public ScoreData GetLastOnLeaderboard()
+    {
+        leaderboard.Sort();
+        TrimLeaderboard();
+        return leaderboard[leaderboard.Count - 1];
     }
 }
 
