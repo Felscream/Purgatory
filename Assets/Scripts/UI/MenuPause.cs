@@ -13,7 +13,7 @@ public class MenuPause : MonoBehaviour {
     public GameObject controlsMenu, HUDCanvas;
 
     private X360_controller controller;
-
+    private AudioVolumeManager audioManager;
     private bool isChanging = false;
     private bool onDisplay = false;
     private bool controlsOnDisplay = false;
@@ -25,6 +25,7 @@ public class MenuPause : MonoBehaviour {
     void Start() {
         pauseMenu = transform.GetChild(0);
         pauseMenu.gameObject.SetActive(false);
+        audioManager = AudioVolumeManager.GetInstance();
     }
 
     // Update is called once per frame
@@ -62,7 +63,7 @@ public class MenuPause : MonoBehaviour {
     public void OnPause()
     {
         controller = controlManager.GetController(controlManager.getControllerIndexOnButtonDown("Start"));
-
+        audioManager.PlaySoundEffect("Select");
         onDisplay = true;
         pauseMenu.gameObject.SetActive(true);
 
@@ -85,6 +86,7 @@ public class MenuPause : MonoBehaviour {
         Time.timeScale = managerInGame.CurrentTimeScale;
         managerInGame.UnpauseAgentsAudio();
         managerInGame.UnpauseNarratorAudio();
+        audioManager.PlaySoundEffect("Cancel");
         Cursor.visible = false;
     }
 
@@ -119,12 +121,14 @@ public class MenuPause : MonoBehaviour {
 
     public void ShowControls()
     {
+        audioManager.PlaySoundEffect("Select");
         controlsMenu.SetActive(true);
         controlsOnDisplay = true;
         retourControls.Select();
     }
     public void HideControls()
     {
+        audioManager.PlaySoundEffect("Cancel");
         controlsMenu.SetActive(false);
         controlsOnDisplay = false;
         reprendre.Select();
@@ -137,18 +141,22 @@ public class MenuPause : MonoBehaviour {
         if (controlsOnDisplay)
         {
             HideControls();
+            audioManager.PlaySoundEffect("Cancel");
             return;
         }
         switch (selectedItem)
         {
             case 1:
                 OnUnpause();
+                audioManager.PlaySoundEffect("Cancel");
                 break;
             case 2:
                 ShowControls();
+                audioManager.PlaySoundEffect("Select");
                 break;
             default:
                 managerInGame.LoadMainMenu();
+                audioManager.PlaySoundEffect("Select");
                 break;
         }
     }
