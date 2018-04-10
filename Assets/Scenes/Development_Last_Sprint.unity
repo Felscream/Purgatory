@@ -190,16 +190,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: endPoints.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: startingPoints.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4694257437343816, guid: e3633296bc15d2145a19448e709630d0, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -232,26 +222,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: spawnChance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: startingPoints.Array.data[3]
-      value: 
-      objectReference: {fileID: 1168825435}
-    - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: startingPoints.Array.data[4]
-      value: 
-      objectReference: {fileID: 2099167090}
-    - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
-        type: 2}
-      propertyPath: startingPoints.Array.data[5]
-      value: 
-      objectReference: {fileID: 413331620}
     - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: startingPoints.Array.data[0]
