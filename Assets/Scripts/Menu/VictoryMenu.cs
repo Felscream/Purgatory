@@ -53,7 +53,7 @@ public class VictoryMenu: MonoBehaviour {
                 playerSelection = winner.champion;
                 ScoreText.GetComponent<Text>().text = winner.TotalScore.ToString() ;
                 Affichage(playerSelection, winner.playerID);
-                if (winner.TotalScore > scoreManager.GetLastOnLeaderboard().totalScore && winnerNameInput != null)
+                if ( CanEnterLeaderboard() && winnerNameInput != null)
                 {
                     winnerNameInput.gameObject.SetActive(true);
                 }
@@ -184,5 +184,10 @@ public class VictoryMenu: MonoBehaviour {
     public void CalculateScoreImageRefill()
     {
         //ouroborosCooldown.fillAmount = 1.0f;
+    }
+
+    private bool CanEnterLeaderboard()
+    {
+        return gameManager.GetWinner().TotalScore > scoreManager.GetLastOnLeaderboard().totalScore || scoreManager.leaderboard.Count < scoreManager.leaderboardSize;
     }
 }
