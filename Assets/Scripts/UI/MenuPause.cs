@@ -57,16 +57,6 @@ public class MenuPause : MonoBehaviour {
                 isChanging = false;
             }
         }
-        // Si le joystick qui a mis en pause appuie sur A
-        if (onDisplay && controller.GetButtonDown("Submit"))
-        {
-            Validate();
-        }
-        // Si le joystick qui a mis en pause appuie sur B
-        if (onDisplay && controller.GetButtonDown("Cancel")) ;
-        {
-            Cancel();
-        }
     }
 
     public void OnPause()
