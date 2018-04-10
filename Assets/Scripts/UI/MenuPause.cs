@@ -26,12 +26,13 @@ public class MenuPause : MonoBehaviour {
         pauseMenu = transform.GetChild(0);
         pauseMenu.gameObject.SetActive(false);
         audioManager = AudioVolumeManager.GetInstance();
+        controlManager = ControllerManager.Instance;
     }
 
     // Update is called once per frame
     void Update() {
 
-        if (controlManager.GetButtonDownAny("Start"))
+        if (controlManager.GetButtonDownAny("Start") && !managerInGame.EndGame)
         {
             if (!onDisplay)
             {

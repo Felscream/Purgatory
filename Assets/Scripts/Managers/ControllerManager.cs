@@ -26,7 +26,7 @@ public class ControllerManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
             GamepadCount = Mathf.Clamp(GamepadCount, 1, 4);
 
             controllers = new List<X360_controller>();
