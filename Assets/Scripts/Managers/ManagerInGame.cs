@@ -43,6 +43,7 @@ public class ManagerInGame : MonoBehaviour {
     [SerializeField] private Text countDownUI;
     [SerializeField] protected float timeBeforeEndGame = 3.0f;
     private List<AudioSource> agentsAudioSources = new List<AudioSource>();
+    private List<AudioSource> narratorAudioSources = new List<AudioSource>();
     private ScoreManager scoreManager;
     private PostProcessingProfile profile;
     //camera variables
@@ -55,6 +56,8 @@ public class ManagerInGame : MonoBehaviour {
     private Button[] endGameButtons;
     private InputField winnerName;
     public bool EndGame { get; set; }
+    private float currentTimeScale = 1.0f;
+    
     public static ManagerInGame GetInstance()
     {
         if (instance == null)
@@ -89,20 +92,15 @@ public class ManagerInGame : MonoBehaviour {
         }
         background = ClashHUD.GetComponentInChildren<SpriteRenderer>().gameObject;
         canvas = ClashHUD.GetComponentInChildren<Canvas>().gameObject;
-        cameraGo = Camera.main.gameObject;
-        /*GameObject[] gos = GameObject.FindGameObjectsWithTag("MainCamera");
 
-        foreach( GameObject go in gos )
-        {
-            if (go.GetComponent<Camera>())
-                cameraGo = go;
-        }*/
+        cameraGo = Camera.main.gameObject;
         cameraController = cameraGo.GetComponent<CameraControl>();
         if(cameraController != null)
         {
             defaultOrthographicSize = cameraController.DefaultOrthographicSize;
             defaultZoomOrthographicSize = cameraController.ZoomOrthographicSize;
         }
+
         audioManager = AudioVolumeManager.GetInstance();
         scoreManager = ScoreManager.GetInstance();
         profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
@@ -188,6 +186,7 @@ public class ManagerInGame : MonoBehaviour {
         //Start of clash
         PauseAgentsAudio();
         Time.timeScale = 0.0001f;
+        currentTimeScale = Time.timeScale;
         audioManager.PlaySoundEffect("ExecutionStart");
         defender.ClashMode();
         attacker.ClashMode();
@@ -230,14 +229,16 @@ public class ManagerInGame : MonoBehaviour {
         
         while (time < clashTime && value < 100 && value > 0)
         {
-            time += Time.unscaledDeltaTime;
-            value = 50 + ((attacker.clashClick * 10 - defender.clashClick * (7+defender.determination)) * (time/2+1) / 10);
-            ClashSlider.value = value;
+            if(Time.timeScale != 0.0f)
+            {
+                time += Time.unscaledDeltaTime;
+                value = 50 + ((attacker.clashClick * 10 - defender.clashClick * (7 + defender.determination)) * (time / 2 + 1) / 10);
+                ClashSlider.value = value;
 
-            AuraManager(value, attackAura, defendAura);
-            
-            cameraController.Shake(/*Mathf.Abs(value-50) / 2f + */ time*4, 5, 1000);
-            
+                AuraManager(value, attackAura, defendAura);
+
+                cameraController.Shake(/*Mathf.Abs(value-50) / 2f + */ time * 4, 5, 1000);
+            }
             yield return null;
         }
         if (value >= 50)
@@ -273,10 +274,13 @@ public class ManagerInGame : MonoBehaviour {
         canvas.gameObject.SetActive(false);
         while (alpha > 0)
         {
-            alpha -= Time.unscaledDeltaTime*2;
-            color = background.GetComponent<SpriteRenderer>().color;
-            color.a = alpha;
-            background.GetComponent<SpriteRenderer>().color = color;
+            if(Time.timeScale != 0.0f)
+            {
+                alpha -= Time.unscaledDeltaTime * 2;
+                color = background.GetComponent<SpriteRenderer>().color;
+                color.a = alpha;
+                background.GetComponent<SpriteRenderer>().color = color;
+            }
             yield return null;
         }
         GetComponentInChildren<AddChampion>().HUDPlayer1.gameObject.SetActive(true);
@@ -287,6 +291,7 @@ public class ManagerInGame : MonoBehaviour {
         ClashHUD.SetActive(false);
 
         Time.timeScale = 1f;
+        currentTimeScale = Time.timeScale;
         UnpauseAgentsAudio();
         defender.NormalMode();
         attacker.NormalMode();
@@ -332,6 +337,14 @@ public class ManagerInGame : MonoBehaviour {
         agentsAudioSources.Remove(a);
     }
 
+    public void AddNarratorAudioSource(AudioSource n)
+    {
+        narratorAudioSources.Add(n);
+    }
+    public void RemoveNarratorAudioSource(AudioSource n)
+    {
+        narratorAudioSources.Remove(n);
+    }
     public void PauseAgentsAudio()
     {
         foreach(AudioSource a in agentsAudioSources)
@@ -343,6 +356,22 @@ public class ManagerInGame : MonoBehaviour {
     public void UnpauseAgentsAudio()
     {
         foreach(AudioSource a in agentsAudioSources)
+        {
+            a.UnPause();
+        }
+    }
+
+    public void PauseNarratorAudio()
+    {
+        foreach (AudioSource a in narratorAudioSources)
+        {
+            a.Pause();
+        }
+    }
+
+    public void UnpauseNarratorAudio()
+    {
+        foreach (AudioSource a in narratorAudioSources)
         {
             a.UnPause();
         }
@@ -376,10 +405,20 @@ public class ManagerInGame : MonoBehaviour {
         }
         PauseAgentsAudio();
         Time.timeScale = 0.0001f;
+        currentTimeScale = Time.timeScale;
         champion.animator.speed = 1 / Time.timeScale;
         cameraController.zoomInCoroutine = StartCoroutine(cameraController.ZoomIn(position, waitTime));
-        yield return new WaitForSecondsRealtime(cameraController.ZoomDuration * 2 + waitTime);
+        float time = 0.0f;
+        while (time <= cameraController.ZoomDuration * 2 + waitTime)
+        {
+            if(Time.timeScale != 0.0f)
+            {
+                time += Time.unscaledDeltaTime;
+            }
+            yield return null;
+        }
         Time.timeScale = 1.0f;
+        currentTimeScale = Time.timeScale;
         champion.EndUltLoop();
         champion.animator.speed = Time.timeScale;
         UnpauseAgentsAudio();
@@ -506,7 +545,15 @@ public class ManagerInGame : MonoBehaviour {
         ChromaticAberrationModel.Settings ch = profile.chromaticAberration.settings;
         ch.intensity = intensity;
         profile.chromaticAberration.settings = ch;
-        yield return new WaitForSecondsRealtime(duration);
+        float u = 0.0f;
+        while (u < duration)
+        {
+            if (Time.timeScale != 0.0f)
+            {
+                u += Time.unscaledDeltaTime;
+            }
+            yield return null;
+        }
         ResetChromaticAberration();
     }
 
@@ -627,14 +674,6 @@ public class ManagerInGame : MonoBehaviour {
         {
             Debug.LogError("[ManagerInGame] : No end game canvas");
         }
-        else
-        {
-            winnerName = endGameDisplays[0].GetComponentInChildren<InputField>();
-        }
-        if(winnerName == null)
-        {
-            Debug.LogError("[ManagerInGame] : No winner name input field");
-        }
         
     }
 
@@ -643,6 +682,17 @@ public class ManagerInGame : MonoBehaviour {
         foreach(Button b in endGameButtons)
         {
             b.interactable = !b.interactable;
+        }
+    }
+    public float CurrentTimeScale
+    {
+        get
+        {
+            return currentTimeScale;
+        }
+        set
+        {
+            currentTimeScale = value;
         }
     }
 }

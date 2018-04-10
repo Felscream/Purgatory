@@ -66,8 +66,10 @@ public class MenuPause : MonoBehaviour {
         onDisplay = true;
         pauseMenu.gameObject.SetActive(true);
 
-        Time.timeScale = 0.0000f;
+        Time.timeScale = 0.0f;
         Cursor.visible = true;
+        managerInGame.PauseAgentsAudio();
+        managerInGame.PauseNarratorAudio();
         //HUDCanvas.SetActive(false);
         selectedItem = 1;
         options.Select();
@@ -80,7 +82,9 @@ public class MenuPause : MonoBehaviour {
         pauseMenu.gameObject.SetActive(false);
 
         //HUDCanvas.SetActive(true);
-        Time.timeScale = 1f;
+        Time.timeScale = managerInGame.CurrentTimeScale;
+        managerInGame.UnpauseAgentsAudio();
+        managerInGame.UnpauseNarratorAudio();
         Cursor.visible = false;
     }
 

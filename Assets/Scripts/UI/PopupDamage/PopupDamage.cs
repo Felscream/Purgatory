@@ -50,7 +50,7 @@ public class PopupDamage : MonoBehaviour {
             {
                 reference = new Vector3(reference.x + Mathf.Abs(finalOffset.x + damageText.fontSize /9.0f), reference.y, reference.z);
             }
-            transform.position = Camera.main.WorldToScreenPoint(reference + (Vector3)finalOffset);
+            transform.position = /*Camera.main.WorldToScreenPoint*/(reference + (Vector3)finalOffset);
         }
     }
     public void SetText(float damage)

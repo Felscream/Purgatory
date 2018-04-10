@@ -250,6 +250,7 @@ public abstract class Champion : MonoBehaviour {
         audioVolumeManager = AudioVolumeManager.GetInstance();
         audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
         gameManager = ManagerInGame.GetInstance();
+        gameManager.AddNarratorAudioSource(audioSource);
         scoreManager = ScoreManager.GetInstance();
         foreach (Sound s in soundEffects)
         {

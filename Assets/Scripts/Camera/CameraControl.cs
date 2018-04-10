@@ -45,45 +45,48 @@ public class CameraControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (isMoving)
+        if(Time.timeScale != 0.0f)
         {
-            mainAxis.position = Vector3.MoveTowards(mainAxis.position, newPosition, Time.unscaledDeltaTime * currentSpeed);
-
-            if(Vector2.Distance(mainAxis.position, newPosition) < snapDistance)
+            if (isMoving)
             {
-                mainAxis.position = newPosition;
-                isMoving = false;
-                if (!isShaking)
+                mainAxis.position = Vector3.MoveTowards(mainAxis.position, newPosition, Time.unscaledDeltaTime * currentSpeed);
+
+                if (Vector2.Distance(mainAxis.position, newPosition) < snapDistance)
                 {
-                    enabled = true;
-                }
-            }
-        }
-
-        if (isShaking)
-        {
-            shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.unscaledDeltaTime * shakeSpeed);
-
-            if(Vector2.Distance(shakeAxis.localPosition, nextShakePosition) < shakeIntensity/5f)
-            {
-                shakeCount--;
-
-                if(shakeCount <= 0)
-                {
-                    isShaking = false;
-                    shakeAxis.localPosition = new Vector3(baseX, baseY, shakeAxis.localPosition.z);
-                    if (!isMoving)
+                    mainAxis.position = newPosition;
+                    isMoving = false;
+                    if (!isShaking)
                     {
-                        enabled = false;
+                        enabled = true;
                     }
                 }
-                else if(shakeCount <= 1)
+            }
+
+            if (isShaking)
+            {
+                shakeAxis.localPosition = Vector3.MoveTowards(shakeAxis.localPosition, nextShakePosition, Time.unscaledDeltaTime * shakeSpeed);
+
+                if (Vector2.Distance(shakeAxis.localPosition, nextShakePosition) < shakeIntensity / 5f)
                 {
-                    nextShakePosition = new Vector3(baseX, baseY, shakeAxis.localPosition.z);
-                }
-                else
-                {
-                    NextShakePosition();
+                    shakeCount--;
+
+                    if (shakeCount <= 0)
+                    {
+                        isShaking = false;
+                        shakeAxis.localPosition = new Vector3(baseX, baseY, shakeAxis.localPosition.z);
+                        if (!isMoving)
+                        {
+                            enabled = false;
+                        }
+                    }
+                    else if (shakeCount <= 1)
+                    {
+                        nextShakePosition = new Vector3(baseX, baseY, shakeAxis.localPosition.z);
+                    }
+                    else
+                    {
+                        NextShakePosition();
+                    }
                 }
             }
         }
@@ -145,12 +148,22 @@ public class CameraControl : MonoBehaviour {
         float rate = 1.0f / zoomDuration;
         while (i < 1.0)
         {
-            i += Time.unscaledDeltaTime * rate;
-            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            if(Time.timeScale != 0.0f)
+            {
+                i += Time.unscaledDeltaTime * rate;
+                mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            }
             yield return null;
         }
-        yield return new WaitForSecondsRealtime(zoomDuration + waitTime);
-
+        float u = 0.0f;
+        while(u < zoomDuration + waitTime)
+        {
+            if(Time.timeScale != 0.0f)
+            {
+                u += Time.unscaledDeltaTime;
+            }
+            yield return null;
+        }
         isZooming = false;
         zoomOutCoroutine = StartCoroutine(ZoomOut());
     }
@@ -164,11 +177,22 @@ public class CameraControl : MonoBehaviour {
         float rate = 1.0f / desiredZoomDuration;
         while (i < 1.0)
         {
-            i += Time.unscaledDeltaTime * rate;
-            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            if(Time.timeScale != 0)
+            {
+                i += Time.unscaledDeltaTime * rate;
+                mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            }
             yield return null;
         }
-        yield return new WaitForSecondsRealtime(desiredZoomDuration + waitTime);
+        float u = 0.0f;
+        while (u < desiredZoomDuration + waitTime)
+        {
+            if (Time.timeScale != 0.0f)
+            {
+                u += Time.unscaledDeltaTime;
+            }
+            yield return null;
+        }
 
         isZooming = false;
         zoomOutCoroutine = StartCoroutine(ZoomOut(desiredZoomDuration));
@@ -183,16 +207,22 @@ public class CameraControl : MonoBehaviour {
         float rate = 1.0f / zoomDuration;
         while (i < 1.0)
         {
-            i += Time.unscaledDeltaTime * rate;
-            Vector3 endPosition = new Vector3(target.transform.position.x, target.transform.position.y, origin.z);
-            mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            if (Time.timeScale != 0)
+            {
+                i += Time.unscaledDeltaTime * rate;
+                Vector3 endPosition = new Vector3(target.transform.position.x, target.transform.position.y, origin.z);
+                mainAxis.position = Vector3.Lerp(startingPosition, endPosition, i);
+            }
             yield return null;
         }
         float timer = 0.0f;
         while (timer < waitTime + ZoomDuration)
         {
-            mainAxis.position = new Vector3(target.transform.position.x, target.transform.position.y, origin.z);
-            timer += Time.deltaTime;
+            if (Time.timeScale != 0)
+            {
+                mainAxis.position = new Vector3(target.transform.position.x, target.transform.position.y, origin.z);
+                timer += Time.deltaTime;
+            }
             yield return null;
         }
 
@@ -205,8 +235,11 @@ public class CameraControl : MonoBehaviour {
         float rate = 1.0f / zoomDuration;
         while (i < 1.0)
         {
-            i += Time.unscaledDeltaTime * rate;
-            mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
+            if(Time.timeScale != 0.0f)
+            {
+                i += Time.unscaledDeltaTime * rate;
+                mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
+            }
             yield return null;
         }
     }
@@ -216,8 +249,11 @@ public class CameraControl : MonoBehaviour {
         float rate = 1.0f / desiredZoomDuration;
         while (i < 1.0)
         {
-            i += Time.unscaledDeltaTime * rate;
-            mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
+            if (Time.timeScale != 0.0f)
+            {
+                i += Time.unscaledDeltaTime * rate;
+                mainCamera.orthographicSize = Mathf.Lerp(start, end, i);
+            }
             yield return null;
         }
     }
@@ -231,8 +267,11 @@ public class CameraControl : MonoBehaviour {
 
         while (i < 1.0)
         {
-            i += Time.unscaledDeltaTime * rate;
-            mainAxis.position = Vector3.Lerp(startingPosition, origin, i);
+            if (Time.timeScale != 0.0f)
+            {
+                i += Time.unscaledDeltaTime * rate;
+                mainAxis.position = Vector3.Lerp(startingPosition, origin, i);
+            }
             yield return null;
         }
     }
@@ -245,8 +284,11 @@ public class CameraControl : MonoBehaviour {
 
         while (i < 1.0)
         {
-            i += Time.unscaledDeltaTime * rate;
-            mainAxis.position = Vector3.Lerp(startingPosition, origin, i);
+            if (Time.timeScale != 0.0f)
+            {
+                i += Time.unscaledDeltaTime * rate;
+                mainAxis.position = Vector3.Lerp(startingPosition, origin, i);
+            }
             yield return null;
         }
     }

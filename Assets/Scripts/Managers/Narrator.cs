@@ -79,6 +79,7 @@ public class Narrator : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         lastCommentTime = 0;
         audioVolumeManager = AudioVolumeManager.GetInstance();
+        ManagerInGame.GetInstance().AddAudioSource(audioSource);
     }
 
 	// Update is called once per frame
