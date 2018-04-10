@@ -30,7 +30,6 @@ public class ChampionManager: MonoBehaviour {
 
     private void Start()
     {
-        Debug.Log(lobbySelected);
         // Player 1 index = 0;
         playerSelection[0] = 0;
         // Player 2 index = 0;
