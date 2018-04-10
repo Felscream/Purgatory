@@ -695,4 +695,22 @@ public class ManagerInGame : MonoBehaviour {
             currentTimeScale = value;
         }
     }
+
+    public void HardBlockPlayers(bool enable)
+    {
+        if (enable)
+        {
+            foreach (Champion champ in Players)
+            {
+                champ.hardBlock = true;
+            }
+        }
+        else
+        {
+            foreach (Champion champ in Players)
+            {
+                champ.hardBlock = false;
+            }
+        }
+    }
 }

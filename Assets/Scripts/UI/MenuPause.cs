@@ -66,7 +66,7 @@ public class MenuPause : MonoBehaviour {
         audioManager.PlaySoundEffect("Select");
         onDisplay = true;
         pauseMenu.gameObject.SetActive(true);
-
+        managerInGame.HardBlockPlayers(true);
         Time.timeScale = 0.0f;
         Cursor.visible = true;
         managerInGame.PauseAgentsAudio();
@@ -81,7 +81,7 @@ public class MenuPause : MonoBehaviour {
     {
         onDisplay = false;
         pauseMenu.gameObject.SetActive(false);
-
+        managerInGame.HardBlockPlayers(false);
         //HUDCanvas.SetActive(true);
         Time.timeScale = managerInGame.CurrentTimeScale;
         managerInGame.UnpauseAgentsAudio();
