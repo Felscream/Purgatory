@@ -639,6 +639,36 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 224730917272930496, guid: a222df31f98f3b9448cde971b63971ea,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224332516198832584, guid: a222df31f98f3b9448cde971b63971ea,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224348379479071938, guid: a222df31f98f3b9448cde971b63971ea,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224499512962312592, guid: a222df31f98f3b9448cde971b63971ea,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224751423709153676, guid: a222df31f98f3b9448cde971b63971ea,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82863126686560604, guid: a222df31f98f3b9448cde971b63971ea,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a222df31f98f3b9448cde971b63971ea, type: 2}
   m_IsPrefabParent: 0
