@@ -52,6 +52,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] public CanvasGroup playerHUD;
     [SerializeField] protected GameObject damageDisplayPrefab;
     [SerializeField] protected GameObject scoreDisplayPrefab;
+    [SerializeField] protected Sprite[] healthSliders;
 
     [Header("Jump Settings")]
     [SerializeField] protected float jumpHeight = 10;
@@ -1240,10 +1241,19 @@ public abstract class Champion : MonoBehaviour {
 
 	public void ChangeColorHealthSlider()
 	{
-		if (determination == 2)
-			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 155, 0);
+        if (determination == 2)
+        {
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().sprite = healthSliders[0];
+
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 79, 0);
+        }
+            
 		else if (determination == 1)
-			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
+        {
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().sprite = healthSliders[1];
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
+        }
+            
 	}
 	/*public void PowerUpAvailable(bool b)
     {
@@ -1462,7 +1472,7 @@ public abstract class Champion : MonoBehaviour {
 
     public void SetProjectedStatus(float attackerFacing, Vector2 projectionForce, float duration = DEFAULT_EFFECT_DURATION)
     {
-        if (!immune && specialStatus != Enum_SpecialStatus.projected)
+        if (!immune && specialStatus != Enum_SpecialStatus.projected && !dead)
         {
             specialStatus = Enum_SpecialStatus.projected;
             SetStunEffects();
@@ -1496,7 +1506,7 @@ public abstract class Champion : MonoBehaviour {
     }
     public void SetStunStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
-        if(!immune && specialStatus != Enum_SpecialStatus.stun)
+        if(!immune && specialStatus != Enum_SpecialStatus.stun && !dead)
         {
             stunPs.Play();
             rb.velocity = Vector2.zero;

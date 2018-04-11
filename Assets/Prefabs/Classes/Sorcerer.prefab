@@ -487,6 +487,9 @@ MonoBehaviour:
     type: 2}
   scoreDisplayPrefab: {fileID: 1022562811663342, guid: d216bab41fa25b1438194adc3f93eb6c,
     type: 2}
+  healthSliders:
+  - {fileID: 21300000, guid: 2248e65111ccfb948a0ace46b78e3350, type: 3}
+  - {fileID: 21300000, guid: 646eb2b6c958699449bbf9b6a01a4eec, type: 3}
   jumpHeight: 10
   fallMultiplier: 8
   jumpVelocityAtApex: 3
@@ -526,8 +529,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 557312
   maxAttackToken: 2
-  ultimateQuotes:
-  - {fileID: 8300000, guid: 0da456f74806a34479c7fa5a3c8906b6, type: 3}
   soundEffects:
   - name: MeleeSorcerer
     clip: {fileID: 8300000, guid: 7b5890d602f1c2347909ce6f6f804631, type: 3}
