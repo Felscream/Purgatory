@@ -265,6 +265,7 @@ public abstract class Champion : MonoBehaviour {
         slowPs = transform.Find("SlowPS").GetComponent<ParticleSystem>();
         poisonPs = transform.Find("PoisonPS").GetComponent<ParticleSystem>();
         StopStatusParticleSystems();
+        playerHUD.transform.Find("HealthSlider").GetComponent<Slider>().maxValue = baseHealth;
     }
     protected void FixedUpdate()
     {
