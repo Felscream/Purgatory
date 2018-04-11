@@ -52,9 +52,9 @@ public class AddChampion : MonoBehaviour {
 		{        
 			// Si on ne passe pas par LobbyManager
 			CreateChampion(player1, 1, HUDPlayer1, 1);
-			CreateChampion(player2, 3, HUDPlayer2, 2);
+			CreateChampion(player2, 1, HUDPlayer2, 2);
 			CreateChampion(player3, 2, HUDPlayer3, 3);
-			CreateChampion(player4, 1, HUDPlayer4, 4);
+			CreateChampion(player4, 3, HUDPlayer4, 4);
 		}
         
         StartCoroutine(ManagerInGame.GetInstance().StartGame());
