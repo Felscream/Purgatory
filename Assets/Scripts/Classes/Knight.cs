@@ -35,6 +35,7 @@ public class Knight : Champion
     protected override void Start()
     {
         base.Start();
+        champType = Enum_Champion.Knight;
         combo2.SetUser(this);
         enhancedCombo1.SetUser(this);
         enhancedCombo2.SetUser(this);

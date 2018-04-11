@@ -12,7 +12,9 @@ public class Narrator : MonoBehaviour {
     [SerializeField] protected AudioClip[] startComments;
     [SerializeField] protected AudioClip[] attackComments;
     [SerializeField] protected AudioClip[] clashComments;
-    [SerializeField] protected AudioClip[] ultimateComments;
+    [SerializeField] protected AudioClip[] knightUltimate;
+    [SerializeField] protected AudioClip[] sorcererUltimate;
+    [SerializeField] protected AudioClip[] archerUltimate;
     [SerializeField] protected AudioClip[] guardComments;
     [SerializeField] protected AudioClip[] parryComments;
     [SerializeField] protected AudioClip[] deathComments;
@@ -79,7 +81,6 @@ public class Narrator : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         lastCommentTime = 0;
         audioVolumeManager = AudioVolumeManager.GetInstance();
-        ManagerInGame.GetInstance().AddAudioSource(audioSource);
     }
 
 	// Update is called once per frame
@@ -94,15 +95,17 @@ public class Narrator : MonoBehaviour {
         }
     }
 
-    protected void PlayRandom(AudioClip[] comments)
+    protected float PlayRandom(AudioClip[] comments)
     {
-        if(comments.Length>0)
+        int i = 0;
+        if (comments.Length>0)
         {
-            int i = Random.Range(0, comments.Length);
+            i = Random.Range(0, comments.Length);
             audioSource.clip = comments[i]; //To get the current clip is needed from an exterior component
             audioSource.Play();
             lastCommentTime = Time.time;
         }
+        return comments[i].length;
     }
 
     protected IEnumerator PlayNext(AudioClip[] comments)
@@ -131,10 +134,22 @@ public class Narrator : MonoBehaviour {
             PlayRandom(clashComments);
     }
 
-    public void Ultimate()
+    public float Ultimate(Enum_Champion champ)
     {
-        if (WillComment)
-            PlayRandom(ultimateComments);
+        float length = 0.0f;
+        switch (champ)
+        {
+            case Enum_Champion.Knight:
+                length = PlayRandom(knightUltimate);
+                break;
+            case Enum_Champion.Sorcerer:
+                length = PlayRandom(sorcererUltimate);
+                break;
+            case Enum_Champion.Archer:
+                length = PlayRandom(archerUltimate);
+                break;
+        }
+        return length;
     }
 
     public void Guard()

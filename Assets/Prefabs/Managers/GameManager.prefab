@@ -6647,23 +6647,51 @@ MonoBehaviour:
   minTime: 5
   maxTime: 30
   startComments:
-  - {fileID: 8300000, guid: d07335c95a683674ea78ae6c24563143, type: 3}
+  - {fileID: 8300000, guid: a2f20661a7fd5f1418173821c7374f6f, type: 3}
+  - {fileID: 8300000, guid: 95f83f08d8fc65547879e76b387e9f2f, type: 3}
+  - {fileID: 8300000, guid: 2dbe667c127470449a07cdfd90231499, type: 3}
+  - {fileID: 8300000, guid: 7da5762289ecb3e49bc411889bf4cb79, type: 3}
   attackComments:
-  - {fileID: 8300000, guid: 8e95c12274dd079488a26021ffc5dfe3, type: 3}
+  - {fileID: 8300000, guid: eadf6b2caf4db9c46b3d2609542376b8, type: 3}
+  - {fileID: 8300000, guid: c22997d4b92078f4abc2fd5bb4284a86, type: 3}
+  - {fileID: 8300000, guid: 84d14851bbc6fd04b890d9961fbe3c45, type: 3}
   clashComments:
-  - {fileID: 8300000, guid: 6ec09eecd5c0d644c8909f29b1a4b57a, type: 3}
-  ultimateComments:
-  - {fileID: 8300000, guid: 0275e230a95ae8f44ac7972b2d375005, type: 3}
+  - {fileID: 8300000, guid: 0cc28529548f73548b1eba3eaf961c42, type: 3}
+  - {fileID: 8300000, guid: fe7821adb85f40848a3bf22fb2154b50, type: 3}
+  - {fileID: 8300000, guid: bb4fc636f71b02e4ba4533d41fb20fab, type: 3}
+  - {fileID: 8300000, guid: d8a5c815b12a2d04fa6d42485382ade0, type: 3}
+  knightUltimate:
+  - {fileID: 8300000, guid: 604d0b1e1d829bc4bb1575a9686d5b54, type: 3}
+  - {fileID: 8300000, guid: f05cdf47eab57954296c2c6be2ab7bb2, type: 3}
+  - {fileID: 8300000, guid: 73c093bd55720c547b1e20e1af26d2e8, type: 3}
+  sorcererUltimate:
+  - {fileID: 8300000, guid: 08263a18b9c753946b07e33bb9d5818c, type: 3}
+  - {fileID: 8300000, guid: 005459f344de7af4cba724743b514b2e, type: 3}
+  archerUltimate:
+  - {fileID: 8300000, guid: 86e8c3408ff892b48b520bcf25dff1b5, type: 3}
+  - {fileID: 8300000, guid: 330bd90d6ed1fd24c9e34f2184556082, type: 3}
+  - {fileID: 8300000, guid: 4a5c224cffa2b4440972d029db831fcb, type: 3}
   guardComments:
-  - {fileID: 8300000, guid: 11d5fdd5e7e809441b6e164562da8a14, type: 3}
+  - {fileID: 8300000, guid: 78dc67cfacb425444946824b739d81a5, type: 3}
+  - {fileID: 8300000, guid: da4d32cd7db746b4b81d7a1d7fd54ad8, type: 3}
   parryComments:
-  - {fileID: 8300000, guid: f086af895f0f34f4989296f4c5e9e918, type: 3}
+  - {fileID: 8300000, guid: 807bac19b75cddb41885899b793c2690, type: 3}
+  - {fileID: 8300000, guid: cf14167e2f8d314408740852bf0874d6, type: 3}
+  - {fileID: 8300000, guid: 6354d65f7c6c8ee468cae732b344fffa, type: 3}
   deathComments:
-  - {fileID: 8300000, guid: d07335c95a683674ea78ae6c24563143, type: 3}
+  - {fileID: 8300000, guid: fa4eee6d88907944f9c066ec136d56ca, type: 3}
+  - {fileID: 8300000, guid: 98df1f62ae3c7eb4ca25f034163281ef, type: 3}
+  - {fileID: 8300000, guid: a47571638f8950b40b5ae08c483c333f, type: 3}
   endComments:
-  - {fileID: 8300000, guid: 55be4cb6695f6db4ba961e2eb9a38d45, type: 3}
+  - {fileID: 8300000, guid: 7739e03a600e8614489762f99efc2608, type: 3}
+  - {fileID: 8300000, guid: a076a14a5ff5497419b06ac075387eee, type: 3}
+  - {fileID: 8300000, guid: 581cae19a2d9c27409318429ea90263c, type: 3}
   randomComments:
-  - {fileID: 8300000, guid: 0da456f74806a34479c7fa5a3c8906b6, type: 3}
+  - {fileID: 8300000, guid: f911e0f5f39ac4a44ba26f8d317656ef, type: 3}
+  - {fileID: 8300000, guid: 1012b6f269e709745a14b1d87a146e8c, type: 3}
+  - {fileID: 8300000, guid: deae4b6af12e7724b81c8d8661b7c305, type: 3}
+  - {fileID: 8300000, guid: 0e63077f82948e44c98f9ada12d5a14a, type: 3}
+  - {fileID: 8300000, guid: d3e78be471361ba4f98e93bddc23a58a, type: 3}
 --- !u!114 &114648398834066204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8363,7 +8391,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1f1b0db0a701d0c4f80671b51f360387, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7ccf3d4ad45e9844a9240b3c49add228, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

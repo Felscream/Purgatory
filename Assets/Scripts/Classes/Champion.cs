@@ -113,9 +113,6 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
 
-    [Header("Narrator Quotes")]
-    [SerializeField] protected AudioClip[] ultimateQuotes;
-
     [Header("Sound Settings")]
     [SerializeField] protected Sound[] soundEffects;
 
@@ -190,7 +187,7 @@ public abstract class Champion : MonoBehaviour {
     protected ScoreManager scoreManager;
     private bool updatingScore = false;
     protected ManagerInGame gameManager;
-
+    protected Enum_Champion champType;
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -248,9 +245,7 @@ public abstract class Champion : MonoBehaviour {
         }
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
-        audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
         gameManager = ManagerInGame.GetInstance();
-        gameManager.AddNarratorAudioSource(audioSource);
         scoreManager = ScoreManager.GetInstance();
         foreach (Sound s in soundEffects)
         {
@@ -924,7 +919,6 @@ public abstract class Champion : MonoBehaviour {
     {
         if (limitBreakGauge == maxLimitBreakGauge)
         {
-            Narrator.Instance.Ultimate();
             Ultimate();
         }
     }
@@ -1654,13 +1648,8 @@ public abstract class Champion : MonoBehaviour {
     }
     public void UltimateCameraEffect()
     {
-        int id = 0;
-        if (audioSource != null && ultimateQuotes.Length > 0)
-        {
-            id = UnityEngine.Random.Range(0, ultimateQuotes.Length);
-            audioSource.PlayOneShot(ultimateQuotes[id], audioVolumeManager.VoiceVolume);
-            StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length, this));
-        }
+        float length = Narrator.Instance.Ultimate(champType);
+        StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, length, this));
     }
 
     public void Death()
