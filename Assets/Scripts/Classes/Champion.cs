@@ -1174,21 +1174,20 @@ public abstract class Champion : MonoBehaviour {
 		limitBreakSlider.value = limitBreakGauge;
         Text score = playerHUD.transform.Find("Score").GetComponent<Text>();
         Text multiplier = playerHUD.transform.Find("Multiplier").GetComponent<Text>();
-
         float b = healthSlider.value;
 		if (a != b) //si recu des degats, barre colorée supplémentaire
 		{
 			timerDamageHUD = 40;
             Transform damageSlider = playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test");
             damageSlider.GetComponent<Image>().color = new Color(255, 155, 0);
-            damageSlider.GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
-            if (damageSlider.GetComponent<RectTransform>().anchorMax.x == 1)
+            damageSlider.GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.2f, 9);
+            if (damageSlider.GetComponent<RectTransform>().anchorMax.x == 0)
 			{
-                damageSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
+                damageSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.2f, 0);
 			}
 			else
 			{
-                damageSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
+                damageSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.2f, 0);
 			}
 		}
 		else
