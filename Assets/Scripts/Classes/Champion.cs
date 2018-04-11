@@ -1182,8 +1182,7 @@ public abstract class Champion : MonoBehaviour {
             Transform damageSlider = playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test");
             damageSlider.GetComponent<Image>().color = new Color(255, 155, 0);
             damageSlider.GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
-            damageSlider.position = new Vector3(0, 0, 0);
-            if (damageSlider.GetComponent<RectTransform>().anchoredPosition.x > 0)
+            if (damageSlider.GetComponent<RectTransform>().anchorMax.x == 1)
 			{
                 damageSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
 			}
