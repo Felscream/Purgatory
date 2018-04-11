@@ -207,6 +207,18 @@ public class ManagerInGame : MonoBehaviour {
         GetComponentInChildren<AddChampion>().HUDPlayer4.gameObject.SetActive(false);
         ClashHUD.SetActive(true);
         background.SetActive(true);
+        Image[] images = ClashSlider.GetComponentsInChildren<Image>();
+        if (attacker.gameObject.transform.position.x >= defender.gameObject.transform.position.x)
+        {
+            images[0].color = new Color(1f, 0f, 0f);
+            images[1].color = new Color(0f, 171f/255f, 1f);
+        }
+        else
+        {
+            images[1].color = new Color(1f, 0f, 0f);
+            images[0].color = new Color(0f, 171f/255f, 1f);
+        }
+
         while (alpha < 1.0f)
         {
             alpha += Time.unscaledDeltaTime*2;
@@ -215,24 +227,27 @@ public class ManagerInGame : MonoBehaviour {
             background.GetComponent<SpriteRenderer>().color = color;
             yield return null;
         }
-
+        
         //Creates Aura and prep what's neeeded
         GameObject attackAura = Instantiate(attackerAura, attacker.transform);
         GameObject defendAura = Instantiate(defenderAura, defender.transform);
         GameObject bkg = Instantiate(backgroundEffect, cameraGo.transform);
         aBaseRate = attackAura.GetComponent<ParticleSystem>().emission.rateOverTime.constant;
         dBaseRate = defendAura.GetComponent<ParticleSystem>().emission.rateOverTime.constant;
-
-
+        
         //Actual Clash
         canvas.gameObject.SetActive(true);
-        
         while (time < clashTime && value < 100 && value > 0)
         {
             if(Time.timeScale != 0.0f)
             {
                 time += Time.unscaledDeltaTime;
-                value = 50 + ((attacker.clashClick * 10 - defender.clashClick * (7 + defender.determination)) * (time / 2 + 1) / 10);
+                value = 50;
+                if (attacker.gameObject.transform.position.x >= defender.gameObject.transform.position.x)
+                    value -= ((attacker.clashClick * 10 - defender.clashClick * (7 + defender.determination)) * (time / 2 + 1) / 10);
+                else
+                    value += ((attacker.clashClick * 10 - defender.clashClick * (7 + defender.determination)) * (time / 2 + 1) / 10);
+
                 ClashSlider.value = value;
 
                 AuraManager(value, attackAura, defendAura);
