@@ -40,6 +40,7 @@ public class Dragon : MonoBehaviour {
             transform.Translate(dir * speed * Time.deltaTime);
             yield return null;
         }
+        spawned = false;
     }
 
     public void Flight()

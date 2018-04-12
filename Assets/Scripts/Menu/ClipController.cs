@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class ClipController : MonoBehaviour {
+public class ClipController : MonoBehaviour
+{
 
     VideoPlayer clipStart;
     VideoPlayer clipOption;
@@ -28,10 +29,10 @@ public class ClipController : MonoBehaviour {
     public RectTransform CreditMenu;
 
     private AudioVolumeManager audioVolumeManager;
-    
+
     private void Awake()
     {
-        
+
         MainMenu.gameObject.SetActive(false);
         OptionsMenu.gameObject.SetActive(false);
         ControlMenu.gameObject.SetActive(false);
@@ -58,9 +59,9 @@ public class ClipController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-
-
+    void Update()
+    {
+        
         if (!ClipStart.isPlaying && ClipStart.time >= 1.0f)
         {
             ClipStart.targetCameraAlpha = 0.4f;
@@ -102,7 +103,7 @@ public class ClipController : MonoBehaviour {
             LaunchCanvasOptionsMenu();
         }
 
-        if (!ClipBackFromCreditToOptionMenu.isPlaying && ClipBackFromCreditToOptionMenu.time >= 0.5f)
+        if (!ClipBackFromCreditToOptionMenu.isPlaying && ClipBackFromCreditToOptionMenu.time >= 0.2f)
         {
             ClipCreditMenu.targetCameraAlpha = 1.0f;
             ClipBackFromCreditToOptionMenu.targetCameraAlpha = 0.4f;
@@ -114,11 +115,16 @@ public class ClipController : MonoBehaviour {
     {
         audioVolumeManager.PlaySoundEffect("Select");
         MainMenu.gameObject.SetActive(false);
+        ControlMenu.gameObject.SetActive(false);
+        OptionsMenu.gameObject.SetActive(false);
+        CreditMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);
-        LaunchBackToMenu.gameObject.SetActive(false);
         LaunchControlMenu.gameObject.SetActive(false);
-        LaunchBackToOptionMenu.gameObject.SetActive(false);
+        LaunchBackToMenu.gameObject.SetActive(false);
+        LaunchCreditMenu.gameObject.SetActive(false);
+        LaunchBackToOptionMenu.SetActive(false);
+        LaunchBackFromCreditToOptionMenu.SetActive(false);
 
         LaunchOptionsClip.SetActive(true);
 
@@ -128,13 +134,17 @@ public class ClipController : MonoBehaviour {
     public void ChangeClipOptionsMenuToControlMenu()
     {
         audioVolumeManager.PlaySoundEffect("Select");
+        MainMenu.gameObject.SetActive(false);
+        ControlMenu.gameObject.SetActive(false);
         OptionsMenu.gameObject.SetActive(false);
+        CreditMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);
-        LaunchBackToMenu.gameObject.SetActive(false);
         LaunchOptionsClip.gameObject.SetActive(false);
-        LaunchBackToOptionMenu.gameObject.SetActive(false);
+        LaunchBackToMenu.gameObject.SetActive(false);
         LaunchCreditMenu.gameObject.SetActive(false);
+        LaunchBackToOptionMenu.SetActive(false);
+        LaunchBackFromCreditToOptionMenu.SetActive(false);
 
         LaunchControlMenu.SetActive(true);
 
@@ -145,13 +155,17 @@ public class ClipController : MonoBehaviour {
     public void ChangeClipOptionsMenuToCreditMenu()
     {
         audioVolumeManager.PlaySoundEffect("Select");
+        MainMenu.gameObject.SetActive(false);
+        ControlMenu.gameObject.SetActive(false);
         OptionsMenu.gameObject.SetActive(false);
+        CreditMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);
-        LaunchBackToMenu.gameObject.SetActive(false);
-        LaunchOptionsClip.gameObject.SetActive(false);
-        LaunchBackToOptionMenu.gameObject.SetActive(false);
         LaunchControlMenu.gameObject.SetActive(false);
+        LaunchOptionsClip.gameObject.SetActive(false);
+        LaunchBackToMenu.gameObject.SetActive(false);
+        LaunchBackToOptionMenu.SetActive(false);
+        LaunchBackFromCreditToOptionMenu.SetActive(false);
 
         LaunchCreditMenu.SetActive(true);
 
@@ -161,12 +175,17 @@ public class ClipController : MonoBehaviour {
     public void ChangeClipBackToMenu()
     {
         audioVolumeManager.PlaySoundEffect("Cancel");
+        MainMenu.gameObject.SetActive(false);
+        ControlMenu.gameObject.SetActive(false);
         OptionsMenu.gameObject.SetActive(false);
-        
+        CreditMenu.gameObject.SetActive(false);
+
         LaunchMainMenu.gameObject.SetActive(false);
         LaunchControlMenu.gameObject.SetActive(false);
         LaunchOptionsClip.gameObject.SetActive(false);
-        LaunchBackToOptionMenu.gameObject.SetActive(false);
+        LaunchCreditMenu.gameObject.SetActive(false);
+        LaunchBackToOptionMenu.SetActive(false);
+        LaunchBackFromCreditToOptionMenu.SetActive(false);
 
         LaunchBackToMenu.SetActive(true);
 
@@ -176,7 +195,10 @@ public class ClipController : MonoBehaviour {
     public void ChangeClipControlBackToOptionMenu()
     {
         audioVolumeManager.PlaySoundEffect("Cancel");
+        MainMenu.gameObject.SetActive(false);
         ControlMenu.gameObject.SetActive(false);
+        OptionsMenu.gameObject.SetActive(false);
+        CreditMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);
         LaunchControlMenu.gameObject.SetActive(false);
@@ -193,6 +215,9 @@ public class ClipController : MonoBehaviour {
     public void ChangeClipControlBackFromCreditToOptionMenu()
     {
         audioVolumeManager.PlaySoundEffect("Cancel");
+        MainMenu.gameObject.SetActive(false);
+        ControlMenu.gameObject.SetActive(false);
+        OptionsMenu.gameObject.SetActive(false);
         CreditMenu.gameObject.SetActive(false);
 
         LaunchMainMenu.gameObject.SetActive(false);
@@ -251,6 +276,7 @@ public class ClipController : MonoBehaviour {
     private void LaunchCanvasOptionsMenu()
     {
         OptionsMenu.gameObject.SetActive(true);
+        CreditMenu.gameObject.SetActive(false);
     }
 
     private void LaunchCanvasControlMenu()
