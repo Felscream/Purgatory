@@ -260,12 +260,12 @@ Prefab:
     - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: spawnChance
-      value: 0.3
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 114710959664917992, guid: e3633296bc15d2145a19448e709630d0,
         type: 2}
       propertyPath: speed
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4473409777796114, guid: e3633296bc15d2145a19448e709630d0, type: 2}
       propertyPath: m_LocalScale.x
