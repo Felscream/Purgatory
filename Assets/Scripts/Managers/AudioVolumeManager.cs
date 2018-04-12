@@ -11,7 +11,7 @@ public class AudioVolumeManager : MonoBehaviour {
     private static AudioVolumeManager instance;
     private float musicVolume = 0.75f;
     private float soundEffectVolume = 0.75f;
-    private float voiceVolume = 0.75f;
+    private float voiceVolume = 0.85f;
     private string fileName = "volumeData.dat";
     [NonSerialized] public AudioSource ouroborosAudioSource;
 

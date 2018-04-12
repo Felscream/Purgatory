@@ -231,6 +231,7 @@ public abstract class Champion : MonoBehaviour {
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
         limitBreakSlider = playerHUD.transform.Find("UltiSlider").GetComponent<Slider>();
         //ultiImageSlider = playerHUD.transform.Find("UltiSlider").Find("RadialSliderImage").GetComponent<Image>();
+        SetHUDHeroClass();
         UpdateHUD();
         ResetAttackTokens();
 
@@ -1165,7 +1166,24 @@ public abstract class Champion : MonoBehaviour {
 		ActionButton = AButton;
 	}
 
-	public void UpdateHUD()
+    protected void SetHUDHeroClass()
+    {
+        Image classImage = playerHUD.transform.Find("UltiSlider").Find("Fill Area").Find("ClassImage").GetComponent<Image>();
+        if (GetType() == typeof(Archer))
+        {
+            classImage.sprite = Resources.Load<Sprite>("bow");
+
+        }
+        else if (GetType() == typeof(Sorcerer))
+        {
+            classImage.sprite = Resources.Load<Sprite>("book");
+        }
+        else
+        {
+            classImage.sprite = Resources.Load<Sprite>("sword");
+        }
+    }
+    public void UpdateHUD()
 	{
 		float a = healthSlider.value;
 		healthSlider.value = health;

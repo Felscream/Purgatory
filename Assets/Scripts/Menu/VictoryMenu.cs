@@ -30,10 +30,7 @@ public class VictoryMenu: MonoBehaviour {
     public RectTransform player_4;
     // Le score
     public GameObject ScoreText;
-
-    // Calculate score
-   // public Image ouroborosCooldown;
-
+    
     // Use this for initialization
     void Start () {
         // Instance for prefab
@@ -139,52 +136,30 @@ public class VictoryMenu: MonoBehaviour {
                 knightImage.gameObject.SetActive(true);
                 sorcererImage.gameObject.SetActive(false);
                 archerImage.gameObject.SetActive(false);
-               /* knightIcon.gameObject.SetActive(true);
-                sorcererIcon.gameObject.SetActive(false);
-                archerIcon.gameObject.SetActive(false);*/
                 break;
             case Enum_Champion.Sorcerer:
                 // Changer sprite
                 knightImage.gameObject.SetActive(false);
                 sorcererImage.gameObject.SetActive(true);
                 archerImage.gameObject.SetActive(false);
-                /*knightIcon.gameObject.SetActive(false);
-                sorcererIcon.gameObject.SetActive(true);
-                archerIcon.gameObject.SetActive(false);*/
                 break;
             case Enum_Champion.Archer:
                 // Changer sprite
                 knightImage.gameObject.SetActive(false);
                 sorcererImage.gameObject.SetActive(false);
                 archerImage.gameObject.SetActive(true);
-                /*knightIcon.gameObject.SetActive(false);
-                sorcererIcon.gameObject.SetActive(false);
-                archerIcon.gameObject.SetActive(true);*/
                 break;
             default:
                 playerTable.gameObject.SetActive(false);
                 break;
-                /*default:
-                    print("Incorrect intelligence level.");
-                    break;*/
         }
     }
 
     // Update is called once per frame
     void Update () {
-        /*
-        while (ouroborosCooldown.fillAmount > 0)
-        {
-            //Reduce fill amount over 30 seconds
-            ouroborosCooldown.fillAmount -= 0.5f * Time.deltaTime;
-        }
-        CalculateScoreImageRefill();*/
-    }
 
-    public void CalculateScoreImageRefill()
-    {
-        //ouroborosCooldown.fillAmount = 1.0f;
     }
+    
 
     private bool CanEnterLeaderboard()
     {
