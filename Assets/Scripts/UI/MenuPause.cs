@@ -40,7 +40,8 @@ public class MenuPause : MonoBehaviour {
             }
             else
             {
-                OnUnpause();
+				if (controller.GetButtonDown("Start"))
+					OnUnpause();
             }
         }
 
@@ -156,6 +157,7 @@ public class MenuPause : MonoBehaviour {
                 audioManager.PlaySoundEffect("Select");
                 break;
             default:
+			Time.timeScale = managerInGame.CurrentTimeScale;
                 managerInGame.LoadMainMenu();
                 audioManager.PlaySoundEffect("Select");
                 break;
