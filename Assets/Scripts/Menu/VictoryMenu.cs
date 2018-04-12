@@ -188,6 +188,6 @@ public class VictoryMenu: MonoBehaviour {
 
     private bool CanEnterLeaderboard()
     {
-        return gameManager.GetWinner().TotalScore > scoreManager.GetLastOnLeaderboard().totalScore || scoreManager.leaderboard.Count < scoreManager.leaderboardSize;
+        return gameManager.GetWinner().TotalScore > scoreManager.GetLastOnLeaderboard() || scoreManager.leaderboard.Count < scoreManager.leaderboardSize;
     }
 }
