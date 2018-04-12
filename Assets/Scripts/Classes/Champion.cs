@@ -1171,16 +1171,16 @@ public abstract class Champion : MonoBehaviour {
         Image classImage = playerHUD.transform.Find("UltiSlider").Find("Fill Area").Find("ClassImage").GetComponent<Image>();
         if (GetType() == typeof(Archer))
         {
-            classImage.sprite = Resources.Load<Sprite>("archer");
+            classImage.sprite = Resources.Load<Sprite>("bow");
 
         }
         else if (GetType() == typeof(Sorcerer))
         {
-            classImage.sprite = Resources.Load<Sprite>("sorcerer");
+            classImage.sprite = Resources.Load<Sprite>("book");
         }
         else
         {
-            classImage.sprite = Resources.Load<Sprite>("warrior");
+            classImage.sprite = Resources.Load<Sprite>("sword");
         }
     }
     public void UpdateHUD()
