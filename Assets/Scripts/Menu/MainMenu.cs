@@ -10,13 +10,18 @@ public class MainMenu : MonoBehaviour {
 
     AudioVolumeManager audioVolumeManager;
 
+    // Le panel dans lequel on se trovue
     private int panelIndex;
-    private int mainMenuIndex = 1;
-    private int optionMenuIndex = 1;
+    // Le bouton actuellement selectionné dans le mainpanel 
+    private int mainMenuIndex;
+    // Le bouton actuellement selectionné dans le optionpanel 
+    private int optionMenuIndex;
+
     private Animator anim;
     private X360_controller controller;
     [SerializeField] private Color sliderActiveColor;
     [SerializeField] private Color sliderInactiveColor;
+
     // Joystick is running ?
     bool m_isAxisOneInUse = false;
     bool changePanel = false;
@@ -51,6 +56,7 @@ public class MainMenu : MonoBehaviour {
         clipController_ = clipMenu.GetComponent<ClipController>();
 
         panelIndex = 1;
+        optionMenuIndex = 1;
         controller = ControllerManager.Instance.GetController(1);
         anim = GetComponent<Animator>();
         SelectedIndexMenu();
@@ -71,7 +77,7 @@ public class MainMenu : MonoBehaviour {
             SelectedIndexMenu();
         }
         
-        if (!musicSliderActivated && !effectSliderActivated && !voiceSliderActivated && (!clipController_.ClipStart.isPlaying && clipController_.ClipStart.time >= 1.0f || !clipController_.ClipBackToMenu.isPlaying && clipController_.ClipBackToMenu.time >= 1.0f || !clipController_.ClipOption.isPlaying && clipController_.ClipOption.time >= 1.0f || !clipController_.ClipCreditMenu.isPlaying && clipController_.ClipCreditMenu.time >= 0.5f || (!clipController_.ClipControlMenu.isPlaying && clipController_.ClipControlMenu.time >= 0.5f) || !clipController_.ClipBackFromCreditToOptionMenu.isPlaying && clipController_.ClipBackFromCreditToOptionMenu.time >= 0.5f || !clipController_.ClipBackToOptionMenu.isPlaying && clipController_.ClipBackToOptionMenu.time >= 0.5f))
+        if (!musicSliderActivated && !effectSliderActivated && !voiceSliderActivated && !IsAnyClipPlaying())
         {
             SelectionWithController();
             PressedButton();
@@ -91,6 +97,17 @@ public class MainMenu : MonoBehaviour {
         {
             ControlSliderMusicEffectVoice(3);
         }
+    }
+
+    private bool IsAnyClipPlaying()
+    {
+        bool isAnyClipPlaying;
+        if (!clipController_.ClipStart.isPlaying && clipController_.ClipStart.time >= 1.0f || !clipController_.ClipBackToMenu.isPlaying && clipController_.ClipBackToMenu.time >= 1.0f || !clipController_.ClipOption.isPlaying && clipController_.ClipOption.time >= 1.0f || !clipController_.ClipCreditMenu.isPlaying && clipController_.ClipCreditMenu.time >= 0.5f || (!clipController_.ClipControlMenu.isPlaying && clipController_.ClipControlMenu.time >= 0.5f) || !clipController_.ClipBackFromCreditToOptionMenu.isPlaying && clipController_.ClipBackFromCreditToOptionMenu.time >= 0.5f || !clipController_.ClipBackToOptionMenu.isPlaying && clipController_.ClipBackToOptionMenu.time >= 0.5f)
+        {
+            isAnyClipPlaying = true;
+        }
+        isAnyClipPlaying = false;
+        return isAnyClipPlaying;
     }
 
     private void PressedButton()
@@ -298,7 +315,7 @@ public class MainMenu : MonoBehaviour {
                 }
                 
                 break;
-            case 2:
+            case 2: // LeaderBoard
                 leaderboardButton.GetComponent<Button>().Select();
                 break;
             case 3: // Options
@@ -306,6 +323,7 @@ public class MainMenu : MonoBehaviour {
                 optionControlButton.GetComponent<Button>().Select();
                 break;
             case 4: // Contrôles
+                // Juste le bouton B
                 break;
             case 5: // Crédits
                 // Juste le bouton B
@@ -407,30 +425,15 @@ public class MainMenu : MonoBehaviour {
         {
             case 1:
                 playButton.GetComponent<Button>().Select();
-                /*
-                playButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                optionButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                quitButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                */
                 break;
             case 2:
                 leaderboardButton.GetComponent<Button>().Select();
                 break;
             case 3:
                 optionButton.GetComponent<Button>().Select();
-                /*
-                optionButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                playButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                quitButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                */
                 break;
             case 4:
                 quitButton.GetComponent<Button>().Select();
-                /*
-                quitButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
-                playButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                optionButton.GetComponent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-                */
                 break;
             default:
                 print("Incorrect intelligence level.");
