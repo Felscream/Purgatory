@@ -328,6 +328,7 @@ GameObject:
   - component: {fileID: 114217417323895562}
   - component: {fileID: 114272027107470724}
   - component: {fileID: 95851759026760084}
+  - component: {fileID: 114338498706690034}
   m_Layer: 5
   m_Name: WinnerName
   m_TagString: Untagged
@@ -4838,6 +4839,8 @@ MonoBehaviour:
   - {fileID: 114437107714105286}
   - {fileID: 114641457496571078}
   - {fileID: 114384405404700058}
+  delayBetweenVerticalInputs: 0.2
+  activeMenu: 1
 --- !u!114 &114255508862379800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5371,6 +5374,36 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114338498706690034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1073999599249792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114272027107470724}
+          m_MethodName: InputFieldSelected
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114339513433052242
 MonoBehaviour:
   m_ObjectHideFlags: 1

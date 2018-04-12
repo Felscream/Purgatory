@@ -13,6 +13,7 @@ public class EndGameInput : MonoBehaviour {
     private float timer = 0.0f;
     private bool enableInput = false;
     private static EndGameInput instance;
+    public bool activeMenu = true;
     // Use this for initialization
 
     private void Awake()
@@ -36,7 +37,8 @@ public class EndGameInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(controller != null && enableInput)
+        Debug.Log(activeMenu);
+		if(controller != null && enableInput && activeMenu)
         {
             if(Time.unscaledTime - timer > delayBetweenVerticalInputs)
             {
