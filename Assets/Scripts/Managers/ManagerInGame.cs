@@ -57,7 +57,7 @@ public class ManagerInGame : MonoBehaviour {
     private InputField winnerName;
     public bool EndGame { get; set; }
     private float currentTimeScale = 1.0f;
-    
+    private EndGameInput endGameInput;
     public static ManagerInGame GetInstance()
     {
         if (instance == null)
@@ -106,7 +106,6 @@ public class ManagerInGame : MonoBehaviour {
         profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
         ResetChromaticAberration();
         InitializeEndGameHUD();
-        
     }
     void Update () {
         CheckPlayerAlive();
@@ -626,7 +625,6 @@ public class ManagerInGame : MonoBehaviour {
             if (Narrator.Instance.AudioSource.isPlaying)
             {
                 length = Narrator.Instance.AudioSource.clip.length;
-                Debug.Log(length);
             }
             yield return new WaitForSeconds(length);
             AudioVolumeManager.GetInstance().StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("MainMenuTheme", timeBeforeEndGame));
@@ -657,6 +655,10 @@ public class ManagerInGame : MonoBehaviour {
                 while (timer <= timeBeforeEndGame);
             }
             ToggleEndGameButtonInteraction();
+            if(endGameInput != null)
+            {
+                endGameInput.EnableInput();
+            }
             
         }
     }
@@ -706,6 +708,7 @@ public class ManagerInGame : MonoBehaviour {
 
     private void InitializeEndGameHUD()
     {
+        endGameInput = EndGameInput.GetInstance();
         endGameCanvasGroup = GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<CanvasGroup>();
         endGameButtons = endGameCanvasGroup.GetComponentsInChildren<Button>();
         foreach (Button b in endGameButtons)

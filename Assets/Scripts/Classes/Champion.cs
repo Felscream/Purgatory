@@ -648,7 +648,6 @@ public abstract class Champion : MonoBehaviour {
     
     public void Clash(Champion attacker)
     {
-        Debug.Log("Clash !");
         StartCoroutine(ManagerInGame.GetInstance().ClashRoutine(this, attacker));
     }
     public void ClashMode()
@@ -1685,10 +1684,6 @@ public abstract class Champion : MonoBehaviour {
         dead = true;
         playerBox.enabled = false;
         StopMovement(1);
-        
-        
-        Debug.Log(transform.parent.name + " died");
-
         //TO DO : find a way to use the deadLayer variable since this doesn't work
         /*if(deadLayer == null)
         {
