@@ -109,11 +109,15 @@ public class ScoreManager : MonoBehaviour {
         }
     }
 
-    public ScoreData GetLastOnLeaderboard()
+    public float GetLastOnLeaderboard()
     {
+        if(leaderboard.Count < 1)
+        {
+            return 0;
+        }
         leaderboard.Sort();
         TrimLeaderboard();
-        return leaderboard[leaderboard.Count - 1];
+        return leaderboard[leaderboard.Count - 1].totalScore;
     }
 }
 

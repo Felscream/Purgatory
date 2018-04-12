@@ -52,6 +52,7 @@ public abstract class Champion : MonoBehaviour {
     [SerializeField] public CanvasGroup playerHUD;
     [SerializeField] protected GameObject damageDisplayPrefab;
     [SerializeField] protected GameObject scoreDisplayPrefab;
+    [SerializeField] protected Sprite[] healthSliders;
 
     [Header("Jump Settings")]
     [SerializeField] protected float jumpHeight = 10;
@@ -112,9 +113,6 @@ public abstract class Champion : MonoBehaviour {
     [Header("Attack Settings")]
     [SerializeField] protected LayerMask hitBoxLayer;
     [SerializeField] protected int maxAttackToken = 1;
-
-    [Header("Narrator Quotes")]
-    [SerializeField] protected AudioClip[] ultimateQuotes;
 
     [Header("Sound Settings")]
     [SerializeField] protected Sound[] soundEffects;
@@ -190,7 +188,7 @@ public abstract class Champion : MonoBehaviour {
     protected ScoreManager scoreManager;
     private bool updatingScore = false;
     protected ManagerInGame gameManager;
-
+    protected Enum_Champion champType;
     private void OnDrawGizmos()
     {
         //Gizmos.DrawSphere(new Vector3(physicBox.bounds.center.x - (physicBox.bounds.extents.x/2) * facing, physicBox.bounds.min.y, 0), 0.2f); //to visualize the ground detector
@@ -233,6 +231,7 @@ public abstract class Champion : MonoBehaviour {
         staminaSlider = playerHUD.transform.Find("StaminaSlider").GetComponent<Slider>();
         limitBreakSlider = playerHUD.transform.Find("UltiSlider").GetComponent<Slider>();
         //ultiImageSlider = playerHUD.transform.Find("UltiSlider").Find("RadialSliderImage").GetComponent<Image>();
+        SetHUDHeroClass();
         UpdateHUD();
         ResetAttackTokens();
 
@@ -248,9 +247,7 @@ public abstract class Champion : MonoBehaviour {
         }
 
         audioVolumeManager = AudioVolumeManager.GetInstance();
-        audioSource = GetComponent<AudioSource>(); // remove when narrator is fully implemented
         gameManager = ManagerInGame.GetInstance();
-        gameManager.AddNarratorAudioSource(audioSource);
         scoreManager = ScoreManager.GetInstance();
         foreach (Sound s in soundEffects)
         {
@@ -270,6 +267,7 @@ public abstract class Champion : MonoBehaviour {
         slowPs = transform.Find("SlowPS").GetComponent<ParticleSystem>();
         poisonPs = transform.Find("PoisonPS").GetComponent<ParticleSystem>();
         StopStatusParticleSystems();
+        playerHUD.transform.Find("HealthSlider").GetComponent<Slider>().maxValue = baseHealth;
     }
     protected void FixedUpdate()
     {
@@ -651,7 +649,6 @@ public abstract class Champion : MonoBehaviour {
     
     public void Clash(Champion attacker)
     {
-        Debug.Log("Clash !");
         StartCoroutine(ManagerInGame.GetInstance().ClashRoutine(this, attacker));
     }
     public void ClashMode()
@@ -924,7 +921,6 @@ public abstract class Champion : MonoBehaviour {
     {
         if (limitBreakGauge == maxLimitBreakGauge)
         {
-            Narrator.Instance.Ultimate();
             Ultimate();
         }
     }
@@ -1170,7 +1166,24 @@ public abstract class Champion : MonoBehaviour {
 		ActionButton = AButton;
 	}
 
-	public void UpdateHUD()
+    protected void SetHUDHeroClass()
+    {
+        Image classImage = playerHUD.transform.Find("UltiSlider").Find("Fill Area").Find("ClassImage").GetComponent<Image>();
+        if (GetType() == typeof(Archer))
+        {
+            classImage.sprite = Resources.Load<Sprite>("bow");
+
+        }
+        else if (GetType() == typeof(Sorcerer))
+        {
+            classImage.sprite = Resources.Load<Sprite>("book");
+        }
+        else
+        {
+            classImage.sprite = Resources.Load<Sprite>("sword");
+        }
+    }
+    public void UpdateHUD()
 	{
 		float a = healthSlider.value;
 		healthSlider.value = health;
@@ -1179,20 +1192,20 @@ public abstract class Champion : MonoBehaviour {
 		limitBreakSlider.value = limitBreakGauge;
         Text score = playerHUD.transform.Find("Score").GetComponent<Text>();
         Text multiplier = playerHUD.transform.Find("Multiplier").GetComponent<Text>();
-
         float b = healthSlider.value;
 		if (a != b) //si recu des degats, barre colorée supplémentaire
 		{
 			timerDamageHUD = 40;
-			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<Image>().color = new Color(255, 155, 0);
-			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.4f, 10);
-			if (playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition.x > 0)
+            Transform damageSlider = playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test");
+            damageSlider.GetComponent<Image>().color = new Color(255, 155, 0);
+            damageSlider.GetComponent<RectTransform>().sizeDelta = new Vector2((a - b) * 1.2f, 9);
+            if (damageSlider.GetComponent<RectTransform>().anchorMax.x == 0)
 			{
-				playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.4f, 0);
+                damageSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.2f, 0);
 			}
 			else
 			{
-				playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").Find("Test").GetComponent<RectTransform>().anchoredPosition = new Vector2(-(a - b) * 1.4f, 0);
+                damageSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2((a - b) * 1.2f, 0);
 			}
 		}
 		else
@@ -1245,10 +1258,19 @@ public abstract class Champion : MonoBehaviour {
 
 	public void ChangeColorHealthSlider()
 	{
-		if (determination == 2)
-			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 155, 0);
+        if (determination == 2)
+        {
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().sprite = healthSliders[0];
+
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 79, 0);
+        }
+            
 		else if (determination == 1)
-			playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
+        {
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().sprite = healthSliders[1];
+            playerHUD.transform.Find("HealthSlider").Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(255, 0, 0);
+        }
+            
 	}
 	/*public void PowerUpAvailable(bool b)
     {
@@ -1467,7 +1489,7 @@ public abstract class Champion : MonoBehaviour {
 
     public void SetProjectedStatus(float attackerFacing, Vector2 projectionForce, float duration = DEFAULT_EFFECT_DURATION)
     {
-        if (!immune && specialStatus != Enum_SpecialStatus.projected)
+        if (!immune && specialStatus != Enum_SpecialStatus.projected && !dead)
         {
             specialStatus = Enum_SpecialStatus.projected;
             SetStunEffects();
@@ -1501,7 +1523,7 @@ public abstract class Champion : MonoBehaviour {
     }
     public void SetStunStatus(float duration = DEFAULT_EFFECT_DURATION)
     {
-        if(!immune && specialStatus != Enum_SpecialStatus.stun)
+        if(!immune && specialStatus != Enum_SpecialStatus.stun && !dead)
         {
             stunPs.Play();
             rb.velocity = Vector2.zero;
@@ -1654,13 +1676,8 @@ public abstract class Champion : MonoBehaviour {
     }
     public void UltimateCameraEffect()
     {
-        int id = 0;
-        if (audioSource != null && ultimateQuotes.Length > 0)
-        {
-            id = UnityEngine.Random.Range(0, ultimateQuotes.Length);
-            audioSource.PlayOneShot(ultimateQuotes[id], audioVolumeManager.VoiceVolume);
-            StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, ultimateQuotes[id].length, this));
-        }
+        float length = Narrator.Instance.Ultimate(champType);
+        StartCoroutine(ManagerInGame.GetInstance().UltimateCameraEffect(transform.position, length, this));
     }
 
     public void Death()
@@ -1685,10 +1702,6 @@ public abstract class Champion : MonoBehaviour {
         dead = true;
         playerBox.enabled = false;
         StopMovement(1);
-        
-        
-        Debug.Log(transform.parent.name + " died");
-
         //TO DO : find a way to use the deadLayer variable since this doesn't work
         /*if(deadLayer == null)
         {

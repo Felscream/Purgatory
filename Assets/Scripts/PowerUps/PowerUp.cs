@@ -74,7 +74,6 @@ public abstract class PowerUp : MonoBehaviour {
     {
         if(powerUpStatus == Enum_PowerUpStatus.available)
         {
-            Debug.Log("PoweredUp");
             powerUpStatus = Enum_PowerUpStatus.activated;
             activationTimer = 0.0f;
             anim.SetBool("PoweredUp", true);

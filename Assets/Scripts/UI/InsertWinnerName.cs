@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InsertWinnerName : MonoBehaviour {
 
@@ -20,7 +21,14 @@ public class InsertWinnerName : MonoBehaviour {
 
     private void Update()
     {
-        playerName.text = playerName.text.ToUpper();
+        if(playerName.text != null && playerName.text != "")
+        {
+            playerName.text = playerName.text.ToUpper();
+        }
+        if (playerName.isFocused)
+        {
+            EndGameInput.GetInstance().activeMenu = false;
+        }
     }
     // Use this for initialization
     public void GetWinnerName()
@@ -34,5 +42,14 @@ public class InsertWinnerName : MonoBehaviour {
         {
             winnerData.playerName = playerName.text.ToUpper();
         }
+        EndGameInput.GetInstance().activeMenu = true;
     }
+
+    public void InputFieldSelected()
+    {
+        EndGameInput.GetInstance().activeMenu = false;
+        EventSystem.current.SetSelectedGameObject(null);
+        
+    }
+    
 }

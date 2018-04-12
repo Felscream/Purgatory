@@ -49,7 +49,8 @@ public class Archer : Champion
     protected override void Start()
     {
         base.Start();
-        if(chargeParticleSystem != null)
+        champType = Enum_Champion.Archer;
+        if (chargeParticleSystem != null)
         {
             DisableChargeParticleSystem();
             psr = chargeParticleSystem.GetComponent<ParticleSystemRenderer>();

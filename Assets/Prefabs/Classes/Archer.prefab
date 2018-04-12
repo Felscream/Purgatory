@@ -457,6 +457,9 @@ MonoBehaviour:
     type: 2}
   scoreDisplayPrefab: {fileID: 1022562811663342, guid: d216bab41fa25b1438194adc3f93eb6c,
     type: 2}
+  healthSliders:
+  - {fileID: 21300000, guid: 2248e65111ccfb948a0ace46b78e3350, type: 3}
+  - {fileID: 21300000, guid: 646eb2b6c958699449bbf9b6a01a4eec, type: 3}
   jumpHeight: 10
   fallMultiplier: 8
   jumpVelocityAtApex: 3
@@ -496,8 +499,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 557312
   maxAttackToken: 1
-  ultimateQuotes:
-  - {fileID: 8300000, guid: ef0dae97c2fde204ba64e67af681e346, type: 3}
   soundEffects:
   - name: DrawArrowArcher
     clip: {fileID: 8300000, guid: 3affcab4110436e4a9d50fd274332d11, type: 3}

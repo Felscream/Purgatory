@@ -57,7 +57,7 @@ public class ManagerInGame : MonoBehaviour {
     private InputField winnerName;
     public bool EndGame { get; set; }
     private float currentTimeScale = 1.0f;
-    
+    private EndGameInput endGameInput;
     public static ManagerInGame GetInstance()
     {
         if (instance == null)
@@ -106,7 +106,6 @@ public class ManagerInGame : MonoBehaviour {
         profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
         ResetChromaticAberration();
         InitializeEndGameHUD();
-        
     }
     void Update () {
         CheckPlayerAlive();
@@ -215,8 +214,8 @@ public class ManagerInGame : MonoBehaviour {
         }
         else
         {
-            images[1].color = new Color(1f, 0f, 0f);
             images[0].color = new Color(0f, 171f/255f, 1f);
+            images[1].color = new Color(1f, 0f, 0f);
         }
 
         while (alpha < 1.0f)
@@ -244,13 +243,20 @@ public class ManagerInGame : MonoBehaviour {
                 time += Time.unscaledDeltaTime;
                 value = 50;
                 if (attacker.gameObject.transform.position.x >= defender.gameObject.transform.position.x)
+                {
                     value -= ((attacker.clashClick * 10 - defender.clashClick * (7 + defender.determination)) * (time / 2 + 1) / 10);
+                    AuraManager(value, defendAura, attackAura);
+                }
                 else
+                {
                     value += ((attacker.clashClick * 10 - defender.clashClick * (7 + defender.determination)) * (time / 2 + 1) / 10);
+                    AuraManager(value, attackAura, defendAura);
+                }
+                    
 
                 ClashSlider.value = value;
 
-                AuraManager(value, attackAura, defendAura);
+                
 
                 cameraController.Shake(/*Mathf.Abs(value-50) / 2f + */ time * 4, 5, 1000);
             }
@@ -258,21 +264,26 @@ public class ManagerInGame : MonoBehaviour {
         }
         if (value >= 50)
         {
-            defender.ReduceHealth(defender.Health);
-            audioManager.PlaySoundEffect("DefenseLoss");
-            defender.Controller.AddRumble(0.2f, new Vector2(.9f,.9f), 0.2f);
-            attacker.AddScore(scoreManager.executionResistancePoints);
-            attacker.playerScore.IncreaseMultiplier(); // increase multiplier after adding score
+            if (attacker.gameObject.transform.position.x >= defender.gameObject.transform.position.x)
+            {
+                DefenseWin(attacker, defender);
+            }
+            else
+            {
+                DefenseLoss(attacker, defender);
+            }
+            
         }
         else
         {
-            defender.playerScore.IncreaseMultiplier(); //increase multiplier before adding score
-            defender.AddScore(scoreManager.executionResistancePoints);
-            defender.determination--;
-            defender.Health += defenderHealthGain;
-            attacker.ReduceHealth(attackerHealthLoss);
-            attacker.Controller.AddRumble(0.2f, new Vector2(.9f, .9f), 0.2f);
-            audioManager.PlaySoundEffect("DefenseWin");
+            if (attacker.gameObject.transform.position.x >= defender.gameObject.transform.position.x)
+            {
+                DefenseLoss(attacker, defender);
+            }
+            else
+            {
+                DefenseWin(attacker, defender);
+            }
         }
         
         //Animation at the end of a clash
@@ -342,6 +353,25 @@ public class ManagerInGame : MonoBehaviour {
 
     }
 
+    private void DefenseWin(Champion attacker, Champion defender)
+    {
+        defender.playerScore.IncreaseMultiplier(); //increase multiplier before adding score
+        defender.AddScore(scoreManager.executionResistancePoints);
+        defender.determination--;
+        defender.Health += defenderHealthGain;
+        attacker.ReduceHealth(attackerHealthLoss);
+        attacker.Controller.AddRumble(0.2f, new Vector2(.9f, .9f), 0.2f);
+        audioManager.PlaySoundEffect("DefenseWin");
+    }
+
+    private void DefenseLoss(Champion attacker, Champion defender)
+    {
+        defender.ReduceHealth(defender.Health);
+        audioManager.PlaySoundEffect("DefenseLoss");
+        defender.Controller.AddRumble(0.2f, new Vector2(.9f, .9f), 0.2f);
+        attacker.AddScore(scoreManager.executionResistancePoints);
+        attacker.playerScore.IncreaseMultiplier(); // increase multiplier after adding score
+    }
     public void AddAudioSource(AudioSource a)
     {
         agentsAudioSources.Add(a);
@@ -595,7 +625,6 @@ public class ManagerInGame : MonoBehaviour {
             if (Narrator.Instance.AudioSource.isPlaying)
             {
                 length = Narrator.Instance.AudioSource.clip.length;
-                Debug.Log(length);
             }
             yield return new WaitForSeconds(length);
             AudioVolumeManager.GetInstance().StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("MainMenuTheme", timeBeforeEndGame));
@@ -626,6 +655,10 @@ public class ManagerInGame : MonoBehaviour {
                 while (timer <= timeBeforeEndGame);
             }
             ToggleEndGameButtonInteraction();
+            if(endGameInput != null)
+            {
+                endGameInput.EnableInput();
+            }
             
         }
     }
@@ -675,6 +708,7 @@ public class ManagerInGame : MonoBehaviour {
 
     private void InitializeEndGameHUD()
     {
+        endGameInput = EndGameInput.GetInstance();
         endGameCanvasGroup = GameObject.FindGameObjectWithTag("EndGameCanvas").GetComponent<CanvasGroup>();
         endGameButtons = endGameCanvasGroup.GetComponentsInChildren<Button>();
         foreach (Button b in endGameButtons)

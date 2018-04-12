@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AddChampion : MonoBehaviour {
 
@@ -8,6 +9,8 @@ public class AddChampion : MonoBehaviour {
 	private GameObject floatingJ1, floatingJ2, floatingJ3, floatingJ4;
 	public CanvasGroup HUDPlayer1, HUDPlayer2, HUDPlayer3, HUDPlayer4;
 	public Champion prefabKnight, prefabSorcerer, prefabArcher;
+	public Sprite imageKnight, imageSorcerer, imageArcher;
+	public Sprite powerKnight, powerSorcerer, powerArcher;
 	public string Start_P1, Start_P2, Start_P3, Start_P4;
 
     // ChampionsSelected instance from player selection
@@ -51,10 +54,10 @@ public class AddChampion : MonoBehaviour {
 		else
 		{        
 			// Si on ne passe pas par LobbyManager
-			CreateChampion(player1, 1, HUDPlayer1, 1);
-			CreateChampion(player2, 3, HUDPlayer2, 2);
+			CreateChampion(player1, 2, HUDPlayer1, 1);
+			CreateChampion(player2, 1, HUDPlayer2, 2);
 			CreateChampion(player3, 2, HUDPlayer3, 3);
-			CreateChampion(player4, 1, HUDPlayer4, 4);
+			CreateChampion(player4, 3, HUDPlayer4, 4);
 		}
         
         StartCoroutine(ManagerInGame.GetInstance().StartGame());
@@ -71,16 +74,24 @@ public class AddChampion : MonoBehaviour {
 		if (!player.GetComponent<PlayerInput>().ObjectsInstantiated())
 		{
 			Champion championPlayer = null;
+			Transform imageChamp = HUDPlayer.gameObject.transform.GetChild(2).GetChild(0).GetChild(1);
+			Transform imagePower = HUDPlayer.gameObject.transform.GetChild(3).GetChild (1);
 			switch (index)
 			{
 			case 1: // Knight selected
-				championPlayer = Instantiate(prefabKnight, player.transform, false); // A MODIFIER avec le perso choisit par le joueur
+				championPlayer = Instantiate (prefabKnight, player.transform, false); // A MODIFIER avec le perso choisit par le joueur
+				imageChamp.GetComponent<Image> ().sprite = imageKnight;
+				imagePower.GetComponent<Image> ().sprite = powerKnight;
 				break;
 			case 2: // sorcerer selected
 				championPlayer = Instantiate(prefabSorcerer, player.transform, false); // A MODIFIER avec le perso choisit par le joueur
+				imageChamp.GetComponent<Image> ().sprite = imageSorcerer;
+				imagePower.GetComponent<Image> ().sprite = powerSorcerer;
 				break;
 			case 3: // archer selected
 				championPlayer = Instantiate(prefabArcher, player.transform, false); // A MODIFIER avec le perso choisit par le joueur
+				imageChamp.GetComponent<Image> ().sprite = imageArcher;
+				imagePower.GetComponent<Image> ().sprite = powerArcher;
 				break;
 			default: // if 0, nothing selected
 				break;

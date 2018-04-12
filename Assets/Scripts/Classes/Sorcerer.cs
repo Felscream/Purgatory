@@ -52,6 +52,7 @@ public class Sorcerer : Champion
         base.Start();
         combo2.SetUser(this);
         combo2.Clasheable();
+        champType = Enum_Champion.Sorcerer;
     }
     protected override void Update()
     {
