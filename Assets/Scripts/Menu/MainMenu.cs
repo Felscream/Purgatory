@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour {
     private int mainMenuIndex;
     // Le bouton actuellement selectionné dans le optionpanel 
     private int optionMenuIndex;
-
+    private SceneController sceneController;
     private Animator anim;
     private X360_controller controller;
     [SerializeField] private Color sliderActiveColor;
@@ -62,6 +62,7 @@ public class MainMenu : MonoBehaviour {
         SelectedIndexMenu();
         switchMainMenu();
         audioVolumeManager = AudioVolumeManager.GetInstance();
+        sceneController = SceneController.GetInstance();
         Time.timeScale = 1.0f;
     }
 
@@ -283,7 +284,8 @@ public class MainMenu : MonoBehaviour {
     public void LoadLobbyScene()
     {
         audioVolumeManager.PlaySoundEffect("Select");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        sceneController.StartCoroutine(sceneController.LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
     }
 
     public void QuitGame()

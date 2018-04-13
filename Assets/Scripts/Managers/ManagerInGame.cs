@@ -55,6 +55,7 @@ public class ManagerInGame : MonoBehaviour {
     private VictoryMenu[] endGameDisplays;
     private Button[] endGameButtons;
     private InputField winnerName;
+    private SceneController sceneController;
     public bool EndGame { get; set; }
     private float currentTimeScale = 1.0f;
     private EndGameInput endGameInput;
@@ -106,6 +107,7 @@ public class ManagerInGame : MonoBehaviour {
         profile = cameraController.GetComponent<PostProcessingBehaviour>().profile;
         ResetChromaticAberration();
         InitializeEndGameHUD();
+        sceneController = SceneController.GetInstance();
     }
     void Update () {
         CheckPlayerAlive();
@@ -676,7 +678,7 @@ public class ManagerInGame : MonoBehaviour {
     {
         ToggleEndGameButtonInteraction();
         audioManager.PlaySoundEffect("Select");
-        SceneManager.LoadScene(0);
+        sceneController.StartCoroutine(sceneController.LoadScene(0));
     }
 
     public void Reload()
@@ -685,7 +687,7 @@ public class ManagerInGame : MonoBehaviour {
         audioManager.PlaySoundEffect("Select");
         Time.timeScale = 1.0f;
         AudioVolumeManager.GetInstance().StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("InGameTheme", timeBeforeEndGame));
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        sceneController.StartCoroutine(sceneController.LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
 
     public void LoadLobby()
@@ -694,7 +696,7 @@ public class ManagerInGame : MonoBehaviour {
         audioManager.PlaySoundEffect("Select");
         Time.timeScale = 1.0f;
         AudioVolumeManager.GetInstance().StartCoroutine(AudioVolumeManager.GetInstance().FadeTheme("LobbyTheme", timeBeforeEndGame));
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        sceneController.StartCoroutine(sceneController.LoadScene(1));
     }
     private IEnumerator ReloadSceneAsyc()
     {

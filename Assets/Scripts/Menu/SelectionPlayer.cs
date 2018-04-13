@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SelectionPlayer : MonoBehaviour
@@ -10,7 +9,7 @@ public class SelectionPlayer : MonoBehaviour
     private Animator KnightPlayerAnim;
     private Animator ArcherPlayerAnim;
     private Animator SorcererPlayerAnim;
-    
+   
     // All sprite animated
     public RectTransform KnightPlayer;
     public RectTransform ArcherPlayer;
@@ -44,7 +43,7 @@ public class SelectionPlayer : MonoBehaviour
 
     // ChampionsSelected instance
     ChampionManager championsSelected_;
-
+    SceneController sceneController;
     // Joystick is running ?
     bool m_isAxisOneInUse = false;
     private X360_controller controller;
@@ -64,6 +63,7 @@ public class SelectionPlayer : MonoBehaviour
 
         startText = transform.parent.Find("StartText");
         controller = ControllerManager.Instance.GetController(playerNumber);
+        sceneController = SceneController.GetInstance();
     }
 
     // Update is called once per frame
@@ -96,7 +96,7 @@ public class SelectionPlayer : MonoBehaviour
             {
                 if(championsSelected_.PlayerNumber >= 2)
                 {
-                    SceneManager.LoadScene(2);
+                    sceneController.StartCoroutine(sceneController.LoadScene(2));
                 }
             }
 
