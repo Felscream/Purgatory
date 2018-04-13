@@ -704,6 +704,7 @@ public class ManagerInGame : MonoBehaviour {
             Debug.Log(asyncLoad.progress);
             yield return null;
         }
+        Time.timeScale = 1.0f;
     }
 
     private void InitializeEndGameHUD()

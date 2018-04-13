@@ -66,7 +66,8 @@ public class ScoreManager : MonoBehaviour {
                     s.IncreaseMultiplier();
                 }
             }
-        }        
+        }
+        Debug.Log(Time.timeScale);
     }
     void TrimLeaderboard()
     {

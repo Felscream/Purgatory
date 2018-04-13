@@ -6039,10 +6039,10 @@ MonoBehaviour:
   prefabArcher: {fileID: 114463133747941946, guid: 7bf6e9fe73ea5af4f90da8c9303b3884,
     type: 2}
   imageKnight: {fileID: 21300000, guid: 7ff2a431d0c7d4e4292d0c884a6e7076, type: 3}
-  imageSorcerer: {fileID: 21300000, guid: e289bc802a1f93746ba79bd99073fcca, type: 3}
+  imageSorcerer: {fileID: 21300000, guid: dbe16c81f926e0b4cb7aa67e11bbfdbd, type: 3}
   imageArcher: {fileID: 0}
   powerKnight: {fileID: 21300000, guid: 11ad1a69411de15439ecc4853c73dbc0, type: 3}
-  powerSorcerer: {fileID: 21300000, guid: 86514cea2d348724c9ce66b7621c1837, type: 3}
+  powerSorcerer: {fileID: 21300000, guid: dbe16c81f926e0b4cb7aa67e11bbfdbd, type: 3}
   powerArcher: {fileID: 21300000, guid: ef6a55e3c1c7f6f4d85ef44f30ad316d, type: 3}
   Start_P1: Start_P1
   Start_P2: Start_P2
@@ -10541,7 +10541,7 @@ RectTransform:
   - {fileID: 224849659692473090}
   - {fileID: 224348379479071938}
   m_Father: {fileID: 224620592836218012}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -10887,7 +10887,7 @@ RectTransform:
   - {fileID: 224080073831647048}
   - {fileID: 224159038491841906}
   m_Father: {fileID: 224620592836218012}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -12112,9 +12112,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 224908561197191934}
   - {fileID: 224103094101883728}
   - {fileID: 224192809320503032}
+  - {fileID: 224908561197191934}
   - {fileID: 224767356904962686}
   - {fileID: 224367861722497224}
   - {fileID: 224859595658820960}
@@ -13268,7 +13268,7 @@ RectTransform:
   m_Children:
   - {fileID: 224184472053528874}
   m_Father: {fileID: 224620592836218012}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}

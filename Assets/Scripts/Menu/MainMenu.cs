@@ -62,6 +62,7 @@ public class MainMenu : MonoBehaviour {
         SelectedIndexMenu();
         switchMainMenu();
         audioVolumeManager = AudioVolumeManager.GetInstance();
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
