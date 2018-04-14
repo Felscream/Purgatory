@@ -18,7 +18,6 @@ public class Archer : Champion
     [SerializeField] protected float secondLevelTime = 1.5f;
     [SerializeField] protected float secondLevelMultiplier = 2.5f;
     [SerializeField] protected float speedReductionMultiplier = 0.75f;
-    [SerializeField] protected float initialStaminaCost = 18.0f;
     [SerializeField] protected float maxStaminaConsumption = 10.0f;
     [SerializeField] protected float maxChargeTime = 5.0f;
     [SerializeField] protected ParticleSystem chargeParticleSystem;

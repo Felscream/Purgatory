@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dragon : MonoBehaviour {
-    public float spawnChance = 0.001f;
+    public float spawnChance = 0.01f;
     public float speed;
     public Transform[] startingPoints;
     public Transform[] endPoints;
@@ -40,7 +40,6 @@ public class Dragon : MonoBehaviour {
             transform.Translate(dir * speed * Time.deltaTime);
             yield return null;
         }
-        spawned = false;
     }
 
     public void Flight()

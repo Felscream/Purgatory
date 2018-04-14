@@ -43,8 +43,6 @@ public class TrapManager : MonoBehaviour {
         GameObject spikes = Instantiate(fallingSpikePrefab, transform.position, transform.rotation, transform);
         spikes.transform.localPosition = poss;
         spikes.transform.Rotate(0, 0, 180);
-        ParticleSystem particleSystem = spikes.GetComponent<ParticleSystem>();
-        particleSystem.GetComponent<Renderer>().sortingLayerName = "Default";
         Trap spikeTrap = spikes.GetComponent<Trap>();
         spikeTrap.startPosition = poss;
         spikeTrap.endPosition = pose;

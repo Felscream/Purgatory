@@ -44,6 +44,10 @@ public class SceneController : MonoBehaviour {
         {
             yield return null;
         }
-        Time.timeScale = 1.0f; //just to be sure
+        if(SceneManager.GetActiveScene().name == "LobbyScene")
+        {
+            ChampionManager.GetInstance().playerSelection = new int[4];
+            ChampionManager.GetInstance().PlayerNumber = 0;
+        }
     }
 }

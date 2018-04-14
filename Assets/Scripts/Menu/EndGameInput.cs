@@ -37,7 +37,6 @@ public class EndGameInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(activeMenu);
 		if(controller != null && enableInput && activeMenu)
         {
             if(Time.unscaledTime - timer > delayBetweenVerticalInputs)

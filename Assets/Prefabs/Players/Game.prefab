@@ -2986,7 +2986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnChance: 0.01
-  speed: 15
+  speed: 22
   startingPoints:
   - {fileID: 0}
   - {fileID: 0}

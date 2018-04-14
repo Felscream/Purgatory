@@ -137,6 +137,10 @@ public class ManagerInGame : MonoBehaviour {
         
     }
 
+    private void OnDestroy()
+    {
+        ResetChromaticAberration();
+    }
     void SpawningItems(){
 	
 		Instantiate (Health, getValidSpawnPosition (), Quaternion.identity);

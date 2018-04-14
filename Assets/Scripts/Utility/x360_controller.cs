@@ -161,18 +161,32 @@ public class X360_controller
     }
     public bool GetButton(string button)
     {
-        return inputMap[button].state
+        if (this.IsConnected)
+        {
+            return inputMap[button].state
               == ButtonState.Pressed ? true : false;
+        }
+        return false;
     }
     public bool GetButtonDown(string button)
     {
-        return (inputMap[button].prev_state == ButtonState.Released &&
-                inputMap[button].state == ButtonState.Pressed) ? true : false;
+        if (this.IsConnected)
+        {
+            return (inputMap[button].prev_state == ButtonState.Released &&
+                            inputMap[button].state == ButtonState.Pressed) ? true : false;
+        }
+        return false;
+        
     }
     public bool GetButtonUp(string button)
     {
-        return (inputMap[button].prev_state == ButtonState.Pressed &&
+        if (this.IsConnected)
+        {
+            return (inputMap[button].prev_state == ButtonState.Pressed &&
                 inputMap[button].state == ButtonState.Released) ? true : false;
+
+        }
+        return false;
     }
     void HandleRumble()
     {

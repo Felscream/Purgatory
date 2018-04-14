@@ -482,7 +482,7 @@ MonoBehaviour:
   staminaRegenerationCooldown: 1.5
   staminaFatigueCooldown: 3
   primaryFireStaminaCost: 10
-  secondaryFireStaminaCost: 10
+  secondaryFireStaminaCost: 18
   maxLimitBreakGauge: 100
   limitBreakPerSecond: 3
   limitBreakOnHit: 10
@@ -586,7 +586,6 @@ MonoBehaviour:
   secondLevelTime: 1.5
   secondLevelMultiplier: 2.5
   speedReductionMultiplier: 0.75
-  initialStaminaCost: 15
   maxStaminaConsumption: 10
   maxChargeTime: 5
   chargeParticleSystem: {fileID: 198231618833295154}

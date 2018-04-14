@@ -22,7 +22,6 @@ public class ControllerManager : MonoBehaviour {
     }
     void Awake()
     {
-        // Found a duplicate instance of this class, destroy it!
         if (instance == null)
         {
             instance = this;

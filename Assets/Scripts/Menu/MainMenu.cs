@@ -54,7 +54,7 @@ public class MainMenu : MonoBehaviour {
     // Use this for initialization
     void Start () {
         clipController_ = clipMenu.GetComponent<ClipController>();
-
+        mainMenuIndex = 1;
         panelIndex = 1;
         optionMenuIndex = 1;
         controller = ControllerManager.Instance.GetController(1);
